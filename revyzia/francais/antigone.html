@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Antigone · Anouilh · Révision</title>
+<style>
+/* ============================================================
+   v2 — Duolingo × Kahoot × Quizlet × Apple iOS 26 Liquid Glass
+   Single file · Firebase-ready leaderboard
+============================================================ */
+:root {
+  --bg-base: #f5f5f7;
+  --bg-gradient: linear-gradient(135deg, #f0e7ff 0%, #ffe0e9 50%, #d4f1ff 100%);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+  --glass-shadow-lg: 0 20px 60px rgba(31, 38, 135, 0.15);
+  --ink: #1d1d1f;
+  --ink-soft: #6e6e73;
+  --ink-faint: #aeaeb2;
+  --accent: #5e5cff;
+  --accent-soft: rgba(94, 92, 255, 0.12);
+  --accent-2: #ff3b80;
+  --accent-3: #00c2ff;
+  --green: #34c759;
+  --gold: #ff9f0a;
+  --red: #ff453a;
+  --flame: #ff6b35;
+  --divider: rgba(0, 0, 0, 0.08);
+  --noise-opacity: 0.4;
+}
+[data-theme="dark"] {
+  --bg-base: #000000;
+  --bg-gradient: radial-gradient(ellipse at top, #1a0f3a 0%, #0a0612 40%, #000000 100%);
+  --glass-bg: rgba(28, 28, 30, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --ink: #f5f5f7;
+  --ink-soft: #98989d;
+  --ink-faint: #636366;
+  --accent: #7c7aff;
+  --accent-soft: rgba(124, 122, 255, 0.18);
+  --accent-2: #ff5599;
+  --accent-3: #5ad8ff;
+  --green: #30d158;
+  --gold: #ffb340;
+  --red: #ff6961;
+  --flame: #ff8859;
+  --divider: rgba(255, 255, 255, 0.1);
+  --noise-opacity: 0.15;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-base);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.6s ease, color 0.3s ease;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  background: var(--bg-gradient);
+  z-index: -2;
+  animation: bgShift 25s ease-in-out infinite alternate;
+  filter: blur(60px);
+}
+@keyframes bgShift {
+  0% { transform: translate(-5%, -5%) rotate(0deg); }
+  100% { transform: translate(5%, 5%) rotate(8deg); }
+}
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation: float1 18s ease-in-out infinite; }
+.orb-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; left: -80px; animation: float2 22s ease-in-out infinite; }
+.orb-3 { width: 300px; height: 300px; background: var(--accent-3); top: 40%; left: 50%; animation: float3 20s ease-in-out infinite; }
+@keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,80px) scale(1.1); } }
+@keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(80px,-50px) scale(1.15); } }
+@keyframes float3 { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-30%,-70%) scale(0.9); } }
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+}
+
+/* ========== TOP BAR ========== */
+.top-bar {
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+  margin: 12px;
+  padding: 12px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 100px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  font-size: 15px;
+  user-select: none;
+}
+.brand.clickable { cursor: pointer; }
+.brand-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(94, 92, 255, 0.4);
+}
+.top-right { display: flex; align-items: center; gap: 10px; }
+.streak-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: var(--accent-soft);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--flame);
+}
+.streak-mini.zero { color: var(--ink-faint); }
+.xp-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: var(--accent-soft);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--accent);
+}
+.user-badge {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  font-weight: 500;
+}
+.user-badge strong { color: var(--accent); }
+.theme-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: transform 0.3s, background 0.3s;
+}
+.theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+
+main { max-width: 1000px; margin: 0 auto; padding: 8px 20px 60px; }
+
+/* ========== ONBOARDING ========== */
+.onboarding {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+.onboarding-card {
+  max-width: 480px;
+  width: 100%;
+  padding: 40px 32px;
+  border-radius: 32px;
+  animation: cardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes cardPop {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.onboarding h1 {
+  font-size: clamp(34px, 5vw, 46px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.onboarding .subtitle {
+  color: var(--ink-soft);
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.4;
+}
+.onboarding .badge {
+  display: inline-block;
+  padding: 5px 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.name-input-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+.name-input {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 18px;
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  color: var(--ink);
+  font-size: 18px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.3s;
+  text-align: center;
+  font-weight: 500;
+}
+.name-input:focus {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px var(--accent-soft);
+}
+.start-btn {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s;
+  letter-spacing: -0.2px;
+  box-shadow: 0 8px 24px rgba(94, 92, 255, 0.4);
+}
+.start-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(94, 92, 255, 0.5); }
+.start-btn:active { transform: translateY(0); }
+.start-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.previous-users {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--ink-faint);
+  line-height: 1.8;
+}
+.step-indicator {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.class-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.class-option-btn {
+  padding: 24px 16px;
+  border-radius: 18px;
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.class-option-btn sup { font-size: 14px; vertical-align: super; }
+.class-option-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+}
+.class-option-btn:active { transform: translateY(0); }
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 6px 12px;
+  text-decoration: underline;
+}
+.link-btn:hover { color: var(--accent); }
+.previous-user-chip {
+  display: inline-block;
+  padding: 4px 12px;
+  margin: 2px;
+  border-radius: 100px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.previous-user-chip:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+/* ========== CONFIRM RECONNECT MODAL ========== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.show { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal {
+  max-width: 380px;
+  width: 100%;
+  padding: 28px;
+  border-radius: 24px;
+  text-align: center;
+  animation: cardPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal .modal-emoji { font-size: 48px; margin-bottom: 10px; display: block; }
+.modal h3 { font-size: 20px; margin-bottom: 6px; letter-spacing: -0.3px; font-weight: 700; }
+.modal p { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; line-height: 1.5; }
+.modal-actions { display: flex; gap: 10px; }
+.modal-actions button { flex: 1; padding: 12px; border-radius: 14px; border: none; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+.modal-actions .btn-yes { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; }
+.modal-actions .btn-no { background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--ink); }
+.modal-actions button:hover { transform: translateY(-1px); }
+
+/* ========== HOME HERO ========== */
+.hero {
+  text-align: center;
+  padding: 28px 16px 18px;
+}
+.hero .greeting {
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.hero .greeting em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .tagline { color: var(--ink-soft); font-size: 15px; max-width: 540px; margin: 0 auto; }
+
+/* ========== STATS DASHBOARD ========== */
+.stats-dashboard {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin: 22px 0 26px;
+}
+.stat-card {
+  padding: 18px 20px;
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card .stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.stat-card .stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.stat-card .stat-value .unit {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.stat-card.level .stat-value { color: var(--accent); }
+.stat-card.streak .stat-value { color: var(--flame); }
+.stat-card.xp .stat-value { color: var(--gold); }
+.stat-card .progress-mini {
+  margin-top: 10px;
+  height: 5px;
+  background: var(--accent-soft);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.stat-card .progress-mini .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 100px;
+  transition: width 0.6s ease;
+}
+.stat-card .xp-detail {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+.flame-anim {
+  display: inline-block;
+  animation: flicker 1.5s ease-in-out infinite;
+}
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.08) rotate(2deg); }
+}
+
+/* ========== BADGES STRIP ========== */
+.badges-strip {
+  margin-bottom: 22px;
+  padding: 18px 22px;
+  border-radius: 22px;
+}
+.badges-strip h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.badges-strip h3 span { color: var(--accent); font-weight: 700; font-size: 13px; }
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+}
+.badge-item {
+  aspect-ratio: 1;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px 4px;
+  position: relative;
+  cursor: help;
+  transition: all 0.3s;
+  border: 1.5px solid transparent;
+}
+.badge-item.unlocked {
+  background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, var(--accent-2) 18%, transparent));
+  border-color: var(--accent);
+}
+.badge-item.locked { opacity: 0.35; filter: grayscale(0.8); }
+.badge-item:hover { transform: scale(1.08); }
+.badge-item .badge-emoji { font-size: 22px; line-height: 1; margin-bottom: 4px; }
+.badge-item .badge-name { font-size: 9px; font-weight: 600; line-height: 1.15; color: var(--ink-soft); }
+.badge-item.unlocked .badge-name { color: var(--accent); }
+.badge-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--bg-base);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.badge-item:hover .badge-tooltip { opacity: 1; }
+
+/* ========== MODES GRID ========== */
+.modes-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0 4px 14px;
+  text-align: center;
+}
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+.mode-card {
+  padding: 24px 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+.mode-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--mc, var(--accent)) 0%, transparent 60%);
+  opacity: 0.08;
+  transition: opacity 0.3s;
+}
+.mode-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow-lg);
+}
+.mode-card:hover::before { opacity: 0.18; }
+.mode-card .icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: var(--mc, var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--mc, var(--accent)) 35%, transparent);
+  color: white;
+}
+.mode-card h3 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.mode-card p {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.mode-card .meta {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--mc, var(--accent));
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========== LEADERBOARD ========== */
+.leaderboard-section {
+  margin: 30px 0;
+}
+.leaderboard-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0 4px 14px;
+  text-align: center;
+}
+.leaderboard-card {
+  padding: 20px 22px;
+  border-radius: 22px;
+}
+.leaderboard-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--divider);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.leaderboard-status .pulse {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 var(--green);
+  animation: pulse 2s ease-out infinite;
+}
+.leaderboard-status.offline .pulse { background: var(--ink-faint); animation: none; }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--green) 60%, transparent); }
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.podium {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+  align-items: end;
+}
+.podium-spot {
+  padding: 16px 10px 14px;
+  border-radius: 18px;
+  text-align: center;
+  position: relative;
+}
+.podium-spot.rank-1 {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a1a;
+  padding-top: 22px;
+  padding-bottom: 18px;
+}
+.podium-spot.rank-2 {
+  background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
+  color: #1a1a1a;
+}
+.podium-spot.rank-3 {
+  background: linear-gradient(135deg, #CD7F32, #A05A1F);
+  color: #fff;
+}
+.podium-spot .crown {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+}
+.podium-spot .rank-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+.podium-spot .rank-name {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.podium-spot .rank-xp {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.podium-spot .rank-class {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.lb-class {
+  font-size: 11px;
+  color: var(--ink-soft);
+  background: var(--bg-2, rgba(0,0,0,0.05));
+  padding: 1px 6px;
+  border-radius: 6px;
+  margin-left: 4px;
+  font-weight: 500;
+}
+.lb-row.you .lb-class {
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.85);
+}
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lb-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  font-size: 14px;
+}
+.lb-row.you {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+}
+.lb-row .rank { font-weight: 700; color: var(--accent); font-size: 13px; text-align: center; }
+.lb-row.you .rank { color: white; }
+.lb-row .name { font-weight: 600; letter-spacing: -0.2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-row .streak-cell { font-size: 12px; color: var(--flame); font-weight: 600; }
+.lb-row.you .streak-cell { color: rgba(255,220,180,1); }
+.lb-row .xp-cell { font-weight: 700; font-size: 13px; }
+.empty-state {
+  text-align: center;
+  padding: 24px 12px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+.empty-state .emoji { font-size: 36px; display: block; margin-bottom: 10px; }
+.setup-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--accent);
+  background: var(--glass-bg);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.setup-btn:hover { background: var(--accent); color: white; }
+
+/* ========== STUDY VIEWS ========== */
+.study-view { display: none; min-height: 75vh; padding: 12px 0; }
+.study-view.active { display: block; animation: fadeUp 0.5s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.study-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding: 10px 14px;
+  border-radius: 100px;
+}
+.btn-back {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 8px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.btn-back:hover { background: var(--accent-soft); color: var(--accent); }
+.study-progress-wrap { flex: 1; }
+.study-progress-bar {
+  height: 5px;
+  background: var(--accent-soft);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.study-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+.study-counter { font-size: 13px; font-weight: 600; color: var(--ink-soft); min-width: 60px; text-align: right; }
+.session-stats-bar {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 18px;
+  font-size: 12px;
+}
+.session-stat {
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  font-weight: 600;
+}
+.session-stat.streak { color: var(--flame); }
+.session-stat.xp { color: var(--accent); }
+
+/* ========== FLASHCARD ========== */
+.fc-area { perspective: 2000px; max-width: 580px; margin: 0 auto; }
+.flashcard {
+  width: 100%;
+  height: 340px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 32px;
+  text-align: center;
+}
+.fc-face.front {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-lg);
+}
+.fc-face.back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  box-shadow: 0 20px 60px rgba(94, 92, 255, 0.4);
+}
+.fc-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.fc-face.back .fc-label { color: rgba(255,255,255,0.8); }
+.fc-content {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+  max-width: 100%;
+}
+.fc-face.back .fc-content { font-size: 18px; font-weight: 500; line-height: 1.45; }
+.fc-hint {
+  position: absolute;
+  bottom: 18px;
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+.fc-face.back .fc-hint { color: rgba(255,255,255,0.6); }
+.fc-controls { display: flex; justify-content: center; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+.btn-rate {
+  padding: 12px 22px;
+  border-radius: 100px;
+  border: 1.5px solid;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-rate.weak { border-color: var(--red); color: var(--red); }
+.btn-rate.weak:hover { background: var(--red); color: white; transform: translateY(-2px); }
+.btn-rate.mid { border-color: var(--gold); color: var(--gold); }
+.btn-rate.mid:hover { background: var(--gold); color: white; transform: translateY(-2px); }
+.btn-rate.strong { border-color: var(--green); color: var(--green); }
+.btn-rate.strong:hover { background: var(--green); color: white; transform: translateY(-2px); }
+
+/* ========== QCM ========== */
+.qcm-container { max-width: 680px; margin: 0 auto; }
+.qcm-question-card {
+  padding: 28px 30px;
+  border-radius: 24px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.qcm-question-card .topic {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.qcm-question-card .q {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 1.35;
+}
+.qcm-options { display: flex; flex-direction: column; gap: 10px; }
+.qcm-option {
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid var(--glass-border);
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink);
+  font-family: inherit;
+}
+.qcm-option:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translateX(4px);
+}
+.qcm-option .key {
+  width: 30px; height: 30px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.qcm-option.correct { border-color: var(--green); background: color-mix(in srgb, var(--green) 12%, transparent); }
+.qcm-option.correct .key { background: var(--green); color: white; }
+.qcm-option.incorrect { border-color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); }
+.qcm-option.incorrect .key { background: var(--red); color: white; }
+.qcm-feedback {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 14px;
+  display: none;
+  line-height: 1.5;
+}
+.qcm-feedback.show { display: block; animation: fadeUp 0.3s ease; }
+.qcm-feedback.correct {
+  background: color-mix(in srgb, var(--green) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--green) 40%, transparent);
+}
+.qcm-feedback.incorrect {
+  background: color-mix(in srgb, var(--red) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--red) 40%, transparent);
+}
+.qcm-feedback strong { display: block; margin-bottom: 4px; }
+
+/* ========== EVENT DETAIL ========== */
+.event-detail-container { max-width: 720px; margin: 0 auto; }
+.event-card-large {
+  padding: 28px 30px;
+  border-radius: 28px;
+  margin-bottom: 18px;
+}
+.event-card-large .date-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.event-card-large h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.event-card-large .subtitle { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; }
+.event-fields { display: grid; gap: 12px; }
+.event-field-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+}
+.event-field-row .field-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 110px;
+  flex-shrink: 0;
+}
+.event-field-row .field-value { font-size: 14px; line-height: 1.5; }
+
+/* ========== TIMELINE ========== */
+.timeline-container { max-width: 720px; margin: 0 auto; }
+.timeline-intro {
+  padding: 22px 26px;
+  border-radius: 22px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.timeline-intro h3 { font-size: 18px; margin-bottom: 8px; letter-spacing: -0.3px; }
+.timeline-intro p { color: var(--ink-soft); font-size: 14px; }
+.timeline-shuffled, .timeline-target {
+  padding: 14px;
+  border-radius: 22px;
+  min-height: 80px;
+  margin-bottom: 14px;
+  border: 2px dashed var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.timeline-target { border-style: solid; border-color: var(--accent-soft); background: var(--accent-soft); }
+.timeline-target .label, .timeline-shuffled .label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-align: center;
+}
+.timeline-item {
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+.timeline-item:hover { border-color: var(--accent); transform: translateX(3px); }
+.timeline-item.placed { background: var(--accent-soft); border-color: var(--accent); }
+.timeline-item .arrow { color: var(--ink-soft); font-size: 16px; }
+.timeline-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+.btn-primary {
+  padding: 14px 28px;
+  border-radius: 100px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s;
+  box-shadow: 0 8px 20px rgba(94, 92, 255, 0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(94, 92, 255, 0.4); }
+.btn-secondary {
+  padding: 14px 24px;
+  border-radius: 100px;
+  border: 1.5px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--accent-soft); }
+
+/* ========== LESSON (cours expliqué) ========== */
+.lesson-container { max-width: 720px; margin: 0 auto; }
+.lesson-card {
+  padding: 32px 36px;
+  border-radius: 28px;
+  margin-bottom: 18px;
+  min-height: 320px;
+  animation: fadeUp 0.4s ease;
+}
+.lesson-chapter {
+  display: inline-block;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.lesson-title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+.lesson-body {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.lesson-body p { margin-bottom: 12px; }
+.lesson-body strong { color: var(--accent); font-weight: 700; }
+.lesson-body em { font-style: italic; color: var(--accent-2); }
+.lesson-body ul { padding-left: 22px; margin: 10px 0; }
+.lesson-body li { margin-bottom: 6px; }
+.lesson-body .highlight {
+  background: linear-gradient(transparent 60%, color-mix(in srgb, var(--gold) 35%, transparent) 60%);
+  padding: 0 2px;
+}
+.lesson-body .quote {
+  border-left: 3px solid var(--accent);
+  padding: 10px 14px;
+  background: var(--accent-soft);
+  border-radius: 0 12px 12px 0;
+  margin: 12px 0;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.lesson-body .key-point {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 18%, transparent), transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 14px 0;
+}
+.lesson-body .key-point strong {
+  display: block;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.lesson-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+/* ========== LESSON (cours expliqué) END ========== */
+.completion {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+.completion .emoji {
+  font-size: 80px;
+  margin-bottom: 16px;
+  display: block;
+  animation: bounce 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes bounce {
+  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.completion h2 { font-size: 30px; font-weight: 700; letter-spacing: -0.8px; margin-bottom: 8px; }
+.completion p { color: var(--ink-soft); margin-bottom: 24px; font-size: 15px; }
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 22px 0;
+}
+.reward-tile {
+  padding: 18px 12px;
+  border-radius: 18px;
+}
+.reward-tile .r-icon { font-size: 26px; line-height: 1; margin-bottom: 6px; }
+.reward-tile .r-value { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+.reward-tile .r-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-soft); margin-top: 4px; }
+.reward-tile.xp .r-value { color: var(--accent); }
+.reward-tile.streak .r-value { color: var(--flame); }
+.reward-tile.acc .r-value { color: var(--green); }
+.new-badges {
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 25%, transparent), color-mix(in srgb, var(--accent-2) 18%, transparent));
+  border: 1px solid var(--gold);
+}
+.new-badges .nb-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.new-badges .nb-list { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.new-badges .nb-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: var(--glass-bg);
+  font-size: 13px;
+  font-weight: 600;
+}
+.completion-actions { display: flex; gap: 10px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+
+/* ========== CONFETTI ========== */
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+.confetti-piece {
+  position: absolute;
+  width: 8px; height: 12px;
+  top: -20px;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ========== LEVEL UP TOAST ========== */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-200%);
+  padding: 14px 28px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 12px 32px rgba(94, 92, 255, 0.5);
+  z-index: 10000;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s, visibility 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+
+/* ========== TIPS CARD ========== */
+.tips-card {
+  padding: 22px 26px;
+  border-radius: 22px;
+  margin: 24px 0;
+}
+.tips-card .head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.tips-card .head h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+.tips-card .head .icon-mini {
+  width: 28px; height: 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold), var(--accent-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.tips-card ul { padding-left: 18px; margin: 0; color: var(--ink-soft); font-size: 13.5px; line-height: 1.7; }
+.tips-card ul li { margin-bottom: 2px; }
+.tips-card strong { color: var(--ink); }
+
+/* ========== FOOTER ========== */
+.footer-note {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+.footer-note .reset-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: var(--ink-soft);
+}
+.footer-note .reset-link:hover { color: var(--red); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 720px) {
+  .top-bar { padding: 10px 14px; flex-wrap: wrap; gap: 8px; }
+  .user-badge { display: none; }
+  main { padding: 8px 14px 50px; }
+  .stats-dashboard { grid-template-columns: 1fr 1fr; }
+  .stats-dashboard .stat-card.level { grid-column: 1 / -1; }
+  .modes-grid { grid-template-columns: 1fr 1fr; }
+  .podium { grid-template-columns: 1fr 1.2fr 1fr; }
+  .flashcard { height: 280px; }
+  .fc-content { font-size: 18px; }
+  .qcm-question-card .q { font-size: 17px; }
+  .event-field-row { flex-direction: column; gap: 4px; padding: 12px 14px; }
+  .event-field-row .field-label { min-width: 0; }
+}
+@media (max-width: 480px) {
+  .modes-grid { grid-template-columns: 1fr; }
+  .stats-dashboard { grid-template-columns: 1fr; }
+  .stats-dashboard .stat-card.level { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.05ms !important; }
+}
+</style>
+<script>
+window.REVYZIA_CHAPTER = {
+  id: "francais_antigone",
+  subject: "francais",
+  title: "Antigone d'Anouilh",
+  depth: 1  // dossier/fichier.html → 1 niveau au-dessus pour atteindre index.html
+};
+</script>
+<script src="../shared/revyzia.js"></script>
+<script src="../shared/chapter-adapter.js"></script>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- TOP BAR -->
+<header class="top-bar glass">
+  <div class="brand" id="brand">
+    <div class="brand-icon">An</div>
+    <span>Antigone · Anouilh</span>
+  </div>
+  <div class="top-right">
+    <div class="streak-mini zero" id="streakMini" style="display:none"><span class="flame-anim">🔥</span> <span id="streakNum">0</span></div>
+    <div class="xp-mini" id="xpMini" style="display:none">⚡ <span id="xpNum">0</span></div>
+    <div class="user-badge" id="userBadge" style="display:none">👋 <strong id="userBadgeName">—</strong></div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Changer de thème">🌙</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ ONBOARDING ============ -->
+<section id="onboarding-view" class="onboarding">
+  <div class="onboarding-card glass">
+    <span class="badge">📚 Français · 3e</span>
+    <h1>Antigone de Jean Anouilh</h1>
+    <p class="subtitle">Révise avec ta classe pour ton éval de demain. Rédaction, personnages, citations 🎭</p>
+
+    <!-- Étape 1 : prénom -->
+    <div id="onboardingStep1">
+      <div class="step-indicator">Étape 1/2 · Ton prénom</div>
+      <div class="name-input-wrap">
+        <input type="text" class="name-input" id="nameInput" placeholder="Comment t'appelles-tu ?" maxlength="20" autocomplete="off" spellcheck="false">
+      </div>
+      <button class="start-btn" id="nameNextBtn" onclick="goToStep2()" disabled>Suivant →</button>
+    </div>
+
+    <!-- Étape 2 : classe -->
+    <div id="onboardingStep2" style="display:none">
+      <div class="step-indicator">Étape 2/2 · Ta classe</div>
+      <div class="class-options">
+        <button type="button" class="class-option-btn" data-class="3eA" onclick="selectClass('3eA')">3<sup>e</sup>A</button>
+        <button type="button" class="class-option-btn" data-class="3eB" onclick="selectClass('3eB')">3<sup>e</sup>B</button>
+      </div>
+      <button class="link-btn" onclick="backToStep1()">← Retour</button>
+    </div>
+
+    <div class="previous-users" id="previousUsers"></div>
+  </div>
+</section>
+
+<!-- ============ RECONNECT MODAL ============ -->
+<div class="modal-overlay" id="reconnectModal">
+  <div class="modal glass">
+    <span class="modal-emoji">👋</span>
+    <h3 id="modalGreeting">C'est toi ?</h3>
+    <p id="modalDesc">On a retrouvé un profil avec ce prénom. C'est bien toi ?</p>
+    <div class="modal-actions">
+      <button class="btn-no" onclick="cancelReconnect()">Non, c'est un autre</button>
+      <button class="btn-yes" onclick="confirmReconnect()">Oui, c'est moi !</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HOME ============ -->
+<section id="home-view" style="display:none">
+  <div class="hero">
+    <h1 class="greeting" id="greeting">Salut <em>—</em></h1>
+    <p class="tagline" id="tagline">Prêt à devenir incollable sur le monde post-1989 ?</p>
+  </div>
+
+  <!-- STATS DASHBOARD -->
+  <div class="stats-dashboard">
+    <div class="stat-card level glass">
+      <div class="stat-label">Niveau</div>
+      <div class="stat-value"><span id="lvlNum">1</span><span class="unit" id="lvlTitle">Apprenti</span></div>
+      <div class="progress-mini"><div class="fill" id="lvlBar" style="width:0%"></div></div>
+      <div class="xp-detail"><span id="lvlXpCurrent">0</span> / <span id="lvlXpNext">100</span> XP pour le prochain niveau</div>
+    </div>
+    <div class="stat-card streak glass">
+      <div class="stat-label">Série de jours 🔥</div>
+      <div class="stat-value"><span class="flame-anim">🔥</span><span id="streakBig">0</span></div>
+      <div class="xp-detail" id="streakDetail">Reviens chaque jour pour démarrer une série !</div>
+    </div>
+    <div class="stat-card xp glass">
+      <div class="stat-label">XP total</div>
+      <div class="stat-value">⚡<span id="totalXp">0</span></div>
+      <div class="xp-detail" id="rankDetail">Pas encore classé</div>
+    </div>
+  </div>
+
+  <!-- BADGES STRIP -->
+  <div class="badges-strip glass">
+    <h3>Badges débloqués <span id="badgesCount">0 / 12</span></h3>
+    <div class="badges-grid" id="badgesGrid"></div>
+  </div>
+
+  <!-- MODES GRID -->
+  <section class="modes-section">
+    <h2>6 façons de réviser</h2>
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc: #ff6b35" onclick="startMode('lesson')">
+        <div class="icon">👨‍🏫</div>
+        <h3>Le cours expliqué</h3>
+        <p>L'histoire, les personnages, les scènes, le style, des conseils rédaction.</p>
+        <div class="meta">18 leçons · +3 XP/leçon</div>
+      </div>
+      <div class="mode-card glass" style="--mc: #5e5cff" onclick="startMode('dates')">
+        <div class="icon">📅</div>
+        <h3>Moments clés</h3>
+        <p>Identifie chaque grand moment de la pièce (mode flashcards + QCM).</p>
+        <div class="meta">14 cartes · +5 XP/carte</div>
+      </div>
+      <div class="mode-card glass" style="--mc: #ff3b80" onclick="startMode('details')">
+        <div class="icon">🎭</div>
+        <h3>Fiches personnages</h3>
+        <p>Antigone, Créon, Ismène, Hémon... tout ce qu'il faut savoir.</p>
+        <div class="meta">7 fiches · +8 XP/fiche</div>
+      </div>
+      <div class="mode-card glass" style="--mc: #00c2ff" onclick="startMode('qcm')">
+        <div class="icon">🎯</div>
+        <h3>QCM cours</h3>
+        <p>Questions style contrôle, 4 choix possibles.</p>
+        <div class="meta">27 questions · +10 XP/juste</div>
+      </div>
+      <div class="mode-card glass" style="--mc: #ff9f0a" onclick="startMode('defs')">
+        <div class="icon">📖</div>
+        <h3>Vocabulaire</h3>
+        <p>Tragédie, prologue, anachronisme, catharsis...</p>
+        <div class="meta">15 termes · +5 XP/terme</div>
+      </div>
+      <div class="mode-card glass" style="--mc: #34c759" onclick="startMode('timeline')">
+        <div class="icon">⏳</div>
+        <h3>Ordre de la pièce</h3>
+        <p>Remets les scènes et les arguments dans le bon ordre.</p>
+        <div class="meta">3 défis · +25 XP/défi</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- LEADERBOARD -->
+  <section class="leaderboard-section">
+    <h2>🏆 Podium de la classe</h2>
+    <div class="leaderboard-card glass">
+      <div class="leaderboard-status" id="lbStatus">
+        <span class="pulse"></span>
+        <span id="lbStatusText">Connexion au podium…</span>
+      </div>
+      <div id="lbContent"></div>
+    </div>
+  </section>
+
+  <div class="tips-card glass">
+    <div class="head"><div class="icon-mini">💡</div><h3 id="tipsTitle">Plan de révision recommandé</h3></div>
+    <ul>
+      <li>1️⃣ Commence par <strong>Le cours expliqué</strong> pour tout comprendre (20 min)</li>
+      <li>2️⃣ Lis les <strong>Fiches personnages</strong> : qui est qui (10 min)</li>
+      <li>3️⃣ <strong>Vocabulaire</strong> + <strong>Moments clés</strong> pour mémoriser (10 min)</li>
+      <li>4️⃣ Teste-toi avec le <strong>QCM cours</strong> en conditions d'éval (15 min)</li>
+      <li>5️⃣ <strong>Ordre de la pièce</strong> pour vérifier que tout est en place (5 min)</li>
+      <li>🎯 La prof peut demander une <strong>rédaction</strong> : suite de scène, monologue, réécriture moderne. Les 3 dernières leçons du "Cours expliqué" sont là-dessus !</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    Données sauvegardées localement et sur le podium classe (si configuré) · <span class="reset-link" onclick="resetUser()">Changer de prénom</span> · <span class="reset-link" onclick="resetAll()">Tout réinitialiser</span>
+  </div>
+</section>
+
+<!-- ============ STUDY VIEWS ============ -->
+
+<section id="dates-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="datesProgress"></div></div></div>
+    <div class="study-counter" id="datesCounter">0/0</div>
+  </div>
+  <div class="session-stats-bar">
+    <div class="session-stat streak" id="dSStreak">🔥 0</div>
+    <div class="session-stat xp" id="dSXp">⚡ +0 XP</div>
+  </div>
+  <!-- Mode flashcard -->
+  <div class="fc-area" id="datesCardArea">
+    <div class="flashcard" id="datesCard" onclick="flipCard('dates')">
+      <div class="fc-face front">
+        <div class="fc-label" id="datesFrontLabel">📚 Moment</div>
+        <div class="fc-content" id="datesFront">—</div>
+        <div class="fc-hint">Touche pour retourner</div>
+      </div>
+      <div class="fc-face back">
+        <div class="fc-label" id="datesBackLabel">📚 Description</div>
+        <div class="fc-content" id="datesBack">—</div>
+        <div class="fc-hint">Évalue ↓</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls" id="datesRateControls">
+    <button class="btn-rate weak" onclick="rateDates(0)">😕 Pas su (+0)</button>
+    <button class="btn-rate mid" onclick="rateDates(1)">🤔 Hésité (+2)</button>
+    <button class="btn-rate strong" onclick="rateDates(2)">😎 Su ! (+5)</button>
+  </div>
+  <!-- Mode matching QCM -->
+  <div class="qcm-container" id="datesMatchArea" style="display:none">
+    <div class="qcm-question-card glass">
+      <div class="topic" id="datesMatchLabel">🎯 Quel est le moment correspondant ?</div>
+      <div class="q" id="datesMatchQ">—</div>
+    </div>
+    <div class="qcm-options" id="datesMatchOptions"></div>
+    <div class="qcm-feedback" id="datesMatchFeedback"></div>
+  </div>
+</section>
+
+<section id="details-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="detailsProgress"></div></div></div>
+    <div class="study-counter" id="detailsCounter">0/0</div>
+  </div>
+  <div class="session-stats-bar">
+    <div class="session-stat streak" id="deSStreak">🔥 0</div>
+    <div class="session-stat xp" id="deSXp">⚡ +0 XP</div>
+  </div>
+  <div class="event-detail-container" id="detailsContent"></div>
+  <div class="fc-controls" style="margin-top: 20px;">
+    <button class="btn-rate weak" onclick="rateDetails(0)">😕 Faut revoir (+0)</button>
+    <button class="btn-rate mid" onclick="rateDetails(1)">🤔 Moyen (+3)</button>
+    <button class="btn-rate strong" onclick="rateDetails(2)">😎 Maîtrisé (+8)</button>
+  </div>
+</section>
+
+<section id="qcm-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="qcmProgress"></div></div></div>
+    <div class="study-counter" id="qcmCounter">0/0</div>
+  </div>
+  <div class="session-stats-bar">
+    <div class="session-stat streak" id="qSStreak">🔥 0</div>
+    <div class="session-stat xp" id="qSXp">⚡ +0 XP</div>
+  </div>
+  <div class="qcm-container">
+    <div class="qcm-question-card glass">
+      <div class="topic" id="qcmTopic">—</div>
+      <div class="q" id="qcmQuestion">—</div>
+    </div>
+    <div class="qcm-options" id="qcmOptions"></div>
+    <div class="qcm-feedback" id="qcmFeedback"></div>
+  </div>
+</section>
+
+<section id="defs-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="defsProgress"></div></div></div>
+    <div class="study-counter" id="defsCounter">0/0</div>
+  </div>
+  <div class="session-stats-bar">
+    <div class="session-stat streak" id="dfSStreak">🔥 0</div>
+    <div class="session-stat xp" id="dfSXp">⚡ +0 XP</div>
+  </div>
+  <div class="fc-area">
+    <div class="flashcard" id="defsCard" onclick="flipCard('defs')">
+      <div class="fc-face front">
+        <div class="fc-label">📖 Terme</div>
+        <div class="fc-content" id="defsFront">—</div>
+        <div class="fc-hint">Touche pour la définition</div>
+      </div>
+      <div class="fc-face back">
+        <div class="fc-label">Définition</div>
+        <div class="fc-content" id="defsBack">—</div>
+        <div class="fc-hint">Évalue ↓</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-controls">
+    <button class="btn-rate weak" onclick="rateDefs(0)">😕 Pas su (+0)</button>
+    <button class="btn-rate mid" onclick="rateDefs(1)">🤔 Hésité (+2)</button>
+    <button class="btn-rate strong" onclick="rateDefs(2)">😎 Su ! (+5)</button>
+  </div>
+</section>
+
+<section id="timeline-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="tlProgress"></div></div></div>
+    <div class="study-counter" id="tlCounter">0/0</div>
+  </div>
+  <div class="timeline-container">
+    <div class="timeline-intro glass">
+      <h3 id="tlTitle">—</h3>
+      <p id="tlInstruction">Remets ces événements dans l'ordre en cliquant dessus. +25 XP si parfait !</p>
+    </div>
+    <div class="timeline-shuffled glass" id="tlShuffled"><div class="label">À placer</div></div>
+    <div class="timeline-target glass" id="tlTarget"><div class="label">Ta réponse (du plus ancien au plus récent)</div></div>
+    <div class="timeline-actions">
+      <button class="btn-secondary" onclick="resetTimeline()">Réinitialiser</button>
+      <button class="btn-primary" onclick="checkTimeline()">Vérifier</button>
+    </div>
+    <div class="qcm-feedback" id="tlFeedback" style="margin-top: 16px;"></div>
+  </div>
+</section>
+
+<!-- ============ COMPLETION ============ -->
+<!-- ============ LESSON VIEW (cours expliqué) ============ -->
+<section id="lesson-view" class="study-view">
+  <div class="study-header glass">
+    <button class="btn-back" onclick="goHome()">← Retour</button>
+    <div class="study-progress-wrap"><div class="study-progress-bar"><div class="study-progress-fill" id="lsProgress"></div></div></div>
+    <div class="study-counter" id="lsCounter">0/0</div>
+  </div>
+  <div class="lesson-container">
+    <div class="lesson-card glass" id="lessonCard">
+      <div class="lesson-chapter" id="lsChapter">—</div>
+      <h2 class="lesson-title" id="lsTitle">—</h2>
+      <div class="lesson-body" id="lsBody">—</div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-secondary" id="lsPrevBtn" onclick="lessonPrev()">← Précédent</button>
+      <button class="btn-primary" id="lsNextBtn" onclick="lessonNext()">Suivant →</button>
+    </div>
+  </div>
+</section>
+
+<section id="completion-view" class="study-view">
+  <div class="completion">
+    <span class="emoji" id="compEmoji">🎉</span>
+    <h2 id="compTitle">Bien joué !</h2>
+    <p id="compMessage">Tu as terminé cette session.</p>
+    <div class="rewards-grid">
+      <div class="reward-tile xp glass">
+        <div class="r-icon">⚡</div>
+        <div class="r-value" id="compXpGained">+0</div>
+        <div class="r-label">XP gagnés</div>
+      </div>
+      <div class="reward-tile streak glass">
+        <div class="r-icon">🔥</div>
+        <div class="r-value" id="compMaxStreak">0</div>
+        <div class="r-label">Meilleure série</div>
+      </div>
+      <div class="reward-tile acc glass">
+        <div class="r-icon">🎯</div>
+        <div class="r-value" id="compAcc">0%</div>
+        <div class="r-label">Précision</div>
+      </div>
+    </div>
+    <div class="new-badges" id="newBadgesBox" style="display:none">
+      <div class="nb-title">🎉 Nouveau(x) badge(s) débloqué(s) !</div>
+      <div class="nb-list" id="newBadgesList"></div>
+    </div>
+    <div class="completion-actions">
+      <button class="btn-secondary" onclick="goHome()">Accueil</button>
+      <button class="btn-primary" onclick="retryMode()">Recommencer</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- TOAST FOR LEVEL UP -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// SAFE DOM HELPERS
+// ============================================================
+function $(id) { return document.getElementById(id); }
+function setText(id, txt) { const el = $(id); if (el) el.textContent = txt; }
+function setHTML(id, html) { const el = $(id); if (el) el.innerHTML = html; }
+function setStyle(id, prop, val) { const el = $(id); if (el) el.style[prop] = val; }
+function setClass(id, cls) { const el = $(id); if (el) el.className = cls; }
+function show(id) { const el = $(id); if (el) el.style.display = ''; }
+function hide(id) { const el = $(id); if (el) el.style.display = 'none'; }
+
+// ============================================================
+// ===== FIREBASE CONFIG (à compléter par Mayeul) ============
+// ============================================================
+// Pour activer le vrai podium temps réel :
+// 1. Va sur https://console.firebase.google.com/
+// 2. Crée un projet (gratuit)
+// 3. Active "Realtime Database" en mode test
+// 4. Récupère ta config (Project Settings → SDK setup)
+// 5. Colle-la ci-dessous, et passe FIREBASE_ENABLED à true
+// ============================================================
+
+const FIREBASE_ENABLED = false; // ← Passer à true après config
+const FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+
+// ============================================================
+// ===== DATA ================================================
+// ============================================================
+const DATA = {
+  // ============ DATES & MOMENTS CLÉS DE L'INTRIGUE ============
+  // (Adaptés en "moments de la pièce" plutôt que dates historiques)
+  dates: [
+    { front: "1944", back: "Année de création/publication de la pièce \"Antigone\" de Jean Anouilh, pendant l'Occupation allemande en France" },
+    { front: "441 av. J.-C.", back: "Date de la pièce originale \"Antigone\" de Sophocle (tragédie grecque antique)" },
+    { front: "Avant le lever de rideau", back: "Étéocle et Polynice, les deux fils d'Œdipe, se sont entre-tués sous les murs de Thèbes. Créon devient roi" },
+    { front: "Édit de Créon", back: "Étéocle aura des funérailles solennelles, Polynice sera laissé sans sépulture (proie des corbeaux). Quiconque l'enterre = mort" },
+    { front: "Nuit avant la pièce", back: "Antigone est sortie en cachette et a essayé d'enterrer Polynice (acte symbolique avec ses ongles)" },
+    { front: "Scène d'ouverture (Prologue)", back: "Le Prologue présente tous les personnages au public et annonce la tragédie à venir" },
+    { front: "1ère grande scène", back: "Antigone vs Ismène : Ismène tente de la dissuader, Antigone refuse" },
+    { front: "Scène centrale", back: "Antigone vs Créon : longue confrontation politique et philosophique (\"oui\" / \"non\")" },
+    { front: "Scène du \"bonheur\"", back: "Créon évoque le bonheur possible avec Hémon, Antigone le refuse violemment" },
+    { front: "Dénouement", back: "Antigone est emmenée par les gardes pour être murée vivante" },
+    { front: "Mort d'Antigone", back: "Elle se pend dans la grotte où elle est emmurée" },
+    { front: "Mort d'Hémon", back: "Découvre Antigone morte, se tue à ses pieds" },
+    { front: "Mort d'Eurydice", back: "Apprend la mort d'Hémon, se tranche la gorge sans un mot" },
+    { front: "Fin de la pièce", back: "Créon reste seul, continue de \"faire son métier\" de roi avec son petit page" }
+  ],
+
+  // ============ FICHES PERSONNAGES ============
+  details: [
+    {
+      date: "Protagoniste",
+      title: "ANTIGONE",
+      subtitle: "L'héroïne tragique, fille d'Œdipe, fiancée à Hémon",
+      fields: {
+        "Physique": "« La petite maigre noiraude et renfermée que personne ne prenait au sérieux ». Petite, brune, pas belle (au contraire d'Ismène)",
+        "Caractère": "Révoltée, déterminée, idéaliste, absolutiste, intransigeante. Elle veut TOUT et tout de suite, refuse les compromis",
+        "Famille": "Fille d'Œdipe et Jocaste · Sœur d'Ismène, Étéocle et Polynice · Nièce de Créon · Fiancée à Hémon",
+        "Son combat": "Enterrer son frère Polynice malgré l'interdit de Créon. Refuser de dire « oui » à la vie médiocre",
+        "Sa philosophie": "Dire « non », refuser le bonheur étroit, mourir pour ses idées plutôt que se compromettre",
+        "Citations clés": "« Je suis là pour vous dire non et pour mourir » · « Pour personne. Pour moi » · « Vous me dégoûtez tous avec votre bonheur ! »",
+        "Évolution": "Décidée dès le début → ferme face à Ismène → vacille un instant face à Créon → reprend sa détermination → meurt en cohérence avec ses idées"
+      }
+    },
+    {
+      date: "Antagoniste",
+      title: "CRÉON",
+      subtitle: "Le roi de Thèbes, oncle d'Antigone, pragmatique",
+      fields: {
+        "Physique": "« Cet homme robuste, aux cheveux blancs ». Mûr, fatigué, las",
+        "Caractère": "Pragmatique, réaliste, désabusé. Aime l'ordre, le travail bien fait. Plus complexe qu'un simple \"méchant\"",
+        "Famille": "Mari d'Eurydice · Père d'Hémon · Oncle d'Antigone et Ismène",
+        "Son rôle": "« Un matin, je me suis réveillé roi de Thèbes ». Il fait \"son métier\" même si ça lui coûte",
+        "Sa philosophie": "Dire « oui » à la vie, gouverner même quand c'est sale, accepter les compromis nécessaires. Métaphore du bateau et du gouvernail",
+        "Citations clés": "« C'est facile de dire non » · « Pour dire oui, il faut suer et retrousser ses manches » · « Quel rêve, hein, pour un roi, des bêtes ! »",
+        "Ambiguïté": "Il essaie SINCÈREMENT de sauver Antigone. Il n'est PAS un tyran. Il est tragique aussi, prisonnier de son rôle"
+      }
+    },
+    {
+      date: "Sœur",
+      title: "ISMÈNE",
+      subtitle: "La sœur sage et raisonnable, opposée à Antigone",
+      fields: {
+        "Physique": "« La blonde, la belle, l'heureuse Ismène ». Plus jolie qu'Antigone, sensuelle",
+        "Caractère": "Raisonnable, prudente, peureuse, attachée à la vie. Représente le \"bon sens\"",
+        "Famille": "Sœur d'Antigone, des frères défunts. Nièce de Créon",
+        "Son rôle": "Tenter (en vain) de raisonner Antigone. Faire valoir les arguments de la peur, du pouvoir, de la jeunesse",
+        "Ses arguments": "1) Créon est plus fort, on ne peut pas lui résister · 2) On est des filles, on doit obéir · 3) On va souffrir, mourir · 4) Tu es jeune, fiancée, belle, tu as la vie devant toi",
+        "Citations clés": "« Il nous ferait mourir » · « J'ai pensé, moi aussi » · « Tu es fiancée, tu es jeune, tu es belle... »",
+        "Symbolique": "Représente le \"oui\" à la vie ordinaire. Survivra (contrairement à Antigone)"
+      }
+    },
+    {
+      date: "Fiancé",
+      title: "HÉMON",
+      subtitle: "Fils de Créon, fiancé d'Antigone — amoureux fou",
+      fields: {
+        "Description": "Jeune, beau, fait pour aimer Ismène au départ — mais a choisi Antigone un soir de bal",
+        "Famille": "Fils de Créon et Eurydice. Fiancé d'Antigone",
+        "Sa scène clé": "Vient supplier son père de sauver Antigone. Créon refuse. Hémon part désespéré",
+        "Son destin": "Se rend dans la grotte où Antigone est emmurée. La trouve pendue. Se tue à ses pieds (suicide)",
+        "Symbolique": "Représente l'amour pur, sacrifié à la raison d'État. Victime collatérale de l'intransigeance des deux camps",
+        "Citation clé": "Demande à Antigone d'être sa femme : Antigone lève les yeux et dit « oui » avec un petit sourire triste"
+      }
+    },
+    {
+      date: "Mère",
+      title: "EURYDICE",
+      subtitle: "Femme de Créon — tricoteuse silencieuse",
+      fields: {
+        "Description": "« La vieille dame qui tricote ». Bonne, digne, aimante",
+        "Famille": "Épouse de Créon, mère d'Hémon",
+        "Son rôle": "Personnage quasi-muet. Tricote pendant TOUTE la tragédie. Symbolise la femme de pouvoir effacée",
+        "Son destin": "Apprend la mort de son fils Hémon. Se tranche la gorge sans dire un mot",
+        "Symbolique": "La douleur muette des mères. Sa mort est silencieuse, presque invisible — c'est ce qui la rend déchirante"
+      }
+    },
+    {
+      date: "Narrateur",
+      title: "LE PROLOGUE",
+      subtitle: "Le narrateur qui présente la pièce — innovation d'Anouilh",
+      fields: {
+        "Rôle": "Présente tous les personnages au public, raconte le contexte, annonce le destin tragique à venir",
+        "Innovation Anouilh": "Chez Sophocle, le prologue est juste les premières scènes. Chez Anouilh, c'est un PERSONNAGE qui s'adresse au public et brise le 4e mur",
+        "Fonction": "Casse l'illusion théâtrale, met le spectateur dans la confidence, renforce l'inéluctabilité du destin",
+        "Phrase culte": "« C'est ça qui est commode dans la tragédie. On donne le petit coup de pouce pour que ça démarre... le reste vient tout seul »",
+        "À retenir": "Anouilh montre que c'est du THÉÂTRE — pas la \"vraie vie\". C'est une réflexion sur le tragique lui-même"
+      }
+    },
+    {
+      date: "Autres",
+      title: "LES GARDES, LE MESSAGER, LA NOURRICE",
+      subtitle: "Les personnages secondaires",
+      fields: {
+        "Les 3 gardes": "« Trois hommes rougeauds qui jouent aux cartes ». Brutaux, vulgaires, indifférents. Symbolisent la banalité du mal, l'obéissance aveugle",
+        "Le Messager": "« Ce garçon pâle, au fond, qui rêve adossé au mur, solitaire ». C'est lui qui viendra annoncer la mort d'Hémon",
+        "La Nourrice": "A élevé Antigone et Ismène. Aimante, maternelle. Représente le passé heureux, l'enfance",
+        "Le Petit Page": "Petit page de Créon, naïf, trop jeune pour comprendre. À la fin, il accompagne Créon qui continue son \"métier\"",
+        "Symbolique": "Tous ces personnages \"de second plan\" sont les SURVIVANTS — ceux qui acceptent la vie ordinaire"
+      }
+    }
+  ],
+
+  // ============ DÉFINITIONS / VOCABULAIRE ============
+  defs: [
+    { front: "Tragédie", back: "Genre théâtral où le héros est confronté à un destin inéluctable qui le mène à la chute (souvent la mort). Issue : malheur, mort. Personnages : nobles, illustres. Style : élevé. Anouilh garde le sujet tragique mais modernise tout le reste." },
+    { front: "Prologue (Anouilh)", back: "Chez Anouilh, le Prologue est un PERSONNAGE qui s'adresse directement au public au début de la pièce. Il présente tous les personnages et annonce le destin tragique. C'est une innovation moderne." },
+    { front: "Prologue (Sophocle)", back: "Chez Sophocle, le prologue désigne juste la première scène de la pièce, le dialogue d'ouverture (entre Antigone et Ismène). Pas de narrateur extérieur." },
+    { front: "Mythe d'Antigone", back: "Mythe grec : Antigone, fille d'Œdipe, brave l'interdit de son oncle Créon en enterrant son frère Polynice. Elle est condamnée à mort. Le mythe questionne la loi humaine contre la loi divine/morale." },
+    { front: "Œdipe", back: "Père d'Antigone, Ismène, Étéocle, Polynice. Ancien roi de Thèbes qui a tué son père et épousé sa mère sans le savoir. S'est crevé les yeux quand il l'a découvert. \"L'orgueil d'Œdipe\" = la démesure tragique" },
+    { front: "Étéocle et Polynice", back: "Les deux frères d'Antigone. Devaient régner alternativement sur Thèbes. Étéocle a refusé de céder le trône, Polynice a attaqué la ville. Ils se sont entre-tués. Étéocle = enterré honoré, Polynice = laissé sans sépulture par Créon" },
+    { front: "In medias res", back: "Procédé narratif : commencer une histoire \"au milieu des choses\", quand l'action est déjà lancée. C'est le cas chez Sophocle (mais pas Anouilh dont le Prologue raconte tout)" },
+    { front: "Quatrième mur", back: "Mur imaginaire entre la scène et le public. \"Briser le 4e mur\" = un personnage s'adresse directement au public (ce que fait le Prologue chez Anouilh)" },
+    { front: "Anachronisme", back: "Élément hors de son époque. Anouilh en utilise plein : les gardes jouent aux cartes, Eurydice tricote, vocabulaire moderne (\"je m'en fous\"). Modernise le mythe antique" },
+    { front: "Modernisation du mythe", back: "Anouilh prend un vieux mythe grec et le réécrit avec des codes modernes : langage familier, anachronismes, psychologie complexe, ambiguïté morale. Le mythe devient universel, parle à tous" },
+    { front: "Contexte de l'écriture", back: "Anouilh écrit Antigone en 1944, pendant l'Occupation allemande de la France. La pièce peut être lue comme une allégorie : Antigone = la Résistance, Créon = le pouvoir collaborationniste. MAIS aussi l'inverse !" },
+    { front: "Ambiguïté de la pièce", back: "La pièce a été ovationnée par les nazis ET par les résistants. Anouilh a volontairement laissé planer le doute : Créon a aussi de bons arguments. Ce n'est pas du \"bien contre mal\"" },
+    { front: "Catharsis", back: "Effet de la tragédie sur le spectateur selon Aristote : purification des passions (pitié et terreur) par leur représentation. On \"se purge\" de ses émotions en les vivant par procuration" },
+    { front: "Stichomythie", back: "Dialogue théâtral fait de répliques très courtes qui s'enchaînent rapidement. Crée tension et conflit. Très utilisé dans les scènes de confrontation (Créon/Antigone)" },
+    { front: "Héros tragique", back: "Personnage qui se débat contre un destin plus fort que lui et finit par y succomber. Antigone est l'archétype : elle SAIT qu'elle va mourir mais avance quand même" }
+  ],
+
+  // ============ QCM ============
+  qcm: [
+    { topic: "Auteur", q: "Qui a écrit la pièce \"Antigone\" que vous étudiez ?", options: ["Sophocle", "Jean Racine", "Jean Anouilh", "Molière"], correct: 2, exp: "Jean Anouilh, en 1944, pendant l'Occupation. Sophocle a écrit la version antique en 441 av. J.-C." },
+    { topic: "Auteur", q: "En quelle année Jean Anouilh a-t-il écrit \"Antigone\" ?", options: ["1899", "1944", "1962", "1980"], correct: 1, exp: "1944, en pleine Occupation allemande de la France. Le contexte historique est essentiel pour comprendre la pièce." },
+    { topic: "Famille", q: "Qui est le père d'Antigone ?", options: ["Créon", "Hémon", "Œdipe", "Étéocle"], correct: 2, exp: "Œdipe, le célèbre roi de Thèbes qui s'est crevé les yeux en apprenant qu'il avait tué son père et épousé sa mère." },
+    { topic: "Famille", q: "Qui est Créon par rapport à Antigone ?", options: ["Son père", "Son frère", "Son oncle", "Son fiancé"], correct: 2, exp: "Créon est l'ONCLE d'Antigone (frère de Jocaste, sa mère). Il est aussi le père d'Hémon, le fiancé d'Antigone." },
+    { topic: "Famille", q: "Qui est Hémon ?", options: ["Le frère d'Antigone", "Le fiancé d'Antigone", "Le père d'Antigone", "Un garde"], correct: 1, exp: "Hémon est le fiancé d'Antigone, et le fils de Créon. Il se suicidera à la fin de la pièce en apprenant la mort d'Antigone." },
+    { topic: "Famille", q: "Qui est Ismène ?", options: ["La mère d'Antigone", "La nourrice", "La sœur d'Antigone", "Une garde"], correct: 2, exp: "Ismène est la sœur d'Antigone. Elle est blonde, belle, raisonnable, et représente l'opposé d'Antigone." },
+    { topic: "Intrigue", q: "Pourquoi Antigone veut-elle braver l'interdit de Créon ?", options: ["Pour devenir reine", "Pour enterrer son frère Polynice", "Pour se venger de Créon", "Pour rejoindre Hémon"], correct: 1, exp: "Polynice a été déclaré \"traître\" par Créon, qui interdit de l'enterrer. Antigone veut lui rendre les rites funéraires, par devoir de sœur." },
+    { topic: "Intrigue", q: "Quel sort Créon a-t-il réservé au corps de Polynice ?", options: ["L'enterrer en secret", "Le brûler", "Le laisser sans sépulture, en proie aux corbeaux", "Le jeter dans le fleuve"], correct: 2, exp: "Créon a ordonné de laisser le corps de Polynice à l'air libre, en proie aux corbeaux et chacals. Quiconque l'enterrera sera mis à mort." },
+    { topic: "Intrigue", q: "Comment les deux frères d'Antigone sont-ils morts ?", options: ["Tués par Créon", "Morts à la guerre", "Ils se sont entre-tués sous les murs de Thèbes", "Empoisonnés"], correct: 2, exp: "Étéocle et Polynice se sont tués MUTUELLEMENT en se battant pour le trône de Thèbes." },
+    { topic: "Personnages", q: "Comment le Prologue décrit-il Antigone physiquement ?", options: ["La belle blonde", "La petite maigre noiraude renfermée", "Une jeune fille rayonnante", "Une grande dame élégante"], correct: 1, exp: "« La petite maigre qui est assise là-bas... cette petite maigre jeune fille noiraude et renfermée que personne ne prenait au sérieux »." },
+    { topic: "Personnages", q: "Pourquoi Ismène refuse-t-elle d'aider Antigone ?", options: ["Elle déteste Polynice", "Elle a peur de mourir et pense qu'on ne peut rien contre Créon", "Elle est amoureuse de Créon", "Elle ne croit pas aux dieux"], correct: 1, exp: "Ismène a peur. Elle pense qu'on est faibles, qu'on doit obéir aux puissants, et qu'on a la vie devant nous." },
+    { topic: "Personnages", q: "Quel objet symbolique tient Eurydice pendant toute la pièce ?", options: ["Une couronne", "Un livre", "Du tricot", "Une épée"], correct: 2, exp: "Eurydice TRICOTE pendant toute la tragédie. C'est un anachronisme typique d'Anouilh qui rend le personnage à la fois banal et tragique." },
+    { topic: "Personnages", q: "Que font les trois gardes au début de la pièce ?", options: ["Ils montent la garde", "Ils dorment", "Ils jouent aux cartes", "Ils boivent"], correct: 2, exp: "Trois hommes rougeauds qui jouent aux cartes. Anouilh les présente comme banalement humains : ils ont des femmes, des enfants, et obéissent sans réfléchir." },
+    { topic: "Confrontation", q: "Quelle est la grande différence philosophique entre Antigone et Créon ?", options: ["Antigone est croyante, Créon athée", "Antigone dit \"non\", Créon a dit \"oui\"", "Antigone est pour la guerre, Créon pour la paix", "Aucune différence importante"], correct: 1, exp: "C'est LE thème central. Créon a dit « oui » à la vie, au pouvoir, aux compromis. Antigone dit « non » à tout ça. Elle veut tout ou rien." },
+    { topic: "Confrontation", q: "Quelle métaphore Créon utilise-t-il pour expliquer son rôle de roi ?", options: ["Un berger avec son troupeau", "Un capitaine et son bateau dans la tempête", "Un médecin et son patient", "Un jardinier et son jardin"], correct: 1, exp: "La métaphore filée du BATEAU : Créon est le capitaine qui doit tenir la barre, même quand l'équipage veut piller la cale. \"Cela prend l'eau de toutes parts...\"" },
+    { topic: "Confrontation", q: "Que dit Antigone juste avant la fin de leur confrontation ?", options: ["\"Je vous obéirai\"", "\"Quel rêve, hein, pour un roi, des bêtes ! Ce serait si simple\"", "\"Pardonnez-moi mon oncle\"", "\"Hémon me sauvera\""], correct: 1, exp: "Elle ironise sur la métaphore des bêtes (où tout obéirait à l'instinct). Pour Antigone, l'humain DOIT pouvoir dire non, sinon il n'est pas humain." },
+    { topic: "Bonheur", q: "Quelle est la position d'Antigone sur le bonheur ?", options: ["Elle le cherche désespérément", "Elle le refuse car il oblige à se contenter de peu", "Elle pense qu'il est impossible", "Elle l'a déjà trouvé avec Hémon"], correct: 1, exp: "« Vous me dégoûtez tous avec votre bonheur ! ». Antigone refuse le bonheur étroit, médiocre. Elle veut TOUT ou rien." },
+    { topic: "Bonheur", q: "Comment Créon décrit-il la vie à Antigone ?", options: ["Comme une bataille", "Comme un livre qu'on aime, un enfant qui joue à vos pieds, un outil qu'on tient bien dans sa main", "Comme un songe", "Comme une longue souffrance"], correct: 1, exp: "Créon donne une vision simple et concrète du bonheur. Pour lui, la vie c'est ces petits riens quotidiens. Antigone trouve ça dérisoire." },
+    { topic: "Fin", q: "Comment meurt Antigone ?", options: ["Exécutée publiquement", "Elle se pend dans la grotte où elle est emmurée", "Tuée par un garde", "Elle s'empoisonne"], correct: 1, exp: "Antigone est condamnée à être emmurée vivante. Avant de mourir de faim, elle se pend avec sa ceinture." },
+    { topic: "Fin", q: "Que se passe-t-il avec Hémon à la fin ?", options: ["Il devient roi", "Il fuit Thèbes", "Il se suicide à côté du corps d'Antigone", "Il épouse Ismène"], correct: 2, exp: "Hémon arrive trop tard pour sauver Antigone. La voyant morte, il se transperce lui-même avec son épée." },
+    { topic: "Fin", q: "Que se passe-t-il avec Eurydice à la fin ?", options: ["Elle continue à tricoter", "Elle apprend la mort d'Hémon et se tranche la gorge en silence", "Elle pardonne à Créon", "Elle devient folle"], correct: 1, exp: "La mort d'Eurydice est silencieuse, presque invisible — et c'est ce qui la rend tragique. Elle se tue \"sans un mot\"." },
+    { topic: "Fin", q: "Que fait Créon à la toute fin de la pièce ?", options: ["Il se suicide", "Il abdique", "Il continue son \"métier\" de roi avec son petit page", "Il devient fou"], correct: 2, exp: "Créon reste. Il continue de gouverner, seul, fatigué, parce que « il faut bien que quelqu'un dise oui ». C'est sa malédiction." },
+    { topic: "Sophocle vs Anouilh", q: "Quelle est l'innovation majeure d'Anouilh sur le Prologue ?", options: ["Il n'y a pas de prologue", "Le Prologue est un PERSONNAGE qui s'adresse au public", "Le prologue est plus long", "Le prologue est chanté"], correct: 1, exp: "Chez Sophocle, le \"prologue\" désigne juste la 1ère scène. Chez Anouilh, c'est un personnage-narrateur qui brise le 4e mur. C'est très moderne." },
+    { topic: "Sophocle vs Anouilh", q: "Pourquoi y a-t-il des ANACHRONISMES chez Anouilh (cartes, tricot...) ?", options: ["Erreurs de l'auteur", "Pour rendre l'histoire actuelle, universelle, accessible au spectateur moderne", "Pour économiser sur les costumes", "C'est imposé par la mise en scène"], correct: 1, exp: "Les anachronismes MODERNISENT le mythe. Anouilh veut qu'on se reconnaisse dans ces personnages, pas qu'on les voie comme des statues grecques." },
+    { topic: "Contexte", q: "Dans quel contexte historique Anouilh a-t-il écrit \"Antigone\" ?", options: ["La Révolution française", "La Première Guerre mondiale", "L'Occupation allemande (1944)", "Mai 68"], correct: 2, exp: "1944, en pleine Occupation. La pièce a été interprétée à la fois comme un éloge de la Résistance (Antigone) ET du maintien de l'ordre (Créon). Volontairement ambiguë." },
+    { topic: "Citations", q: "Complétez : « Pour personne. ___ »", options: ["Pour Polynice", "Pour Hémon", "Pour moi", "Pour les dieux"], correct: 2, exp: "« Pour personne. Pour moi. ». Quand Créon demande pour qui Antigone fait ce geste, elle finit par admettre que c'est pour ELLE-MÊME, pas pour les autres." },
+    { topic: "Citations", q: "Qui dit : « C'est facile de dire non » ?", options: ["Antigone", "Créon", "Ismène", "Hémon"], correct: 1, exp: "C'est Créon. Pour lui, dire \"non\" c'est de la facilité, c'est juste \"ne pas bouger\". Dire \"oui\" demande effort et courage. Antigone répondra \"Pas toujours\"." },
+    { topic: "Citations", q: "« Quel rêve, hein, pour un roi, des ___ ! Ce serait si simple. »", options: ["enfants", "bêtes", "esclaves", "anges"], correct: 1, exp: "Des BÊTES. Antigone ironise : si on était tous des animaux qui suivent leur instinct, gouverner serait simple. Mais l'humain peut DIRE NON." }
+  ],
+
+  // ============ DÉFI CHRONO (l'ordre de la pièce) ============
+  timeline: [
+    { title: "L'ordre de la pièce d'Anouilh", events: [
+      { date: "Acte 1", text: "Le Prologue présente les personnages" },
+      { date: "Acte 1", text: "Antigone rentre chez elle au petit matin (a enterré Polynice en cachette)" },
+      { date: "Acte 1", text: "Dialogue avec la Nourrice" },
+      { date: "Acte 1", text: "Scène Antigone / Ismène : Ismène tente de la dissuader" },
+      { date: "Acte 1", text: "Scène Antigone / Hémon : elle lui dit adieu en secret" },
+      { date: "Acte 2", text: "Les gardes attrapent Antigone (elle a recommencé)" },
+      { date: "Acte 2", text: "Confrontation Antigone / Créon : long affrontement" },
+      { date: "Acte 2", text: "Scène du \"bonheur\" : Antigone refuse la vie médiocre" },
+      { date: "Acte 3", text: "Hémon supplie son père de la sauver, en vain" },
+      { date: "Acte 3", text: "Antigone est emmenée et emmurée" },
+      { date: "Acte 3", text: "Le Messager annonce les morts en cascade : Antigone, Hémon, Eurydice" },
+      { date: "Acte 3", text: "Créon reste seul, retourne à son \"métier\" de roi" }
+    ]},
+    { title: "Les arguments d'Ismène pour dissuader Antigone", events: [
+      { date: "1", text: "Créon nous ferait mourir" },
+      { date: "2", text: "Je ne veux pas mourir, je suis jeune" },
+      { date: "3", text: "Il faut réfléchir avant d'agir" },
+      { date: "4", text: "Je comprends même un peu notre oncle" },
+      { date: "5", text: "Il est plus fort que nous, tous pensent comme lui" },
+      { date: "6", text: "Il faudra souffrir avant de mourir" },
+      { date: "7", text: "Tu es jeune, fiancée, belle, tu as la vie devant toi" },
+      { date: "8", text: "Pense à Hémon, à ton bonheur" }
+    ]},
+    { title: "La structure de la confrontation Créon / Antigone", events: [
+      { date: "1", text: "Créon interroge Antigone sur son geste" },
+      { date: "2", text: "Créon essaie de comprendre, presque paternel" },
+      { date: "3", text: "Il propose de la sauver en secret" },
+      { date: "4", text: "Il dévalue le geste : \"une histoire de politique\"" },
+      { date: "5", text: "Antigone résiste : « Je suis là pour vous dire non »" },
+      { date: "6", text: "Créon explique son métier : la métaphore du bateau" },
+      { date: "7", text: "Antigone ironise : « Quel rêve, hein, des bêtes ! »" },
+      { date: "8", text: "Créon parle du bonheur (eau, livre, enfant...)" },
+      { date: "9", text: "Antigone refuse : « Vous me dégoûtez tous avec votre bonheur ! »" },
+      { date: "10", text: "Créon appelle les gardes" }
+    ]}
+  ],
+
+  // ============ LEÇONS (le prof explique) ============
+  lessons: [
+    {
+      chapter: "Intro · Qui sont les auteurs ?",
+      title: "Sophocle et Anouilh : deux Antigones",
+      body: `<p>Avant d'attaquer la pièce, il faut savoir une chose essentielle : <strong>il existe DEUX Antigone</strong>.</p>
+      <p>La première, c'est celle de <strong>Sophocle</strong>, un tragédien grec antique. Il l'a écrite en <strong>441 avant Jésus-Christ</strong>. C'est l'originale, celle qui dure ~2500 ans.</p>
+      <p>La seconde, c'est celle de <strong>Jean Anouilh</strong>, un auteur français du XXe siècle, qui l'a réécrite en <strong>1944</strong>, en pleine Occupation allemande. <span class="highlight">C'est CELLE-LÀ que vous étudiez.</span></p>
+      <p>Anouilh a gardé l'histoire (Antigone enterre son frère contre l'avis de Créon) mais il a tout modernisé : le langage, les personnages, le décor, les anachronismes (cartes, tricot...).</p>
+      <div class="key-point"><strong>À retenir absolument</strong>Vous étudiez <em>l'Antigone d'Anouilh, 1944</em>. Le contexte historique est crucial : c'est l'Occupation. Ça donne plein de niveaux de lecture possibles.</div>`
+    },
+    {
+      chapter: "Intro · Le mythe",
+      title: "L'histoire avant la pièce : Œdipe et ses enfants",
+      body: `<p>Pour comprendre la pièce, il faut connaître ce qui s'est passé <em>avant</em>. C'est une histoire compliquée mais essentielle :</p>
+      <ul>
+        <li><strong>Œdipe</strong>, roi de Thèbes, a tué son père et épousé sa mère <em>sans le savoir</em>. Quand il l'apprend, il se crève les yeux.</li>
+        <li>De ce mariage maudit naissent <strong>4 enfants</strong> : Antigone, Ismène, Étéocle, Polynice.</li>
+        <li>Après la mort d'Œdipe, les 2 fils (Étéocle et Polynice) doivent régner alternativement.</li>
+        <li>Étéocle refuse de céder le trône. Polynice attaque Thèbes avec des alliés.</li>
+        <li><span class="highlight">Les deux frères s'entre-tuent sous les murs de la ville.</span></li>
+        <li>Créon (l'oncle, frère de Jocaste leur mère) devient roi.</li>
+      </ul>
+      <p>Et c'est là que la pièce commence : Créon décide qu'<strong>Étéocle</strong> aura des funérailles royales, mais que <strong>Polynice</strong> sera laissé sans sépulture, à la merci des corbeaux. Quiconque l'enterre sera mis à mort.</p>
+      <div class="key-point"><strong>Le point de départ</strong>Antigone refuse cet édit. Pour elle, son frère DOIT être enterré, peu importe la loi humaine. C'est tout le conflit de la pièce.</div>`
+    },
+    {
+      chapter: "Personnages",
+      title: "Antigone : l'héroïne qui dit NON",
+      body: `<p>Antigone est <strong>petite, maigre, brune</strong>. Elle n'est pas la plus belle (sa sœur Ismène l'est plus). Mais elle a une force intérieure énorme.</p>
+      <p>Son caractère : <strong>idéaliste, absolutiste, intransigeante</strong>. Elle veut TOUT ou RIEN. Pas de compromis.</p>
+      <p>Anouilh la décrit ainsi dans le Prologue :</p>
+      <div class="quote">"Elle pense qu'elle va mourir, qu'elle est jeune et qu'elle aussi, elle aurait bien aimé vivre. Mais il n'y a rien à faire. Elle s'appelle Antigone et il va falloir qu'elle joue son rôle jusqu'au bout..."</div>
+      <p>Notez bien : <em>elle aurait aimé vivre</em>. Elle n'a pas envie de mourir. Mais elle ne peut pas faire autrement. <span class="highlight">C'est ça, le tragique : un destin auquel on ne peut pas échapper.</span></p>
+      <div class="key-point"><strong>Citations à connaître</strong>« Je suis là pour vous dire non et pour mourir » · « Pour personne. Pour moi. » · « Vous me dégoûtez tous avec votre bonheur ! »</div>`
+    },
+    {
+      chapter: "Personnages",
+      title: "Créon : le roi qui dit OUI",
+      body: `<p>Attention, piège : Créon <strong>N'EST PAS</strong> un méchant. Anouilh le rend complexe, presque sympathique.</p>
+      <p>C'est un homme mûr, fatigué, qui a accepté un boulot dégueulasse (gouverner). Il essaie même de SAUVER Antigone, mais elle refuse.</p>
+      <p>Sa philosophie :</p>
+      <div class="quote">"Pour dire oui, il faut suer et retrousser ses manches, empoigner la vie à pleines mains et s'en mettre jusqu'aux coudes. C'est facile de dire non, même si on doit mourir."</div>
+      <p>Pour Créon, <strong>dire « oui » à la vie est plus dur que dire « non »</strong>. Dire non, c'est juste ne pas bouger. Dire oui, c'est se salir les mains pour faire avancer les choses.</p>
+      <p>Il utilise une grande métaphore : celle du <strong>bateau dans la tempête</strong>. Le roi est le capitaine qui tient la barre pendant que l'équipage veut piller la cale. Si personne ne tient le gouvernail, tout coule.</p>
+      <div class="key-point"><strong>Pourquoi c'est important</strong>Anouilh ne dit pas « Antigone a raison » ou « Créon a raison ». Il laisse le doute. C'est ÇA, le génie de la pièce : ambiguïté totale.</div>`
+    },
+    {
+      chapter: "Personnages",
+      title: "Ismène, Hémon, Eurydice et les autres",
+      body: `<p>Tous ces personnages secondaires sont importants :</p>
+      <ul>
+        <li><strong>Ismène</strong> : la sœur, blonde, belle, raisonnable. Représente le « bon sens », la peur, l'attachement à la vie. Elle <em>survivra</em>.</li>
+        <li><strong>Hémon</strong> : le fiancé d'Antigone (et fils de Créon !). Il l'aime profondément. Il se suicidera en la trouvant morte.</li>
+        <li><strong>Eurydice</strong> : la femme de Créon, mère d'Hémon. Elle <em>tricote pendant toute la pièce</em>. Quand elle apprend la mort d'Hémon, elle se tranche la gorge sans un mot.</li>
+        <li><strong>Le Prologue</strong> : personnage-narrateur qui s'adresse directement au public. Innovation d'Anouilh.</li>
+        <li><strong>Les 3 gardes</strong> : rougeauds, jouent aux cartes, brutaux, indifférents. Banalité du mal.</li>
+        <li><strong>Le Messager</strong> : pâle, solitaire. Annoncera les morts.</li>
+        <li><strong>La Nourrice</strong> : a élevé les filles. Aimante, maternelle.</li>
+        <li><strong>Le Petit Page</strong> : trop jeune pour comprendre. Symbolise la continuation de la vie après les drames.</li>
+      </ul>
+      <div class="key-point"><strong>Astuce mémorisation</strong>Les SURVIVANTS = Ismène, Créon, le Petit Page, la Nourrice, le Messager, les gardes. Les MORTS = Antigone, Hémon, Eurydice. (Et avant la pièce : Œdipe, Jocaste, Étéocle, Polynice.)</div>`
+    },
+    {
+      chapter: "Scènes clés",
+      title: "Le Prologue (l'ouverture)",
+      body: `<p>La pièce s'ouvre sur un personnage qu'on appelle <strong>« Le Prologue »</strong>. Il s'avance et il s'adresse directement à nous, le public.</p>
+      <p>Il présente UN PAR UN tous les personnages qui sont sur scène, et il nous raconte ce qui va se passer. <span class="highlight">Il NOUS DIT que ça va mal finir.</span></p>
+      <p>C'est totalement différent de Sophocle, où la pièce commence directement par un dialogue entre Antigone et Ismène. Sophocle voulait du suspense (enfin, pas vraiment, le public connaissait l'histoire). Anouilh, lui, <strong>casse l'illusion théâtrale</strong> : il nous dit « c'est du théâtre, on joue ».</p>
+      <p>Phrase culte du Prologue :</p>
+      <div class="quote">"C'est ça qui est commode dans la tragédie. On donne le petit coup de pouce pour que ça démarre... Le reste vient tout seul. On est tranquille. Cela roule tout seul."</div>
+      <div class="key-point"><strong>Effet sur le spectateur</strong>On ne se demande pas « comment ça va finir ? » mais « comment ils y arrivent ? ». L'intérêt n'est pas dans le suspense mais dans la <em>mécanique tragique</em>.</div>`
+    },
+    {
+      chapter: "Scènes clés",
+      title: "Antigone vs Ismène (séance 4)",
+      body: `<p>Première grande confrontation. Antigone veut enterrer Polynice. Ismène essaie de l'en dissuader.</p>
+      <p>C'est un <strong>discours argumentatif</strong>. Ismène avance des arguments, Antigone les retourne.</p>
+      <p><strong>Les arguments d'Ismène</strong> (à connaître !) :</p>
+      <ul>
+        <li>« Créon nous ferait mourir » → peur de la mort</li>
+        <li>« Je ne veux pas mourir » → attachement à la vie</li>
+        <li>« Il faut réfléchir » → raison contre passion</li>
+        <li>« Il est plus fort que nous » → argument de la force</li>
+        <li>« Tu es jeune, fiancée, belle... » → argument du bonheur futur</li>
+      </ul>
+      <p><strong>Les réponses d'Antigone</strong> : courtes, tranchantes, parfois ironiques. « Je ne veux pas comprendre. » « Je ne t'écoute pas. »</p>
+      <p>Procédés stylistiques importants :</p>
+      <ul>
+        <li><strong>Champ lexical de la mort</strong> : « mourir », « supplice », « souffrir », « douleur »</li>
+        <li><strong>Métaphores péjoratives</strong> de la foule : « grouillant », « hueront », « cracheront »</li>
+        <li><strong>Métonymie</strong> : la foule = « mille bras », « mille visages »</li>
+        <li><strong>Futur de l'indicatif</strong> à valeur de prophétie/certitude</li>
+      </ul>
+      <div class="key-point"><strong>Ce que ça révèle</strong>Ismène = sagesse, raison, peur. Antigone = idéalisme, révolte, soif d'absolu. Mais aussi : <em>côté infantile</em> d'Antigone (« je ne t'écoute pas »).</div>`
+    },
+    {
+      chapter: "Scènes clés",
+      title: "La grande confrontation Antigone vs Créon",
+      body: `<p>LA scène centrale de la pièce. Très très très importante. Elle peut tomber en rédaction.</p>
+      <p>Créon essaie sincèrement de sauver Antigone. Il propose qu'on étouffe l'affaire. Mais Antigone refuse, encore et encore.</p>
+      <p><strong>Les étapes du dialogue</strong> :</p>
+      <ol>
+        <li>Créon dévalorise le geste : « ce n'est qu'une histoire de politique »</li>
+        <li>Il avoue qu'il dégoûte de Polynice (« cette viande qui pourrira au soleil »)</li>
+        <li>Il explique pourquoi il doit faire un exemple (« il faut que tout Thèbes sente cela »)</li>
+        <li>Antigone : « Vous êtes odieux ! »</li>
+        <li>Créon : « Oui mon petit. C'est le métier qui le veut. »</li>
+        <li>Créon raconte sa métaphore du bateau dans la tempête</li>
+        <li>Antigone : « Quel rêve, hein, pour un roi, des bêtes ! Ce serait si simple. »</li>
+      </ol>
+      <div class="quote">CRÉON : « C'est facile de dire non ! »<br>ANTIGONE : « Pas toujours. »<br>CRÉON : « Pour dire oui, il faut suer et retrousser ses manches... »</div>
+      <p>C'est tout le débat de la pièce résumé : <strong>dire NON (Antigone) versus dire OUI (Créon)</strong>.</p>
+      <div class="key-point"><strong>À retenir pour la rédaction</strong>Cette scène utilise beaucoup de stichomythies (répliques courtes), des métaphores (le bateau, les bêtes), et des oppositions claires. Imitez ce style si on vous demande d'écrire une suite !</div>`
+    },
+    {
+      chapter: "Scènes clés",
+      title: "La scène du bonheur",
+      body: `<p>Après la confrontation, Créon tente une dernière approche. Il parle du <strong>BONHEUR</strong> à Antigone.</p>
+      <p>Sa vision du bonheur :</p>
+      <div class="quote">"La vie, c'est un livre qu'on aime, c'est un enfant qui joue à vos pieds, un outil qu'on tient bien dans sa main, un banc pour se reposer le soir devant sa maison."</div>
+      <p>Simple, concret, doux. Mais Antigone refuse violemment :</p>
+      <div class="quote">"Vous me dégoûtez tous avec votre bonheur ! Avec votre vie qu'il faut aimer coûte que coûte. On dirait des chiens qui lèchent tout ce qu'ils trouvent."</div>
+      <p>Antigone reproche au bonheur d'être <strong>médiocre, étroit, conformiste</strong>. Pour elle, ça oblige à des compromis :</p>
+      <ul>
+        <li>Mentir</li>
+        <li>Sourire à des gens qu'on n'aime pas</li>
+        <li>Se vendre un peu chaque jour</li>
+        <li>Laisser mourir les autres en détournant le regard</li>
+      </ul>
+      <p>Elle prononce alors LA phrase qui résume sa philosophie :</p>
+      <div class="quote">"Moi, je veux TOUT, tout de suite, et que ce soit ENTIER, ou alors je refuse !"</div>
+      <div class="key-point"><strong>L'absolu d'Antigone</strong>Elle refuse le bonheur \"raisonnable\" parce qu'il oblige à grandir, à se compromettre, à devenir un adulte ordinaire. Antigone veut rester pure, intacte, intransigeante. Quitte à mourir.</div>`
+    },
+    {
+      chapter: "Scènes clés",
+      title: "Le dénouement : la cascade des morts",
+      body: `<p>La fin de la pièce est foudroyante. Tout arrive en chaîne.</p>
+      <ul>
+        <li><strong>Antigone</strong> est emmenée par les gardes pour être emmurée vivante dans une grotte. Elle dicte une dernière lettre (pour Hémon). Puis se pend.</li>
+        <li><strong>Hémon</strong> arrive trop tard. Il trouve Antigone morte. Il se transperce avec son épée et meurt à ses pieds.</li>
+        <li><strong>Eurydice</strong> apprend la mort de son fils. Elle pose son tricot. Elle monte dans sa chambre. Elle se tranche la gorge. Sans un mot.</li>
+      </ul>
+      <p>Le Messager raconte tout ça à Créon, qui reste pétrifié.</p>
+      <p>Mais le plus impressionnant, c'est la dernière scène : <strong>Créon reste seul</strong>. Et il continue. Il a un Conseil à 5 heures. Il met sa veste. Il prend son petit page par la main. Et il y va.</p>
+      <div class="quote">"Si on savait, peut-être qu'on serait moins prompt à mourir... Allons, viens. Il est cinq heures. Nous avons Conseil tout à l'heure."</div>
+      <div class="key-point"><strong>Symbolique finale</strong>Antigone a choisi la mort pour rester pure. Créon a choisi la vie et le pouvoir, mais il est désormais SEUL, vidé. Qui a vraiment gagné ? Personne. C'est ça, la tragédie.</div>`
+    },
+    {
+      chapter: "Comparaison",
+      title: "Sophocle vs Anouilh : les 5 différences clés",
+      body: `<p>On peut vous poser une question dessus. Les 5 différences majeures :</p>
+      <ol>
+        <li><strong>Le Prologue</strong> : chez Sophocle, c'est juste la 1ère scène. Chez Anouilh, c'est un PERSONNAGE qui parle au public.</li>
+        <li><strong>Le décor</strong> : Sophocle = Thèbes antique. Anouilh = décor neutre, hors du temps, avec des anachronismes (tricot, cartes).</li>
+        <li><strong>Le langage</strong> : Sophocle = noble, élevé. Anouilh = familier, moderne, parfois argotique (« petite peste », « salaud »).</li>
+        <li><strong>L'illusion théâtrale</strong> : Sophocle = on y croit. Anouilh = il dit « c'est du théâtre ».</li>
+        <li><strong>La psychologie de Créon</strong> : Sophocle = tyran clairement coupable. Anouilh = personnage complexe, presque sympathique.</li>
+      </ol>
+      <p>Mais ce qui RESTE pareil :</p>
+      <ul>
+        <li>L'histoire principale (Antigone enterre son frère contre l'avis de Créon)</li>
+        <li>Le destin tragique (tout le monde meurt)</li>
+        <li>Les personnages principaux</li>
+        <li>Le conflit central : loi humaine vs morale supérieure</li>
+      </ul>
+      <div class="key-point"><strong>Pourquoi Anouilh fait ça ?</strong>Pour rendre le mythe ACCESSIBLE et MODERNE. Pour qu'on se reconnaisse dans Antigone, Créon, Ismène. Pour faire de cette histoire grecque une histoire universelle qui parle aussi des choix de 1944.</div>`
+    },
+    {
+      chapter: "Contexte",
+      title: "Antigone en 1944 : pourquoi c'est explosif",
+      body: `<p>Anouilh écrit <strong>Antigone en 1944</strong>, en pleine Occupation allemande de la France.</p>
+      <p>Quand on lit la pièce dans ce contexte, ça devient EXPLOSIF :</p>
+      <ul>
+        <li><strong>Antigone</strong> = quelqu'un qui résiste à un pouvoir qu'elle juge injuste. <em>Comme la Résistance française.</em></li>
+        <li><strong>Créon</strong> = quelqu'un qui maintient l'ordre, qui dit qu'il fait son métier, qui accepte des compromis. <em>Comme la collaboration ?</em></li>
+      </ul>
+      <p>MAIS attention, c'est plus subtil que ça. La pièce est <strong>ambiguë volontairement</strong> :</p>
+      <ul>
+        <li>Les Allemands ont AUTORISÉ la pièce (et l'ont applaudie) — ils voyaient Créon comme un sage</li>
+        <li>Les Résistants ont aussi adoré la pièce — ils voyaient Antigone comme l'héroïne</li>
+      </ul>
+      <p><span class="highlight">Anouilh n'a JAMAIS tranché entre les deux interprétations.</span> Certains disent qu'il était collaborationniste, d'autres résistant. La vérité : il était surtout <em>ambivalent</em>.</p>
+      <div class="key-point"><strong>Pour la rédaction</strong>Si la prof évoque le contexte, n'oubliez pas : la pièce questionne la place de l'INDIVIDU face au POUVOIR. C'est universel, pas que 1944.</div>`
+    },
+    {
+      chapter: "Style",
+      title: "Le style d'Anouilh : comment imiter sa plume",
+      body: `<p>Si on vous demande d'écrire une SUITE ou de RÉÉCRIRE une scène, il faut imiter son style. Voilà les clés :</p>
+      <p><strong>1. Phrases courtes, percutantes</strong></p>
+      <div class="quote">« Oui mon petit. C'est le métier qui le veut. »</div>
+      <p><strong>2. Mélange de registres</strong> : un mot familier au milieu d'une phrase noble. « Pauvre Créon ! » / « petite peste » / « moineau »</p>
+      <p><strong>3. Anachronismes</strong> : cartes, tricot, vocabulaire du XXe siècle dans une histoire antique</p>
+      <p><strong>4. Métaphores filées</strong> : le bateau, les bêtes, le bonheur comme objet (livre, outil, banc)</p>
+      <p><strong>5. Stichomythies</strong> dans les confrontations : répliques courtes, ping-pong verbal</p>
+      <p><strong>6. Adresse directe au lecteur/personnage</strong> : « Tu vois, petit page... »</p>
+      <p><strong>7. Tonalités contrastées</strong> : ironie + tragique + tendresse, parfois dans la même réplique</p>
+      <div class="key-point"><strong>Mots à recaser dans une rédaction</strong>« Oui » et « non » (le débat central) · « bonheur » · « métier » · « ordre » · « petite » (Créon appelle Antigone comme ça) · « pure » · « tout ou rien » · « simple » · « sale »</div>`
+    },
+    {
+      chapter: "Rédaction",
+      title: "Comment écrire une SUITE à un passage",
+      body: `<p>L'exercice probable : la prof vous donne un passage et vous demande de continuer.</p>
+      <p><strong>Méthode en 5 étapes</strong> :</p>
+      <ol>
+        <li><strong>Lire le passage</strong> : qui parle ? À qui ? Où en est-on dans la pièce ?</li>
+        <li><strong>Identifier les enjeux</strong> : qu'est-ce qui se joue émotionnellement / philosophiquement ?</li>
+        <li><strong>Respecter les personnalités</strong> : Antigone est ferme, Créon est las, Ismène est peureuse...</li>
+        <li><strong>Imiter le style</strong> : phrases courtes, anachronismes, mélange tragique/familier</li>
+        <li><strong>Cohérence avec la suite</strong> : ne pas écrire un truc qui contredit la fin (sauf si on vous le demande)</li>
+      </ol>
+      <p><strong>Exemple type :</strong> on vous donne la scène où Antigone arrive devant Créon. Vous devez continuer.</p>
+      <p>Bons réflexes :</p>
+      <ul>
+        <li>Faire parler les deux personnages alternativement</li>
+        <li>Donner des indications scéniques en italique (gestes, ton)</li>
+        <li>Utiliser le tutoiement de Créon (« tu », « ma petite ») et le vouvoiement d'Antigone (« vous »)</li>
+        <li>Au moins UNE métaphore et UNE référence à la mort/au destin</li>
+      </ul>
+      <div class="key-point"><strong>Astuce qui rapporte des points</strong>Faites une référence implicite à un autre passage : par exemple, dans une scène où Antigone parle à Hémon, faites-lui dire « je ne dirai pas oui » (lien avec la confrontation avec Créon). Ça montre que vous avez compris l'ensemble.</div>`
+    },
+    {
+      chapter: "Rédaction",
+      title: "Comment écrire une RÉÉCRITURE moderne",
+      body: `<p>Autre sujet possible : « Imaginez Antigone dans notre époque. Réécrivez une scène. »</p>
+      <p>Le truc, c'est qu'<strong>Anouilh a déjà commencé à le faire</strong> avec ses anachronismes. Vous, vous poussez plus loin.</p>
+      <p><strong>Idées pour transposer</strong> :</p>
+      <ul>
+        <li>Antigone = ado en lutte pour le climat, contre l'injustice, lanceuse d'alerte...</li>
+        <li>Créon = maire, ministre, PDG, principal du collège, président...</li>
+        <li>Le frère mort = victime d'une injustice (refus d'enterrement administratif, scandale étouffé...)</li>
+        <li>L'interdit = règlement, loi, décision politique</li>
+      </ul>
+      <p><strong>Restez fidèles aux personnalités</strong> :</p>
+      <ul>
+        <li>Antigone : ABSOLUE, refuse les compromis, va jusqu'au bout</li>
+        <li>Créon : PRAGMATIQUE, essaie de raisonner, propose un arrangement</li>
+        <li>Ismène : raisonnable, peureuse, attachée à la vie ordinaire</li>
+      </ul>
+      <p><strong>Gardez le débat central</strong> : OUI à la vie quotidienne / NON aux compromis. C'est intemporel.</p>
+      <div class="key-point"><strong>Conseil</strong>Ne tombez pas dans le cliché. Évitez « Antigone harcelée sur Insta ». Pensez à un vrai conflit moral, pas une anecdote ado. La pièce parle de mort, de pouvoir, de dignité : gardez ce niveau.</div>`
+    },
+    {
+      chapter: "Rédaction",
+      title: "Comment écrire un MONOLOGUE intérieur",
+      body: `<p>Sujet possible : « Antigone, dans sa grotte, juste avant de mourir, fait un monologue intérieur. Écrivez-le. »</p>
+      <p><strong>Ingrédients d'un bon monologue</strong> :</p>
+      <ul>
+        <li><strong>Questions rhétoriques</strong> : « Suis-je vraiment seule ? Et si... ? »</li>
+        <li><strong>Hésitations</strong> : « Peut-être... non, je sais que... »</li>
+        <li><strong>Souvenirs</strong> : Antigone qui se rappelle son enfance, Hémon, Polynice...</li>
+        <li><strong>Adresse aux absents</strong> : « Hémon, mon amour... » / « Père, m'attends-tu ? »</li>
+        <li><strong>Affirmations finales</strong> : Antigone qui réaffirme ses convictions</li>
+      </ul>
+      <p><strong>Pour Antigone spécifiquement</strong> : elle a peur, elle est jeune, elle aurait voulu vivre, mais elle ne regrette pas son choix. Restez sur ce mélange <em>fragilité + détermination</em>.</p>
+      <p>Phrases types à imiter :</p>
+      <div class="quote">"J'ai vingt ans. J'aurais aimé. J'aurais aimé sentir le matin sur Thèbes une dernière fois. J'aurais aimé Hémon, j'aurais aimé nos enfants..."</div>
+      <p>(Anaphore en « j'aurais aimé », conditionnel passé = regret)</p>
+      <div class="key-point"><strong>Le piège à éviter</strong>Ne faites pas Antigone qui regrette son choix. Elle peut avoir peur de mourir, oui. Mais elle ne renie pas. Sinon ça casse le personnage.</div>`
+    },
+    {
+      chapter: "Grammaire",
+      title: "Le conditionnel : présent vs passé",
+      body: `<p>Vous risquez d'avoir des questions de grammaire sur le conditionnel. Voilà l'essentiel :</p>
+      <p><strong>Conditionnel présent</strong> : marque le présent ou le futur dans le passé. <em>Je voudrais, tu prendrais, ils comprendraient.</em></p>
+      <p><strong>Conditionnel passé</strong> : marque une action accomplie qui n'a pas eu lieu. <em>J'aurais voulu, tu aurais pris, ils auraient compris.</em></p>
+      <p><strong>Les 4 valeurs principales</strong> :</p>
+      <ol>
+        <li><strong>Potentiel</strong> : action possible dans le futur. <em>« Si tu venais demain, je serais content. »</em></li>
+        <li><strong>Irréel du présent</strong> : action impossible dans le présent. <em>« Si j'étais un animal, je voudrais être un cheval. »</em></li>
+        <li><strong>Irréel du passé</strong> : action qui aurait pu se faire dans le passé mais ne s'est pas faite. <em>« Si tu m'avais dit, j'aurais pu t'aider. »</em></li>
+        <li><strong>Politesse / atténuation</strong> : <em>« Je voudrais un café. »</em> (au lieu de « je veux »)</li>
+      </ol>
+      <p>Et aussi :</p>
+      <ul>
+        <li><strong>Fait incertain / information non vérifiée</strong> : <em>« Le suspect se trouverait à Lyon. »</em></li>
+        <li><strong>Regret</strong> : <em>« J'aurais aimé être pilote. »</em></li>
+        <li><strong>Conseil</strong> : <em>« Tu devrais te reposer. »</em></li>
+      </ul>
+      <div class="key-point"><strong>Astuce</strong>Dans Antigone, plein de conditionnels expriment le REGRET (« j'aurais aimé vivre »). C'est central dans la pièce : tout ce qui aurait pu être et ne sera pas.</div>`
+    },
+    {
+      chapter: "Grammaire",
+      title: "Les subordonnées circonstancielles : les 5 types",
+      body: `<p>Une <strong>proposition subordonnée circonstancielle</strong> précise une circonstance de la phrase principale.</p>
+      <p>Elle est introduite par une <strong>conjonction de subordination</strong> (quand, comme, parce que, pour que, afin que...).</p>
+      <p><strong>Les 5 types principaux</strong> :</p>
+      <ol>
+        <li><strong>TEMPS</strong> : <em>quand, lorsque, dès que, avant que, après que, pendant que, depuis que, jusqu'à ce que...</em><br>Ex : « <em>Quand le rideau se lève</em>, le Prologue parle. »</li>
+        <li><strong>CAUSE</strong> : <em>parce que, puisque, comme, étant donné que, vu que...</em><br>Ex : « <em>Parce qu'elle aime son frère</em>, Antigone défie Créon. »</li>
+        <li><strong>CONSÉQUENCE</strong> : <em>si bien que, de sorte que, tellement... que, au point que...</em><br>Ex : « Antigone est <em>si déterminée qu'</em>elle accepte de mourir. »</li>
+        <li><strong>BUT</strong> : <em>pour que, afin que, de peur que, de crainte que...</em> (toujours suivi du SUBJONCTIF)<br>Ex : « Créon fait un exemple <em>pour que l'ordre règne</em>. »</li>
+        <li><strong>COMPARAISON</strong> : <em>comme, ainsi que, autant que, plus... que, moins... que...</em><br>Ex : « Antigone agit <em>comme une héroïne tragique</em>. »</li>
+      </ol>
+      <p><strong>Astuce</strong> : les subordonnées circonstancielles peuvent être déplacées ou supprimées sans rendre la phrase incorrecte.</p>
+      <div class="key-point"><strong>Mode du verbe</strong>Subjonctif obligatoire après : avant que, jusqu'à ce que, pour que, afin que, de peur que, de crainte que, à condition que, bien que, quoique. Sinon, indicatif.</div>`
+    },
+    {
+      chapter: "Synthèse",
+      title: "Les 10 choses absolument à savoir",
+      body: `<p>Si tu n'as que 5 minutes pour réviser, voilà l'essentiel :</p>
+      <ol>
+        <li><strong>Auteur</strong> : Jean Anouilh, 1944, en pleine Occupation</li>
+        <li><strong>L'histoire</strong> : Antigone enterre son frère Polynice contre l'avis de Créon, son oncle. Elle est condamnée à mort.</li>
+        <li><strong>Famille</strong> : Antigone fille d'Œdipe, sœur d'Ismène, Étéocle, Polynice. Nièce de Créon. Fiancée à Hémon.</li>
+        <li><strong>Le conflit central</strong> : Antigone dit « non » / Créon a dit « oui » (à la vie, au pouvoir, aux compromis)</li>
+        <li><strong>Innovation 1</strong> : le Prologue est un personnage qui parle au public</li>
+        <li><strong>Innovation 2</strong> : anachronismes (cartes, tricot, langage moderne)</li>
+        <li><strong>Créon n'est PAS un méchant</strong> : il essaie sincèrement de la sauver</li>
+        <li><strong>Antigone refuse le bonheur</strong> : trop médiocre, trop de compromis</li>
+        <li><strong>Fin</strong> : Antigone se pend, Hémon se suicide, Eurydice se tranche la gorge. Créon reste seul.</li>
+        <li><strong>Citations clés</strong> : « Pour personne. Pour moi. » · « Vous me dégoûtez tous avec votre bonheur ! » · « C'est facile de dire non ! » (Créon)</li>
+      </ol>
+      <div class="key-point"><strong>Le mot de la fin</strong>Antigone, c'est l'histoire de quelqu'un qui refuse les compromis. Créon, c'est quelqu'un qui les accepte tous. Aucun n'a totalement raison. Aucun n'a totalement tort. Tout est dans la NUANCE. C'est ça qui fait que cette pièce reste universelle.</div>
+      <p>Maintenant, va te tester en mode QCM ! 💪</p>`
+    }
+  ]
+};
+
+// ============================================================
+// BADGES
+// ============================================================
+const BADGES = [
+  { id: 'first',     emoji: '🎯', name: '1er pas',     condition: 'Première réponse',          check: u => u.totalAnswers >= 1 },
+  { id: 'xp100',     emoji: '⚡', name: '100 XP',      condition: 'Atteindre 100 XP',          check: u => u.totalXp >= 100 },
+  { id: 'xp500',     emoji: '⭐', name: '500 XP',      condition: 'Atteindre 500 XP',          check: u => u.totalXp >= 500 },
+  { id: 'xp1000',    emoji: '🏆', name: '1000 XP',     condition: 'Atteindre 1000 XP',         check: u => u.totalXp >= 1000 },
+  { id: 'streak3d',  emoji: '🔥', name: '3 jours',     condition: '3 jours d\'affilée',          check: u => u.bestStreakDays >= 3 || u.streakDays >= 3 },
+  { id: 'streak7d',  emoji: '🚀', name: '7 jours',     condition: '7 jours d\'affilée',          check: u => u.bestStreakDays >= 7 || u.streakDays >= 7 },
+  { id: 'streak30d', emoji: '💥', name: '30 jours',    condition: '30 jours d\'affilée',         check: u => u.bestStreakDays >= 30 || u.streakDays >= 30 },
+  { id: 'qcm',       emoji: '🎓', name: 'QCM parfait', condition: 'Un QCM sans aucune erreur', check: u => u.perfectQcm },
+  { id: 'tlperfect', emoji: '⏳', name: 'Chrono pro',  condition: 'Une frise parfaite',         check: u => u.perfectTimeline },
+  { id: 'allfiches', emoji: '📚', name: 'Studieux',    condition: 'Toutes les fiches lues',     check: u => u.fichesLues >= 7 },
+  { id: 'morning',   emoji: '🌅', name: 'Lève-tôt',    condition: 'Réviser avant 9h',           check: u => u.morningRev },
+  { id: 'night',     emoji: '🌙', name: 'Nocturne',    condition: 'Réviser après 22h',          check: u => u.nightRev }
+];
+
+// ============================================================
+// LEVELS
+// ============================================================
+const LEVELS = [
+  { lvl: 1,  xp: 0,    title: 'Apprenti' },
+  { lvl: 2,  xp: 100,  title: 'Curieux' },
+  { lvl: 3,  xp: 250,  title: 'Studieux' },
+  { lvl: 4,  xp: 500,  title: 'Élève sérieux' },
+  { lvl: 5,  xp: 800,  title: 'Expert junior' },
+  { lvl: 6,  xp: 1200, title: 'Historien' },
+  { lvl: 7,  xp: 1700, title: 'Spécialiste' },
+  { lvl: 8,  xp: 2300, title: 'Stratège' },
+  { lvl: 9,  xp: 3000, title: 'Géopoliticien' },
+  { lvl: 10, xp: 4000, title: 'Légende' }
+];
+function getLevel(xp) {
+  for (let i = LEVELS.length - 1; i >= 0; i--) {
+    if (xp >= LEVELS[i].xp) {
+      const next = LEVELS[i + 1] || { xp: LEVELS[i].xp + 2000, title: 'Mythique' };
+      return { ...LEVELS[i], nextXp: next.xp, nextTitle: next.title };
+    }
+  }
+  return { lvl: 1, xp: 0, title: 'Apprenti', nextXp: 100, nextTitle: 'Curieux' };
+}
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  theme: 'light',
+  user: null,        // ex: "Mayeul__3eA"
+  userName: null,    // ex: "Mayeul"
+  userClass: null,   // ex: "3eA"
+  pendingName: null, // pendant l'onboarding step 1→2
+  pendingReconnect: null,
+  data: defaultUserData(),
+  // Mode-specific
+  currentMode: null,
+  lessonIdx: 0,
+  datesCards: [], datesIdx: 0,
+  detailsList: [], detailsIdx: 0,
+  qcmList: [], qcmIdx: 0, qcmSessionMistakes: 0,
+  defsCards: [], defsIdx: 0,
+  tlChallenges: [], tlIdx: 0, tlOrder: [], tlPlaced: [],
+  sessionStreak: 0,
+  sessionXp: 0,
+  sessionRight: 0, sessionTotal: 0,
+  sessionMaxStreak: 0,
+  sessionStartBadges: []
+};
+
+function defaultUserData() {
+  return {
+    userClass: '',
+    totalXp: 0,
+    // SÉRIE (style Snapstreak / Duolingo) : jours consécutifs de révision
+    streakDays: 0,           // nombre de jours d'affilée
+    streakValue: 0,          // valeur affichée (peut être à 50% si 24-48h)
+    lastReviewDate: null,    // ISO date 'YYYY-MM-DD' du dernier jour révisé
+    bestStreakDays: 0,
+    // Anciennes "sessions" gardées pour les badges/stats
+    currentRunStreak: 0,     // bonnes réponses d'affilée dans l'exo en cours
+    bestRunStreak: 0,
+    totalAnswers: 0,
+    badges: [],
+    fichesLues: 0,
+    perfectQcm: false,
+    perfectTimeline: false,
+    morningRev: false,
+    nightRev: false,
+    progress: {},
+    lastFirstPlaceBonus: null,
+    createdAt: Date.now()
+  };
+}
+
+// ============================================================
+// STREAK SYSTEM (Snapstreak / Duolingo style)
+// - +1 jour si on révise un jour différent du précédent
+// - À 48h sans rien faire, la flamme baisse à 50%
+// - À 72h, elle tombe à 0
+// ============================================================
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+function daysBetween(d1, d2) {
+  const a = new Date(d1 + 'T00:00:00Z');
+  const b = new Date(d2 + 'T00:00:00Z');
+  return Math.round((b - a) / (24 * 3600 * 1000));
+}
+function recomputeStreakOnLoad() {
+  const u = state.data;
+  if (!u.lastReviewDate) {
+    u.streakDays = 0;
+    u.streakValue = 0;
+    return;
+  }
+  const diff = daysBetween(u.lastReviewDate, todayStr());
+  if (diff === 0 || diff === 1) {
+    u.streakValue = u.streakDays;
+  } else if (diff === 2) {
+    u.streakValue = Math.floor(u.streakDays / 2);
+  } else if (diff >= 3) {
+    u.streakDays = 0;
+    u.streakValue = 0;
+  }
+}
+function tickStreakOnAction() {
+  const u = state.data;
+  const today = todayStr();
+  if (u.lastReviewDate === today) return;
+  if (!u.lastReviewDate) {
+    u.streakDays = 1;
+  } else {
+    const diff = daysBetween(u.lastReviewDate, today);
+    if (diff === 1) {
+      u.streakDays++;
+      showToast(`🔥 ${u.streakDays} jours d'affilée ! Continue !`);
+    } else if (diff === 2) {
+      u.streakDays = Math.max(1, Math.floor(u.streakDays / 2) + 1);
+      showToast(`🔥 Tu reviens à temps ! Série : ${u.streakDays}`);
+    } else {
+      u.streakDays = 1;
+      showToast(`🔥 Nouvelle série démarrée !`);
+    }
+  }
+  u.streakValue = u.streakDays;
+  u.lastReviewDate = today;
+  if (u.streakDays > u.bestStreakDays) u.bestStreakDays = u.streakDays;
+}
+
+// ============================================================
+// LOCAL STORAGE
+// ============================================================
+function userKey() { return 'antigone_v1_user_' + (state.user || 'guest'); }
+function loadUserData() {
+  try {
+    const raw = localStorage.getItem(userKey());
+    state.data = raw ? { ...defaultUserData(), ...JSON.parse(raw) } : defaultUserData();
+  } catch (e) { state.data = defaultUserData(); }
+  recomputeStreakOnLoad();
+  saveUserData();
+}
+function saveUserData() {
+  try {
+    localStorage.setItem(userKey(), JSON.stringify(state.data));
+    pushToFirebase();
+  } catch (e) {}
+}
+function listUsers() {
+  const users = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('antigone_v1_user_')) users.push(k.slice('antigone_v1_user_'.length));
+  }
+  return users;
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', state.theme);
+  setText('themeToggle', state.theme === 'light' ? '🌙' : '☀️');
+  localStorage.setItem('antigone_v1_theme', state.theme);
+}
+function loadTheme() {
+  const saved = localStorage.getItem('antigone_v1_theme');
+  if (saved) {
+    state.theme = saved;
+    document.documentElement.setAttribute('data-theme', saved);
+    setText('themeToggle', saved === 'light' ? '🌙' : '☀️');
+  }
+}
+
+// ============================================================
+// ONBOARDING + RECONNECT
+// ============================================================
+function renderPreviousUsers() {
+  const users = listUsers().filter(u => u && u !== 'guest');
+  const el = $('previousUsers');
+  if (!el) return;
+  if (users.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = 'Déjà venu(e) ?<br>' + users.map(u => {
+    const parts = u.split('__');
+    const display = parts.length > 1 ? `${parts[0]} (${parts[1]})` : parts[0];
+    return `<span class="previous-user-chip" onclick="loginAs('${u.replace(/'/g, "\\'")}')">${display}</span>`;
+  }).join('');
+}
+function loginAs(fullKey) {
+  state.user = fullKey;
+  const parts = fullKey.split('__');
+  state.userName = parts[0];
+  state.userClass = parts[1] || '';
+  loadUserData();
+  showHome();
+}
+
+function goToStep2() {
+  const inp = $('nameInput');
+  if (!inp || !inp.value.trim()) return;
+  state.pendingName = inp.value.trim();
+  hide('onboardingStep1');
+  const s2 = $('onboardingStep2');
+  if (s2) s2.style.display = '';
+}
+function backToStep1() {
+  hide('onboardingStep2');
+  const s1 = $('onboardingStep1');
+  if (s1) s1.style.display = '';
+  const inp = $('nameInput'); if (inp) inp.focus();
+}
+
+function selectClass(klass) {
+  if (!state.pendingName || !klass) return;
+  const name = state.pendingName;
+  const fullKey = name + '__' + klass;
+  const users = listUsers().filter(u => u && u !== 'guest');
+  const existing = users.find(u => u.toLowerCase() === fullKey.toLowerCase());
+
+  if (existing) {
+    state.pendingReconnect = existing;
+    let data = {};
+    try { data = JSON.parse(localStorage.getItem('antigone_v1_user_' + existing) || '{}'); } catch(e) {}
+    const xp = data.totalXp || 0;
+    const parts = existing.split('__');
+    setText('modalGreeting', 'Salut ' + parts[0] + ' !');
+    setHTML('modalDesc', `On a retrouvé un profil <strong>${parts[0]}</strong> en classe de <strong>${parts[1] || '?'}</strong> avec <strong>${xp} XP</strong>. C'est bien toi ?`);
+    const modal = $('reconnectModal'); if (modal) modal.classList.add('show');
+  } else {
+    const sameName = users.find(u => u.split('__')[0].toLowerCase() === name.toLowerCase());
+    if (sameName) {
+      const otherClass = sameName.split('__')[1] || '?';
+      if (!confirm(`Il existe déjà un "${name}" en classe ${otherClass}. Tu veux créer un nouveau profil "${name}" en ${klass} ?`)) {
+        return;
+      }
+    }
+    state.user = fullKey;
+    state.userName = name;
+    state.userClass = klass;
+    state.data = defaultUserData();
+    state.data.userClass = klass;
+    saveUserData();
+    showHome();
+  }
+}
+function confirmReconnect() {
+  state.user = state.pendingReconnect;
+  const parts = state.user.split('__');
+  state.userName = parts[0];
+  state.userClass = parts[1] || '';
+  state.pendingReconnect = null;
+  loadUserData();
+  const modal = $('reconnectModal'); if (modal) modal.classList.remove('show');
+  showHome();
+}
+function cancelReconnect() {
+  state.pendingReconnect = null;
+  const modal = $('reconnectModal'); if (modal) modal.classList.remove('show');
+  // Retour à l'étape 2 pour choisir une autre classe
+  // (l'utilisateur clique simplement sur l'autre bouton)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const nameInp = $('nameInput');
+  const nameBtn = $('nameNextBtn');
+  if (nameInp && nameBtn) {
+    nameInp.addEventListener('input', () => {
+      nameBtn.disabled = nameInp.value.trim().length === 0;
+    });
+    nameInp.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && nameInp.value.trim()) goToStep2();
+    });
+  }
+  loadTheme();
+  renderPreviousUsers();
+  if (FIREBASE_ENABLED) initFirebase();
+  else updateLeaderboardLocal();
+});
+
+// ============================================================
+// HOME
+// ============================================================
+const GREETINGS = [
+  name => `Salut <em>${name}</em>`,
+  name => `Bienvenue <em>${name}</em>`,
+  name => `Bon retour <em>${name}</em>`,
+  name => `On y va <em>${name}</em> ?`,
+  name => `Hello <em>${name}</em>`
+];
+const TAGLINES = [
+  name => `Prêt à devenir incollable, ${name} ?`,
+  name => `${name}, donne le meilleur de toi-même 💪`,
+  name => `${name}, on monte au podium ?`,
+  name => `Allez ${name}, focus mode activé 🎯`,
+  name => `${name}, tu peux le faire. Direction le 18/20 🚀`,
+  name => `Et si ${name} prenait la 1ère place du podium ?`,
+  name => `${name}, on n'attend que toi`,
+  name => `${name} en mode séance studieuse 📚`
+];
+function pickRandom(arr, name) { return arr[Math.floor(Math.random() * arr.length)](name); }
+
+function showHome() {
+  hide('onboarding-view');
+  document.querySelectorAll('.study-view').forEach(v => v.classList.remove('active'));
+  const home = $('home-view'); if (home) home.style.display = 'block';
+  const displayName = state.userName || state.user || '?';
+  setHTML('greeting', pickRandom(GREETINGS, displayName));
+  setText('tagline', pickRandom(TAGLINES, displayName));
+  setText('tipsTitle', `Plan de révision pour ${displayName}`);
+  show('userBadge');
+  setText('userBadgeName', state.userClass ? `${displayName} · ${state.userClass}` : displayName);
+  show('streakMini');
+  show('xpMini');
+  refreshAllStats();
+  refreshTopBar();
+  pushToFirebase();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goHome() { showHome(); }
+
+function refreshAllStats() {
+  const u = state.data;
+  const lvl = getLevel(u.totalXp);
+  const xpInLvl = u.totalXp - lvl.xp;
+  const xpForNext = lvl.nextXp - lvl.xp;
+  const pct = xpForNext > 0 ? (xpInLvl / xpForNext * 100) : 100;
+  setText('lvlNum', lvl.lvl);
+  setText('lvlTitle', lvl.title);
+  setStyle('lvlBar', 'width', Math.min(100, pct) + '%');
+  setText('lvlXpCurrent', xpInLvl);
+  setText('lvlXpNext', xpForNext);
+  // ============ STREAK ============
+  // Big card: streak value (avec demi-flamme si 24-48h)
+  const sv = u.streakValue || 0;
+  setText('streakBig', sv);
+  setText('streakNum', sv);
+  // Texte sous la flamme
+  if (u.streakDays === 0) {
+    setText('streakDetail', 'Reviens chaque jour pour démarrer une série !');
+  } else if (u.streakValue < u.streakDays) {
+    setText('streakDetail', `⚠️ Plus que 24h pour récupérer ta série de ${u.streakDays} !`);
+  } else if (u.streakDays === 1) {
+    setText('streakDetail', `1er jour ! Reviens demain pour faire +1`);
+  } else {
+    setText('streakDetail', `${u.streakDays} jours d'affilée 🔥 Reviens demain !`);
+  }
+  const sm = $('streakMini');
+  if (sm) sm.classList.toggle('zero', sv === 0);
+  setText('totalXp', u.totalXp);
+  setText('xpNum', u.totalXp);
+  renderBadges();
+  if (FIREBASE_ENABLED) updateRankFromFirebase();
+  else updateRankLocal();
+}
+
+function renderBadges() {
+  const u = state.data;
+  const grid = $('badgesGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const unlocked = BADGES.filter(b => b.check(u)).map(b => b.id);
+  u.badges = unlocked;
+  setText('badgesCount', unlocked.length + ' / ' + BADGES.length);
+  BADGES.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'badge-item ' + (unlocked.includes(b.id) ? 'unlocked' : 'locked');
+    div.innerHTML = `<div class="badge-emoji">${b.emoji}</div><div class="badge-name">${b.name}</div><div class="badge-tooltip">${b.condition}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+// ============================================================
+// XP & STREAK
+// ============================================================
+function addXp(amount) {
+  if (amount <= 0) return;
+  const beforeLvl = getLevel(state.data.totalXp).lvl;
+  state.data.totalXp += amount;
+  state.sessionXp += amount;
+  const afterLvl = getLevel(state.data.totalXp).lvl;
+  if (afterLvl > beforeLvl) {
+    showToast(`🎉 Niveau ${afterLvl} atteint ! ${getLevel(state.data.totalXp).title}`);
+    fireConfetti();
+  }
+  const h = new Date().getHours();
+  if (h < 9) state.data.morningRev = true;
+  if (h >= 22 || h < 5) state.data.nightRev = true;
+  tickStreakOnAction();
+  refreshTopBar();
+  refreshActiveSessionBar();
+}
+
+// Rafraîchit la session-stats-bar (🔥 0 / ⚡ +0 XP) du mode actuellement actif
+function refreshActiveSessionBar() {
+  const m = state.currentMode;
+  if (!m) return;
+  const prefix = m === 'dates' ? 'dS' : m === 'details' ? 'deS' : m === 'qcm' ? 'qS' : m === 'defs' ? 'dfS' : null;
+  if (prefix) updateSessionBars(prefix);
+}
+
+function bumpRun() {
+  state.sessionStreak++;
+  state.sessionMaxStreak = Math.max(state.sessionMaxStreak, state.sessionStreak);
+  state.data.currentRunStreak++;
+  if (state.data.currentRunStreak > state.data.bestRunStreak) state.data.bestRunStreak = state.data.currentRunStreak;
+  refreshActiveSessionBar();
+}
+function breakRun() {
+  state.sessionStreak = 0;
+  state.data.currentRunStreak = 0;
+  refreshActiveSessionBar();
+}
+
+// Refresh la top bar (toujours visible) + mini stats
+function refreshTopBar() {
+  const u = state.data;
+  setText('xpNum', u.totalXp);
+  setText('streakNum', u.streakValue || 0);
+  const sm = $('streakMini');
+  if (sm) sm.classList.toggle('zero', (u.streakValue || 0) === 0);
+}
+
+function showToast(msg) {
+  const t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function fireConfetti() {
+  const colors = ['#5e5cff', '#ff3b80', '#00c2ff', '#ff9f0a', '#34c759', '#ff453a'];
+  const container = document.createElement('div');
+  container.className = 'confetti';
+  document.body.appendChild(container);
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.animationDelay = (Math.random() * 0.6) + 's';
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 5000);
+}
+
+// ============================================================
+// MODE LAUNCH
+// ============================================================
+function showView(id) {
+  hide('home-view');
+  hide('onboarding-view');
+  document.querySelectorAll('.study-view').forEach(v => v.classList.remove('active'));
+  if (id) {
+    const el = $(id);
+    if (el) el.classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+function sortByMastery(arr, prefix) {
+  return [...arr].sort((a, b) => {
+    const ka = prefix + '_' + (a.front || a.title || a.q);
+    const kb = prefix + '_' + (b.front || b.title || b.q);
+    const sa = state.data.progress[ka] === undefined ? 50 : state.data.progress[ka];
+    const sb = state.data.progress[kb] === undefined ? 50 : state.data.progress[kb];
+    return sa - sb;
+  });
+}
+function setItemScore(key, delta) {
+  if (state.data.progress[key] === undefined) state.data.progress[key] = 50;
+  state.data.progress[key] = Math.max(0, Math.min(100, state.data.progress[key] + delta));
+}
+
+function startMode(mode) {
+  state.currentMode = mode;
+  state.sessionStreak = 0; // run streak interne à la session
+  state.sessionXp = 0;
+  state.sessionRight = 0;
+  state.sessionTotal = 0;
+  state.sessionMaxStreak = 0;
+  state.qcmSessionMistakes = 0;
+  state.sessionStartBadges = [...state.data.badges];
+
+  if (mode === 'lesson') {
+    state.lessonIdx = 0;
+    showView('lesson-view'); renderLesson();
+  } else if (mode === 'dates') {
+    state.datesCards = sortByMastery(shuffle(DATA.dates), 'dates');
+    state.datesIdx = 0;
+    showView('dates-view'); renderDates();
+  } else if (mode === 'details') {
+    state.detailsList = sortByMastery(shuffle(DATA.details), 'details');
+    state.detailsIdx = 0;
+    showView('details-view'); renderDetails();
+  } else if (mode === 'qcm') {
+    state.qcmList = sortByMastery(shuffle(DATA.qcm), 'qcm');
+    state.qcmIdx = 0;
+    showView('qcm-view'); renderQCM();
+  } else if (mode === 'defs') {
+    state.defsCards = sortByMastery(shuffle(DATA.defs), 'defs');
+    state.defsIdx = 0;
+    showView('defs-view'); renderDefs();
+  } else if (mode === 'timeline') {
+    state.tlChallenges = shuffle(DATA.timeline);
+    state.tlIdx = 0;
+    showView('timeline-view'); renderTimeline();
+  }
+}
+function retryMode() { startMode(state.currentMode); }
+function updateSessionBars(prefix) {
+  const s = document.getElementById(prefix + 'SStreak');
+  const x = document.getElementById(prefix + 'SXp');
+  if (s) s.textContent = '🔥 ' + state.sessionStreak;
+  if (x) x.textContent = '⚡ +' + state.sessionXp + ' XP';
+}
+
+// ============================================================
+// FLASHCARD HELPERS
+// ============================================================
+function flipCard(modeKey) {
+  const cardId = modeKey === 'dates' ? 'datesCard' : 'defsCard';
+  document.getElementById(cardId).classList.toggle('flipped');
+}
+
+// ============================================================
+// LESSON MODE (cours expliqué étape par étape)
+// ============================================================
+function renderLesson() {
+  if (!DATA.lessons || DATA.lessons.length === 0) { finishMode('lesson'); return; }
+  if (state.lessonIdx >= DATA.lessons.length) { finishMode('lesson'); return; }
+  if (state.lessonIdx < 0) state.lessonIdx = 0;
+  const l = DATA.lessons[state.lessonIdx];
+  setText('lsChapter', l.chapter);
+  setText('lsTitle', l.title);
+  setHTML('lsBody', l.body);
+  setText('lsCounter', (state.lessonIdx + 1) + '/' + DATA.lessons.length);
+  setStyle('lsProgress', 'width', ((state.lessonIdx + 1) / DATA.lessons.length * 100) + '%');
+  const prevBtn = $('lsPrevBtn'); if (prevBtn) prevBtn.disabled = state.lessonIdx === 0;
+  const nextBtn = $('lsNextBtn');
+  if (nextBtn) nextBtn.textContent = state.lessonIdx === DATA.lessons.length - 1 ? "Terminer ✓" : "Suivant →";
+}
+function lessonNext() {
+  // XP par leçon vue (seulement la première fois)
+  const key = 'lesson_' + state.lessonIdx;
+  if (!state.data.progress[key]) {
+    state.data.progress[key] = 1;
+    addXp(3);
+    state.sessionRight++;
+    state.sessionTotal++;
+    state.data.totalAnswers++;
+  }
+  if (state.lessonIdx >= DATA.lessons.length - 1) {
+    saveUserData();
+    finishMode('lesson');
+    return;
+  }
+  state.lessonIdx++;
+  renderLesson();
+  const card = $('lessonCard'); if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function lessonPrev() {
+  if (state.lessonIdx > 0) {
+    state.lessonIdx--;
+    renderLesson();
+    const card = $('lessonCard'); if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// ============================================================
+// DATES MODE (flashcards + matching QCM mélangés)
+// ============================================================
+function renderDates() {
+  if (state.datesIdx >= state.datesCards.length) { finishMode('dates'); return; }
+  const c = state.datesCards[state.datesIdx];
+  if (!c) { finishMode('dates'); return; }
+  // Une carte sur 2 est un QCM "lier date ↔ événement"
+  if (state.datesIdx % 2 === 1) {
+    renderDateMatchQcm(c);
+  } else {
+    renderDateFlashcard(c);
+  }
+}
+
+function renderDateFlashcard(c) {
+  // Cache l'éventuel mode QCM
+  const matchEl = $('datesMatchArea'); if (matchEl) matchEl.style.display = 'none';
+  const cardArea = $('datesCardArea'); if (cardArea) cardArea.style.display = '';
+  const ctrls = $('datesRateControls'); if (ctrls) ctrls.style.display = '';
+  const card = $('datesCard'); if (card) card.classList.remove('flipped');
+  // Direction aléatoire : moitié du temps date→event, moitié event→date
+  const swapped = (state.datesIdx + (c.front.length % 2)) % 2 === 1;
+  if (swapped) {
+    setText('datesFront', c.back);
+    setText('datesBack', c.front);
+    setText('datesFrontLabel', '📚 Description');
+    setText('datesBackLabel', '📚 Moment');
+  } else {
+    setText('datesFront', c.front);
+    setText('datesBack', c.back);
+    setText('datesFrontLabel', '📚 Moment');
+    setText('datesBackLabel', '📚 Description');
+  }
+  setText('datesCounter', (state.datesIdx + 1) + '/' + state.datesCards.length);
+  setStyle('datesProgress', 'width', (state.datesIdx / state.datesCards.length * 100) + '%');
+  updateSessionBars('dS');
+}
+
+function renderDateMatchQcm(c) {
+  // Affiche le QCM, cache la flashcard
+  const cardArea = $('datesCardArea'); if (cardArea) cardArea.style.display = 'none';
+  const ctrls = $('datesRateControls'); if (ctrls) ctrls.style.display = 'none';
+  let matchEl = $('datesMatchArea');
+  if (!matchEl) return;
+  matchEl.style.display = '';
+  // Direction aléatoire : moitié du temps "quelle date" vs "quel événement"
+  const askDate = (state.datesIdx % 4) < 2; // alterne tous les 2
+  const question = askDate ? c.back : c.front;
+  const correctAnswer = askDate ? c.front : c.back;
+  const allOptions = DATA.dates.map(d => askDate ? d.front : d.back);
+  // 3 mauvaises réponses différentes de la bonne
+  const wrongOptions = allOptions.filter(o => o !== correctAnswer).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [correctAnswer, ...wrongOptions].sort(() => Math.random() - 0.5);
+  setText('datesMatchQ', question);
+  setText('datesMatchLabel', askDate ? '🎯 Quel est le moment correspondant ?' : '🎯 Quel moment correspond à cette description ?');
+  setText('datesCounter', (state.datesIdx + 1) + '/' + state.datesCards.length);
+  setStyle('datesProgress', 'width', (state.datesIdx / state.datesCards.length * 100) + '%');
+  updateSessionBars('dS');
+  const optsEl = $('datesMatchOptions');
+  if (optsEl) {
+    optsEl.innerHTML = '';
+    options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'qcm-option';
+      btn.innerHTML = '<span class="key">' + String.fromCharCode(65 + i) + '</span><span>' + opt + '</span>';
+      btn.onclick = () => answerDateMatch(btn, opt, correctAnswer, c);
+      optsEl.appendChild(btn);
+    });
+  }
+  const fb = $('datesMatchFeedback');
+  if (fb) { fb.className = 'qcm-feedback'; fb.innerHTML = ''; }
+}
+
+function answerDateMatch(btn, picked, correctAnswer, card) {
+  const isCorrect = picked === correctAnswer;
+  document.querySelectorAll('#datesMatchOptions .qcm-option').forEach(b => {
+    b.disabled = true; b.style.cursor = 'default';
+    const txt = b.querySelector('span:last-child');
+    if (txt && txt.textContent === correctAnswer) b.classList.add('correct');
+  });
+  if (!isCorrect) btn.classList.add('incorrect');
+  const fb = $('datesMatchFeedback');
+  const key = 'datesmatch_' + card.front;
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (isCorrect) {
+    if (fb) { fb.className = 'qcm-feedback show correct'; fb.innerHTML = `<strong>✅ Bravo !</strong>`; }
+    setItemScore(key, 20); addXp(7); state.sessionRight++; bumpRun();
+  } else {
+    if (fb) { fb.className = 'qcm-feedback show incorrect'; fb.innerHTML = `<strong>❌ La bonne réponse :</strong>${correctAnswer}`; }
+    setItemScore(key, -10); breakRun(); refreshTopBar();
+  }
+  setTimeout(() => { state.datesIdx++; renderDates(); }, 1800);
+}
+
+function rateDates(level) {
+  const c = state.datesCards[state.datesIdx];
+  if (!c) return;
+  const key = 'dates_' + c.front;
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (level === 0) { setItemScore(key, -15); breakRun(); refreshTopBar(); }
+  else if (level === 1) { setItemScore(key, 5); addXp(2); state.sessionRight++; }
+  else { setItemScore(key, 20); addXp(5); state.sessionRight++; bumpRun(); }
+  state.datesIdx++;
+  setTimeout(renderDates, 200);
+}
+
+// ============================================================
+// DETAILS MODE
+// ============================================================
+function renderDetails() {
+  if (state.detailsIdx >= state.detailsList.length) { finishMode('details'); return; }
+  const d = state.detailsList[state.detailsIdx];
+  if (!d) { finishMode('details'); return; }
+  let html = '<div class="event-card-large glass">';
+  html += '<div class="date-badge">' + d.date + '</div>';
+  html += '<h3>' + d.title + '</h3>';
+  html += '<p class="subtitle">' + d.subtitle + '</p>';
+  html += '<div class="event-fields">';
+  for (const [label, value] of Object.entries(d.fields)) {
+    html += `<div class="event-field-row"><div class="field-label">${label}</div><div class="field-value">${value}</div></div>`;
+  }
+  html += '</div></div>';
+  setHTML('detailsContent', html);
+  setText('detailsCounter', (state.detailsIdx + 1) + '/' + state.detailsList.length);
+  setStyle('detailsProgress', 'width', (state.detailsIdx / state.detailsList.length * 100) + '%');
+  updateSessionBars('deS');
+}
+function rateDetails(level) {
+  const d = state.detailsList[state.detailsIdx];
+  if (!d) return;
+  const key = 'details_' + d.title;
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (level === 0) { setItemScore(key, -15); breakRun(); refreshTopBar(); }
+  else if (level === 1) { setItemScore(key, 5); addXp(3); state.sessionRight++; }
+  else { setItemScore(key, 20); addXp(8); state.sessionRight++; bumpRun(); state.data.fichesLues = Math.min(state.data.fichesLues + 1, 7); }
+  state.detailsIdx++;
+  setTimeout(renderDetails, 250);
+}
+
+// ============================================================
+// QCM MODE
+// ============================================================
+function renderQCM() {
+  if (state.qcmIdx >= state.qcmList.length) {
+    if (state.qcmSessionMistakes === 0 && state.qcmList.length >= 5) state.data.perfectQcm = true;
+    finishMode('qcm'); return;
+  }
+  const q = state.qcmList[state.qcmIdx];
+  if (!q || !q.options) { finishMode('qcm'); return; }
+  setText('qcmTopic', q.topic || '');
+  setText('qcmQuestion', q.q || '');
+  setText('qcmCounter', (state.qcmIdx + 1) + '/' + state.qcmList.length);
+  setStyle('qcmProgress', 'width', (state.qcmIdx / state.qcmList.length * 100) + '%');
+  updateSessionBars('qS');
+  const optsEl = $('qcmOptions');
+  if (!optsEl) return;
+  optsEl.innerHTML = '';
+  const fb = $('qcmFeedback');
+  if (fb) { fb.className = 'qcm-feedback'; fb.innerHTML = ''; }
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qcm-option';
+    btn.innerHTML = '<span class="key">' + String.fromCharCode(65 + i) + '</span><span>' + opt + '</span>';
+    btn.onclick = () => answerQCM(btn, i, q);
+    optsEl.appendChild(btn);
+  });
+}
+function answerQCM(btn, idx, q) {
+  const isCorrect = idx === q.correct;
+  document.querySelectorAll('.qcm-option').forEach((b, i) => {
+    b.disabled = true; b.style.cursor = 'default';
+    if (i === q.correct) b.classList.add('correct');
+  });
+  if (!isCorrect) btn.classList.add('incorrect');
+  const fb = $('qcmFeedback');
+  const key = 'qcm_' + q.q;
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (isCorrect) {
+    if (fb) fb.className = 'qcm-feedback show correct';
+    let xpEarned = 10;
+    if (state.sessionStreak >= 5) xpEarned += 5;
+    if (fb) fb.innerHTML = `<strong>✅ Bravo ${state.userName || state.user} ! +${xpEarned} XP</strong>${q.exp}`;
+    setItemScore(key, 20); addXp(xpEarned); state.sessionRight++; bumpRun();
+  } else {
+    if (fb) fb.className = 'qcm-feedback show incorrect';
+    if (fb) fb.innerHTML = '<strong>❌ Pas tout à fait</strong>' + q.exp;
+    setItemScore(key, -15); breakRun();
+    state.qcmSessionMistakes++;
+  }
+  updateSessionBars('qS');
+  setTimeout(() => { state.qcmIdx++; renderQCM(); }, 2400);
+}
+
+// ============================================================
+// DEFINITIONS MODE
+// ============================================================
+function renderDefs() {
+  if (state.defsIdx >= state.defsCards.length) { finishMode('defs'); return; }
+  const c = state.defsCards[state.defsIdx];
+  if (!c) { finishMode('defs'); return; }
+  const card = $('defsCard'); if (card) card.classList.remove('flipped');
+  setText('defsFront', c.front);
+  setText('defsBack', c.back);
+  setText('defsCounter', (state.defsIdx + 1) + '/' + state.defsCards.length);
+  setStyle('defsProgress', 'width', (state.defsIdx / state.defsCards.length * 100) + '%');
+  updateSessionBars('dfS');
+}
+function rateDefs(level) {
+  const c = state.defsCards[state.defsIdx];
+  if (!c) return;
+  const key = 'defs_' + c.front;
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (level === 0) { setItemScore(key, -15); breakRun(); refreshTopBar(); }
+  else if (level === 1) { setItemScore(key, 5); addXp(2); state.sessionRight++; }
+  else { setItemScore(key, 20); addXp(5); state.sessionRight++; bumpRun(); }
+  state.defsIdx++;
+  setTimeout(renderDefs, 200);
+}
+
+// ============================================================
+// TIMELINE MODE
+// ============================================================
+function renderTimeline() {
+  if (state.tlIdx >= state.tlChallenges.length) { finishMode('timeline'); return; }
+  const ch = state.tlChallenges[state.tlIdx];
+  if (!ch) { finishMode('timeline'); return; }
+  state.tlOrder = shuffle(ch.events);
+  state.tlPlaced = [];
+  setText('tlTitle', ch.title);
+  setText('tlCounter', (state.tlIdx + 1) + '/' + state.tlChallenges.length);
+  setStyle('tlProgress', 'width', (state.tlIdx / state.tlChallenges.length * 100) + '%');
+  renderTimelineLists();
+  const fb = $('tlFeedback');
+  if (fb) { fb.className = 'qcm-feedback'; fb.innerHTML = ''; }
+}
+function renderTimelineLists() {
+  const shuffledEl = $('tlShuffled');
+  const targetEl = $('tlTarget');
+  if (!shuffledEl || !targetEl) return;
+  shuffledEl.innerHTML = '<div class="label">À placer (clique pour ajouter)</div>';
+  targetEl.innerHTML = '<div class="label">Ta réponse — du plus ancien au plus récent (clique pour retirer)</div>';
+  state.tlOrder.forEach((e, i) => {
+    const div = document.createElement('div');
+    div.className = 'timeline-item';
+    div.innerHTML = '<span>' + e.text + '</span><span class="arrow">+</span>';
+    div.onclick = () => placeTimelineItem(i);
+    shuffledEl.appendChild(div);
+  });
+  state.tlPlaced.forEach((e, i) => {
+    const div = document.createElement('div');
+    div.className = 'timeline-item placed';
+    div.innerHTML = '<span>' + (i + 1) + '. ' + e.text + '</span><span class="arrow">×</span>';
+    div.onclick = () => unplaceTimelineItem(i);
+    targetEl.appendChild(div);
+  });
+}
+function placeTimelineItem(idx) { state.tlPlaced.push(state.tlOrder.splice(idx, 1)[0]); renderTimelineLists(); }
+function unplaceTimelineItem(idx) { state.tlOrder.push(state.tlPlaced.splice(idx, 1)[0]); renderTimelineLists(); }
+function resetTimeline() {
+  const ch = state.tlChallenges[state.tlIdx];
+  if (!ch) return;
+  state.tlOrder = shuffle(ch.events);
+  state.tlPlaced = [];
+  renderTimelineLists();
+  const fb = $('tlFeedback');
+  if (fb) { fb.className = 'qcm-feedback'; fb.innerHTML = ''; }
+}
+function checkTimeline() {
+  const ch = state.tlChallenges[state.tlIdx];
+  if (!ch) return;
+  if (state.tlPlaced.length < ch.events.length) {
+    const fb = $('tlFeedback');
+    if (fb) {
+      fb.className = 'qcm-feedback show incorrect';
+      fb.innerHTML = '<strong>⚠️ Pas si vite !</strong>Il reste des événements à placer.';
+    }
+    return;
+  }
+  const correct = ch.events;
+  let rightCount = 0;
+  state.tlPlaced.forEach((p, i) => { if (p.text === correct[i].text) rightCount++; });
+  const fb = $('tlFeedback');
+  state.data.totalAnswers++;
+  state.sessionTotal++;
+  if (rightCount === correct.length) {
+    if (fb) {
+      fb.className = 'qcm-feedback show correct';
+      let listHtml = `<strong>🏆 Parfait ${state.userName || state.user} ! +25 XP</strong><div style="margin-top:8px">Voici les dates exactes :</div><div style="margin-top:8px">`;
+      correct.forEach((e, i) => { listHtml += (i+1) + '. <strong>' + e.date + '</strong> · ' + e.text + '<br>'; });
+      listHtml += '</div>';
+      fb.innerHTML = listHtml;
+    }
+    addXp(25); state.sessionRight++; bumpRun();
+    state.data.perfectTimeline = true;
+    fireConfetti();
+  } else {
+    if (fb) {
+      fb.className = 'qcm-feedback show incorrect';
+      let listHtml = '<strong>📅 La bonne chronologie :</strong><div style="margin-top:8px">';
+      correct.forEach((e, i) => { listHtml += (i+1) + '. <strong>' + e.date + '</strong> · ' + e.text + '<br>'; });
+      listHtml += `</div><div style="margin-top:8px; opacity:0.85">Tu as eu ${rightCount}/${correct.length} dans le bon ordre. +${rightCount * 3} XP de consolation.</div>`;
+      fb.innerHTML = listHtml;
+    }
+    addXp(rightCount * 3); breakRun();
+  }
+  setTimeout(() => { state.tlIdx++; renderTimeline(); }, 6500);
+}
+
+// ============================================================
+// COMPLETION
+// ============================================================
+const COMPLETION_MSG = {
+  perfect: [
+    name => `🏆 Incroyable ${name}, c'est presque du sans-faute !`,
+    name => `🔥 ${name}, t'es une machine !`,
+    name => `⭐ Parfait ${name}, t'es prêt(e) pour le contrôle.`
+  ],
+  good: [
+    name => `💪 Bien joué ${name}, t'es sur la bonne voie !`,
+    name => `🎯 Solide ${name}, refais une session pour consolider.`,
+    name => `📈 Bon résultat ${name}, tu peux faire encore mieux.`
+  ],
+  meh: [
+    name => `🎯 Allez ${name}, on remet ça !`,
+    name => `📚 ${name}, l'app te re-proposera ce que tu as raté.`,
+    name => `💡 ${name}, ne te décourage pas. Encore une session !`
+  ]
+};
+
+function finishMode(mode) {
+  saveUserData();
+  renderBadges();
+  const newBadges = state.data.badges.filter(b => !state.sessionStartBadges.includes(b));
+
+  const acc = state.sessionTotal > 0 ? Math.round(state.sessionRight / state.sessionTotal * 100) : 100;
+  let emoji, title, bucket;
+  if (acc >= 85) { emoji = '🏆'; title = 'Excellent !'; bucket = 'perfect'; }
+  else if (acc >= 55) { emoji = '💪'; title = 'Bien joué !'; bucket = 'good'; }
+  else { emoji = '🎯'; title = 'On continue !'; bucket = 'meh'; }
+
+  setText('compEmoji', emoji);
+  setText('compTitle', title);
+  setHTML('compMessage', pickRandom(COMPLETION_MSG[bucket], state.userName || state.user));
+  setText('compXpGained', '+' + state.sessionXp);
+  setText('compMaxStreak', state.sessionMaxStreak);
+  setText('compAcc', acc + '%');
+
+  const nbBox = $('newBadgesBox');
+  if (newBadges.length > 0 && nbBox) {
+    nbBox.style.display = '';
+    const html = newBadges.map(id => {
+      const b = BADGES.find(x => x.id === id);
+      return b ? `<div class="nb-item"><span>${b.emoji}</span><span>${b.name}</span></div>` : '';
+    }).join('');
+    setHTML('newBadgesList', html);
+    fireConfetti();
+  } else if (nbBox) {
+    nbBox.style.display = 'none';
+  }
+
+  showView('completion-view');
+}
+
+// ============================================================
+// LEADERBOARD — local fallback
+// ============================================================
+function getLocalLeaderboard() {
+  const all = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('antigone_v1_user_')) {
+      try {
+        const d = JSON.parse(localStorage.getItem(k));
+        all.push({ name: k.slice('antigone_v1_user_'.length), totalXp: d.totalXp || 0, bestStreak: d.bestStreak || 0, badges: d.badges?.length || 0 });
+      } catch (e) {}
+    }
+  }
+  return all.sort((a, b) => b.totalXp - a.totalXp);
+}
+function updateLeaderboardLocal() {
+  // Pas de Firebase config → afficher message propre, pas de bouton intrusif
+  const status = document.getElementById('lbStatus');
+  status.classList.add('offline');
+  document.getElementById('lbStatusText').innerHTML = '⏳ Le podium classe sera disponible très bientôt';
+  const content = document.getElementById('lbContent');
+  content.innerHTML = `<div class="empty-state">
+    <span class="emoji">🏆</span>
+    <div style="font-weight:600; color:var(--ink); margin-bottom:6px">Podium de la classe</div>
+    <div>Continue à accumuler des XP, le classement avec tes camarades sera affiché ici dès qu'il sera prêt !</div>
+  </div>`;
+}
+function updateRankLocal() {
+  document.getElementById('rankDetail').textContent = 'Classement bientôt disponible';
+}
+
+function renderLeaderboard(lb) {
+  const content = $('lbContent');
+  if (!content) return;
+  if (!lb || lb.length === 0) {
+    content.innerHTML = '<div class="empty-state"><span class="emoji">🏆</span>Pas encore de joueurs. Sois le premier !</div>';
+    return;
+  }
+  // Normalize : ensure each entry has a `key` for matching
+  lb = lb.map(p => ({
+    key: p.key || p.name || '',
+    name: p.name || (p.key || '').split('__')[0],
+    userClass: p.userClass || ((p.key || '').split('__')[1] || ''),
+    totalXp: p.totalXp || 0,
+    streakValue: p.streakValue || 0,
+    bestStreakDays: p.bestStreakDays || 0
+  }));
+  let html = '';
+  // Podium top 3
+  if (lb.length >= 3) {
+    html += '<div class="podium">';
+    const order = [lb[1], lb[0], lb[2]];
+    const ranks = [2, 1, 3];
+    const crowns = ['🥈', '👑', '🥉'];
+    order.forEach((p, i) => {
+      const r = ranks[i];
+      const isMe = p.key === state.user;
+      html += `<div class="podium-spot rank-${r}">`;
+      if (r === 1) html += `<span class="crown">👑</span>`;
+      html += `<div class="rank-num">${crowns[i]} ${ordinal(r)}</div>`;
+      html += `<div class="rank-name">${escapeHtml(p.name)}${isMe ? ' (toi)' : ''}</div>`;
+      if (p.userClass) html += `<div class="rank-class">${escapeHtml(p.userClass)}</div>`;
+      html += `<div class="rank-xp">⚡ ${p.totalXp} XP</div>`;
+      html += `</div>`;
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="margin-bottom: 14px">';
+    lb.slice(0, 3).forEach((p, i) => {
+      html += renderLbRow(p, i + 1);
+    });
+    html += '</div>';
+  }
+  if (lb.length > 3) {
+    html += '<div class="leaderboard-list">';
+    lb.slice(3, 10).forEach((p, i) => {
+      html += renderLbRow(p, i + 4);
+    });
+    html += '</div>';
+  }
+  if (state.user) {
+    const myIdx = lb.findIndex(x => x.key === state.user);
+    if (myIdx >= 10) {
+      html += '<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--divider)">';
+      html += renderLbRow(lb[myIdx], myIdx + 1);
+      html += '</div>';
+    }
+  }
+  content.innerHTML = html;
+}
+function renderLbRow(p, rank) {
+  const isMe = p.key === state.user;
+  const klass = p.userClass ? ` <span class="lb-class">${escapeHtml(p.userClass)}</span>` : '';
+  return `<div class="lb-row${isMe ? ' you' : ''}">
+    <div class="rank">${rank}</div>
+    <div class="name">${escapeHtml(p.name)}${klass}${isMe ? ' (toi)' : ''}</div>
+    <div class="streak-cell">🔥 ${p.streakValue || 0}</div>
+    <div class="xp-cell">⚡ ${p.totalXp}</div>
+  </div>`;
+}
+function ordinal(n) { return n === 1 ? '1er' : n + 'ème'; }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// ============================================================
+// LEADERBOARD — Firebase (real-time, cross-class)
+// ============================================================
+let fbApp = null;
+let fbDb = null;
+let fbUsersRef = null;
+let fbInited = false;
+
+function initFirebase() {
+  // Lazy load Firebase from CDN
+  const script1 = document.createElement('script');
+  script1.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+  script1.onload = () => {
+    const script2 = document.createElement('script');
+    script2.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js';
+    script2.onload = onFirebaseLoaded;
+    script2.onerror = onFirebaseError;
+    document.head.appendChild(script2);
+  };
+  script1.onerror = onFirebaseError;
+  document.head.appendChild(script1);
+}
+function onFirebaseError() {
+  setHTML('lbStatusText', '⏳ Le podium classe sera disponible très bientôt');
+  const status = $('lbStatus'); if (status) status.classList.add('offline');
+  updateLeaderboardLocal();
+}
+function onFirebaseLoaded() {
+  try {
+    fbApp = firebase.initializeApp(FIREBASE_CONFIG);
+    fbDb = firebase.database();
+    fbUsersRef = fbDb.ref('users');
+    fbInited = true;
+    setText('lbStatusText', 'Podium classe · Temps réel');
+    fbUsersRef.on('value', snap => {
+      const all = [];
+      snap.forEach(child => {
+        const v = child.val();
+        all.push({
+          key: child.key,
+          name: v.name || child.key.split('__')[0],
+          userClass: v.userClass || child.key.split('__')[1] || '',
+          totalXp: v.totalXp || 0,
+          streakValue: v.streakValue || 0,
+          bestStreakDays: v.bestStreakDays || 0,
+          badges: (v.badges || []).length
+        });
+      });
+      all.sort((a, b) => b.totalXp - a.totalXp);
+      renderLeaderboard(all);
+      const myIdx = all.findIndex(x => x.key === state.user);
+      if (myIdx === -1) {
+        setText('rankDetail', 'Pas encore classé');
+      } else {
+        const rank = myIdx + 1;
+        setText('rankDetail', `Tu es ${rank === 1 ? '1er' : rank + 'ème'} sur ${all.length}`);
+        if (rank === 1 && state.user) checkFirstPlaceBonus();
+      }
+    });
+    pushToFirebase();
+  } catch (e) {
+    onFirebaseError();
+  }
+}
+
+function checkFirstPlaceBonus() {
+  const today = new Date().toISOString().slice(0, 10);
+  if (state.data.lastFirstPlaceBonus !== today) {
+    state.data.lastFirstPlaceBonus = today;
+    addXp(10);
+    showToast(`👑 +10 XP : Tu es leader du podium aujourd'hui !`);
+    fireConfetti();
+    saveUserData();
+    refreshAllStats();
+  }
+}
+function pushToFirebase() {
+  if (!FIREBASE_ENABLED || !fbInited || !state.user) return;
+  try {
+    fbUsersRef.child(state.user).set({
+      name: state.userName || state.user,
+      userClass: state.userClass || '',
+      totalXp: state.data.totalXp,
+      streakDays: state.data.streakDays || 0,
+      streakValue: state.data.streakValue || 0,
+      bestStreakDays: state.data.bestStreakDays || 0,
+      badges: state.data.badges,
+      lastSeen: Date.now()
+    });
+  } catch (e) {}
+}
+function updateRankFromFirebase() {} // Already handled in the listener
+
+// ============================================================
+// RESET FUNCTIONS
+// ============================================================
+function resetUser() {
+  if (confirm('Changer de prénom ? Ta progression actuelle reste sauvegardée pour ' + state.user + '.')) {
+    state.user = null;
+    state.data = defaultUserData();
+    hide('home-view');
+    document.querySelectorAll('.study-view').forEach(v => v.classList.remove('active'));
+    const ob = $('onboarding-view'); if (ob) ob.style.display = 'flex';
+    hide('userBadge');
+    hide('streakMini');
+    hide('xpMini');
+    const inp = $('nameInput');
+    if (inp) {
+      inp.value = '';
+      inp.placeholder = "Comment t'appelles-tu ?";
+    }
+    const btn = $('startBtn'); if (btn) btn.disabled = true;
+    renderPreviousUsers();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+function resetAll() {
+  if (confirm('Réinitialiser TOUTE ta progression personnelle (' + state.user + ') ? Cette action est irréversible.')) {
+    localStorage.removeItem(userKey());
+    state.data = defaultUserData();
+    saveUserData();
+    refreshAllStats();
+  }
+}
+</script>
+
+</body>
+</html>
