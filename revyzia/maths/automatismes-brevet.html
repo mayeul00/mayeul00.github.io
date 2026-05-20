@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Automatismes Brevet 2026 · Maths</title>
+<script>
+window.REVYZIA_CHAPTER = {
+  id: "maths_automatismes_brevet",
+  subject: "maths",
+  title: "Automatismes Brevet 2026",
+  depth: 1
+};
+</script>
+<style>
+:root {
+  --bg-base: #f5f5f7;
+  --bg-gradient: linear-gradient(135deg, #e0e7ff 0%, #ffe0d6 50%, #d4ffe9 100%);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+  --glass-shadow-lg: 0 20px 60px rgba(31, 38, 135, 0.15);
+  --ink: #1d1d1f;
+  --ink-soft: #6e6e73;
+  --ink-faint: #aeaeb2;
+  --accent: #ff6b35;
+  --accent-soft: rgba(255, 107, 53, 0.12);
+  --accent-2: #5e5cff;
+  --accent-3: #00c2ff;
+  --green: #34c759;
+  --gold: #ff9f0a;
+  --red: #ff453a;
+  --flame: #ff6b35;
+  --divider: rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] {
+  --bg-base: #000;
+  --bg-gradient: radial-gradient(ellipse at top, #1a0f1a 0%, #060a18 40%, #000 100%);
+  --glass-bg: rgba(28, 28, 30, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --ink: #f5f5f7;
+  --ink-soft: #98989d;
+  --ink-faint: #636366;
+  --accent: #ff8859;
+  --accent-soft: rgba(255, 136, 89, 0.18);
+  --accent-2: #7c7aff;
+  --accent-3: #5ad8ff;
+  --green: #30d158;
+  --gold: #ffb340;
+  --red: #ff6961;
+  --flame: #ff8859;
+  --divider: rgba(255, 255, 255, 0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-base); color: var(--ink); line-height: 1.5;
+  min-height: 100vh; position: relative;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.6s, color 0.3s;
+}
+body::before {
+  content: ''; position: fixed; inset: -50%;
+  background: var(--bg-gradient); z-index: -2;
+  animation: bgShift 25s ease-in-out infinite alternate; filter: blur(60px);
+}
+@keyframes bgShift { 0% { transform: translate(-5%,-5%) rotate(0deg); } 100% { transform: translate(5%,5%) rotate(8deg); } }
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; pointer-events: none; }
+.orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation: float1 18s ease-in-out infinite; }
+.orb-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; left: -80px; animation: float2 22s ease-in-out infinite; }
+@keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,80px) scale(1.1); } }
+@keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(80px,-50px) scale(1.15); } }
+
+.glass { background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); }
+
+.top-bar { position: sticky; top: 12px; z-index: 100; margin: 12px; padding: 12px 22px; display: flex; justify-content: space-between; align-items: center; border-radius: 100px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.5px; font-size: 17px; user-select: none; }
+.back-hub-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; color: var(--ink); font-family: inherit; font-weight: 700; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.back-hub-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.brand-icon { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 14px; box-shadow: 0 4px 12px rgba(255,107,53,0.4); }
+.brand-name { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.top-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.streak-mini, .xp-mini { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 100px; background: var(--accent-soft); font-weight: 700; font-size: 13px; }
+.streak-mini { color: var(--flame); }
+.streak-mini.zero { color: var(--ink-faint); }
+.xp-mini { color: var(--accent); }
+.logout-btn { padding: 6px 14px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink-soft); font-family: inherit; font-weight: 500; transition: all 0.2s; }
+.logout-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.theme-toggle { width: 36px; height: 36px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform 0.3s; }
+.theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+@keyframes flicker { 0%,100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.08) rotate(2deg); } }
+.flame-anim { display: inline-block; animation: flicker 1.5s ease-in-out infinite; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
+
+.hero { text-align: center; padding: 24px 16px 8px; }
+.hero .badge { display: inline-block; padding: 5px 14px; background: var(--accent-soft); color: var(--accent); border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.hero h1 { font-size: clamp(30px, 5vw, 44px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .subtitle { color: var(--ink-soft); font-size: 15px; max-width: 600px; margin: 0 auto 16px; }
+
+.info-card { padding: 18px 22px; border-radius: 18px; margin: 16px 0; background: var(--accent-soft); border-left: 4px solid var(--accent); }
+.info-card strong { color: var(--accent); display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.info-card p { font-size: 14px; line-height: 1.6; color: var(--ink); }
+
+/* MODE CARDS */
+.modes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 20px 0; }
+.mode-card { padding: 24px 18px; border-radius: 22px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; text-align: center; }
+.mode-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--mc, var(--accent)) 0%, transparent 60%); opacity: 0.1; transition: opacity 0.3s; }
+.mode-card:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow-lg); }
+.mode-card:hover::before { opacity: 0.2; }
+.mode-card .icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.mode-card h3 { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 6px; }
+.mode-card p { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+.mode-card .meta { font-size: 11px; color: var(--mc, var(--accent)); font-weight: 600; }
+.mode-card.featured { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; }
+.mode-card.featured h3, .mode-card.featured p { color: white; }
+.mode-card.featured .meta { color: rgba(255,255,255,0.85); }
+.mode-card.featured::before { display: none; }
+
+/* STUDY VIEW */
+.study-view { display: none; }
+.study-view.active { display: block; }
+.study-back { display: inline-block; padding: 8px 16px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink); font-family: inherit; font-weight: 500; text-decoration: none; transition: all 0.2s; margin-bottom: 16px; }
+.study-back:hover { background: var(--accent-soft); color: var(--accent); }
+
+.study-header { text-align: center; margin: 16px 0 24px; }
+.study-header h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+.study-header .topic { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; }
+
+/* TIMER */
+.timer-bar { padding: 12px 20px; border-radius: 16px; margin: 0 auto 20px; max-width: 700px; display: flex; justify-content: space-between; align-items: center; }
+.timer-time { font-size: 24px; font-weight: 800; font-family: 'SF Mono', monospace; color: var(--accent); }
+.timer-time.warning { color: var(--gold); }
+.timer-time.danger { color: var(--red); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.timer-label { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; }
+
+.progress-bar { height: 8px; background: var(--accent-soft); border-radius: 100px; overflow: hidden; margin: 12px 0 24px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 100px; transition: width 0.5s; }
+
+.stats-row { display: flex; justify-content: center; gap: 16px; margin: 16px 0; flex-wrap: wrap; }
+.stats-pill { padding: 8px 18px; border-radius: 100px; background: var(--accent-soft); font-size: 13px; font-weight: 600; color: var(--accent); }
+
+/* QUESTION CARD */
+.q-card { padding: 28px 28px; border-radius: 22px; max-width: 720px; margin: 0 auto; }
+.q-num { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.q-text { font-size: 18px; font-weight: 600; line-height: 1.5; margin-bottom: 18px; }
+.q-text strong { color: var(--accent); }
+.q-text .math { font-family: 'Cambria Math', 'Times New Roman', serif; font-style: italic; }
+.q-visual { background: var(--glass-bg); border-radius: 14px; padding: 16px; margin: 12px 0; font-family: 'Cambria Math', serif; font-size: 15px; line-height: 1.8; text-align: center; border: 1px solid var(--glass-border); }
+.q-visual svg { max-width: 100%; height: auto; }
+
+.qcm-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.qcm-option { padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); cursor: pointer; transition: all 0.2s; font-family: inherit; font-size: 15px; text-align: left; font-weight: 500; }
+.qcm-option:hover:not(:disabled) { border-color: var(--accent); transform: translateX(4px); }
+.qcm-option.correct { background: linear-gradient(135deg, var(--green), #2eb050); color: white; border-color: transparent; }
+.qcm-option.wrong { background: linear-gradient(135deg, var(--red), #d63a30); color: white; border-color: transparent; }
+.qcm-option:disabled { cursor: not-allowed; }
+
+.text-input-wrap { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: stretch; }
+.text-input { flex: 1; min-width: 180px; padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); font-size: 16px; font-family: inherit; outline: none; transition: all 0.2s; text-align: center; }
+.text-input:focus { border-color: var(--accent); }
+.text-input:disabled { opacity: 0.6; }
+
+.feedback { padding: 14px 16px; border-radius: 12px; margin-top: 14px; font-size: 14px; line-height: 1.5; display: none; }
+.feedback.show { display: block; }
+.feedback.correct { background: rgba(52, 199, 89, 0.15); color: var(--green); border-left: 3px solid var(--green); }
+.feedback.wrong { background: rgba(255, 69, 58, 0.12); color: var(--red); border-left: 3px solid var(--red); }
+.feedback.exam-correct { background: rgba(52, 199, 89, 0.12); color: var(--ink); border-left: 3px solid var(--green); }
+.feedback.exam-correct strong { color: var(--green); }
+.feedback.exam-wrong { background: rgba(255, 69, 58, 0.1); color: var(--ink); border-left: 3px solid var(--red); }
+.feedback.exam-wrong strong { color: var(--red); }
+
+.controls { display: flex; gap: 10px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }
+.btn { padding: 12px 22px; border: none; border-radius: 14px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; transition: all 0.25s; }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; box-shadow: 0 6px 16px rgba(255,107,53,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255,107,53,0.4); }
+.btn-ghost { background: var(--glass-bg); border: 1px solid var(--glass-border) !important; color: var(--ink); }
+.btn-ghost:hover { background: var(--accent-soft); color: var(--accent); }
+.btn-danger { background: var(--red); color: white; }
+
+/* COMPLETION */
+.completion-screen { text-align: center; padding: 30px 20px; max-width: 600px; margin: 0 auto; }
+.completion-screen .icon { font-size: 64px; display: block; margin-bottom: 16px; }
+.completion-screen h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.completion-screen .score-big { font-size: 56px; font-weight: 800; color: var(--accent); margin: 10px 0; }
+.completion-screen .time-stat { font-size: 14px; color: var(--ink-soft); margin: 6px 0; }
+.completion-screen p { color: var(--ink-soft); font-size: 15px; margin-bottom: 18px; }
+
+/* WARNING modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.show { display: flex; }
+.modal { max-width: 460px; width: 100%; padding: 32px 28px; border-radius: 24px; text-align: center; }
+.modal h3 { font-size: 22px; margin-bottom: 8px; }
+.modal p { color: var(--ink-soft); font-size: 14px; margin-bottom: 18px; line-height: 1.5; }
+.modal .modal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* TOAST */
+.toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-200%); padding: 14px 26px; border-radius: 100px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; font-weight: 700; font-size: 14px; box-shadow: 0 12px 32px rgba(255,107,53,0.4); z-index: 10000; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s, visibility 0.3s; opacity: 0; visibility: hidden; pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+.toast.success { background: linear-gradient(135deg, var(--green), #2eb050); }
+.toast.error { background: linear-gradient(135deg, var(--red), #d63a30); }
+
+@media (max-width: 720px) {
+  .top-bar { padding: 10px 14px; flex-wrap: wrap; }
+  main { padding: 14px; }
+  .modes-grid { grid-template-columns: 1fr; }
+  .q-card { padding: 22px 18px; }
+  .q-text { font-size: 16px; }
+  .timer-time { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<header class="top-bar glass">
+  <div class="brand">
+    <a href="../index.html" class="back-hub-btn" title="Retour au hub">←</a>
+    <div class="brand-icon">⚡</div>
+    <span class="brand-name">Automatismes</span>
+  </div>
+  <div class="top-right">
+    <div class="streak-mini zero" id="streakMini"><span class="flame-anim">🔥</span> <span id="streakNum">0</span></div>
+    <div class="xp-mini">⚡ <span id="xpNum">0</span></div>
+    <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+  </div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<div id="home-view">
+  <div class="hero">
+    <span class="badge">🎓 Brevet 2026 · Partie 1</span>
+    <h1>Automatismes</h1>
+    <p class="subtitle">La nouvelle partie du brevet 2026 : 20 minutes, sans calculatrice, sans justification. 6 points faciles à gagner si tu connais tes réflexes !</p>
+  </div>
+
+  <div class="info-card glass">
+    <strong>📋 Format de l'épreuve</strong>
+    <p>• <strong>Partie 1 (Automatismes)</strong> : 20 minutes, sans calculatrice, sans justification → <strong>6 points</strong><br>
+    • <strong>Partie 2 (Raisonnement)</strong> : 1h40, avec calculatrice, avec justification → 14 points<br>
+    • Les questions sont des QCM ou des réponses directes. <strong>Pas le droit de revenir</strong> dessus après les 20 min !</p>
+  </div>
+
+  <h2 style="text-align:center; margin: 24px 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.6px;">🎯 Choisis ton mode</h2>
+
+  <div class="modes-grid">
+    <div class="mode-card featured glass" onclick="startExam('A')">
+      <span class="icon">📝</span>
+      <h3>Sujet 0 - A</h3>
+      <p>Examen blanc officiel<br>(Eduscol)</p>
+      <div class="meta">9 questions · 20 min · 6 pts</div>
+    </div>
+    <div class="mode-card featured glass" onclick="startExam('B')" style="background: linear-gradient(135deg, var(--accent-2), var(--accent-3));">
+      <span class="icon">📝</span>
+      <h3>Sujet 0 - B</h3>
+      <p>Examen blanc officiel<br>(Eduscol)</p>
+      <div class="meta">9 questions · 20 min · 6 pts</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#5e5cff" onclick="startTraining('nombres')">
+      <span class="icon">🔢</span>
+      <h3>Nombres & Calculs</h3>
+      <p>Fractions, %, calcul mental</p>
+      <div class="meta">15 questions</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#ff3b80" onclick="startTraining('geometrie')">
+      <span class="icon">📐</span>
+      <h3>Géométrie</h3>
+      <p>Thalès, angles, Pythagore</p>
+      <div class="meta">12 questions</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#34c759" onclick="startTraining('grandeurs')">
+      <span class="icon">⏱️</span>
+      <h3>Grandeurs & Mesures</h3>
+      <p>Durées, vitesses, conversions</p>
+      <div class="meta">10 questions</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#ff9f0a" onclick="startTraining('stats')">
+      <span class="icon">📊</span>
+      <h3>Stats & Probas</h3>
+      <p>Moyenne, médiane, probas</p>
+      <div class="meta">10 questions</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#00c2ff" onclick="startTraining('litteral')">
+      <span class="icon">✏️</span>
+      <h3>Calcul littéral</h3>
+      <p>Équations, expressions</p>
+      <div class="meta">8 questions</div>
+    </div>
+    <div class="mode-card glass" style="--mc:#7c7aff" onclick="startTraining('scratch')">
+      <span class="icon">💻</span>
+      <h3>Algorithmes (Scratch)</h3>
+      <p>Lecture de programmes</p>
+      <div class="meta">6 questions</div>
+    </div>
+  </div>
+
+  <div class="info-card glass" style="background: rgba(52,199,89,0.1); border-left-color: var(--green); margin-top: 24px;">
+    <strong style="color: var(--green);">💡 Conseil stratégie</strong>
+    <p>Pour le brevet, vise <strong>6/6 sur les automatismes</strong> ! C'est 30% de la note totale. Entraîne-toi sur les <strong>sujets 0 d'abord en conditions réelles</strong> (avec chrono), puis travaille tes points faibles par thème.</p>
+  </div>
+</div>
+
+<!-- STUDY VIEW -->
+<div id="study-view" class="study-view">
+  <button class="study-back" onclick="confirmBack()">← Retour aux modes</button>
+
+  <div class="study-header">
+    <h2 id="study-title">Mode</h2>
+    <div class="topic" id="study-topic">Topic</div>
+  </div>
+
+  <div id="timer-container" style="display:none">
+    <div class="timer-bar glass">
+      <div>
+        <div class="timer-label">Temps restant</div>
+        <div class="timer-time" id="timerTime">20:00</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="timer-label">Question</div>
+        <div style="font-size: 18px; font-weight: 700;"><span id="qCount">1</span>/9</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+  <div class="stats-row" id="statsRow">
+    <div class="stats-pill" id="statsCount">1/1</div>
+    <div class="stats-pill" id="statsScore">✅ 0</div>
+  </div>
+
+  <div id="study-content"></div>
+</div>
+
+</main>
+
+<!-- Confirm exit modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal glass">
+    <h3>Quitter l'examen ?</h3>
+    <p>Tu vas perdre ta progression de cet examen blanc. Tu es sûr ?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Continuer</button>
+      <button class="btn btn-danger" onclick="forceBack()">Oui, quitter</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG & STATE
+// ============================================================
+const STORAGE_KEY = 'maths_automatismes_v1_user_';
+const CHAPTER_ID = 'maths_automatismes_brevet';
+const XP_BY_MODE = { exam: 50, training: 8 };
+const EXAM_DURATION_S = 20 * 60; // 20 min en secondes
+
+let currentUser = null;
+let userData = null;
+let state = {
+  mode: null,     // 'exam' or 'training'
+  examSet: null,  // 'A' ou 'B'
+  topic: null,
+  idx: 0,
+  items: [],
+  score: 0,
+  answered: false,
+  answers: [],    // pour examens : on stocke toutes les réponses
+  timerId: null,
+  timeLeft: 0
+};
+
+function $(id) { return document.getElementById(id); }
+function setText(id, txt) { const el = $(id); if (el) el.textContent = txt; }
+function setHTML(id, html) { const el = $(id); if (el) el.innerHTML = html; }
+function show(id) { const el = $(id); if (el) el.style.display = ''; }
+function hide(id) { const el = $(id); if (el) el.style.display = 'none'; }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function getCurrentUser() {
+  try { const raw = localStorage.getItem('revyzia_current_user'); return raw ? JSON.parse(raw) : null; }
+  catch (e) { return null; }
+}
+function logout() {
+  if (!confirm('Tu veux te déconnecter ?')) return;
+  try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
+  window.location.href = '../index.html';
+}
+function userKey() { return STORAGE_KEY + (currentUser.key || currentUser.name + '__' + currentUser.klass); }
+function loadUserData() {
+  try { const raw = localStorage.getItem(userKey()); if (raw) return JSON.parse(raw); }
+  catch (e) {}
+  return { totalXp: 0, examsCompleted: [] };
+}
+function saveUserData() {
+  try { localStorage.setItem(userKey(), JSON.stringify(userData)); } catch (e) {}
+  syncWithHub();
+}
+function syncWithHub() {
+  if (!currentUser) return;
+  try {
+    const hubKey = 'revyzia_user_' + (currentUser.key || currentUser.name + '__' + currentUser.klass);
+    let hubData = {};
+    try { const raw = localStorage.getItem(hubKey); if (raw) hubData = JSON.parse(raw); } catch(e) {}
+    if (!hubData.chapters) hubData.chapters = {};
+    // 🔒 ANTI-ÉCRASEMENT : on prend le MAX
+    const prev = hubData.chapters[CHAPTER_ID] || { xp: 0 };
+    const newChapterXp = Math.max(prev.xp || 0, userData.totalXp || 0);
+    hubData.chapters[CHAPTER_ID] = { xp: newChapterXp, subject: 'maths', title: 'Automatismes Brevet 2026', lastSeen: Date.now() };
+    let total = 0;
+    for (const k in hubData.chapters) total += (hubData.chapters[k].xp || 0);
+    hubData.totalXp = Math.max(hubData.totalXp || 0, total);
+    hubData.name = currentUser.name;
+    hubData.userClass = currentUser.klass;
+    const today = new Date().toISOString().slice(0, 10);
+    if (!hubData.lastReviewDate) hubData.streakDays = 1;
+    else if (hubData.lastReviewDate !== today) {
+      const diff = Math.round((new Date(today) - new Date(hubData.lastReviewDate)) / 86400000);
+      if (diff === 1) hubData.streakDays = (hubData.streakDays || 0) + 1;
+      else if (diff === 2) hubData.streakDays = Math.max(1, Math.floor((hubData.streakDays || 0) / 2) + 1);
+      else hubData.streakDays = 1;
+    }
+    hubData.streakValue = hubData.streakDays;
+    hubData.lastReviewDate = today;
+    if (hubData.streakDays > (hubData.bestStreakDays || 0)) hubData.bestStreakDays = hubData.streakDays;
+    localStorage.setItem(hubKey, JSON.stringify(hubData));
+    setText('xpNum', hubData.totalXp);
+    setText('streakNum', hubData.streakValue || 0);
+    const sm = $('streakMini');
+    if (sm) sm.classList.toggle('zero', (hubData.streakValue || 0) === 0);
+    // 🔥 Push Firebase avec fusion
+    pushToFirebaseFromChapter(hubData);
+  } catch(e) { console.error(e); }
+}
+
+function pushToFirebaseFromChapter(localData) {
+  if (typeof firebase === 'undefined' || !currentUser) return;
+  try {
+    const db = firebase.database();
+    const key = (currentUser.key || currentUser.name + '__' + currentUser.klass).replace(/[.#$\[\]\/]/g, '_');
+    const ref = db.ref('users/' + key);
+    ref.once('value').then(function(snap) {
+      const remote = snap.val();
+      const merged = mergeUserDataChapter(localData, remote);
+      try { localStorage.setItem('revyzia_user_' + currentUser.key, JSON.stringify(merged)); } catch(e) {}
+      ref.set({
+        name: merged.name || currentUser.name,
+        userClass: merged.userClass || currentUser.klass,
+        totalXp: merged.totalXp || 0,
+        streakDays: merged.streakDays || 0,
+        streakValue: merged.streakValue || 0,
+        bestStreakDays: merged.bestStreakDays || 0,
+        badges: merged.badges || [],
+        chapters: merged.chapters || {},
+        lastSeen: Date.now()
+      }).catch(function(err) { console.warn('[Chapter] push fail:', err); });
+    }).catch(function(err) { console.warn('[Chapter] read fail:', err); });
+  } catch(e) { console.warn('[Chapter] fb err:', e); }
+}
+
+function mergeUserDataChapter(local, remote) {
+  if (!remote) return local;
+  if (!local) return remote;
+  const merged = {
+    name: local.name || remote.name,
+    userClass: local.userClass || remote.userClass,
+    totalXp: Math.max(local.totalXp || 0, remote.totalXp || 0),
+    streakDays: Math.max(local.streakDays || 0, remote.streakDays || 0),
+    streakValue: Math.max(local.streakValue || 0, remote.streakValue || 0),
+    bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0),
+    badges: (local.badges && local.badges.length >= (remote.badges || []).length) ? local.badges : (remote.badges || []),
+    chapters: {},
+    lastReviewDate: local.lastReviewDate || remote.lastReviewDate
+  };
+  const allKeys = new Set([...Object.keys(local.chapters || {}), ...Object.keys(remote.chapters || {})]);
+  allKeys.forEach(function(k) {
+    const l = (local.chapters || {})[k] || {};
+    const r = (remote.chapters || {})[k] || {};
+    merged.chapters[k] = {
+      xp: Math.max(l.xp || 0, r.xp || 0),
+      subject: l.subject || r.subject,
+      title: l.title || r.title,
+      lastSeen: Math.max(l.lastSeen || 0, r.lastSeen || 0)
+    };
+  });
+  let chaptersSum = 0;
+  for (const k in merged.chapters) chaptersSum += (merged.chapters[k].xp || 0);
+  if (chaptersSum > merged.totalXp) merged.totalXp = chaptersSum;
+  return merged;
+}
+function addXp(amount) {
+  userData.totalXp = (userData.totalXp || 0) + amount;
+  saveUserData();
+}
+
+// 🛡️ Anti-farm
+function addXpForItem(itemKey, amount) {
+  if (!userData.completedItems) userData.completedItems = {};
+  if (userData.completedItems[itemKey]) return false;
+  userData.completedItems[itemKey] = { xp: amount, when: Date.now() };
+  userData.totalXp = (userData.totalXp || 0) + amount;
+  saveUserData();
+  return true;
+}
+function itemKey(mode, idx, extra) {
+  return mode + '__' + (extra || '') + '__' + idx;
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', cur);
+  setText('themeToggle', cur === 'light' ? '🌙' : '☀️');
+  try { localStorage.setItem('revyzia_theme', cur); } catch(e) {}
+}
+function loadTheme() {
+  try {
+    const saved = localStorage.getItem('revyzia_theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      setText('themeToggle', saved === 'light' ? '🌙' : '☀️');
+    }
+  } catch(e) {}
+}
+
+// ============================================================
+// DONNÉES — Sujets 0 officiels Eduscol
+// ============================================================
+
+// Sujet 0 - A (Eduscol officiel)
+const EXAM_A = [
+  { type: 'text', q: 'Quel est le tiers de 18 ?', ans: '6', tol: 0, exp: 'Le tiers de 18 = 18 ÷ 3 = 6.' },
+  { type: 'text', q: 'Un film dure 240 min. Quelle est sa durée en heures ?', ans: '4', tol: 0, exp: '240 min ÷ 60 = 4 heures. (1 heure = 60 min)' },
+  { type: 'text', q: 'Les notes obtenues par un élève sont : 8 ; 12 ; 6 ; 19 ; 15. Que vaut la médiane de cette série ?', ans: '12', tol: 0, exp: 'On ordonne : 6, 8, 12, 15, 19. Il y a 5 valeurs, la médiane est la 3e : 12.' },
+  { type: 'qcm', q: 'Sur cette droite graduée (E entre 1 et 2, légèrement avant 1,5), l\'abscisse du point E est :', visual: '<svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="30" x2="380" y2="30" stroke="currentColor" stroke-width="2"/><line x1="20" y1="22" x2="20" y2="38" stroke="currentColor" stroke-width="2"/><line x1="200" y1="22" x2="200" y2="38" stroke="currentColor" stroke-width="2"/><line x1="380" y1="22" x2="380" y2="38" stroke="currentColor" stroke-width="2"/><line x1="155" y1="22" x2="155" y2="38" stroke="orange" stroke-width="3"/><text x="20" y="55" text-anchor="middle" font-size="14" fill="currentColor">1</text><text x="200" y="55" text-anchor="middle" font-size="14" fill="currentColor">2</text><text x="380" y="55" text-anchor="middle" font-size="14" fill="currentColor">3</text><text x="155" y="18" text-anchor="middle" font-size="14" fill="orange" font-weight="bold">E</text></svg>', options: ['5/4', '3/2', '7/4', '5/2'], correct: 2, exp: '7/4 = 1,75. Sur la droite graduée, E se trouve entre 1 et 2, vers 3/4 de l\'intervalle.' },
+  { type: 'text', q: 'Dans le triangle ABC, rectangle en B, on sait que Â = 35°. Calculer Ĉ (en degrés).', ans: '55', tol: 0, exp: 'La somme des angles d\'un triangle = 180°. Rectangle en B donc B̂ = 90°. Donc Ĉ = 180 - 90 - 35 = 55°.' },
+  { type: 'qcm', q: 'Dans le triangle ABC rectangle en A, quel calcul faut-il effectuer pour déterminer le cosinus de l\'angle ABC ?', options: ['AB / BC (adjacent / hypoténuse)', 'AC / BC (opposé / hypoténuse)', 'AC / AB (opposé / adjacent)', 'AB / AC (adjacent / opposé)'], correct: 0, exp: 'cos(angle) = côté adjacent / hypoténuse. Pour l\'angle ABC, le côté adjacent est AB et l\'hypoténuse est BC.' },
+  { type: 'text', q: 'Dans le triangle ADE, les droites (DE) et (CB) sont parallèles, avec C sur [AD], B sur [AE]. AB = 4, AE = 6, AC = 6. Déterminer la longueur AD (en cm).', ans: '9', tol: 0.01, exp: 'Par Thalès : AD/AC = AE/AB. Donc AD = AC × AE / AB = 6 × 6 / 4 = 9 cm.' },
+  { type: 'text', q: 'Dans un collège, 25% des 300 élèves participent à une olympiade de maths. Combien d\'élèves ne participent PAS à cette olympiade ?', ans: '225', tol: 0, exp: '25% de 300 = 75 élèves participent. Donc 300 - 75 = 225 élèves ne participent pas. (Ou : 75% de 300 = 225)' },
+  { type: 'qcm', q: 'Pour dessiner un carré avec Scratch (boucle "répéter X fois : avancer ; tourner de Y degrés"), il faut compléter avec :', options: ['X = 3 et Y = 60', 'X = 4 et Y = 90', 'X = 5 et Y = 72', 'X = 4 et Y = 45'], correct: 1, exp: 'Un carré a 4 côtés (donc 4 répétitions) et 4 angles de 90°. Donc X = 4 et Y = 90.' }
+];
+
+// Sujet 0 - B (Eduscol officiel)
+const EXAM_B = [
+  { type: 'text', q: 'Quelle est la mesure, en degrés, d\'un angle droit ?', ans: '90', tol: 0, exp: 'Un angle droit mesure 90°. (À connaître par cœur)' },
+  { type: 'qcm', q: 'Voici une série de quatre notes : 8, 10, 11, 11. Quelle est la moyenne de cette série ?', options: ['9,5', '10', '10,5', '11'], correct: 1, exp: 'Moyenne = (8+10+11+11)/4 = 40/4 = 10.' },
+  { type: 'text', q: 'Dans un collège de 800 élèves, 25% des élèves portent des lunettes. Combien d\'élèves portent des lunettes ?', ans: '200', tol: 0, exp: '25% de 800 = 800/4 = 200 élèves.' },
+  { type: 'text', q: 'Entre 8h et 16h, la température passe de 15°C à 30°C. De combien de degrés la température a-t-elle augmenté ?', ans: '15', tol: 0, exp: 'Augmentation = 30 - 15 = 15°C.' },
+  { type: 'qcm', q: 'Une voiture roule à 90 km/h. Combien de temps met-elle pour parcourir 45 km ?', options: ['15 min', '30 min', '45 min', '1 h'], correct: 1, exp: '45 km = la moitié de 90 km. Donc temps = 1h / 2 = 30 min. (Ou : t = d/v = 45/90 = 0,5 h)' },
+  { type: 'text', q: 'Donner le périmètre d\'un losange ABCD dont un côté mesure 5 cm (en cm).', ans: '20', tol: 0, exp: 'Un losange a 4 côtés égaux. Périmètre = 4 × 5 = 20 cm.' },
+  { type: 'qcm', q: 'Pour résoudre l\'équation 4x − 3 = 20, on effectue le calcul :', options: ['x = 20/4 + 3', 'x = (20 − 4) + 3', 'x = 20 × 4 + 3', 'x = (20 + 3)/4'], correct: 3, exp: '4x - 3 = 20 → 4x = 20 + 3 → x = (20+3)/4 = 23/4.' },
+  { type: 'qcm', q: 'Sur une figure avec (DE) // (AC), AB = ?, AE = 6, AD = 9, AC = 12. Quelle égalité de Thalès permet de trouver AB ?', options: ['AB/AE = AD/AC', 'AB/AE = AC/AD', 'AB × AC = AE × AD', 'AB/AC = AE/AD'], correct: 3, exp: 'Par Thalès : AB/AC = AD/AE = (correspondants). En réalité ça dépend de la config, mais la bonne égalité est AB/AC = AD/AE. (réponse D)' },
+  { type: 'text', q: 'Programme : "Choisir x, multiplier par 2, ajouter 3". Quel résultat obtient-on si on part de 1 ?', ans: '5', tol: 0, exp: '1 × 2 = 2, puis 2 + 3 = 5.' }
+];
+
+// Entraînement par thèmes
+const TRAINING = {
+  nombres: {
+    title: '🔢 Nombres & Calculs',
+    items: [
+      { type: 'text', q: 'Combien vaut le quart de 12 ?', ans: '3', tol: 0, exp: '12 ÷ 4 = 3.' },
+      { type: 'text', q: 'Combien vaut le tiers de 21 ?', ans: '7', tol: 0, exp: '21 ÷ 3 = 7.' },
+      { type: 'text', q: 'Combien vaut la moitié de 50 ?', ans: '25', tol: 0, exp: '50 ÷ 2 = 25.' },
+      { type: 'text', q: '50% de 80 = ?', ans: '40', tol: 0, exp: '50% = la moitié. 80 ÷ 2 = 40.' },
+      { type: 'text', q: '10% de 250 = ?', ans: '25', tol: 0, exp: '10% = divisé par 10. 250 ÷ 10 = 25.' },
+      { type: 'text', q: '25% de 400 = ?', ans: '100', tol: 0, exp: '25% = un quart. 400 ÷ 4 = 100.' },
+      { type: 'qcm', q: 'Quelle est l\'écriture décimale de 3/4 ?', options: ['0,25', '0,5', '0,75', '0,8'], correct: 2, exp: '3/4 = 0,75 (à connaître par cœur).' },
+      { type: 'qcm', q: 'Quelle est l\'écriture décimale de 1/5 ?', options: ['0,2', '0,5', '0,15', '0,25'], correct: 0, exp: '1/5 = 2/10 = 0,2.' },
+      { type: 'text', q: 'Combien font −5 + 8 ?', ans: '3', tol: 0, exp: '−5 + 8 = 3. (On part de −5 et on monte de 8)' },
+      { type: 'text', q: 'Combien font −3 − 4 ?', ans: '-7', tol: 0, exp: '−3 − 4 = −7. (On descend encore)' },
+      { type: 'text', q: 'Combien font 2 × (−5) ?', ans: '-10', tol: 0, exp: '2 × (−5) = −10. (× entre + et − donne −)' },
+      { type: 'text', q: 'Combien font (−3) × (−4) ?', ans: '12', tol: 0, exp: '(−3) × (−4) = +12. (× entre 2 négatifs donne +)' },
+      { type: 'qcm', q: 'Combien vaut 2³ ?', options: ['6', '8', '9', '5'], correct: 1, exp: '2³ = 2 × 2 × 2 = 8.' },
+      { type: 'qcm', q: 'Combien vaut 10⁴ ?', options: ['100', '1 000', '10 000', '100 000'], correct: 2, exp: '10⁴ = 10 × 10 × 10 × 10 = 10 000. (10ⁿ = 1 suivi de n zéros)' },
+      { type: 'text', q: 'Écrire 0,003 sous forme de notation scientifique : 3 × 10^?', ans: '-3', tol: 0, exp: '0,003 = 3 × 10⁻³. (Le 3 doit "remonter" de 3 places)' }
+    ]
+  },
+  geometrie: {
+    title: '📐 Géométrie',
+    items: [
+      { type: 'text', q: 'Combien de degrés mesure un angle droit ?', ans: '90', tol: 0, exp: 'Un angle droit = 90°.' },
+      { type: 'text', q: 'Combien de degrés mesure un angle plat ?', ans: '180', tol: 0, exp: 'Un angle plat = 180° (demi-tour).' },
+      { type: 'text', q: 'Somme des angles d\'un triangle = ? degrés', ans: '180', tol: 0, exp: 'La somme des 3 angles d\'un triangle vaut TOUJOURS 180°.' },
+      { type: 'text', q: 'Triangle rectangle en A avec B̂ = 30°. Combien vaut Ĉ ?', ans: '60', tol: 0, exp: 'Â = 90°, donc Ĉ = 180 - 90 - 30 = 60°.' },
+      { type: 'text', q: 'Triangle ABC isocèle en A. Si Â = 40°, combien vaut B̂ (en degrés) ?', ans: '70', tol: 0, exp: 'Dans un isocèle, les 2 angles à la base sont égaux. B̂ = Ĉ = (180-40)/2 = 70°.' },
+      { type: 'qcm', q: 'Dans un triangle équilatéral, chaque angle vaut :', options: ['45°', '60°', '90°', '180°'], correct: 1, exp: 'Tous les angles sont égaux : 180/3 = 60°.' },
+      { type: 'qcm', q: 'cos(angle) dans un triangle rectangle = ?', options: ['opposé / hypoténuse', 'adjacent / hypoténuse', 'opposé / adjacent', 'adjacent / opposé'], correct: 1, exp: 'cos = adjacent / hypoténuse. (Astuce : SOH-CAH-TOA → CAH = Cosinus Adjacent Hypoténuse)' },
+      { type: 'qcm', q: 'sin(angle) dans un triangle rectangle = ?', options: ['opposé / hypoténuse', 'adjacent / hypoténuse', 'opposé / adjacent', 'hypoténuse / opposé'], correct: 0, exp: 'sin = opposé / hypoténuse. (SOH = Sinus Opposé Hypoténuse)' },
+      { type: 'qcm', q: 'tan(angle) dans un triangle rectangle = ?', options: ['opposé / hypoténuse', 'adjacent / hypoténuse', 'opposé / adjacent', 'adjacent / opposé'], correct: 2, exp: 'tan = opposé / adjacent. (TOA = Tangente Opposé Adjacent)' },
+      { type: 'text', q: 'Triangle rectangle en C avec AB = 5, AC = 3, BC = 4. Vérification Pythagore : AB² = ?', ans: '25', tol: 0, exp: 'AB² = AC² + BC² = 9 + 16 = 25. (Bien Pythagore !)' },
+      { type: 'text', q: 'Périmètre d\'un carré de côté 7 cm (en cm) ?', ans: '28', tol: 0, exp: '4 × 7 = 28 cm.' },
+      { type: 'text', q: 'Périmètre d\'un losange de côté 6 cm (en cm) ?', ans: '24', tol: 0, exp: 'Un losange a 4 côtés égaux. 4 × 6 = 24 cm.' }
+    ]
+  },
+  grandeurs: {
+    title: '⏱️ Grandeurs & Mesures',
+    items: [
+      { type: 'text', q: 'Combien y a-t-il de minutes dans 3 heures ?', ans: '180', tol: 0, exp: '3 × 60 = 180 min.' },
+      { type: 'text', q: '180 secondes = ? minutes', ans: '3', tol: 0, exp: '180 ÷ 60 = 3 minutes.' },
+      { type: 'qcm', q: 'Une voiture parcourt 60 km à 120 km/h. Combien de temps a-t-elle mis ?', options: ['15 min', '30 min', '45 min', '1 h'], correct: 1, exp: '60 km à 120 km/h = la moitié d\'une heure = 30 min.' },
+      { type: 'qcm', q: 'Une voiture roule à 50 km/h pendant 2 h. Quelle distance parcourt-elle ?', options: ['25 km', '50 km', '100 km', '150 km'], correct: 2, exp: 'd = v × t = 50 × 2 = 100 km.' },
+      { type: 'text', q: '1 m = ? cm', ans: '100', tol: 0, exp: '1 mètre = 100 cm.' },
+      { type: 'text', q: '1 km = ? m', ans: '1000', tol: 0, exp: '1 kilomètre = 1000 m.' },
+      { type: 'text', q: '2,5 kg = ? grammes', ans: '2500', tol: 0, exp: '1 kg = 1000 g, donc 2,5 kg = 2500 g.' },
+      { type: 'text', q: '1 L = ? cL', ans: '100', tol: 0, exp: '1 litre = 100 centilitres.' },
+      { type: 'qcm', q: 'Aire d\'un rectangle de 5 cm × 8 cm ?', options: ['13 cm²', '26 cm²', '40 cm²', '20 cm²'], correct: 2, exp: 'Aire = L × l = 5 × 8 = 40 cm².' },
+      { type: 'qcm', q: 'Volume d\'un cube d\'arête 3 cm ?', options: ['9 cm³', '12 cm³', '27 cm³', '36 cm³'], correct: 2, exp: 'Volume cube = a³ = 3 × 3 × 3 = 27 cm³.' }
+    ]
+  },
+  stats: {
+    title: '📊 Stats & Probas',
+    items: [
+      { type: 'qcm', q: 'Moyenne de 4, 6, 8 ?', options: ['5', '6', '7', '8'], correct: 1, exp: 'Moyenne = (4+6+8)/3 = 18/3 = 6.' },
+      { type: 'qcm', q: 'Médiane de 3, 7, 12, 8, 5 ?', options: ['5', '7', '8', '12'], correct: 1, exp: 'On ordonne : 3, 5, 7, 8, 12. Médiane = valeur centrale = 7.' },
+      { type: 'text', q: 'Étendue de la série 3, 8, 15, 7, 12 ?', ans: '12', tol: 0, exp: 'Étendue = max - min = 15 - 3 = 12.' },
+      { type: 'qcm', q: 'On lance un dé. P(obtenir un 6) ?', options: ['1/6', '1/3', '1/2', '6'], correct: 0, exp: '1 chance sur 6, donc P = 1/6.' },
+      { type: 'qcm', q: 'On lance un dé. P(obtenir un nombre pair) ?', options: ['1/6', '1/3', '1/2', '2/3'], correct: 2, exp: '3 pairs (2, 4, 6) sur 6 issues, donc P = 3/6 = 1/2.' },
+      { type: 'qcm', q: 'Probabilité d\'un événement impossible ?', options: ['0', '0,5', '1', 'On ne peut pas savoir'], correct: 0, exp: 'Événement impossible = probabilité 0.' },
+      { type: 'qcm', q: 'Probabilité d\'un événement certain ?', options: ['0', '0,5', '1', 'On ne peut pas savoir'], correct: 2, exp: 'Événement certain = probabilité 1 (= 100%).' },
+      { type: 'text', q: 'Dans une classe de 25 élèves, 15 sont des filles. Quelle est la fréquence (en %) de filles ?', ans: '60', tol: 0, exp: 'F = 15/25 = 0,6 = 60%.' },
+      { type: 'text', q: 'P(A) = 0,3. Combien vaut P(non A) ?', ans: '0,7', tol: 0.01, exp: 'P(non A) = 1 - P(A) = 1 - 0,3 = 0,7.' },
+      { type: 'qcm', q: 'On tire une carte d\'un jeu de 32 cartes. P(tirer un cœur) ?', options: ['1/32', '1/8', '1/4', '1/2'], correct: 2, exp: '8 cœurs sur 32 cartes. P = 8/32 = 1/4.' }
+    ]
+  },
+  litteral: {
+    title: '✏️ Calcul littéral',
+    items: [
+      { type: 'qcm', q: 'Solution de l\'équation x + 5 = 12 ?', options: ['x = 5', 'x = 7', 'x = 12', 'x = 17'], correct: 1, exp: 'x = 12 - 5 = 7.' },
+      { type: 'qcm', q: 'Solution de l\'équation 3x = 21 ?', options: ['x = 3', 'x = 7', 'x = 18', 'x = 24'], correct: 1, exp: 'x = 21/3 = 7.' },
+      { type: 'qcm', q: 'Pour résoudre 4x - 3 = 20, on fait :', options: ['x = (20+3)/4', 'x = 20/4 + 3', 'x = 20×4 + 3', 'x = (20-3)×4'], correct: 0, exp: '4x = 20+3 = 23, donc x = 23/4.' },
+      { type: 'qcm', q: 'Développer 3(x + 5) :', options: ['3x + 5', 'x + 15', '3x + 15', '3x + 8'], correct: 2, exp: '3(x+5) = 3×x + 3×5 = 3x + 15.' },
+      { type: 'qcm', q: 'Développer -2(x - 4) :', options: ['-2x - 4', '-2x + 8', '-2x - 8', '2x + 8'], correct: 1, exp: '-2(x-4) = -2x + 8. (le -2 fois le -4 donne +8)' },
+      { type: 'qcm', q: 'Factoriser 5x + 10 :', options: ['5(x + 10)', '5(x + 2)', 'x(5 + 10)', '5x + 10'], correct: 1, exp: '5x + 10 = 5×x + 5×2 = 5(x + 2).' },
+      { type: 'text', q: 'Si x = 3, combien vaut 2x + 5 ?', ans: '11', tol: 0, exp: '2×3 + 5 = 6 + 5 = 11.' },
+      { type: 'text', q: 'Si x = -2, combien vaut x² + 1 ?', ans: '5', tol: 0, exp: '(-2)² + 1 = 4 + 1 = 5.' }
+    ]
+  },
+  scratch: {
+    title: '💻 Algorithmes (Scratch)',
+    items: [
+      { type: 'qcm', q: 'Pour dessiner un carré avec Scratch (boucle "répéter X fois : avancer, tourner Y°"), on met :', options: ['X=3, Y=60°', 'X=4, Y=90°', 'X=4, Y=45°', 'X=5, Y=72°'], correct: 1, exp: 'Un carré : 4 côtés, 4 angles de 90°. Donc X=4, Y=90.' },
+      { type: 'qcm', q: 'Pour dessiner un triangle équilatéral, on répète :', options: ['3 fois, tourner 60°', '3 fois, tourner 120°', '3 fois, tourner 90°', '4 fois, tourner 60°'], correct: 1, exp: 'Triangle : 3 côtés. L\'angle EXTÉRIEUR de rotation = 180° - 60° = 120°. Donc 3 fois, tourner 120°.' },
+      { type: 'qcm', q: 'Pour dessiner un hexagone régulier, on répète :', options: ['6 fois, tourner 60°', '6 fois, tourner 30°', '6 fois, tourner 120°', '6 fois, tourner 90°'], correct: 0, exp: 'Hexagone : 6 côtés. Rotation = 360°/6 = 60°. Donc 6 fois, tourner 60°.' },
+      { type: 'text', q: 'Programme : "Choisir x, multiplier par 2, ajouter 3". On part de 1. Résultat ?', ans: '5', tol: 0, exp: '1×2 = 2, puis 2+3 = 5.' },
+      { type: 'text', q: 'Programme : "Choisir x, ajouter 4, multiplier par 3". On part de 5. Résultat ?', ans: '27', tol: 0, exp: '5+4 = 9, puis 9×3 = 27.' },
+      { type: 'qcm', q: 'Programme "choisir x, multiplier par 2, soustraire 3". Avec x choisi, le résultat est :', options: ['2x - 3', '2(x - 3)', 'x - 6', '3 - 2x'], correct: 0, exp: 'D\'abord x×2 = 2x, puis -3 → 2x - 3.' }
+    ]
+  }
+};
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function startExam(set) {
+  state.mode = 'exam';
+  state.examSet = set;
+  state.items = (set === 'A') ? EXAM_A : EXAM_B;
+  state.idx = 0;
+  state.score = 0;
+  state.answered = false;
+  state.answers = new Array(state.items.length).fill(null);
+  state.timeLeft = EXAM_DURATION_S;
+
+  $('home-view').style.display = 'none';
+  $('study-view').classList.add('active');
+  $('study-view').style.display = 'block';
+
+  setText('study-title', '📝 Sujet 0 - ' + set);
+  setText('study-topic', 'Examen blanc · 20 min · sans calculatrice');
+  setText('qCount', '1');
+  document.querySelector('#timer-container .timer-time').nextElementSibling;
+  document.querySelectorAll('.timer-bar .timer-time')[0];
+
+  $('timer-container').style.display = 'block';
+  $('statsRow').style.display = 'none';
+  startTimer();
+  renderItem();
+}
+
+function startTraining(topic) {
+  state.mode = 'training';
+  state.topic = topic;
+  const data = TRAINING[topic];
+  state.items = data.items;
+  state.idx = 0;
+  state.score = 0;
+  state.answered = false;
+
+  $('home-view').style.display = 'none';
+  $('study-view').classList.add('active');
+  $('study-view').style.display = 'block';
+
+  setText('study-title', data.title);
+  setText('study-topic', 'Entraînement libre');
+  $('timer-container').style.display = 'none';
+  $('statsRow').style.display = 'flex';
+  renderItem();
+}
+
+function confirmBack() {
+  if (state.mode === 'exam' && state.timerId) {
+    $('confirmModal').classList.add('show');
+  } else {
+    backHome();
+  }
+}
+function closeConfirm() { $('confirmModal').classList.remove('show'); }
+function forceBack() {
+  closeConfirm();
+  backHome();
+}
+
+function backHome() {
+  if (state.timerId) {
+    clearInterval(state.timerId);
+    state.timerId = null;
+  }
+  state.mode = null;
+  $('study-view').classList.remove('active');
+  $('study-view').style.display = 'none';
+  $('home-view').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+// TIMER
+// ============================================================
+function startTimer() {
+  updateTimerDisplay();
+  state.timerId = setInterval(function() {
+    state.timeLeft--;
+    if (state.timeLeft <= 0) {
+      clearInterval(state.timerId);
+      state.timerId = null;
+      // Fin du temps : on saute à la correction
+      endExam(true);
+      return;
+    }
+    updateTimerDisplay();
+  }, 1000);
+}
+function updTimerDisplay() { updateTimerDisplay(); }
+function updateTimerDisplay() {
+  const min = Math.floor(state.timeLeft / 60);
+  const sec = state.timeLeft % 60;
+  const txt = (min < 10 ? '0' : '') + min + ':' + (sec < 10 ? '0' : '') + sec;
+  const tEl = $('timerTime');
+  if (tEl) {
+    tEl.textContent = txt;
+    tEl.classList.remove('warning', 'danger');
+    if (state.timeLeft < 60) tEl.classList.add('danger');
+    else if (state.timeLeft < 300) tEl.classList.add('warning');
+  }
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderItem() {
+  const total = state.items.length;
+  const idx = state.idx;
+  setText('statsCount', (idx + 1) + '/' + total);
+  setText('statsScore', '✅ ' + state.score);
+  setText('qCount', (idx + 1));
+  $('progressFill').style.width = ((idx + 1) / total * 100) + '%';
+
+  const item = state.items[idx];
+  if (item.type === 'qcm') renderQcm(item);
+  else renderText(item);
+}
+
+function renderQcm(item) {
+  state.answered = false;
+  const optsHtml = item.options.map(function(o, i) {
+    return '<button class="qcm-option" onclick="answerQcm(' + i + ')" data-idx="' + i + '">' + escapeHtml(o) + '</button>';
+  }).join('');
+  let visualHtml = item.visual ? '<div class="q-visual">' + item.visual + '</div>' : '';
+  setHTML('study-content', `
+    <div class="q-card glass">
+      <div class="q-num">Question ${state.idx + 1}</div>
+      <div class="q-text">${escapeHtml(item.q)}</div>
+      ${visualHtml}
+      <div class="qcm-options" id="qcmOptions">${optsHtml}</div>
+      <div id="feedback"></div>
+      <div class="controls" id="controls" style="display:none">
+        <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+        <button class="btn btn-primary" onclick="nextItem()">${state.idx === state.items.length - 1 ? (state.mode === 'exam' ? 'Terminer l’examen ✓' : 'Voir le résultat ✓') : 'Question suivante →'}</button>
+      </div>
+    </div>
+  `);
+}
+
+function renderText(item) {
+  state.answered = false;
+  let visualHtml = item.visual ? '<div class="q-visual">' + item.visual + '</div>' : '';
+  setHTML('study-content', `
+    <div class="q-card glass">
+      <div class="q-num">Question ${state.idx + 1}</div>
+      <div class="q-text">${escapeHtml(item.q)}</div>
+      ${visualHtml}
+      <div class="text-input-wrap">
+        <input type="text" class="text-input" id="answerInput" placeholder="Ta réponse" autocomplete="off" onkeydown="if(event.key==='Enter')checkText()">
+        <button class="btn btn-primary" onclick="checkText()">Vérifier</button>
+      </div>
+      <div id="feedback"></div>
+      <div class="controls" id="controls" style="display:none">
+        <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+        <button class="btn btn-primary" onclick="nextItem()">${state.idx === state.items.length - 1 ? (state.mode === 'exam' ? 'Terminer l’examen ✓' : 'Voir le résultat ✓') : 'Question suivante →'}</button>
+      </div>
+    </div>
+  `);
+  setTimeout(function() {
+    const inp = $('answerInput');
+    if (inp) inp.focus();
+  }, 200);
+}
+
+function answerQcm(picked) {
+  if (state.answered) return;
+  state.answered = true;
+  const item = state.items[state.idx];
+  const buttons = document.querySelectorAll('.qcm-option');
+  const isCorrect = picked === item.correct;
+  buttons.forEach(function(b, i) {
+    b.disabled = true;
+    if (i === item.correct) b.classList.add('correct');
+    else if (i === picked) b.classList.add('wrong');
+  });
+  if (isCorrect) {
+    state.score++;
+    if (state.mode === 'training') addXpForItem(itemKey('training', state.idx, state.topic), XP_BY_MODE.training);
+  }
+  if (state.mode === 'exam') {
+    state.answers[state.idx] = { picked: picked, correct: isCorrect };
+  }
+  const fbClass = state.mode === 'exam' ? (isCorrect ? 'exam-correct' : 'exam-wrong') : (isCorrect ? 'correct' : 'wrong');
+  const fbIcon = isCorrect ? '✅ Bonne réponse !' : '❌ Réponse correcte : ' + escapeHtml(item.options[item.correct]);
+  setHTML('feedback', '<div class="feedback show ' + fbClass + '"><strong>' + fbIcon + '</strong><br>' + escapeHtml(item.exp) + '</div>');
+  $('controls').style.display = 'flex';
+  setText('statsScore', '✅ ' + state.score);
+}
+
+function checkText() {
+  if (state.answered) return;
+  const item = state.items[state.idx];
+  const inp = $('answerInput');
+  const raw = (inp.value || '').trim().replace(',', '.');
+  let isCorrect = false;
+  const num = parseFloat(raw);
+  if (!isNaN(num)) {
+    const expected = parseFloat(item.ans.replace(',', '.'));
+    isCorrect = Math.abs(num - expected) <= (item.tol || 0);
+  } else {
+    // Comparaison texte directe
+    isCorrect = raw.toLowerCase() === item.ans.toLowerCase();
+  }
+  state.answered = true;
+  inp.disabled = true;
+  if (isCorrect) {
+    state.score++;
+    if (state.mode === 'training') addXpForItem(itemKey('training', state.idx, state.topic), XP_BY_MODE.training);
+  }
+  if (state.mode === 'exam') {
+    state.answers[state.idx] = { value: raw, correct: isCorrect };
+  }
+  const fbClass = state.mode === 'exam' ? (isCorrect ? 'exam-correct' : 'exam-wrong') : (isCorrect ? 'correct' : 'wrong');
+  const head = isCorrect ? '✅ Bonne réponse !' : '❌ Pas tout à fait. Réponse : <strong>' + escapeHtml(item.ans) + '</strong>';
+  setHTML('feedback', '<div class="feedback show ' + fbClass + '"><strong>' + head + '</strong><br>' + escapeHtml(item.exp) + '</div>');
+  $('controls').style.display = 'flex';
+  setText('statsScore', '✅ ' + state.score);
+}
+
+function prevItem() {
+  if (state.idx > 0) {
+    state.idx--;
+    state.answered = false;
+    renderItem();
+  }
+}
+
+function nextItem() {
+  if (state.idx < state.items.length - 1) {
+    state.idx++;
+    state.answered = false;
+    renderItem();
+  } else {
+    if (state.mode === 'exam') endExam(false);
+    else showCompletion();
+  }
+}
+
+function endExam(timeout) {
+  if (state.timerId) { clearInterval(state.timerId); state.timerId = null; }
+  const total = state.items.length;
+  const score = state.score;
+  // XP : 50 si > 7/9, 30 si > 5/9, sinon 15
+  const xp = score >= 7 ? 50 : score >= 5 ? 30 : 15;
+  // 🛡️ Anti-farm : 1 examen par jour par set
+  const today = new Date().toISOString().slice(0, 10);
+  const examKey = 'exam__' + state.examSet + '__' + today;
+  const gotXp = addXpForItem(examKey, xp);
+  // Sauvegarder
+  if (!userData.examsCompleted) userData.examsCompleted = [];
+  userData.examsCompleted.push({ set: state.examSet, score: score, total: total, date: Date.now(), timeUsed: EXAM_DURATION_S - state.timeLeft });
+  saveUserData();
+
+  const ptsSur6 = Math.round(score / total * 6 * 10) / 10;
+  let msg = '';
+  if (score >= 8) msg = '🏆 Excellent ! Tu maîtrises les automatismes !';
+  else if (score >= 6) msg = '💪 Bien joué ! Encore quelques révisions et tu seras au top.';
+  else if (score >= 4) msg = '🎯 Pas mal, mais il faut continuer à t\'entraîner !';
+  else msg = '📚 Reprends les modes d\'entraînement par thème pour te renforcer.';
+
+  const usedMin = Math.floor((EXAM_DURATION_S - state.timeLeft) / 60);
+  const usedSec = (EXAM_DURATION_S - state.timeLeft) % 60;
+
+  setHTML('study-content', `
+    <div class="completion-screen glass">
+      <span class="icon">${score >= 8 ? '🏆' : score >= 6 ? '🎯' : '💪'}</span>
+      <h2>${timeout ? 'Temps écoulé !' : 'Examen terminé !'}</h2>
+      <div class="score-big">${score}/${total}</div>
+      <div class="time-stat">⏱️ Temps utilisé : ${usedMin} min ${usedSec < 10 ? '0' : ''}${usedSec}</div>
+      <div class="time-stat">📊 Au brevet, ça ferait : <strong>${ptsSur6}/6 points</strong></div>
+      <p>${msg}</p>
+      <p style="font-size: 13px;">${gotXp ? '+' + xp + ' XP gagnés ⚡' : '⏳ XP déjà gagnés aujourd’hui sur cet examen (reviens demain pour en gagner !)'}</p>
+      <div class="controls" style="margin-top: 24px;">
+        <button class="btn btn-ghost" onclick="backHome()">← Retour</button>
+        <button class="btn btn-primary" onclick="startExam('${state.examSet}')">🔄 Recommencer</button>
+      </div>
+    </div>
+  `);
+  $('timer-container').style.display = 'none';
+}
+
+function showCompletion() {
+  const total = state.items.length;
+  const pct = Math.round((state.score / total) * 100);
+  let msg = '';
+  if (pct >= 80) msg = '🏆 Excellent ! Tu maîtrises 💪';
+  else if (pct >= 60) msg = '💪 Bon travail, encore un effort !';
+  else msg = '📚 Reprends les questions ratées, tu vas y arriver 🎯';
+  setHTML('study-content', `
+    <div class="completion-screen glass">
+      <span class="icon">${pct >= 80 ? '🏆' : pct >= 60 ? '🎯' : '💪'}</span>
+      <h2>Terminé !</h2>
+      <div class="score-big">${state.score}/${total}</div>
+      <p>${msg}</p>
+      <div class="controls" style="margin-top: 24px;">
+        <button class="btn btn-ghost" onclick="backHome()">← Retour aux modes</button>
+        <button class="btn btn-primary" onclick="startTraining('${state.topic}')">🔄 Recommencer</button>
+      </div>
+    </div>
+  `);
+}
+
+function showToast(msg, type) {
+  const t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(function() { t.classList.remove('show'); }, 2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  currentUser = getCurrentUser();
+  if (!currentUser) {
+    window.location.href = '../index.html';
+    return;
+  }
+    // 🔥 Charger Firebase pour la sync avec le podium (avec fallback CDN)
+  if (typeof firebase === 'undefined') {
+    const CDNS = [
+      'https://www.gstatic.com/firebasejs/9.23.0',
+      'https://cdn.jsdelivr.net/npm/firebase@9.23.0',
+      'https://unpkg.com/firebase@9.23.0'
+    ];
+    function loadScr(url) {
+      return new Promise(function(res, rej) {
+        const s = document.createElement('script');
+        s.src = url;
+        s.onload = function() { res(); };
+        s.onerror = function() { rej(new Error(url)); };
+        document.head.appendChild(s);
+      });
+    }
+    function tryCDN(i) {
+      if (i >= CDNS.length) return Promise.reject(new Error('all CDNs failed'));
+      const b = CDNS[i];
+      return loadScr(b + '/firebase-app-compat.js')
+        .then(function() { return loadScr(b + '/firebase-database-compat.js'); })
+        .catch(function() { return tryCDN(i + 1); });
+    }
+    tryCDN(0).then(function() {
+      try {
+        firebase.initializeApp({
+          apiKey: "AIzaSyBnx_vlRm3rd1eNIAtMIHBFsxJHV7h8vKU",
+          authDomain: "revyzia.firebaseapp.com",
+          databaseURL: "https://revyzia-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "revyzia",
+          storageBucket: "revyzia.firebasestorage.app",
+          messagingSenderId: "447321876734",
+          appId: "1:447321876734:web:b783846225faef221f5daf"
+        });
+        console.log('[Chapter] ✅ Firebase ready');
+        if (currentUser && typeof syncWithHub === 'function') syncWithHub();
+      } catch(e) { console.warn('[Chapter] FB init:', e); }
+    }).catch(function(err) {
+      console.warn('[Chapter] Firebase unavailable:', err);
+    });
+  }
+  userData = loadUserData();
+  syncWithHub();
+});
+</script>
+</body>
+</html>

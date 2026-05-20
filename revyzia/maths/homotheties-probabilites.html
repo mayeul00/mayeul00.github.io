@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Homothéties + Probas</title>
+<script>
+window.REVYZIA_CHAPTER = {
+  id: "maths_homoth_probas",
+  subject: "maths",
+  title: "Homothéties & Probabilités",
+  depth: 1
+};
+</script>
+<style>
+:root {
+  --bg-base: #f5f5f7;
+  --bg-gradient: linear-gradient(135deg, #e0f0ff 0%, #ffe0e9 50%, #fff4d4 100%);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+  --glass-shadow-lg: 0 20px 60px rgba(31, 38, 135, 0.15);
+  --ink: #1d1d1f;
+  --ink-soft: #6e6e73;
+  --ink-faint: #aeaeb2;
+  --accent: #00c2ff;
+  --accent-soft: rgba(0, 194, 255, 0.12);
+  --accent-2: #5e5cff;
+  --accent-3: #ff3b80;
+  --green: #34c759;
+  --gold: #ff9f0a;
+  --red: #ff453a;
+  --flame: #ff6b35;
+  --divider: rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] {
+  --bg-base: #000;
+  --bg-gradient: radial-gradient(ellipse at top, #0f1a3a 0%, #060a18 40%, #000 100%);
+  --glass-bg: rgba(28, 28, 30, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --glass-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --ink: #f5f5f7;
+  --ink-soft: #98989d;
+  --ink-faint: #636366;
+  --accent: #5ad8ff;
+  --accent-soft: rgba(90, 216, 255, 0.18);
+  --accent-2: #7c7aff;
+  --accent-3: #ff5599;
+  --green: #30d158;
+  --gold: #ffb340;
+  --red: #ff6961;
+  --flame: #ff8859;
+  --divider: rgba(255, 255, 255, 0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-base); color: var(--ink); line-height: 1.5;
+  min-height: 100vh; position: relative;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.6s, color 0.3s;
+}
+body::before {
+  content: ''; position: fixed; inset: -50%;
+  background: var(--bg-gradient); z-index: -2;
+  animation: bgShift 25s ease-in-out infinite alternate; filter: blur(60px);
+}
+@keyframes bgShift { 0% { transform: translate(-5%,-5%) rotate(0deg); } 100% { transform: translate(5%,5%) rotate(8deg); } }
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.5; pointer-events: none; }
+.orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation: float1 18s ease-in-out infinite; }
+.orb-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; left: -80px; animation: float2 22s ease-in-out infinite; }
+@keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px,80px) scale(1.1); } }
+@keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(80px,-50px) scale(1.15); } }
+
+.glass { background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); }
+
+.top-bar { position: sticky; top: 12px; z-index: 100; margin: 12px; padding: 12px 22px; display: flex; justify-content: space-between; align-items: center; border-radius: 100px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.5px; font-size: 17px; user-select: none; }
+.back-hub-btn { background: var(--glass-bg); border: 1px solid var(--glass-border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; color: var(--ink); font-family: inherit; font-weight: 700; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.back-hub-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.brand-icon { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 14px; box-shadow: 0 4px 12px rgba(0,194,255,0.4); }
+.brand-name { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.top-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.streak-mini, .xp-mini { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 100px; background: var(--accent-soft); font-weight: 700; font-size: 13px; }
+.streak-mini { color: var(--flame); }
+.streak-mini.zero { color: var(--ink-faint); }
+.xp-mini { color: var(--accent); }
+.logout-btn { padding: 6px 14px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink-soft); font-family: inherit; font-weight: 500; transition: all 0.2s; }
+.logout-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.theme-toggle { width: 36px; height: 36px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform 0.3s; }
+.theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+@keyframes flicker { 0%,100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.08) rotate(2deg); } }
+.flame-anim { display: inline-block; animation: flicker 1.5s ease-in-out infinite; }
+
+main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
+
+.hero { text-align: center; padding: 24px 16px 8px; }
+.hero .badge { display: inline-block; padding: 5px 14px; background: var(--accent-soft); color: var(--accent); border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-3)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .subtitle { color: var(--ink-soft); font-size: 15px; max-width: 540px; margin: 0 auto 16px; }
+
+/* TABS */
+.tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
+.tab-btn { padding: 12px 22px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink-soft); transition: all 0.25s; }
+.tab-btn:hover { transform: translateY(-2px); }
+.tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border-color: transparent; box-shadow: 0 6px 16px rgba(0,194,255,0.35); }
+
+.tab-section { display: none; animation: fadeIn 0.3s ease; }
+.tab-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* MODE CARDS */
+.modes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+.mode-card { padding: 22px 18px; border-radius: 22px; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; text-align: center; }
+.mode-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--mc, var(--accent)) 0%, transparent 60%); opacity: 0.1; transition: opacity 0.3s; }
+.mode-card:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow-lg); }
+.mode-card:hover::before { opacity: 0.2; }
+.mode-card .icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.mode-card h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+.mode-card p { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+.mode-card .meta { font-size: 11px; color: var(--mc, var(--accent)); font-weight: 600; }
+
+/* STUDY VIEW */
+.study-view { display: none; }
+.study-view.active { display: block; }
+.study-back { display: inline-block; padding: 8px 16px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink); font-family: inherit; font-weight: 500; text-decoration: none; transition: all 0.2s; margin-bottom: 16px; }
+.study-back:hover { background: var(--accent-soft); color: var(--accent); }
+
+.study-header { text-align: center; margin: 16px 0 24px; }
+.study-header h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+.study-header .topic { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; }
+
+/* PROGRESS */
+.progress-bar { height: 8px; background: var(--accent-soft); border-radius: 100px; overflow: hidden; margin: 12px 0 24px; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 100px; transition: width 0.5s; }
+
+/* FLASHCARDS */
+.flashcard { width: 100%; max-width: 600px; margin: 0 auto; perspective: 1000px; min-height: 320px; cursor: pointer; }
+.flashcard-inner { position: relative; width: 100%; min-height: 320px; transition: transform 0.6s; transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; padding: 36px 28px; border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.flashcard-back { transform: rotateY(180deg); }
+.fc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 16px; }
+.fc-content { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.3; color: var(--ink); }
+.fc-content.small { font-size: 18px; font-weight: 500; line-height: 1.5; }
+.fc-hint { margin-top: 18px; font-size: 12px; color: var(--ink-faint); }
+
+.controls { display: flex; gap: 10px; justify-content: center; margin-top: 24px; flex-wrap: wrap; }
+.btn { padding: 12px 22px; border: none; border-radius: 14px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; transition: all 0.25s; }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; box-shadow: 0 6px 16px rgba(0,194,255,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,194,255,0.4); }
+.btn-success { background: var(--green); color: white; }
+.btn-danger { background: var(--red); color: white; }
+.btn-ghost { background: var(--glass-bg); border: 1px solid var(--glass-border) !important; color: var(--ink); }
+.btn-ghost:hover { background: var(--accent-soft); color: var(--accent); }
+
+/* QCM */
+.qcm-card { padding: 32px 28px; border-radius: 24px; max-width: 700px; margin: 0 auto; }
+.qcm-question { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.4; margin-bottom: 22px; color: var(--ink); }
+.qcm-options { display: flex; flex-direction: column; gap: 10px; }
+.qcm-option { padding: 16px 20px; border-radius: 14px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); cursor: pointer; transition: all 0.2s; font-family: inherit; font-size: 15px; text-align: left; font-weight: 500; }
+.qcm-option:hover:not(:disabled) { border-color: var(--accent); transform: translateX(4px); }
+.qcm-option.correct { background: linear-gradient(135deg, var(--green), #2eb050); color: white; border-color: transparent; }
+.qcm-option.wrong { background: linear-gradient(135deg, var(--red), #d63a30); color: white; border-color: transparent; }
+.qcm-option:disabled { cursor: not-allowed; }
+.qcm-explanation { margin-top: 18px; padding: 16px 18px; background: var(--accent-soft); border-radius: 12px; font-size: 14px; line-height: 1.5; color: var(--ink); border-left: 3px solid var(--accent); }
+.qcm-explanation strong { color: var(--accent); }
+
+/* LESSON */
+.lesson-card { padding: 32px 28px; border-radius: 24px; max-width: 750px; margin: 0 auto; }
+.lesson-chapter { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+.lesson-title { font-size: 24px; font-weight: 800; letter-spacing: -0.6px; margin-bottom: 18px; }
+.lesson-body { font-size: 15px; line-height: 1.7; color: var(--ink); }
+.lesson-body p { margin-bottom: 14px; }
+.lesson-body ul, .lesson-body ol { margin: 12px 0 16px 22px; }
+.lesson-body li { margin-bottom: 6px; }
+.lesson-body strong { color: var(--accent); font-weight: 700; }
+.lesson-body .formula { display: block; background: var(--accent-soft); padding: 16px 20px; border-radius: 14px; margin: 14px 0; font-size: 17px; font-weight: 600; text-align: center; font-family: 'Cambria Math', 'Times New Roman', serif; line-height: 1.6; }
+.lesson-body .key-point { background: linear-gradient(135deg, var(--accent-soft), rgba(255,200,80,0.15)); border-radius: 14px; padding: 14px 18px; margin: 14px 0; border-left: 4px solid var(--accent); }
+.lesson-body .key-point strong { display: block; margin-bottom: 4px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+.lesson-body .example { background: rgba(52, 199, 89, 0.1); border-radius: 14px; padding: 14px 18px; margin: 14px 0; border-left: 4px solid var(--green); font-size: 14px; }
+.lesson-body .example strong { color: var(--green); }
+.lesson-body .warning { background: rgba(255, 159, 10, 0.12); border-radius: 14px; padding: 14px 18px; margin: 14px 0; border-left: 4px solid var(--gold); font-size: 14px; }
+.lesson-body .warning strong { color: var(--gold); }
+.lesson-body .highlight { background: linear-gradient(120deg, transparent 0%, var(--accent-soft) 30%, var(--accent-soft) 70%, transparent 100%); padding: 1px 3px; }
+
+/* CALC BLOCK */
+.calc-block { background: var(--glass-bg); border-radius: 14px; padding: 14px 18px; margin: 12px 0; font-family: 'Cambria Math', serif; font-size: 16px; line-height: 1.7; }
+.calc-block .step { padding: 4px 0; }
+
+/* EXERCISE BLOCK */
+.exercise-block { padding: 24px 22px; border-radius: 20px; max-width: 750px; margin: 0 auto; }
+.exercise-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+.exercise-question { font-size: 17px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; }
+.exercise-input { width: 100%; padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); font-size: 16px; font-family: inherit; outline: none; transition: all 0.2s; text-align: center; margin-bottom: 14px; }
+.exercise-input:focus { border-color: var(--accent); }
+.exercise-feedback { padding: 14px 16px; border-radius: 12px; margin-top: 12px; font-size: 14px; line-height: 1.5; display: none; }
+.exercise-feedback.show { display: block; }
+.exercise-feedback.correct { background: rgba(52, 199, 89, 0.15); color: var(--green); border-left: 3px solid var(--green); }
+.exercise-feedback.wrong { background: rgba(255, 69, 58, 0.12); color: var(--red); border-left: 3px solid var(--red); }
+
+/* SCORE / STATS */
+.stats-row { display: flex; justify-content: center; gap: 20px; margin: 16px 0; flex-wrap: wrap; }
+.stats-pill { padding: 8px 18px; border-radius: 100px; background: var(--accent-soft); font-size: 13px; font-weight: 600; color: var(--accent); }
+
+/* TOAST */
+.toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-200%); padding: 14px 26px; border-radius: 100px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; font-weight: 700; font-size: 14px; box-shadow: 0 12px 32px rgba(0,194,255,0.4); z-index: 10000; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s, visibility 0.3s; opacity: 0; visibility: hidden; pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+.toast.success { background: linear-gradient(135deg, var(--green), #2eb050); }
+.toast.error { background: linear-gradient(135deg, var(--red), #d63a30); }
+
+.completion-screen { text-align: center; padding: 40px 20px; max-width: 600px; margin: 0 auto; }
+.completion-screen .icon { font-size: 64px; display: block; margin-bottom: 16px; }
+.completion-screen h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.completion-screen p { color: var(--ink-soft); font-size: 15px; margin-bottom: 18px; }
+.completion-screen .score-big { font-size: 56px; font-weight: 800; color: var(--accent); }
+
+@media (max-width: 720px) {
+  .top-bar { padding: 10px 14px; flex-wrap: wrap; }
+  .logout-btn { padding: 6px 10px; font-size: 12px; }
+  main { padding: 14px; }
+  .modes-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .mode-card { padding: 16px 12px; }
+  .mode-card .icon { font-size: 26px; }
+  .qcm-card, .lesson-card, .exercise-block { padding: 22px 18px; }
+  .fc-content { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<header class="top-bar glass">
+  <div class="brand">
+    <a href="../index.html" class="back-hub-btn" title="Retour au hub">←</a>
+    <div class="brand-icon">📐</div>
+    <span class="brand-name">Maths</span>
+  </div>
+  <div class="top-right">
+    <div class="streak-mini zero" id="streakMini"><span class="flame-anim">🔥</span> <span id="streakNum">0</span></div>
+    <div class="xp-mini">⚡ <span id="xpNum">0</span></div>
+    <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Changer de thème">🌙</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME (visible par défaut) ============ -->
+<div id="home-view">
+  <div class="hero">
+    <span class="badge">📐 Maths · 3e</span>
+    <h1>Homothéties &amp; Probabilités</h1>
+    <p class="subtitle">Choisis ton thème, puis ton mode de révision. Évaluation : demain matin. 💪</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('homo')">📐 Homothéties</button>
+    <button class="tab-btn" onclick="switchTab('proba')">🎲 Probabilités</button>
+    <button class="tab-btn" onclick="switchTab('stats')">📊 Statistiques</button>
+  </div>
+
+  <!-- HOMOTHÉTIES -->
+  <section class="tab-section active" id="tab-homo">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#00c2ff" onclick="startMode('homo','lesson')">
+        <span class="icon">👨‍🏫</span>
+        <h3>Le cours</h3>
+        <p>Tout comprendre</p>
+        <div class="meta">8 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#5e5cff" onclick="startMode('homo','flashcards')">
+        <span class="icon">🃏</span>
+        <h3>Définitions</h3>
+        <p>Flashcards</p>
+        <div class="meta">10 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff3b80" onclick="startMode('homo','qcm')">
+        <span class="icon">🎯</span>
+        <h3>QCM</h3>
+        <p>Type contrôle</p>
+        <div class="meta">15 questions</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff9f0a" onclick="startMode('homo','exo')">
+        <span class="icon">✏️</span>
+        <h3>Exercices</h3>
+        <p>Calculs guidés</p>
+        <div class="meta">8 exos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBABILITÉS -->
+  <section class="tab-section" id="tab-proba">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#00c2ff" onclick="startMode('proba','lesson')">
+        <span class="icon">👨‍🏫</span>
+        <h3>Le cours</h3>
+        <p>Comprendre les probas</p>
+        <div class="meta">7 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#5e5cff" onclick="startMode('proba','flashcards')">
+        <span class="icon">🃏</span>
+        <h3>Vocabulaire</h3>
+        <p>Flashcards</p>
+        <div class="meta">9 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff3b80" onclick="startMode('proba','qcm')">
+        <span class="icon">🎯</span>
+        <h3>QCM</h3>
+        <p>Type contrôle</p>
+        <div class="meta">12 questions</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff9f0a" onclick="startMode('proba','exo')">
+        <span class="icon">✏️</span>
+        <h3>Exercices</h3>
+        <p>Calculs guidés</p>
+        <div class="meta">8 exos</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATISTIQUES -->
+  <section class="tab-section" id="tab-stats">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#00c2ff" onclick="startMode('stats','lesson')">
+        <span class="icon">👨‍🏫</span>
+        <h3>Le cours</h3>
+        <p>Stats expliquées</p>
+        <div class="meta">5 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#5e5cff" onclick="startMode('stats','flashcards')">
+        <span class="icon">🃏</span>
+        <h3>Vocabulaire</h3>
+        <p>Flashcards</p>
+        <div class="meta">8 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff3b80" onclick="startMode('stats','qcm')">
+        <span class="icon">🎯</span>
+        <h3>QCM</h3>
+        <p>Type contrôle</p>
+        <div class="meta">8 questions</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#ff9f0a" onclick="startMode('stats','exo')">
+        <span class="icon">✏️</span>
+        <h3>Exercices</h3>
+        <p>Calculs guidés</p>
+        <div class="meta">5 exos</div>
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <p style="font-size: 13px; color: var(--ink-faint);">💡 Conseil : commence par "Le cours" pour comprendre, puis fais des QCM pour t'évaluer, et finis par les exercices !</p>
+  </div>
+</div>
+
+<!-- ============ STUDY VIEWS (mode actif) ============ -->
+<div id="study-view" class="study-view">
+  <button class="study-back" onclick="backHome()">← Retour aux modes</button>
+  <div class="study-header">
+    <h2 id="study-title">Mode</h2>
+    <div class="topic" id="study-topic">Topic</div>
+  </div>
+  <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+  <div class="stats-row">
+    <div class="stats-pill" id="statsCount">1/1</div>
+    <div class="stats-pill" id="statsScore" style="display:none">✅ 0</div>
+  </div>
+  <div id="study-content"></div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG & STATE
+// ============================================================
+const STORAGE_KEY = 'maths_homoth_probas_v1_user_';
+const CHAPTER_ID = 'maths_homoth_probas';
+const XP_BY_MODE = { lesson: 3, flashcards: 5, qcm: 10, exo: 12 };
+
+let currentUser = null;
+let userData = null;
+let state = {
+  topic: null,    // 'homo', 'proba', 'stats'
+  mode: null,     // 'lesson', 'flashcards', 'qcm', 'exo'
+  idx: 0,
+  items: [],
+  score: 0,
+  answered: false
+};
+
+function $(id) { return document.getElementById(id); }
+function setText(id, txt) { const el = $(id); if (el) el.textContent = txt; }
+function setHTML(id, html) { const el = $(id); if (el) el.innerHTML = html; }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+// ============================================================
+// USER (lien avec le hub)
+// ============================================================
+function getCurrentUser() {
+  try { const raw = localStorage.getItem('revyzia_current_user'); return raw ? JSON.parse(raw) : null; }
+  catch (e) { return null; }
+}
+function logout() {
+  if (!confirm('Tu veux te déconnecter ?')) return;
+  try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
+  window.location.href = '../index.html';
+}
+
+function userKey() {
+  return STORAGE_KEY + (currentUser.key || currentUser.name + '__' + currentUser.klass);
+}
+
+function loadUserData() {
+  try {
+    const raw = localStorage.getItem(userKey());
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { totalXp: 0, completedItems: {} };
+}
+function saveUserData() {
+  try { localStorage.setItem(userKey(), JSON.stringify(userData)); } catch (e) {}
+  // Sync avec le hub
+  syncWithHub();
+}
+
+function syncWithHub() {
+  if (!currentUser) return;
+  try {
+    const hubKey = 'revyzia_user_' + (currentUser.key || currentUser.name + '__' + currentUser.klass);
+    let hubData = {};
+    try {
+      const raw = localStorage.getItem(hubKey);
+      if (raw) hubData = JSON.parse(raw);
+    } catch(e) {}
+    if (!hubData.chapters) hubData.chapters = {};
+    // 🔒 ANTI-ÉCRASEMENT : on prend le MAX d'XP du chapitre
+    const prev = hubData.chapters[CHAPTER_ID] || { xp: 0 };
+    const newChapterXp = Math.max(prev.xp || 0, userData.totalXp || 0);
+    hubData.chapters[CHAPTER_ID] = {
+      xp: newChapterXp,
+      subject: 'maths',
+      title: 'Homothéties & Probabilités',
+      lastSeen: Date.now()
+    };
+    // Recalculer total
+    let total = 0;
+    for (const k in hubData.chapters) total += (hubData.chapters[k].xp || 0);
+    hubData.totalXp = Math.max(hubData.totalXp || 0, total);
+    hubData.name = currentUser.name;
+    hubData.userClass = currentUser.klass;
+    // Streak
+    const today = new Date().toISOString().slice(0, 10);
+    if (!hubData.lastReviewDate) hubData.streakDays = 1;
+    else if (hubData.lastReviewDate !== today) {
+      const diff = Math.round((new Date(today) - new Date(hubData.lastReviewDate)) / 86400000);
+      if (diff === 1) hubData.streakDays = (hubData.streakDays || 0) + 1;
+      else if (diff === 2) hubData.streakDays = Math.max(1, Math.floor((hubData.streakDays || 0) / 2) + 1);
+      else hubData.streakDays = 1;
+    }
+    hubData.streakValue = hubData.streakDays;
+    hubData.lastReviewDate = today;
+    if (hubData.streakDays > (hubData.bestStreakDays || 0)) hubData.bestStreakDays = hubData.streakDays;
+    localStorage.setItem(hubKey, JSON.stringify(hubData));
+    // Update UI
+    setText('xpNum', hubData.totalXp);
+    setText('streakNum', hubData.streakValue || 0);
+    const sm = $('streakMini');
+    if (sm) sm.classList.toggle('zero', (hubData.streakValue || 0) === 0);
+    // 🔥 Push to Firebase avec fusion (anti-écrasement distant)
+    pushToFirebaseFromChapter(hubData);
+  } catch (e) { console.error(e); }
+}
+
+// Push depuis le chapitre avec fusion Firebase
+function pushToFirebaseFromChapter(localData) {
+  if (typeof firebase === 'undefined' || !currentUser) return;
+  try {
+    const db = firebase.database();
+    const key = (currentUser.key || currentUser.name + '__' + currentUser.klass).replace(/[.#$\[\]\/]/g, '_');
+    const ref = db.ref('users/' + key);
+    ref.once('value').then(function(snap) {
+      const remote = snap.val();
+      const merged = mergeUserDataChapter(localData, remote);
+      try { localStorage.setItem('revyzia_user_' + currentUser.key, JSON.stringify(merged)); } catch(e) {}
+      ref.set({
+        name: merged.name || currentUser.name,
+        userClass: merged.userClass || currentUser.klass,
+        totalXp: merged.totalXp || 0,
+        streakDays: merged.streakDays || 0,
+        streakValue: merged.streakValue || 0,
+        bestStreakDays: merged.bestStreakDays || 0,
+        badges: merged.badges || [],
+        chapters: merged.chapters || {},
+        lastSeen: Date.now()
+      }).catch(function(err) { console.warn('[Chapter] push fail:', err); });
+    }).catch(function(err) { console.warn('[Chapter] read fail:', err); });
+  } catch(e) { console.warn('[Chapter] firebase err:', e); }
+}
+
+function mergeUserDataChapter(local, remote) {
+  if (!remote) return local;
+  if (!local) return remote;
+  const merged = {
+    name: local.name || remote.name,
+    userClass: local.userClass || remote.userClass,
+    totalXp: Math.max(local.totalXp || 0, remote.totalXp || 0),
+    streakDays: Math.max(local.streakDays || 0, remote.streakDays || 0),
+    streakValue: Math.max(local.streakValue || 0, remote.streakValue || 0),
+    bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0),
+    badges: (local.badges && local.badges.length >= (remote.badges || []).length) ? local.badges : (remote.badges || []),
+    chapters: {},
+    lastReviewDate: local.lastReviewDate || remote.lastReviewDate
+  };
+  const allKeys = new Set([...Object.keys(local.chapters || {}), ...Object.keys(remote.chapters || {})]);
+  allKeys.forEach(function(k) {
+    const l = (local.chapters || {})[k] || {};
+    const r = (remote.chapters || {})[k] || {};
+    merged.chapters[k] = {
+      xp: Math.max(l.xp || 0, r.xp || 0),
+      subject: l.subject || r.subject,
+      title: l.title || r.title,
+      lastSeen: Math.max(l.lastSeen || 0, r.lastSeen || 0)
+    };
+  });
+  let chaptersSum = 0;
+  for (const k in merged.chapters) chaptersSum += (merged.chapters[k].xp || 0);
+  if (chaptersSum > merged.totalXp) merged.totalXp = chaptersSum;
+  return merged;
+}
+
+function addXp(amount) {
+  userData.totalXp = (userData.totalXp || 0) + amount;
+  saveUserData();
+  showToast('+' + amount + ' XP ⚡', 'success');
+}
+
+// 🛡️ Anti-farm : XP gagnée une seule fois par item (lesson/flashcard/qcm/exo)
+function addXpForItem(itemKey, amount) {
+  if (!userData.completedItems) userData.completedItems = {};
+  if (userData.completedItems[itemKey]) {
+    // Déjà gagné, on ne redonne pas d'XP
+    return false;
+  }
+  userData.completedItems[itemKey] = { xp: amount, when: Date.now() };
+  userData.totalXp = (userData.totalXp || 0) + amount;
+  saveUserData();
+  showToast('+' + amount + ' XP ⚡', 'success');
+  return true;
+}
+
+// Vérifier si un item a déjà été complété (sans donner d'XP)
+function isItemDone(itemKey) {
+  return !!(userData.completedItems && userData.completedItems[itemKey]);
+}
+
+// Construire la clé unique d'un item
+function itemKey(topic, mode, idx) {
+  return topic + '__' + mode + '__' + idx;
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', cur);
+  setText('themeToggle', cur === 'light' ? '🌙' : '☀️');
+  try { localStorage.setItem('revyzia_theme', cur); } catch(e) {}
+}
+function loadTheme() {
+  try {
+    const saved = localStorage.getItem('revyzia_theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      setText('themeToggle', saved === 'light' ? '🌙' : '☀️');
+    }
+  } catch(e) {}
+}
+
+// ============================================================
+// CONTENT — Données
+// ============================================================
+const DATA = {
+  homo: {
+    title: '📐 Homothéties',
+    lessons: [
+      {
+        chapter: 'Intro',
+        title: 'Qu\'est-ce qu\'une homothétie ?',
+        body: `<p>Une <strong>homothétie</strong>, c'est une transformation qui <strong>agrandit ou réduit</strong> une figure à partir d'un point fixe appelé <strong>centre</strong>.</p>
+        <p>Imagine que tu photocopies une figure en zoomant ou dézoomant : c'est exactement ça, une homothétie !</p>
+        <div class="key-point"><strong>Les 3 éléments à connaître</strong>Pour faire une homothétie, il te faut :
+        <ul><li>Un <strong>centre O</strong> (point fixe)</li><li>Un <strong>rapport k</strong> (nombre qui dit de combien on agrandit ou réduit)</li><li>La figure à transformer</li></ul></div>
+        <div class="example"><strong>Exemple</strong> Une homothétie de centre O et de rapport 2 va doubler la taille de la figure. Une de rapport 0,5 va la réduire de moitié.</div>`
+      },
+      {
+        chapter: 'Définition',
+        title: 'Homothétie de rapport positif',
+        body: `<p>M' est l'image de M par l'homothétie de centre O et de rapport <strong>k > 0</strong> signifie 3 choses :</p>
+        <ul>
+          <li>📍 <strong>O, M et M' sont alignés</strong> (sur la même droite)</li>
+          <li>👉 <strong>M et M' sont du même côté</strong> par rapport à O</li>
+          <li>📏 <strong>OM' = k × OM</strong></li>
+        </ul>
+        <span class="formula">Si k = 2 : OM' = 2 × OM<br>(M' est 2 fois plus loin de O que M)</span>
+        <div class="example"><strong>Exemple concret</strong> Si OM = 3 cm et k = 2, alors OM' = 2 × 3 = 6 cm.</div>`
+      },
+      {
+        chapter: 'Définition',
+        title: 'Homothétie de rapport négatif',
+        body: `<p>Là, ça devient un peu plus délicat. Avec un rapport <strong>k < 0</strong> (négatif), M' est l'image de M par l'homothétie de centre O et de rapport k signifie :</p>
+        <ul>
+          <li>📍 <strong>O, M et M' sont alignés</strong></li>
+          <li>↔️ <strong>M et M' sont de côtés OPPOSÉS</strong> par rapport à O (point central de symétrie)</li>
+          <li>📏 <strong>OM' = |k| × OM</strong> (on prend la valeur absolue)</li>
+        </ul>
+        <div class="example"><strong>Exemple</strong> Si OM = 4 cm et k = -0,5 :
+        <ul><li>OM' = 0,5 × 4 = 2 cm</li><li>M' est de l'autre côté de O par rapport à M</li></ul></div>
+        <div class="warning"><strong>Attention !</strong> Le signe NÉGATIF veut dire "de l'autre côté de O". Pour la longueur, on utilise toujours la valeur absolue (|k|).</div>`
+      },
+      {
+        chapter: 'Propriétés',
+        title: 'Réduction ou agrandissement ?',
+        body: `<p>Comment savoir si une homothétie va agrandir ou réduire la figure ? On regarde la <strong>valeur absolue |k|</strong> du rapport :</p>
+        <ul>
+          <li>Si <strong>|k| > 1</strong> → <strong>AGRANDISSEMENT</strong> (la figure devient plus grande)</li>
+          <li>Si <strong>|k| < 1</strong> → <strong>RÉDUCTION</strong> (la figure devient plus petite)</li>
+          <li>Si <strong>|k| = 1</strong> → la figure garde la même taille</li>
+        </ul>
+        <div class="example"><strong>Exemples</strong>
+        <ul>
+          <li>k = 3 → agrandissement (×3)</li>
+          <li>k = -2 → agrandissement (×2, mais inversé)</li>
+          <li>k = 0,5 → réduction (÷2)</li>
+          <li>k = -0,4 → réduction (×0,4, mais inversé)</li>
+        </ul></div>
+        <div class="key-point"><strong>Astuce</strong>Ignore le signe de k pour savoir si c'est agrandissement ou réduction. Regarde juste si le nombre (en valeur absolue) est plus grand ou plus petit que 1.</div>`
+      },
+      {
+        chapter: 'Propriétés',
+        title: 'Ce que conserve une homothétie',
+        body: `<p>Une homothétie modifie certaines choses mais en conserve d'autres :</p>
+        <p>✅ <strong>Ce qui est CONSERVÉ</strong> :</p>
+        <ul>
+          <li>Les <strong>angles</strong> (même mesure)</li>
+          <li>L'<strong>alignement</strong> (3 points alignés restent alignés)</li>
+          <li>Le <strong>parallélisme</strong> (deux droites parallèles le restent)</li>
+          <li>Le <strong>milieu</strong> d'un segment</li>
+        </ul>
+        <p>❌ <strong>Ce qui CHANGE</strong> :</p>
+        <ul>
+          <li>Les <strong>longueurs</strong> (multipliées par |k|)</li>
+          <li>Les <strong>aires</strong> (multipliées par k²)</li>
+        </ul>
+        <div class="key-point"><strong>Formules à retenir</strong>
+        Si une figure a une longueur L et une aire A, alors son image a :
+        <span class="formula">L' = |k| × L<br>A' = k² × A</span>
+        <em>L'aire est multipliée par k AU CARRÉ ! Très souvent demandé en éval.</em></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Calculer le rapport k',
+        body: `<p>Souvent on te donne 2 longueurs (avant et après transformation), et tu dois trouver le rapport k.</p>
+        <p><strong>Méthode</strong> : si tu connais OM (point de départ) et OM' (point image), alors :</p>
+        <span class="formula">k = OM' / OM (si même côté)<br>k = -OM' / OM (si côtés opposés)</span>
+        <div class="example"><strong>Exo de l'éval (séance 6, point G)</strong>
+        <p>G est l'image de O par une homothétie de centre L tel que LO = 41 cm et LG = 32,8 cm. Calculer k.</p>
+        <p><strong>Solution :</strong></p>
+        <div class="calc-block">
+        <div class="step">k = LG / LO</div>
+        <div class="step">k = 32,8 / 41</div>
+        <div class="step">k = <strong>0,8</strong></div>
+        </div>
+        <em>(Ici k > 0 car G et O sont du même côté de L, et |k| < 1 donc c'est une réduction.)</em></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Calculer une longueur image',
+        body: `<p>Si tu connais le rapport k et la longueur OM, tu trouves OM' avec :</p>
+        <span class="formula">OM' = |k| × OM</span>
+        <div class="example"><strong>Exo type</strong> (séance 8 du fichier)
+        <p>H est l'image de R par une homothétie de centre S et de rapport k = -1,8 avec SR = 7,5 cm. Calculer SH.</p>
+        <p><strong>Solution :</strong></p>
+        <div class="calc-block">
+        <div class="step">SH = |k| × SR</div>
+        <div class="step">SH = 1,8 × 7,5</div>
+        <div class="step">SH = <strong>13,5 cm</strong></div>
+        </div></div>
+        <div class="example"><strong>Exo type</strong> (calcul inverse)
+        <p>S est l'image de E par une homothétie de centre N et de rapport k = -3,1, avec NS = 9,92 cm. Calculer NE.</p>
+        <p><strong>Solution :</strong> on cherche NE, donc on inverse la formule :</p>
+        <div class="calc-block">
+        <div class="step">NS = |k| × NE</div>
+        <div class="step">NE = NS / |k|</div>
+        <div class="step">NE = 9,92 / 3,1</div>
+        <div class="step">NE = <strong>3,2 cm</strong></div>
+        </div></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Effet de k sur l\'aire',
+        body: `<p>Quand on multiplie les longueurs par |k|, l'aire est multipliée par <strong>k²</strong>.</p>
+        <span class="formula">A' = k² × A</span>
+        <div class="example"><strong>Exos types</strong> (séance 9 du fichier)
+        <p><strong>1. Calculer le rapport k :</strong> figure de 71,9 cm² et image de 46,016 cm² (rapport négatif)</p>
+        <div class="calc-block">
+        <div class="step">k² = A' / A</div>
+        <div class="step">k² = 46,016 / 71,9</div>
+        <div class="step">k² = 0,64</div>
+        <div class="step">k = ±√0,64 = ±0,8</div>
+        <div class="step">Comme on nous dit que k < 0 : <strong>k = -0,8</strong></div>
+        </div>
+        <p><strong>2. Calculer l'aire de départ :</strong> image 7,952 cm² avec k = -0,4</p>
+        <div class="calc-block">
+        <div class="step">A = A' / k²</div>
+        <div class="step">A = 7,952 / (-0,4)²</div>
+        <div class="step">A = 7,952 / 0,16</div>
+        <div class="step">A = <strong>49,7 cm²</strong></div>
+        </div>
+        <p><strong>3. Calculer l'aire image :</strong> A = 50,3 cm² avec k = 0,6</p>
+        <div class="calc-block">
+        <div class="step">A' = k² × A</div>
+        <div class="step">A' = 0,36 × 50,3</div>
+        <div class="step">A' ≈ <strong>18,108 cm²</strong></div>
+        </div></div>
+        <div class="warning"><strong>Piège</strong> Quand on a l'aire de départ ET l'aire image et qu'on cherche k, on a TOUJOURS deux solutions (k positif et k négatif). Le sujet doit préciser le signe !</div>`
+      }
+    ],
+    flashcards: [
+      { front: 'Homothétie', back: 'Transformation qui agrandit ou réduit une figure à partir d\'un point fixe (le centre).' },
+      { front: 'Centre d\'homothétie', back: 'Point fixe O à partir duquel se fait l\'homothétie. C\'est le seul point qui ne bouge pas.' },
+      { front: 'Rapport k', back: 'Nombre qui dit de combien on agrandit (|k| > 1) ou réduit (|k| < 1) la figure. Peut être positif ou négatif.' },
+      { front: 'Rapport positif (k > 0)', back: 'M et son image M\' sont du MÊME CÔTÉ par rapport au centre O.' },
+      { front: 'Rapport négatif (k < 0)', back: 'M et son image M\' sont de CÔTÉS OPPOSÉS par rapport au centre O.' },
+      { front: 'Formule OM\'', back: 'OM\' = |k| × OM. Toujours en valeur absolue pour la longueur !' },
+      { front: 'Effet sur l\'aire', back: 'A\' = k² × A. L\'aire est multipliée par k au CARRÉ (donc toujours positif).' },
+      { front: 'Conservation', back: 'Une homothétie CONSERVE les angles, l\'alignement, le parallélisme et les milieux.' },
+      { front: 'Agrandissement vs réduction', back: '|k| > 1 → agrandissement. |k| < 1 → réduction. On regarde la valeur absolue !' },
+      { front: 'Cas particulier k = -1', back: 'C\'est une symétrie centrale de centre O ! La figure est retournée à l\'envers, même taille.' }
+    ],
+    qcm: [
+      { q: 'Une homothétie de rapport k = 3 va...', options: ['Réduire la figure', 'Agrandir la figure (×3)', 'Garder la même taille', 'Retourner la figure'], correct: 1, exp: 'k = 3 donc |k| = 3 > 1, c\'est un AGRANDISSEMENT (la figure est 3 fois plus grande).' },
+      { q: 'Une homothétie de rapport k = -2 va...', options: ['Réduire la figure', 'Agrandir la figure et la mettre de l\'autre côté de O', 'Conserver les longueurs', 'C\'est impossible'], correct: 1, exp: '|k| = 2 > 1 donc AGRANDISSEMENT, mais k < 0 donc l\'image est de l\'autre côté de O.' },
+      { q: 'Une homothétie de rapport k = 0,5 va...', options: ['Agrandir la figure', 'Réduire la figure (÷2)', 'Faire disparaître la figure', 'Ne rien changer'], correct: 1, exp: '|k| = 0,5 < 1, c\'est une RÉDUCTION (la figure est moitié plus petite).' },
+      { q: 'Si OM = 5 cm et k = 3, alors OM\' vaut :', options: ['8 cm', '15 cm', '1,67 cm', '5 cm'], correct: 1, exp: 'OM\' = |k| × OM = 3 × 5 = 15 cm.' },
+      { q: 'Si OM = 12 cm et k = -0,5, alors OM\' vaut :', options: ['-6 cm', '6 cm', '24 cm', '12 cm'], correct: 1, exp: 'OM\' = |k| × OM = 0,5 × 12 = 6 cm. Une longueur est TOUJOURS positive ! Le signe négatif de k indique seulement que M\' est de l\'autre côté de O.' },
+      { q: 'Si LO = 41 cm et LG = 32,8 cm (G image de O par homothétie de centre L), le rapport vaut :', options: ['1,25', '0,8', '-0,8', '8,2'], correct: 1, exp: 'k = LG / LO = 32,8 / 41 = 0,8. (Si on n\'a pas d\'info contraire, on suppose le signe positif.)' },
+      { q: 'Quelle propriété est CONSERVÉE par une homothétie ?', options: ['Les longueurs', 'Les aires', 'Les angles', 'Le périmètre'], correct: 2, exp: 'L\'homothétie conserve les ANGLES, mais pas les longueurs ni les aires. Le périmètre est multiplié par |k|.' },
+      { q: 'Une figure d\'aire 10 cm² subit une homothétie de rapport 3. L\'aire image vaut :', options: ['30 cm²', '90 cm²', '3,33 cm²', '10 cm²'], correct: 1, exp: 'A\' = k² × A = 3² × 10 = 9 × 10 = 90 cm². Attention, l\'aire est multipliée par k², PAS par k !' },
+      { q: 'Une homothétie de rapport k = -1 est en fait :', options: ['Une rotation de 180°', 'Une symétrie centrale', 'Les deux (c\'est pareil)', 'Une translation'], correct: 2, exp: 'Avec k = -1, OM\' = OM et M\' est de l\'autre côté de O. C\'est exactement une SYMÉTRIE CENTRALE de centre O (= rotation de 180° autour de O).' },
+      { q: 'Le triangle DEF est l\'image du triangle ABC par homothétie de centre O. Si DEF est 2 fois plus grand et de l\'autre côté de O, le rapport est :', options: ['2', '-2', '0,5', '-0,5'], correct: 1, exp: '|k| = 2 (car DEF est 2× plus grand), et k < 0 (car de l\'autre côté). Donc k = -2.' },
+      { q: 'Aires : figure 71,9 cm² et image 46,016 cm² (rapport négatif). Le rapport vaut :', options: ['0,64', '-0,64', '-0,8', '0,8'], correct: 2, exp: 'k² = 46,016 / 71,9 = 0,64. Donc k = ±0,8. Comme on précise k < 0, on prend k = -0,8.' },
+      { q: 'L\'image d\'une figure par une homothétie de rapport -0,4 a pour aire 7,952 cm². L\'aire de la figure de départ vaut :', options: ['7,952 cm²', '49,7 cm²', '19,88 cm²', '3,18 cm²'], correct: 1, exp: 'A = A\' / k² = 7,952 / (-0,4)² = 7,952 / 0,16 = 49,7 cm².' },
+      { q: 'Combien vaut le rapport si la figure et son image ont la MÊME aire mais sont opposées par rapport à O ?', options: ['1', '-1', '0', 'Impossible'], correct: 1, exp: 'Si A\' = A, alors k² = 1 donc k = ±1. Comme la figure est "opposée" par rapport à O, c\'est k = -1 (symétrie centrale).' },
+      { q: 'Une homothétie transforme les droites parallèles en :', options: ['Droites parallèles', 'Droites perpendiculaires', 'Une seule droite', 'Cela dépend'], correct: 0, exp: 'L\'homothétie conserve le PARALLÉLISME. Deux droites parallèles le restent après transformation.' },
+      { q: 'Aires : 50,1 cm² et 112,725 cm² (rapport négatif). Le rapport vaut :', options: ['-2,25', '-1,5', '-2,5', '-0,67'], correct: 1, exp: 'k² = 112,725 / 50,1 = 2,25. Donc k = ±1,5. Comme k < 0, on prend k = -1,5.' }
+    ],
+    exos: [
+      { q: 'Calculer SH sachant que H est l\'image de R par une homothétie de centre S et de rapport k = -1,8, avec SR = 7,5 cm. (Donner le résultat en cm)', ans: '13,5', tol: 0.01, hint: 'SH = |k| × SR = 1,8 × 7,5', exp: 'SH = |k| × SR = 1,8 × 7,5 = 13,5 cm. (On utilise la valeur absolue de k pour la longueur.)' },
+      { q: 'Calculer NE sachant que S est l\'image de E par une homothétie de centre N et de rapport k = -3,1, avec NS = 9,92 cm. (Résultat en cm)', ans: '3,2', tol: 0.01, hint: 'NS = |k| × NE, donc NE = NS / |k|', exp: 'NE = NS / |k| = 9,92 / 3,1 = 3,2 cm.' },
+      { q: 'G est l\'image de O par homothétie de centre L. LO = 41 cm et LG = 32,8 cm. Calculer k (en supposant k positif).', ans: '0,8', tol: 0.01, hint: 'k = LG / LO', exp: 'k = LG / LO = 32,8 / 41 = 0,8. C\'est une réduction (|k| < 1).' },
+      { q: 'Une figure a une aire de 50,3 cm². Calculer l\'aire de son image par une homothétie de rapport 0,6. (Résultat en cm² arrondi au mm²)', ans: '18,108', tol: 0.01, hint: 'A\' = k² × A = 0,36 × 50,3', exp: 'A\' = k² × A = 0,6² × 50,3 = 0,36 × 50,3 = 18,108 cm².' },
+      { q: 'Aires : figure 71,9 cm² et image 46,016 cm². Le rapport est NÉGATIF. Calculer k.', ans: '-0,8', tol: 0.01, hint: 'k² = A\' / A, puis prendre la racine carrée négative.', exp: 'k² = 46,016 / 71,9 = 0,64. Donc k = ±0,8. Comme k < 0, on a k = -0,8.' },
+      { q: 'Image d\'aire 7,952 cm² par homothétie de rapport -0,4. Calculer l\'aire de la figure de départ.', ans: '49,7', tol: 0.1, hint: 'A = A\' / k²', exp: 'A = A\' / k² = 7,952 / 0,16 = 49,7 cm².' },
+      { q: 'Aires : 50,1 cm² (départ) et 112,725 cm² (image), rapport NÉGATIF. Calculer k.', ans: '-1,5', tol: 0.01, hint: 'k² = A\' / A = 112,725 / 50,1', exp: 'k² = 112,725 / 50,1 = 2,25. Donc k = ±1,5. Comme k < 0, on prend k = -1,5.' },
+      { q: 'OM = 4,5 cm et k = -2. Calculer OM\'.', ans: '9', tol: 0.01, hint: 'OM\' = |k| × OM, on prend la valeur absolue.', exp: 'OM\' = |k| × OM = 2 × 4,5 = 9 cm. Le signe - de k signifie juste que M\' est de l\'autre côté de O.' }
+    ]
+  },
+
+  proba: {
+    title: '🎲 Probabilités',
+    lessons: [
+      {
+        chapter: 'Vocabulaire',
+        title: 'Expérience aléatoire et issues',
+        body: `<p>Une <strong>expérience aléatoire</strong>, c'est une expérience dont :</p>
+        <ul>
+          <li>Les résultats sont <strong>connus à l'avance</strong> (on sait ce qui peut arriver)</li>
+          <li>Mais on <strong>ne sait pas LEQUEL</strong> va se produire</li>
+        </ul>
+        <p>Les <strong>issues</strong>, ce sont les résultats possibles de l'expérience.</p>
+        <div class="example"><strong>Exemple 1 : lancer un dé à 6 faces</strong>
+        <p>Les issues sont : 1, 2, 3, 4, 5, 6 (6 issues possibles).</p></div>
+        <div class="example"><strong>Exemple 2 : tirer une carte d'un jeu de 32 cartes</strong>
+        <p>Les issues sont les 32 cartes possibles.</p></div>
+        <div class="example"><strong>Exemple 3 : lancer une pièce</strong>
+        <p>Les issues sont : pile, face (2 issues).</p></div>`
+      },
+      {
+        chapter: 'Vocabulaire',
+        title: 'Événement, événement élémentaire',
+        body: `<p>Un <strong>événement</strong>, c'est une caractéristique qui peut être réalisée (ou non) lors d'une expérience aléatoire.</p>
+        <p>Un événement est <strong>réalisé</strong> par une ou plusieurs issues.</p>
+        <div class="example"><strong>Exemple</strong> : on lance un dé.
+        <ul>
+          <li>Événement A : "obtenir un nombre pair" → réalisé par 2, 4 et 6</li>
+          <li>Événement B : "obtenir un 5" → réalisé par 5 seulement</li>
+        </ul></div>
+        <p><strong>Types d'événements</strong> :</p>
+        <ul>
+          <li><strong>Élémentaire</strong> : réalisé par UNE seule issue (ex: "obtenir un 5")</li>
+          <li><strong>Impossible</strong> : aucune issue ne le réalise (ex: "obtenir un 7" avec un dé à 6 faces)</li>
+          <li><strong>Certain</strong> : toutes les issues le réalisent (ex: "obtenir un nombre ≤ 6" avec un dé)</li>
+          <li><strong>Contraire</strong> : l'événement contraire de A se réalise quand A ne se réalise PAS</li>
+          <li><strong>Incompatibles</strong> : deux événements qui ne peuvent pas se réaliser en même temps</li>
+        </ul>
+        <div class="key-point"><strong>À retenir</strong>"Obtenir un 5 OU un 6" est-il élémentaire ? <em>NON</em>, car il est réalisé par 2 issues (5 et 6). C'est un événement non élémentaire.</div>`
+      },
+      {
+        chapter: 'Probabilité',
+        title: 'Définition de la probabilité',
+        body: `<p>La <strong>probabilité d'un événement A</strong> (notée P(A)), c'est un nombre qui mesure les chances que A se réalise.</p>
+        <span class="formula">P(A) = (nombre d'issues qui réalisent A) / (nombre total d'issues)</span>
+        <div class="example"><strong>Exemple : lancer un dé à 6 faces</strong>
+        <ul>
+          <li>P(obtenir 3) = 1/6 (1 seule issue sur 6)</li>
+          <li>P(obtenir un pair) = 3/6 = 1/2 (3 issues : 2, 4, 6)</li>
+          <li>P(obtenir un nombre ≤ 4) = 4/6 = 2/3</li>
+        </ul></div>
+        <div class="key-point"><strong>3 règles à retenir</strong>
+        <ul>
+          <li>P(A) est toujours entre <strong>0 et 1</strong></li>
+          <li>P(événement impossible) = 0</li>
+          <li>P(événement certain) = 1</li>
+          <li>La somme des probabilités de TOUS les événements élémentaires = 1</li>
+        </ul></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Calculer une probabilité (cas équiprobables)',
+        body: `<p>Quand toutes les issues ont la <strong>même chance</strong> de se produire (cas équiprobables), on applique :</p>
+        <span class="formula">P(A) = (nombre de cas favorables) / (nombre de cas possibles)</span>
+        <div class="example"><strong>Exemple type éval : roulette de 37 cases (0 à 36)</strong>
+        <p>1. Probabilité d'obtenir le 7 ?</p>
+        <div class="calc-block">
+        <div class="step">Cas favorables : 1 (seule la case 7)</div>
+        <div class="step">Cas possibles : 37</div>
+        <div class="step">P = <strong>1/37</strong></div>
+        </div>
+        <p>2. Probabilité que la roulette s'arrête sur une case noire paire (10 cases noires paires) ?</p>
+        <div class="calc-block">
+        <div class="step">Cas favorables : 10</div>
+        <div class="step">Cas possibles : 37</div>
+        <div class="step">P = <strong>10/37</strong></div>
+        </div>
+        <p>3. Probabilité d'obtenir un nombre ≤ 6 (cases 0,1,2,3,4,5,6, soit 7 cases) ?</p>
+        <div class="calc-block">
+        <div class="step">P = 7/37</div>
+        </div></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Événement contraire',
+        body: `<p>L'événement contraire de A, noté <strong>"non A"</strong> ou <strong>Ā</strong>, c'est celui qui se réalise quand A ne se réalise PAS.</p>
+        <span class="formula">P(non A) = 1 - P(A)</span>
+        <div class="example"><strong>Astuce magique</strong>
+        <p>Si on cherche la probabilité d'un événement compliqué, on peut souvent calculer son contraire (plus simple) et faire 1 - résultat.</p></div>
+        <div class="example"><strong>Exemple roulette de 37 cases</strong>
+        <p>Quelle est la probabilité d'obtenir un nombre ≥ 7 ?</p>
+        <p><strong>Méthode 1</strong> (compter) : 37 - 7 = 30 cases, donc P = 30/37</p>
+        <p><strong>Méthode 2</strong> (contraire) : P(≥ 7) = 1 - P(≤ 6) = 1 - 7/37 = 30/37</p></div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Le tirage de cartes',
+        body: `<p>Classique du contrôle ! Jeu de 32 cartes :</p>
+        <ul>
+          <li>4 couleurs : ♥ cœur, ♦ carreau, ♠ pique, ♣ trèfle</li>
+          <li>Chaque couleur : 8 cartes (7, 8, 9, 10, V, D, R, As)</li>
+        </ul>
+        <div class="example"><strong>Exemples</strong>
+        <p>P(tirer l'as de pique) = 1/32 (1 carte sur 32)</p>
+        <p>P(tirer un cœur) = 8/32 = 1/4 (8 cœurs sur 32)</p>
+        <p>P(tirer un roi) = 4/32 = 1/8 (4 rois sur 32)</p>
+        <p>P(tirer un roi OU un cœur) = ?</p>
+        <p>Attention au piège ! Il y a 4 rois et 8 cœurs, MAIS le roi de cœur est compté 2 fois. On a donc :</p>
+        <div class="calc-block">
+        <div class="step">Cas favorables : 4 + 8 - 1 = 11 cartes</div>
+        <div class="step">P = <strong>11/32</strong></div>
+        </div></div>
+        <div class="warning"><strong>Piège ULTRA classique</strong> Quand on demande "X OU Y", il faut faire attention à ne pas compter 2 fois les cartes qui sont à la fois X et Y !</div>`
+      },
+      {
+        chapter: 'Méthode',
+        title: 'Probabilité avec inconnue',
+        body: `<p>Parfois, on te dit qu'une probabilité vaut un certain nombre, et tu dois trouver combien il y a d'objets d'un certain type.</p>
+        <div class="example"><strong>Exemple type</strong> (séance C.7)
+        <p>Un sac contient 120 boules : 30 bleues, n rouges, et le reste vertes. La probabilité de tirer une rouge est 0,4. Combien de boules rouges ?</p>
+        <p><strong>Solution :</strong></p>
+        <div class="calc-block">
+        <div class="step">P(rouge) = n / 120 = 0,4</div>
+        <div class="step">n = 0,4 × 120</div>
+        <div class="step">n = <strong>48 boules rouges</strong></div>
+        </div>
+        <p>Combien de vertes ?</p>
+        <div class="calc-block">
+        <div class="step">Vertes = 120 - 30 - 48 = <strong>42 boules</strong></div>
+        <div class="step">P(verte) = 42/120 = <strong>7/20</strong></div>
+        </div></div>`
+      }
+    ],
+    flashcards: [
+      { front: 'Expérience aléatoire', back: 'Expérience dont on connaît les résultats possibles, mais sans savoir lequel va se produire. Ex : lancer un dé.' },
+      { front: 'Issue', back: 'Un des résultats possibles de l\'expérience aléatoire. Ex : avec un dé, les issues sont 1, 2, 3, 4, 5, 6.' },
+      { front: 'Événement élémentaire', back: 'Événement réalisé par UNE seule issue. Ex : "obtenir un 5" est élémentaire (1 issue).' },
+      { front: 'Événement impossible', back: 'Événement qui ne se produit jamais. Sa probabilité est 0. Ex : "obtenir 7 avec un dé à 6 faces".' },
+      { front: 'Événement certain', back: 'Événement qui se produit toujours. Sa probabilité est 1. Ex : "obtenir un nombre entre 1 et 6 avec un dé".' },
+      { front: 'Événement contraire', back: 'L\'événement "non A" se réalise quand A ne se réalise PAS. P(non A) = 1 - P(A).' },
+      { front: 'Événements incompatibles', back: 'Deux événements qui ne peuvent PAS se réaliser en même temps. Ex : "obtenir 3" et "obtenir 5" avec un dé.' },
+      { front: 'Formule P(A)', back: 'P(A) = (nombre de cas favorables) / (nombre de cas possibles). Toujours entre 0 et 1.' },
+      { front: 'Somme des probabilités', back: 'La somme des probabilités de TOUS les événements élémentaires d\'une expérience vaut TOUJOURS 1 (= 100%).' }
+    ],
+    qcm: [
+      { q: 'On lance un dé à 6 faces. P(obtenir un 4) vaut :', options: ['1/4', '1/6', '4/6', '1/2'], correct: 1, exp: '1 issue favorable (le 4) sur 6 issues possibles, donc P = 1/6.' },
+      { q: 'On lance un dé. P(obtenir un nombre pair) vaut :', options: ['1/6', '2/6', '3/6 = 1/2', '4/6'], correct: 2, exp: 'Les pairs sont 2, 4, 6 (3 issues sur 6), donc P = 3/6 = 1/2.' },
+      { q: 'Une probabilité est toujours :', options: ['Entre -1 et 1', 'Positive', 'Entre 0 et 1', 'Inférieure à 0,5'], correct: 2, exp: 'Une probabilité est toujours comprise entre 0 (impossible) et 1 (certain).' },
+      { q: 'Roulette à 37 cases (0 à 36). P(obtenir le 7) vaut :', options: ['1/37', '7/37', '1/7', '1/36'], correct: 0, exp: 'Une seule case porte le 7 sur 37 cases au total, donc P = 1/37.' },
+      { q: 'Roulette à 37 cases. P(obtenir un nombre ≤ 6) vaut :', options: ['6/37', '7/37', '1/6', '5/37'], correct: 1, exp: 'Les cases ≤ 6 sont : 0, 1, 2, 3, 4, 5, 6 → 7 cases sur 37, donc P = 7/37.' },
+      { q: 'On tire une carte dans un jeu de 32 cartes. P(tirer un roi) vaut :', options: ['1/32', '4/32 = 1/8', '8/32 = 1/4', '1/4'], correct: 1, exp: 'Il y a 4 rois dans un jeu de 32 cartes, donc P = 4/32 = 1/8.' },
+      { q: 'P(tirer un roi OU un cœur) dans un jeu de 32 cartes :', options: ['12/32', '11/32', '4/32', '8/32'], correct: 1, exp: '4 rois + 8 cœurs = 12, MAIS le roi de cœur est compté 2 fois → on enlève 1. P = (4+8-1)/32 = 11/32.' },
+      { q: 'Un événement certain a une probabilité de :', options: ['0', '0,5', '1', '100'], correct: 2, exp: 'Un événement certain se réalise toujours. Sa probabilité vaut 1 (= 100%).' },
+      { q: 'Sac avec 30 boules bleues sur 120. P(tirer une bleue) vaut :', options: ['1/4', '30/120 = 0,25', 'Les deux réponses ci-dessus sont justes', '1/30'], correct: 2, exp: 'P = 30/120 = 1/4 = 0,25. Les deux fractions sont équivalentes.' },
+      { q: 'Sac de 120 boules : P(rouge) = 0,4. Combien de rouges ?', options: ['30', '40', '48', '60'], correct: 2, exp: 'n/120 = 0,4 donc n = 0,4 × 120 = 48 boules rouges.' },
+      { q: 'P(A) = 0,3. Alors P(non A) vaut :', options: ['0,3', '0,7', '0,5', '1,3'], correct: 1, exp: 'P(non A) = 1 - P(A) = 1 - 0,3 = 0,7.' },
+      { q: '"Obtenir un 3" et "obtenir un 5" avec un dé sont :', options: ['Compatibles', 'Incompatibles', 'Identiques', 'Contraires'], correct: 1, exp: 'On ne peut pas obtenir 3 ET 5 en même temps avec un seul lancer. Ces événements sont INCOMPATIBLES.' }
+    ],
+    exos: [
+      { q: 'Roulette à 37 cases. Probabilité d\'obtenir le 7 ? (Écris ta réponse en fraction comme 1/37)', ans: '1/37', tol: 0, hint: 'Une seule case favorable sur 37 cases au total.', exp: 'P = 1/37 (1 cas favorable sur 37 issues).', textAnswer: true },
+      { q: 'Sac de 120 boules : P(rouge) = 0,4. Combien de boules rouges ?', ans: '48', tol: 0, hint: 'n/120 = 0,4', exp: 'n = 0,4 × 120 = 48 boules rouges.' },
+      { q: 'Sac de 120 boules : 30 bleues + 48 rouges + reste vertes. Combien de boules vertes ?', ans: '42', tol: 0, hint: 'Vertes = total - bleues - rouges', exp: 'Vertes = 120 - 30 - 48 = 42 boules.' },
+      { q: 'Jeu de 32 cartes : tirer un roi OU un cœur. Combien de cas favorables ?', ans: '11', tol: 0, hint: '4 rois + 8 cœurs - 1 (le roi de cœur compté 2 fois)', exp: '4 rois + 8 cœurs = 12, mais on enlève 1 (roi de cœur déjà compté). Donc 11 cas favorables.' },
+      { q: 'Une probabilité d\'événement A vaut 0,25. Quelle est P(non A) ?', ans: '0,75', tol: 0.01, hint: 'P(non A) = 1 - P(A)', exp: 'P(non A) = 1 - 0,25 = 0,75.' },
+      { q: 'On lance un dé à 6 faces. P(obtenir un nombre pair) ? (Réponse décimale)', ans: '0,5', tol: 0.01, hint: '3 nombres pairs (2, 4, 6) sur 6 issues', exp: 'P = 3/6 = 1/2 = 0,5.' },
+      { q: 'Dans 32 cartes, P(tirer un roi) sous forme décimale ?', ans: '0,125', tol: 0.01, hint: '4 rois sur 32, fais la division.', exp: 'P = 4/32 = 0,125.' },
+      { q: 'Sac : 42 vertes sur 120 boules. P(verte) sous forme décimale arrondie au centième ?', ans: '0,35', tol: 0.01, hint: '42/120', exp: 'P = 42/120 = 0,35 = 7/20.' }
+    ]
+  },
+
+  stats: {
+    title: '📊 Statistiques',
+    lessons: [
+      {
+        chapter: 'Vocabulaire',
+        title: 'Le vocabulaire des stats',
+        body: `<p>Quand on fait une enquête, on étudie une <strong>population</strong> (un groupe d'individus). Pour cette population, on regarde un <strong>caractère</strong> (une propriété).</p>
+        <div class="example"><strong>Exemple</strong>
+        <ul>
+          <li>Population : les élèves de la 3eA</li>
+          <li>Caractère : leur sport préféré</li>
+        </ul></div>
+        <p><strong>Mots à connaître</strong> :</p>
+        <ul>
+          <li><strong>Effectif</strong> : nombre de fois où une valeur apparaît</li>
+          <li><strong>Effectif total</strong> : nombre total d'individus dans la population</li>
+          <li><strong>Données</strong> : ensemble des valeurs du caractère</li>
+          <li><strong>Fréquence</strong> : F = effectif / effectif total</li>
+          <li><strong>Fréquence en %</strong> : F × 100</li>
+        </ul>
+        <div class="key-point"><strong>À retenir</strong>
+        <ul>
+          <li>La fréquence est toujours entre 0 et 1</li>
+          <li>La somme de toutes les fréquences vaut TOUJOURS 1 (= 100%)</li>
+          <li>Effectif et fréquence sont proportionnels</li>
+        </ul></div>`
+      },
+      {
+        chapter: 'Représentations',
+        title: 'Diagramme en bâtons',
+        body: `<p>On utilise un <strong>diagramme en bâtons</strong> pour des données <strong>numériques peu nombreuses</strong> :</p>
+        <ul>
+          <li>Nombre de prénoms par élève</li>
+          <li>Pointures de chaussures</li>
+          <li>Nombre de livres lus dans l'année</li>
+        </ul>
+        <p>La <strong>hauteur</strong> de chaque bâton est <strong>proportionnelle à l'effectif</strong> de la valeur représentée.</p>
+        <div class="example"><strong>Exemple</strong> : nombre de satellites par planète. La hauteur du bâton pour Jupiter sera proportionnelle à son nombre de satellites.</div>`
+      },
+      {
+        chapter: 'Représentations',
+        title: 'Histogramme',
+        body: `<p>L'<strong>histogramme</strong>, c'est pour des données <strong>numériques trop nombreuses</strong> qu'on regroupe en <strong>classes</strong> :</p>
+        <ul>
+          <li>Tailles des élèves</li>
+          <li>Durée du trajet école-maison</li>
+          <li>Nombre de minutes devant un écran</li>
+        </ul>
+        <p>On définit des <strong>classes d'amplitude</strong> (ex: "entre 150 et 160 cm", "entre 160 et 170 cm"...).</p>
+        <p>La <strong>hauteur</strong> d'un rectangle est <strong>proportionnelle à l'effectif</strong> de la classe.</p>
+        <div class="key-point"><strong>Différence clé</strong>Diagramme en bâtons = valeurs séparées (bâtons fins, espacés). Histogramme = classes regroupées (rectangles collés, plus larges).</div>`
+      },
+      {
+        chapter: 'Représentations',
+        title: 'Diagramme circulaire (camembert)',
+        body: `<p>Le <strong>diagramme circulaire</strong> (aussi appelé "camembert"), c'est pour les données <strong>non numériques</strong> :</p>
+        <ul>
+          <li>Couleur préférée</li>
+          <li>Sport pratiqué</li>
+          <li>Origine géographique</li>
+        </ul>
+        <p>Les <strong>mesures des angles</strong> sont <strong>proportionnelles aux effectifs</strong>.</p>
+        <span class="formula">Angle = (effectif / effectif total) × 360°</span>
+        <div class="example"><strong>Exemple</strong> (population française 1999) :
+        <p>60 187 205 personnes au total. Sur les moins de 20 ans : 14 951 165 personnes.</p>
+        <div class="calc-block">
+        <div class="step">Fréquence = 14 951 165 / 60 187 205 ≈ 0,25 (soit 25%)</div>
+        <div class="step">Angle = 0,25 × 360° = <strong>90°</strong></div>
+        </div></div>`
+      },
+      {
+        chapter: 'Calculs',
+        title: 'Moyenne, médiane et étendue',
+        body: `<p>Ce sont les 3 indicateurs principaux d'une série statistique.</p>
+        <p><strong>1. La moyenne (M)</strong></p>
+        <span class="formula">M = (x₁ + x₂ + ... + x_p) / p<br>(somme des valeurs / nombre de valeurs)</span>
+        <p><strong>2. La médiane (m)</strong></p>
+        <p>C'est la valeur qui partage la série en deux moitiés égales. <strong>Au moins la moitié</strong> des valeurs sont ≤ m.</p>
+        <div class="example"><strong>Méthode</strong>
+        <ol>
+          <li>Ordonne les valeurs dans l'ordre croissant</li>
+          <li>Si n est <strong>impair</strong> : la médiane est la valeur du milieu</li>
+          <li>Si n est <strong>pair</strong> : la médiane est la moyenne des deux valeurs centrales</li>
+        </ol>
+        <p>Ex : 3, 5, 7, 8, 10 → médiane = 7 (valeur du milieu)</p>
+        <p>Ex : 3, 5, 7, 8 → médiane = (5+7)/2 = 6</p></div>
+        <p><strong>3. L'étendue</strong></p>
+        <span class="formula">Étendue = valeur max - valeur min</span>
+        <div class="example">Ex : série 3, 7, 8, 12, 15 → étendue = 15 - 3 = 12</div>`
+      }
+    ],
+    flashcards: [
+      { front: 'Effectif', back: 'Nombre de fois où une valeur apparaît dans la série statistique.' },
+      { front: 'Effectif total', back: 'Somme de tous les effectifs = nombre total d\'individus dans la population.' },
+      { front: 'Fréquence', back: 'F = effectif / effectif total. Toujours entre 0 et 1.' },
+      { front: 'Fréquence en %', back: 'F × 100. Toujours entre 0% et 100%.' },
+      { front: 'Diagramme en bâtons', back: 'Pour données numériques PEU nombreuses (ex: pointures, nombre de frères et sœurs).' },
+      { front: 'Histogramme', back: 'Pour données numériques NOMBREUSES regroupées en classes (ex: tailles, durées).' },
+      { front: 'Diagramme circulaire', back: 'Pour données NON numériques (ex: sport préféré, couleur). Angles ∝ effectifs.' },
+      { front: 'Moyenne, médiane, étendue', back: 'Moyenne = somme/nombre. Médiane = valeur centrale après tri. Étendue = max - min.' }
+    ],
+    qcm: [
+      { q: 'Dans une classe de 25 élèves, 5 préfèrent le foot. Quelle est la fréquence ?', options: ['5', '25', '0,2 (= 20%)', '5/25'], correct: 2, exp: 'F = 5/25 = 0,2 (soit 20%). La réponse "5/25" n\'est pas simplifiée.' },
+      { q: 'La somme de TOUTES les fréquences vaut toujours :', options: ['0', '1 (= 100%)', '100', 'Cela dépend'], correct: 1, exp: 'La somme des fréquences vaut toujours 1 (= 100%).' },
+      { q: 'Pour représenter le sport préféré des élèves, on utilise :', options: ['Histogramme', 'Diagramme en bâtons', 'Diagramme circulaire', 'Courbe'], correct: 2, exp: 'Le sport préféré est une donnée NON numérique → diagramme circulaire (ou en barres).' },
+      { q: 'Sur 60 187 205 personnes, 14 951 165 ont moins de 20 ans. Sur un camembert, quel angle pour ces -20 ans ?', options: ['25°', '90°', '180°', '360°'], correct: 1, exp: 'Fréquence = 14 951 165 / 60 187 205 ≈ 0,25. Angle = 0,25 × 360° = 90°.' },
+      { q: 'Série : 3, 7, 5, 8, 10. La médiane est :', options: ['5', '7', '8', '6,6'], correct: 1, exp: 'On ordonne : 3, 5, 7, 8, 10. La valeur centrale est 7 (la 3ᵉ sur 5).' },
+      { q: 'Série : 5, 8, 12, 4. La médiane est :', options: ['6,5', '8', '12', '7,25'], correct: 0, exp: 'On ordonne : 4, 5, 8, 12. Comme il y a 4 valeurs (pair), on prend la moyenne des 2 centrales : (5+8)/2 = 6,5.' },
+      { q: 'Série : 3, 7, 15, 8, 2. L\'étendue est :', options: ['13', '12', '15', '7'], correct: 0, exp: 'Étendue = max - min = 15 - 2 = 13.' },
+      { q: 'Moyenne de 4, 6, 8, 10 ?', options: ['7', '6,5', '8', '4'], correct: 0, exp: 'M = (4+6+8+10) / 4 = 28/4 = 7.' }
+    ],
+    exos: [
+      { q: 'Dans une classe de 25 élèves, 8 ont les yeux bleus. Fréquence en pourcentage ?', ans: '32', tol: 0.5, hint: 'F = 8/25 × 100', exp: 'F = 8/25 = 0,32 = 32%.' },
+      { q: 'Sur 200 personnes interrogées, 80 préfèrent le sucré. Angle du secteur sur un camembert (en degrés) ?', ans: '144', tol: 0.5, hint: 'Angle = (80/200) × 360°', exp: 'Angle = (80/200) × 360° = 0,4 × 360° = 144°.' },
+      { q: 'Moyenne de la série : 12, 14, 18, 20, 16 ?', ans: '16', tol: 0.01, hint: 'Somme / 5', exp: 'M = (12+14+18+20+16)/5 = 80/5 = 16.' },
+      { q: 'Médiane de la série ordonnée : 5, 8, 10, 12, 15, 18 ? (Réponse décimale)', ans: '11', tol: 0.01, hint: '6 valeurs (pair), faire la moyenne des 2 centrales (10 et 12).', exp: '(10+12)/2 = 11.' },
+      { q: 'Étendue de la série : 7, 13, 4, 21, 9 ?', ans: '17', tol: 0, hint: 'max - min', exp: 'Max = 21, min = 4. Étendue = 21 - 4 = 17.' }
+    ]
+  }
+};
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchTab(topic) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  $('tab-' + topic).classList.add('active');
+}
+
+function startMode(topic, mode) {
+  state.topic = topic;
+  state.mode = mode;
+  state.idx = 0;
+  state.score = 0;
+  state.answered = false;
+
+  const data = DATA[topic];
+  if (mode === 'lesson') state.items = data.lessons;
+  else if (mode === 'flashcards') state.items = data.flashcards;
+  else if (mode === 'qcm') state.items = data.qcm;
+  else if (mode === 'exo') state.items = data.exos;
+
+  $('home-view').style.display = 'none';
+  $('study-view').classList.add('active');
+  $('study-view').style.display = 'block';
+
+  const modeLabels = { lesson: '👨‍🏫 Le cours', flashcards: '🃏 Flashcards', qcm: '🎯 QCM', exo: '✏️ Exercices' };
+  setText('study-title', modeLabels[mode]);
+  setText('study-topic', data.title);
+
+  $('statsScore').style.display = (mode === 'qcm' || mode === 'exo') ? 'inline-block' : 'none';
+  renderItem();
+}
+
+function backHome() {
+  state.topic = null;
+  state.mode = null;
+  $('study-view').classList.remove('active');
+  $('study-view').style.display = 'none';
+  $('home-view').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderItem() {
+  const total = state.items.length;
+  const idx = state.idx;
+  setText('statsCount', (idx + 1) + '/' + total);
+  setText('statsScore', '✅ ' + state.score);
+  document.getElementById('progressFill').style.width = ((idx + 1) / total * 100) + '%';
+
+  const item = state.items[idx];
+  if (state.mode === 'lesson') renderLesson(item);
+  else if (state.mode === 'flashcards') renderFlashcard(item);
+  else if (state.mode === 'qcm') renderQcm(item);
+  else if (state.mode === 'exo') renderExo(item);
+}
+
+// ============================================================
+// LESSON
+// ============================================================
+function renderLesson(item) {
+  setHTML('study-content', `
+    <div class="lesson-card glass">
+      <div class="lesson-chapter">${escapeHtml(item.chapter)}</div>
+      <h3 class="lesson-title">${escapeHtml(item.title)}</h3>
+      <div class="lesson-body">${item.body}</div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(true)">${state.idx === state.items.length - 1 ? 'Terminer ✓' : 'Suivant →'}</button>
+    </div>
+  `);
+}
+
+// ============================================================
+// FLASHCARDS
+// ============================================================
+function renderFlashcard(item) {
+  setHTML('study-content', `
+    <div class="flashcard" id="flashcardWrap" onclick="flipCard()">
+      <div class="flashcard-inner">
+        <div class="flashcard-face glass">
+          <div class="fc-label">📚 Terme</div>
+          <div class="fc-content">${escapeHtml(item.front)}</div>
+          <div class="fc-hint">Clique pour retourner la carte</div>
+        </div>
+        <div class="flashcard-face flashcard-back glass">
+          <div class="fc-label">💡 Définition</div>
+          <div class="fc-content small">${escapeHtml(item.back)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(true)">${state.idx === state.items.length - 1 ? 'Terminer ✓' : 'Suivant →'}</button>
+    </div>
+  `);
+}
+function flipCard() {
+  document.getElementById('flashcardWrap').classList.toggle('flipped');
+}
+
+// ============================================================
+// QCM
+// ============================================================
+function renderQcm(item) {
+  state.answered = false;
+  const optsHtml = item.options.map((o, i) =>
+    `<button class="qcm-option" onclick="answerQcm(${i})" data-idx="${i}">${escapeHtml(o)}</button>`
+  ).join('');
+  setHTML('study-content', `
+    <div class="qcm-card glass">
+      <div class="qcm-question">${escapeHtml(item.q)}</div>
+      <div class="qcm-options" id="qcmOptions">${optsHtml}</div>
+      <div id="qcmFeedback"></div>
+    </div>
+    <div class="controls" id="qcmControls" style="display:none">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(false)">${state.idx === state.items.length - 1 ? 'Voir le résultat ✓' : 'Question suivante →'}</button>
+    </div>
+  `);
+}
+
+function answerQcm(picked) {
+  if (state.answered) return;
+  state.answered = true;
+  const item = state.items[state.idx];
+  const buttons = document.querySelectorAll('.qcm-option');
+  buttons.forEach((b, i) => {
+    b.disabled = true;
+    if (i === item.correct) b.classList.add('correct');
+    else if (i === picked) b.classList.add('wrong');
+  });
+  if (picked === item.correct) {
+    state.score++;
+    addXpForItem(itemKey(state.topic, 'qcm', state.idx), XP_BY_MODE.qcm);
+  }
+  setHTML('qcmFeedback', `<div class="qcm-explanation"><strong>${picked === item.correct ? '✅ Bonne réponse !' : '❌ Réponse correcte : ' + escapeHtml(item.options[item.correct])}</strong><br>${escapeHtml(item.exp)}</div>`);
+  $('qcmControls').style.display = 'flex';
+  setText('statsScore', '✅ ' + state.score);
+}
+
+// ============================================================
+// EXERCICES
+// ============================================================
+function renderExo(item) {
+  state.answered = false;
+  setHTML('study-content', `
+    <div class="exercise-block glass">
+      <div class="exercise-title">Exercice ${state.idx + 1}</div>
+      <div class="exercise-question">${escapeHtml(item.q)}</div>
+      <input type="text" class="exercise-input" id="exoInput" placeholder="Ta réponse" autocomplete="off" onkeydown="if(event.key==='Enter')checkExo()">
+      <div class="controls" style="justify-content:flex-start; margin-top: 8px;">
+        <button class="btn btn-primary" onclick="checkExo()">Vérifier</button>
+        <button class="btn btn-ghost" onclick="showHint()">💡 Indice</button>
+      </div>
+      <div class="exercise-feedback" id="exoFeedback"></div>
+    </div>
+    <div class="controls" id="exoControls" style="display:none">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx === 0 ? 'disabled' : ''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(false)">${state.idx === state.items.length - 1 ? 'Voir le résultat ✓' : 'Exercice suivant →'}</button>
+    </div>
+  `);
+  setTimeout(() => { const inp = document.getElementById('exoInput'); if (inp) inp.focus(); }, 200);
+}
+
+function showHint() {
+  const item = state.items[state.idx];
+  const fb = document.getElementById('exoFeedback');
+  fb.className = 'exercise-feedback show';
+  fb.style.background = 'rgba(255,159,10,0.15)';
+  fb.style.color = 'var(--gold)';
+  fb.style.borderLeft = '3px solid var(--gold)';
+  fb.innerHTML = '💡 <strong>Indice :</strong> ' + escapeHtml(item.hint);
+}
+
+function checkExo() {
+  if (state.answered) return;
+  const item = state.items[state.idx];
+  const inp = document.getElementById('exoInput');
+  const raw = (inp.value || '').trim().replace(',', '.');
+  const fb = document.getElementById('exoFeedback');
+  let isCorrect = false;
+
+  if (item.textAnswer) {
+    // Réponse texte (fractions)
+    const expected = item.ans.replace(/\s+/g, '');
+    const actual = raw.replace(/\s+/g, '');
+    isCorrect = expected === actual;
+  } else {
+    const num = parseFloat(raw);
+    if (!isNaN(num)) {
+      const expected = parseFloat(item.ans.replace(',', '.'));
+      isCorrect = Math.abs(num - expected) <= (item.tol || 0.01);
+    }
+  }
+
+  state.answered = true;
+  fb.className = 'exercise-feedback show ' + (isCorrect ? 'correct' : 'wrong');
+  fb.innerHTML = (isCorrect ? '✅ <strong>Bravo !</strong> ' : '❌ <strong>Pas tout à fait.</strong> Réponse : <strong>' + escapeHtml(item.ans) + '</strong><br>') + escapeHtml(item.exp);
+  if (isCorrect) {
+    state.score++;
+    addXpForItem(itemKey(state.topic, 'exo', state.idx), XP_BY_MODE.exo);
+  }
+  inp.disabled = true;
+  $('exoControls').style.display = 'flex';
+  setText('statsScore', '✅ ' + state.score);
+}
+
+// ============================================================
+// NAV ITEMS
+// ============================================================
+function prevItem() {
+  if (state.idx > 0) {
+    state.idx--;
+    state.answered = false;
+    renderItem();
+  }
+}
+function nextItem(addXpFlag) {
+  if (state.idx < state.items.length - 1) {
+    state.idx++;
+    state.answered = false;
+    if (addXpFlag && (state.mode === 'lesson' || state.mode === 'flashcards')) {
+      // 🛡️ Anti-farm : XP gagnée une seule fois par carte
+      addXpForItem(itemKey(state.topic, state.mode, state.idx - 1), XP_BY_MODE[state.mode]);
+    }
+    renderItem();
+  } else {
+    if (addXpFlag && (state.mode === 'lesson' || state.mode === 'flashcards')) {
+      addXpForItem(itemKey(state.topic, state.mode, state.idx), XP_BY_MODE[state.mode]);
+    }
+    showCompletion();
+  }
+}
+
+function showCompletion() {
+  const total = state.items.length;
+  const pct = state.mode === 'qcm' || state.mode === 'exo' ? Math.round((state.score / total) * 100) : 100;
+  let msg = '';
+  if (state.mode === 'qcm' || state.mode === 'exo') {
+    if (pct >= 80) msg = 'Excellent ! Tu maîtrises 💪';
+    else if (pct >= 60) msg = 'Bon travail, encore un effort !';
+    else msg = 'Reprends le cours, tu vas y arriver 🎯';
+  } else {
+    msg = 'Tu as parcouru toutes les cartes !';
+  }
+  setHTML('study-content', `
+    <div class="completion-screen glass" style="padding: 40px;">
+      <span class="icon">${pct >= 80 ? '🏆' : pct >= 60 ? '🎯' : '💪'}</span>
+      <h2>Terminé !</h2>
+      ${(state.mode === 'qcm' || state.mode === 'exo') ? `<div class="score-big">${state.score}/${total}</div>` : ''}
+      <p>${msg}</p>
+      <div class="controls" style="margin-top: 24px;">
+        <button class="btn btn-ghost" onclick="backHome()">← Retour aux modes</button>
+        <button class="btn btn-primary" onclick="startMode('${state.topic}','${state.mode}')">🔄 Recommencer</button>
+      </div>
+    </div>
+  `);
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg, type) {
+  const t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  currentUser = getCurrentUser();
+  if (!currentUser) {
+    // Pas connecté → retour au hub
+    window.location.href = '../index.html';
+    return;
+  }
+    // 🔥 Charger Firebase pour la sync avec le podium (avec fallback CDN)
+  if (typeof firebase === 'undefined') {
+    const CDNS = [
+      'https://www.gstatic.com/firebasejs/9.23.0',
+      'https://cdn.jsdelivr.net/npm/firebase@9.23.0',
+      'https://unpkg.com/firebase@9.23.0'
+    ];
+    function loadScr(url) {
+      return new Promise(function(res, rej) {
+        const s = document.createElement('script');
+        s.src = url;
+        s.onload = function() { res(); };
+        s.onerror = function() { rej(new Error(url)); };
+        document.head.appendChild(s);
+      });
+    }
+    function tryCDN(i) {
+      if (i >= CDNS.length) return Promise.reject(new Error('all CDNs failed'));
+      const b = CDNS[i];
+      return loadScr(b + '/firebase-app-compat.js')
+        .then(function() { return loadScr(b + '/firebase-database-compat.js'); })
+        .catch(function() { return tryCDN(i + 1); });
+    }
+    tryCDN(0).then(function() {
+      try {
+        firebase.initializeApp({
+          apiKey: "AIzaSyBnx_vlRm3rd1eNIAtMIHBFsxJHV7h8vKU",
+          authDomain: "revyzia.firebaseapp.com",
+          databaseURL: "https://revyzia-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "revyzia",
+          storageBucket: "revyzia.firebasestorage.app",
+          messagingSenderId: "447321876734",
+          appId: "1:447321876734:web:b783846225faef221f5daf"
+        });
+        console.log('[Chapter] ✅ Firebase ready');
+        if (currentUser && typeof syncWithHub === 'function') syncWithHub();
+      } catch(e) { console.warn('[Chapter] FB init:', e); }
+    }).catch(function(err) {
+      console.warn('[Chapter] Firebase unavailable:', err);
+    });
+  }
+  userData = loadUserData();
+  syncWithHub();
+});
+</script>
+</body>
+</html>
