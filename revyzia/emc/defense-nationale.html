@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>EMC · Défense nationale</title>
+<script>
+window.REVYZIA_CHAPTER = {
+  id: "emc_defense_nationale",
+  subject: "emc",
+  title: "Armée française & Défense nationale",
+  depth: 1
+};
+</script>
+<link rel="stylesheet" href="../shared/unify.css">
+<style>
+:root {
+  --bg-base: #f5f5f7;
+  --bg-gradient: linear-gradient(135deg, #e0ffe8 0%, #d4eaff 50%, #f0e7ff 100%);
+  --glass-bg: rgba(255,255,255,0.55);
+  --glass-border: rgba(255,255,255,0.7);
+  --glass-shadow: 0 8px 32px rgba(31,38,135,0.08);
+  --glass-shadow-lg: 0 20px 60px rgba(31,38,135,0.15);
+  --ink: #1d1d1f; --ink-soft: #6e6e73; --ink-faint: #aeaeb2;
+  --accent: #2d6a4f; --accent-soft: rgba(45,106,79,0.12);
+  --accent-2: #1a4080; --accent-3: #8338ec;
+  --green: #34c759; --gold: #ff9f0a; --red: #ff453a;
+  --divider: rgba(0,0,0,0.08);
+}
+[data-theme="dark"] {
+  --bg-base: #000;
+  --bg-gradient: radial-gradient(ellipse at top, #0a1a0f 0%, #060a18 40%, #000 100%);
+  --glass-bg: rgba(28,28,30,0.6); --glass-border: rgba(255,255,255,0.12);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.4); --glass-shadow-lg: 0 20px 60px rgba(0,0,0,0.6);
+  --ink: #f5f5f7; --ink-soft: #98989d; --ink-faint: #636366;
+  --accent: #52b788; --accent-soft: rgba(82,183,136,0.18);
+  --accent-2: #4a90d9; --accent-3: #a77bff;
+  --green: #30d158; --gold: #ffb340; --red: #ff6961;
+  --divider: rgba(255,255,255,0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; overflow-x: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-base); color: var(--ink); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; transition: background 0.6s, color 0.3s;
+}
+body::before {
+  content: ''; position: fixed; inset: -50%;
+  background: var(--bg-gradient); z-index: -2;
+  animation: bgShift 25s ease-in-out infinite alternate; filter: blur(60px);
+}
+@keyframes bgShift { 0% { transform: translate(-5%,-5%) rotate(0deg); } 100% { transform: translate(5%,5%) rotate(8deg); } }
+.orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.45; pointer-events: none; }
+.orb-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; right: -100px; animation: f1 18s ease-in-out infinite; }
+.orb-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; left: -80px; animation: f2 22s ease-in-out infinite; }
+@keyframes f1 { 0%,100% { transform: scale(1) translate(0,0); } 50% { transform: scale(1.1) translate(-50px,80px); } }
+@keyframes f2 { 0%,100% { transform: scale(1) translate(0,0); } 50% { transform: scale(1.15) translate(80px,-50px); } }
+
+.glass { background: var(--glass-bg); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow); }
+
+/* TOP BAR */
+.top-bar { position: sticky; top: 12px; z-index: 100; margin: 12px; padding: 12px 22px; display: flex; justify-content: space-between; align-items: center; border-radius: 100px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -0.5px; user-select: none; }
+.back-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; font-weight: 700; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.back-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.brand-icon { width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; box-shadow: 0 4px 12px rgba(45,106,79,0.4); }
+.brand-name { background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.top-right { display: flex; align-items: center; gap: 10px; }
+.xp-mini { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 100px; background: var(--accent-soft); font-weight: 700; font-size: 13px; color: var(--accent); }
+.streak-mini { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 100px; background: var(--accent-soft); font-weight: 700; font-size: 13px; color: #ff6b35; }
+.streak-mini.zero { color: var(--ink-faint); }
+.logout-btn { padding: 6px 14px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink-soft); font-family: inherit; font-weight: 500; transition: all 0.2s; }
+.logout-btn:hover { background: rgba(255,69,58,0.12); color: var(--red); border-color: var(--red); }
+.theme-toggle { width: 36px; height: 36px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform 0.3s; }
+.theme-toggle:hover { transform: scale(1.1) rotate(15deg); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
+
+/* HERO */
+.hero { text-align: center; padding: 24px 16px 8px; }
+.hero .badge { display: inline-block; padding: 5px 14px; background: var(--accent-soft); color: var(--accent); border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+.hero h1 { font-size: clamp(28px,5vw,42px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 8px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .subtitle { color: var(--ink-soft); font-size: 15px; max-width: 540px; margin: 0 auto 16px; }
+
+/* TABS */
+.tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
+.tab-btn { padding: 10px 20px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink-soft); transition: all 0.25s; }
+.tab-btn:hover { transform: translateY(-2px); }
+.tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border-color: transparent; box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
+.tab-section { display: none; animation: fadeIn 0.3s ease; }
+.tab-section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* MODE CARDS */
+.modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 12px; margin: 18px auto; max-width: 720px; justify-content: center; }
+.mode-card { padding: 22px 16px; border-radius: 22px; cursor: pointer; transition: all 0.3s; text-align: center; position: relative; overflow: hidden; }
+.mode-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--mc, var(--accent)) 0%, transparent 60%); opacity: 0.1; transition: opacity 0.3s; }
+.mode-card:hover { transform: translateY(-4px); box-shadow: var(--glass-shadow-lg); }
+.mode-card:hover::before { opacity: 0.2; }
+.mode-card .icon { font-size: 32px; margin-bottom: 8px; display: block; }
+.mode-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.mode-card p { font-size: 12px; color: var(--ink-soft); margin-bottom: 8px; }
+.mode-card .meta { font-size: 11px; color: var(--mc, var(--accent)); font-weight: 600; }
+
+/* STUDY */
+.study-view { display: none; }
+.study-view.active { display: block; }
+.study-back { display: inline-block; padding: 8px 16px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-size: 13px; color: var(--ink); font-family: inherit; font-weight: 500; text-decoration: none; transition: all 0.2s; margin-bottom: 16px; }
+.study-back:hover { background: var(--accent-soft); color: var(--accent); }
+.study-header { text-align: center; margin: 16px 0 24px; }
+.study-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 4px; }
+.study-header .topic { font-size: 13px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; }
+.progress-bar { height: 8px; background: var(--accent-soft); border-radius: 100px; overflow: hidden; margin: 12px 0 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 100px; transition: width 0.5s; }
+.stats-row { display: flex; justify-content: center; gap: 16px; margin: 12px 0; flex-wrap: wrap; }
+.stats-pill { padding: 7px 16px; border-radius: 100px; background: var(--accent-soft); font-size: 13px; font-weight: 600; color: var(--accent); }
+
+/* LESSON */
+.lesson-card { padding: 28px 26px; border-radius: 22px; max-width: 750px; margin: 0 auto; }
+.lesson-chapter { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.lesson-title { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 16px; }
+.lesson-body { font-size: 15px; line-height: 1.7; color: var(--ink); }
+.lesson-body p { margin-bottom: 12px; }
+.lesson-body ul, .lesson-body ol { margin: 10px 0 14px 22px; }
+.lesson-body li { margin-bottom: 6px; }
+.lesson-body strong { color: var(--accent); font-weight: 700; }
+.def { background: var(--accent-soft); border-radius: 12px; padding: 12px 16px; margin: 12px 0; border-left: 4px solid var(--accent); font-size: 14px; line-height: 1.5; }
+.def strong { color: var(--accent); display: block; margin-bottom: 2px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+.example { background: rgba(52,199,89,0.1); border-radius: 12px; padding: 12px 16px; margin: 12px 0; border-left: 4px solid var(--green); font-size: 14px; }
+.example strong { color: var(--green); }
+.warning { background: rgba(255,159,10,0.12); border-radius: 12px; padding: 12px 16px; margin: 12px 0; border-left: 4px solid var(--gold); font-size: 14px; }
+.warning strong { color: var(--gold); }
+.schema { background: var(--glass-bg); border-radius: 14px; padding: 16px; margin: 14px 0; border: 1px solid var(--glass-border); }
+.schema table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.schema td, .schema th { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--divider); }
+.schema th { font-weight: 700; color: var(--accent); }
+
+/* FLASHCARDS */
+.flashcard { width: 100%; max-width: 580px; margin: 0 auto; perspective: 1000px; min-height: 280px; cursor: pointer; }
+.flashcard-inner { position: relative; width: 100%; min-height: 280px; transition: transform 0.6s; transform-style: preserve-3d; }
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; padding: 32px 26px; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.flashcard-back { transform: rotateY(180deg); }
+.fc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+.fc-content { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.3; color: var(--ink); }
+.fc-content.sm { font-size: 16px; font-weight: 500; line-height: 1.6; }
+.fc-hint { margin-top: 16px; font-size: 12px; color: var(--ink-faint); }
+
+/* QCM */
+.qcm-card { padding: 28px 24px; border-radius: 22px; max-width: 700px; margin: 0 auto; }
+.qcm-q { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
+.qcm-options { display: flex; flex-direction: column; gap: 10px; }
+.qcm-option { padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); cursor: pointer; font-family: inherit; font-size: 15px; text-align: left; font-weight: 500; transition: all 0.2s; }
+.qcm-option:hover:not(:disabled) { border-color: var(--accent); transform: translateX(4px); }
+.qcm-option.correct { background: linear-gradient(135deg, var(--green), #2eb050); color: white; border-color: transparent; }
+.qcm-option.wrong { background: linear-gradient(135deg, var(--red), #d63a30); color: white; border-color: transparent; }
+.qcm-option:disabled { cursor: not-allowed; }
+.qcm-exp { margin-top: 14px; padding: 13px 16px; background: var(--accent-soft); border-radius: 11px; font-size: 14px; line-height: 1.5; border-left: 3px solid var(--accent); }
+
+/* CONTROLS */
+.controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.btn { padding: 12px 22px; border: none; border-radius: 14px; cursor: pointer; font-family: inherit; font-weight: 600; font-size: 14px; transition: all 0.25s; }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; box-shadow: 0 6px 16px rgba(45,106,79,0.3); }
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-ghost { background: var(--glass-bg); border: 1px solid var(--glass-border) !important; color: var(--ink); }
+.btn-ghost:hover { background: var(--accent-soft); color: var(--accent); }
+
+/* COMPLETION */
+.completion { text-align: center; padding: 30px 20px; max-width: 560px; margin: 0 auto; }
+.completion .icon { font-size: 60px; display: block; margin-bottom: 14px; }
+.completion h2 { font-size: 30px; font-weight: 800; letter-spacing: -1px; margin-bottom: 6px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.completion .score-big { font-size: 52px; font-weight: 800; color: var(--accent); margin: 8px 0; }
+
+/* TOAST */
+.toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-200%); padding: 13px 24px; border-radius: 100px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; font-weight: 700; font-size: 14px; box-shadow: 0 12px 32px rgba(45,106,79,0.4); z-index: 10000; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s, visibility 0.3s; opacity: 0; visibility: hidden; pointer-events: none; }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; }
+.toast.success { background: linear-gradient(135deg, var(--green), #2eb050); }
+
+@media (max-width: 700px) {
+  .top-bar { padding: 10px 14px; flex-wrap: wrap; }
+  main { padding: 12px 14px 50px; }
+  .modes-grid { grid-template-columns: 1fr 1fr; }
+  .lesson-card, .qcm-card { padding: 20px 16px; }
+  .fc-content { font-size: 17px; }
+}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<header class="top-bar glass">
+  <div class="brand">
+    <a href="../index.html" class="back-btn" title="Retour au hub">←</a>
+    <div class="brand-icon">🛡️</div>
+    <span class="brand-name">EMC</span>
+  </div>
+  <div class="top-right">
+    <div class="streak-mini zero" id="streakMini">🔥 <span id="streakNum">0</span></div>
+    <div class="xp-mini">⚡ <span id="xpNum">0</span></div>
+    <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙</button>
+  </div>
+</header>
+
+<main>
+<div id="home-view">
+  <div class="hero">
+    <span class="badge">🇫🇷 EMC · 3e · Éval demain</span>
+    <h1>Armée française &amp; Défense nationale</h1>
+    <p class="subtitle">Organisation, missions, rôle du citoyen et esprit de Défense. Éval : demain matin !</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('organisation')">🏛️ Organisation</button>
+    <button class="tab-btn" onclick="switchTab('missions')">🎯 Missions</button>
+    <button class="tab-btn" onclick="switchTab('citoyen')">🧑 Citoyen</button>
+  </div>
+
+  <section class="tab-section active" id="tab-organisation">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#2d6a4f" onclick="startMode('organisation','lesson')">
+        <span class="icon">📖</span><h3>Le cours</h3><p>Organisation de la Défense</p><div class="meta">5 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#1a4080" onclick="startMode('organisation','flashcards')">
+        <span class="icon">🃏</span><h3>Flashcards</h3><p>Vocabulaire clé</p><div class="meta">10 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#8338ec" onclick="startMode('organisation','qcm')">
+        <span class="icon">🎯</span><h3>QCM</h3><p>Type contrôle</p><div class="meta">12 questions</div>
+      </div>
+    </div>
+  </section>
+  <section class="tab-section" id="tab-missions">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#2d6a4f" onclick="startMode('missions','lesson')">
+        <span class="icon">📖</span><h3>Le cours</h3><p>Missions & opérations</p><div class="meta">5 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#1a4080" onclick="startMode('missions','flashcards')">
+        <span class="icon">🃏</span><h3>Flashcards</h3><p>Plans, opérations, acteurs</p><div class="meta">9 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#8338ec" onclick="startMode('missions','qcm')">
+        <span class="icon">🎯</span><h3>QCM</h3><p>Type contrôle</p><div class="meta">10 questions</div>
+      </div>
+    </div>
+  </section>
+  <section class="tab-section" id="tab-citoyen">
+    <div class="modes-grid">
+      <div class="mode-card glass" style="--mc:#2d6a4f" onclick="startMode('citoyen','lesson')">
+        <span class="icon">📖</span><h3>Le cours</h3><p>JDC, SNU, service civique</p><div class="meta">5 leçons</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#1a4080" onclick="startMode('citoyen','flashcards')">
+        <span class="icon">🃏</span><h3>Flashcards</h3><p>Dispositifs & dates clés</p><div class="meta">8 cartes</div>
+      </div>
+      <div class="mode-card glass" style="--mc:#8338ec" onclick="startMode('citoyen','qcm')">
+        <span class="icon">🎯</span><h3>QCM</h3><p>Type contrôle</p><div class="meta">10 questions</div>
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align:center;margin-top:24px;font-size:13px;color:var(--ink-faint);">💡 Conseil : cours → flashcards → QCM pour chaque thème !</div>
+</div>
+
+<div id="study-view" class="study-view">
+  <button class="study-back" onclick="backHome()">← Retour aux modes</button>
+  <div class="study-header">
+    <h2 id="study-title">Mode</h2>
+    <div class="topic" id="study-topic">Topic</div>
+  </div>
+  <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+  <div class="stats-row">
+    <div class="stats-pill" id="statsCount">1/1</div>
+    <div class="stats-pill" id="statsScore" style="display:none">✅ 0</div>
+  </div>
+  <div id="study-content"></div>
+</div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'emc_defense_v1_user_';
+const CHAPTER_ID = 'emc_defense_nationale';
+const XP = { lesson: 3, flashcards: 5, qcm: 10 };
+
+let currentUser = null, userData = null;
+let state = { topic: null, mode: null, idx: 0, items: [], score: 0, answered: false };
+
+function $(id) { return document.getElementById(id); }
+function setText(id, t) { const e = $(id); if (e) e.textContent = t; }
+function setHTML(id, h) { const e = $(id); if (e) e.innerHTML = h; }
+function escHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function getCurrentUser() {
+  try { const r = localStorage.getItem('revyzia_current_user'); return r ? JSON.parse(r) : null; } catch(e) { return null; }
+}
+function logout() {
+  if (!confirm('Te déconnecter ?')) return;
+  try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
+  window.location.href = '../index.html';
+}
+function userKey() { return STORAGE_KEY + (currentUser.key || currentUser.name+'__'+currentUser.klass); }
+function loadUserData() {
+  try { const r = localStorage.getItem(userKey()); if (r) return JSON.parse(r); } catch(e) {}
+  return { totalXp: 0, completedItems: {} };
+}
+function saveUserData() {
+  try { localStorage.setItem(userKey(), JSON.stringify(userData)); } catch(e) {}
+  syncWithHub();
+}
+function addXpForItem(key, amt) {
+  if (!userData.completedItems) userData.completedItems = {};
+  if (userData.completedItems[key]) return false;
+  userData.completedItems[key] = { xp: amt, when: Date.now() };
+  userData.totalXp = (userData.totalXp || 0) + amt;
+  saveUserData();
+  showToast('+' + amt + ' XP ⚡', 'success');
+  return true;
+}
+function ikey(topic, mode, idx) { return topic + '__' + mode + '__' + idx; }
+
+function syncWithHub() {
+  if (!currentUser) return;
+  try {
+    const hk = 'revyzia_user_' + (currentUser.key || currentUser.name+'__'+currentUser.klass);
+    let h = {}; try { const r = localStorage.getItem(hk); if (r) h = JSON.parse(r); } catch(e) {}
+    if (!h.chapters) h.chapters = {};
+    const prev = h.chapters[CHAPTER_ID] || { xp: 0 };
+    const newXp = Math.max(prev.xp || 0, userData.totalXp || 0);
+    h.chapters[CHAPTER_ID] = { xp: newXp, subject: 'emc', title: 'Défense nationale', lastSeen: Date.now() };
+    let total = 0; for (const k in h.chapters) total += (h.chapters[k].xp || 0);
+    h.totalXp = Math.max(h.totalXp || 0, total);
+    h.name = currentUser.name; h.userClass = currentUser.klass;
+    const today = new Date().toISOString().slice(0,10);
+    if (!h.lastReviewDate) h.streakDays = 1;
+    else if (h.lastReviewDate !== today) {
+      const d = Math.round((new Date(today)-new Date(h.lastReviewDate))/86400000);
+      if (d === 1) h.streakDays = (h.streakDays||0)+1;
+      else if (d === 2) h.streakDays = Math.max(1,Math.floor((h.streakDays||0)/2)+1);
+      else h.streakDays = 1;
+    }
+    h.streakValue = h.streakDays; h.lastReviewDate = today;
+    if (h.streakDays > (h.bestStreakDays||0)) h.bestStreakDays = h.streakDays;
+    localStorage.setItem(hk, JSON.stringify(h));
+    setText('xpNum', h.totalXp); setText('streakNum', h.streakValue||0);
+    const sm = $('streakMini'); if (sm) sm.classList.toggle('zero', (h.streakValue||0)===0);
+  } catch(e) {}
+}
+
+function toggleTheme() {
+  const c = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', c);
+  setText('themeToggle', c === 'light' ? '🌙' : '☀️');
+  try { localStorage.setItem('revyzia_theme', c); } catch(e) {}
+}
+function loadTheme() {
+  try { const s = localStorage.getItem('revyzia_theme'); if (s) { document.documentElement.setAttribute('data-theme', s); setText('themeToggle', s==='light'?'🌙':'☀️'); } } catch(e) {}
+}
+
+/* ============================================================
+   DONNÉES — Cours complet d'après le bilan prof
+============================================================ */
+const DATA = {
+  organisation: {
+    title: '🏛️ Organisation de la Défense',
+    lessons: [
+      { chapter: 'Intro', title: 'Qu\'est-ce que la Défense nationale ?', body: `
+        <div class="def"><strong>Définition à connaître</strong>La <strong>Défense nationale</strong> : ensemble des missions visant à assurer la <strong>protection des Français</strong> et la <strong>défense des intérêts de la France</strong>.</div>
+        <p>Les risques sont nombreux, illustrés par 3 exemples du cours :</p>
+        <ul>
+          <li>Le gendarme <strong>Arnaud Beltrame</strong>, tué lors d'un attentat terroriste en se substituant à un otage → symbole de sacrifice</li>
+          <li>Des <strong>soldats français tués au Mali</strong> (janvier 2022) lors d'opérations extérieures (OPEX)</li>
+          <li>Les <strong>pompiers</strong>, qui risquent leur vie en défense civile pour combattre les incendies</li>
+        </ul>
+        <div class="warning"><strong>À retenir</strong> Ces 3 exemples montrent les 3 volets de la défense : militaire, civile et économique.</div>` },
+      { chapter: 'Organisation', title: 'Qui commande ? La hiérarchie de la Défense', body: `
+        <p>La Défense nationale a une hiérarchie bien définie :</p>
+        <div class="schema">
+          <table>
+            <tr><th>Acteur</th><th>Rôle</th></tr>
+            <tr><td>🗳️ <strong>Citoyen électeur</strong></td><td>Élit le Président et les parlementaires</td></tr>
+            <tr><td>👑 <strong>Président de la République</strong></td><td>Chef des armées, garant de l'indépendance, codes nucléaires</td></tr>
+            <tr><td>🏛️ <strong>Parlement</strong></td><td>Autorise la déclaration de guerre, vote les lois et le budget</td></tr>
+            <tr><td>👔 <strong>Premier ministre</strong></td><td>Responsable de la Défense nationale</td></tr>
+            <tr><td>🎖️ <strong>Ministre de la Défense</strong></td><td>Pilote la politique de défense</td></tr>
+            <tr><td>⭐ <strong>Chef d'État-Major</strong></td><td>Mise en place de la politique de Défense</td></tr>
+          </table>
+        </div>
+        <div class="def"><strong>Important</strong>C'est le <strong>Parlement</strong> (Assemblée nationale + Sénat) qui vote pour l'entrée en guerre, mais le Président est le chef des armées au quotidien.</div>` },
+      { chapter: 'Les 5 fonctions', title: 'La stratégie : les 5 fonctions de la Défense', body: `
+        <p>La Défense nationale repose sur <strong>5 fonctions stratégiques</strong> :</p>
+        <ol>
+          <li>🔍 <strong>CONNAÎTRE ET ANTICIPER</strong> : surveiller, renseigner, prévoir les menaces</li>
+          <li>🚫 <strong>PRÉVENIR</strong> : empêcher les crises avant qu'elles éclatent</li>
+          <li>☢️ <strong>DISSUADER</strong> : décourager l'ennemi (notamment par la dissuasion nucléaire)</li>
+          <li>🛡️ <strong>PROTÉGER</strong> : défendre le territoire et les citoyens</li>
+          <li>⚔️ <strong>INTERVENIR</strong> : agir militairement si nécessaire (OPEX)</li>
+        </ol>
+        <div class="warning"><strong>Astuce mémo</strong> Retiens l'acronyme : <strong>C-P-D-P-I</strong> (Connaître, Prévenir, Dissuader, Protéger, Intervenir)</div>` },
+      { chapter: 'Les forces', title: 'Les forces armées françaises', body: `
+        <p>La Défense s'appuie sur <strong>3 types de défense</strong> avec différents acteurs :</p>
+        <div class="schema">
+          <table>
+            <tr><th>Type</th><th>Acteurs</th><th>Effectifs</th></tr>
+            <tr><td>⚔️ <strong>Défense militaire</strong></td><td>Armée de terre, armée de l'air, Marine nationale, Gendarmerie</td><td>114 677 / 40 456 / 34 676 / 98 155</td></tr>
+            <tr><td>🚒 <strong>Défense civile</strong></td><td>Sapeurs-pompiers, sécurité civile, police</td><td>—</td></tr>
+            <tr><td>💰 <strong>Défense économique</strong></td><td>Douanes</td><td>—</td></tr>
+          </table>
+        </div>
+        <div class="example"><strong>Exemple</strong> : Les pompiers défendent le territoire contre les risques naturels (incendies, inondations). C'est de la défense civile.</div>` },
+      { chapter: 'Résumé', title: 'Résumé : retenir l\'essentiel', body: `
+        <p>Ce que le prof peut demander à l'éval :</p>
+        <ul>
+          <li>✅ <strong>Définition de la Défense nationale</strong></li>
+          <li>✅ <strong>Qui est chef des armées ?</strong> → Le Président de la République</li>
+          <li>✅ <strong>Qui vote l'entrée en guerre ?</strong> → Le Parlement</li>
+          <li>✅ <strong>Les 5 fonctions</strong> → Connaître/Prévenir/Dissuader/Protéger/Intervenir</li>
+          <li>✅ <strong>3 types de défense</strong> → militaire, civile, économique</li>
+          <li>✅ <strong>Arnaud Beltrame</strong> → gendarme mort en substituant sa vie pour sauver un otage</li>
+        </ul>
+        <div class="def"><strong>À connaître par cœur</strong>"La Défense nationale est l'ensemble des missions visant à assurer la protection des Français et la défense des intérêts de la France."</div>` }
+    ],
+    flashcards: [
+      { front: 'Défense nationale', back: 'Ensemble des missions visant à assurer la protection des Français et la défense des intérêts de la France.' },
+      { front: 'Chef des armées', back: 'Le Président de la République. Il dispose des codes de l\'arme nucléaire.' },
+      { front: 'Qui vote la déclaration de guerre ?', back: 'Le Parlement (Assemblée nationale + Sénat). Il vote aussi les lois et le budget de la Défense.' },
+      { front: 'Les 5 fonctions de la Défense', back: 'Connaître et anticiper · Prévenir · Dissuader · Protéger · Intervenir.' },
+      { front: 'Défense militaire', back: 'Armée de terre (114 677), armée de l\'air (40 456), Marine (34 676), Gendarmerie (98 155).' },
+      { front: 'Défense civile', back: 'Sapeurs-pompiers, sécurité civile et police.' },
+      { front: 'Défense économique', back: 'Les douanes. Elles protègent les intérêts économiques de la France.' },
+      { front: 'Arnaud Beltrame', back: 'Gendarme qui s\'est sacrifié lors d\'un attentat terroriste en se substituant à un otage. Symbole d\'engagement.' },
+      { front: 'OPEX', back: 'Opérations extérieures : interventions militaires françaises à l\'étranger. Ex. : Mali (jan. 2022).' },
+      { front: 'Rôle du Président vs Parlement', back: 'Président = chef des armées au quotidien + codes nucléaires. Parlement = décide de l\'entrée en guerre (vote).' },
+    ],
+    qcm: [
+      { q: 'Qui est le chef des armées françaises ?', options: ['Le Premier ministre', 'Le Président de la République', 'Le Parlement', 'Le ministre de la Défense'], correct: 1, exp: 'Le Président de la République est le chef des armées et dispose des codes de l\'arme nucléaire.' },
+      { q: 'Qui décide de l\'entrée en guerre en France ?', options: ['Le Président', 'L\'armée', 'Le Parlement (vote)', 'Le ministre de la Défense'], correct: 2, exp: 'C\'est le Parlement (Assemblée nationale + Sénat) qui vote pour autoriser la déclaration de guerre.' },
+      { q: 'La Défense nationale, c\'est :', options: ['Uniquement l\'armée', 'Ensemble des missions pour protéger les Français et défendre les intérêts de la France', 'Uniquement la police et les pompiers', 'La gendarmerie seulement'], correct: 1, exp: 'Définition exacte : "Ensemble des missions visant à assurer la protection des Français et la défense des intérêts de la France."' },
+      { q: 'Combien y a-t-il de fonctions stratégiques de la Défense nationale ?', options: ['3', '4', '5', '6'], correct: 2, exp: '5 fonctions : Connaître et anticiper, Prévenir, Dissuader, Protéger, Intervenir.' },
+      { q: '"Dissuader" dans le cadre de la Défense nationale signifie :', options: ['Attaquer en premier', 'Décourager l\'ennemi d\'attaquer (notamment via le nucléaire)', 'Protéger le territoire', 'Faire des interventions à l\'étranger'], correct: 1, exp: 'Dissuader = décourager l\'ennemi d\'attaquer, notamment grâce à la force nucléaire française.' },
+      { q: 'Les pompiers font partie de la défense :', options: ['Militaire', 'Civile', 'Économique', 'Nucléaire'], correct: 1, exp: 'Les pompiers (sapeurs-pompiers) font partie de la Défense civile, avec la sécurité civile et la police.' },
+      { q: 'Les douanes font partie de la défense :', options: ['Militaire', 'Civile', 'Économique', 'Aucune'], correct: 2, exp: 'Les douanes font partie de la Défense économique.' },
+      { q: 'Arnaud Beltrame était :', options: ['Un pompier', 'Un soldat de l\'armée de terre', 'Un gendarme', 'Un policier'], correct: 2, exp: 'Arnaud Beltrame était gendarme. Il s\'est sacrifié lors d\'un attentat terroriste pour sauver un otage.' },
+      { q: 'Le Chef d\'État-Major est en charge de :', options: ['Voter les lois de défense', 'La mise en place de la politique de Défense', 'Déclarer la guerre', 'Élire le président'], correct: 1, exp: 'Le Chef d\'État-Major est chargé de la mise en place concrète de la politique de Défense.' },
+      { q: 'Quelle est la bonne hiérarchie (du plus haut au plus bas) ?', options: ['Parlement → Président → PM → Ministre Défense', 'Président → Parlement → PM → Ministre Défense', 'Citoyen → Président → Parlement → PM', 'PM → Président → Parlement → Ministre'], correct: 1, exp: 'Le Président est au sommet (chef des armées), puis le Parlement vote les lois et le budget, puis le PM et le ministre de la Défense.' },
+      { q: 'Une OPEX c\'est :', options: ['Une opération de police en France', 'Une opération extérieure de l\'armée française à l\'étranger', 'Un exercice militaire sur le territoire national', 'Une mission de pompiers'], correct: 1, exp: 'OPEX = Opération EXtérieure. L\'armée française intervient à l\'étranger (ex. Mali, Irak, Syrie...).' },
+      { q: 'La Marine nationale comptait combien de militaires selon le cours ?', options: ['40 456', '98 155', '34 676', '114 677'], correct: 2, exp: '34 676 militaires dans la Marine nationale. (Armée de terre : 114 677 ; Air : 40 456 ; Gendarmerie : 98 155)' },
+    ]
+  },
+
+  missions: {
+    title: '🎯 Missions de la Défense',
+    lessons: [
+      { chapter: 'Les 3 missions', title: 'Les 3 grandes missions de la Défense nationale', body: `
+        <p>La Défense nationale a <strong>3 grandes missions</strong> :</p>
+        <ol>
+          <li>🏠 <strong>Protéger le territoire français</strong>, ses habitants, ses institutions et garantir ses intérêts économiques</li>
+          <li>🌍 <strong>Sauvegarder la paix, la démocratie et la liberté</strong> à travers le monde</li>
+          <li>💻 <strong>Protéger le pays contre les cyberattaques</strong></li>
+        </ol>
+        <div class="warning"><strong>À retenir</strong> Ces 3 missions correspondent aux 3 fonctions PROTÉGER / INTERVENIR / CONNAÎTRE ET ANTICIPER de la stratégie.</div>` },
+      { chapter: 'Vigipirate', title: 'Le plan VIGIPIRATE', body: `
+        <div class="def"><strong>Plan VIGIPIRATE</strong> : Plan de vigilance et de protection du territoire contre les attaques terroristes. Il renforce la présence militaire dans des lieux fréquentés (gares, aéroports...).</div>
+        <p><strong>3 niveaux d'alerte</strong> :</p>
+        <ol>
+          <li>🟡 <strong>Vigilance</strong> (niveau de base)</li>
+          <li>🟠 <strong>Sécurité renforcée</strong> (risque élevé)</li>
+          <li>🔴 <strong>Alerte attentat</strong> (attaque imminente ou en cours)</li>
+        </ol>
+        <div class="example"><strong>Complément</strong> : L'<strong>Opération Sentinelle</strong> vient en complément du plan Vigipirate. Des militaires patrouillent dans les lieux publics sensibles (mosquées, synagogues, écoles, musées...).</div>` },
+      { chapter: 'OPEX', title: 'Les opérations extérieures (OPEX)', body: `
+        <p>Dans le cadre de ses <strong>alliances internationales</strong> (ONU, OTAN, UE), la France mène des interventions militaires dans le monde entier.</p>
+        <p><strong>Exemples d'opérations extérieures :</strong></p>
+        <ul>
+          <li>⚓ <strong>Atalante</strong> : au large de Djibouti → lutte contre la piraterie maritime</li>
+          <li>✈️ <strong>Chammal</strong> : en Irak et Syrie → lutte contre Daech</li>
+          <li>🌍 Opérations au Mali (Barkhane, terminée en 2022) → lutte contre le terrorisme au Sahel</li>
+        </ul>
+        <div class="def"><strong>À retenir</strong> La France intervient en dehors de ses frontières pour protéger la paix dans le monde, dans le cadre de l'ONU, de l'OTAN ou de l'UE.</div>` },
+      { chapter: 'Cyberdéfense', title: 'La cyberdéfense', body: `
+        <div class="def"><strong>Cyberdéfense</strong> : Ensemble des moyens mis en place par un pays dans le cadre de la <strong>guerre informatique</strong> menée dans le <strong>cyberespace</strong>.</div>
+        <p>La France est dotée d'un important système de cyberdéfense :</p>
+        <ul>
+          <li>💻 <strong>COMCYBER</strong> (Commandement de la Cyberdéfense) : coordonne la défense informatique militaire</li>
+          <li>🔐 <strong>ANSSI</strong> (Agence nationale de la sécurité des systèmes d'information) : protège les systèmes civils</li>
+        </ul>
+        <div class="example"><strong>Enjeu</strong> : Les cyberattaques peuvent paralyser des hôpitaux, des centrales électriques, des ministères. La cyberdéfense est donc cruciale.</div>` },
+      { chapter: 'Résumé missions', title: 'Résumé : ce que l\'éval peut demander', body: `
+        <ul>
+          <li>✅ <strong>Les 3 niveaux de Vigipirate</strong> : Vigilance / Sécurité renforcée / Alerte attentat</li>
+          <li>✅ <strong>Opération Sentinelle</strong> : militaires dans les lieux publics</li>
+          <li>✅ <strong>Atalante</strong> : au large de Djibouti (piraterie maritime)</li>
+          <li>✅ <strong>Chammal</strong> : Irak et Syrie (lutte contre Daech)</li>
+          <li>✅ <strong>Cyberdéfense</strong> : guerre informatique dans le cyberespace</li>
+          <li>✅ <strong>COMCYBER + ANSSI</strong> : acteurs de la cyberdéfense</li>
+          <li>✅ <strong>ONU / OTAN / UE</strong> : cadre des OPEX</li>
+        </ul>` }
+    ],
+    flashcards: [
+      { front: 'Plan VIGIPIRATE', back: 'Plan de protection du territoire. 3 niveaux : Vigilance / Sécurité renforcée / Alerte attentat.' },
+      { front: 'Opération Sentinelle', back: 'Complément de Vigipirate : militaires qui patrouillent dans les lieux publics sensibles (gares, aéroports, lieux de culte...).' },
+      { front: 'OPEX Atalante', back: 'Opération extérieure au large de Djibouti. Mission : lutter contre la piraterie maritime.' },
+      { front: 'OPEX Chammal', back: 'Opération extérieure en Irak et Syrie. Mission : lutter contre Daech (État Islamique).' },
+      { front: 'Cyberdéfense', back: 'Ensemble des moyens mis en place par un pays dans le cadre de la guerre informatique menée dans le cyberespace.' },
+      { front: 'COMCYBER', back: 'Commandement de la Cyberdéfense. Coordonne la défense informatique militaire française.' },
+      { front: 'ANSSI', back: 'Agence nationale de la sécurité des systèmes d\'information. Protège les systèmes informatiques civils.' },
+      { front: 'ONU / OTAN / UE', back: 'Alliances internationales dans le cadre desquelles la France mène ses opérations extérieures (OPEX).' },
+      { front: '3 missions de la Défense', back: '1. Protéger le territoire et les Français\n2. Sauvegarder la paix dans le monde\n3. Protéger contre les cyberattaques.' },
+    ],
+    qcm: [
+      { q: 'Combien de niveaux d\'alerte le plan VIGIPIRATE comporte-t-il ?', options: ['2', '3', '4', '5'], correct: 1, exp: '3 niveaux : Vigilance → Sécurité renforcée → Alerte attentat.' },
+      { q: 'L\'opération Sentinelle consiste en :', options: ['Des opérations militaires en Afrique', 'Des patrouilles de militaires dans les lieux publics en France', 'La lutte contre les cyberattaques', 'Des exercices navals en Méditerranée'], correct: 1, exp: 'Sentinelle envoie des militaires patrouiller dans les lieux publics sensibles (gares, aéroports, lieux de culte...).' },
+      { q: 'L\'OPEX Atalante se déroule :', options: ['En Irak et Syrie', 'Au Mali', 'Au large de Djibouti', 'En Ukraine'], correct: 2, exp: 'Atalante = opération au large de Djibouti pour lutter contre la piraterie maritime.' },
+      { q: 'L\'OPEX Chammal a pour but de :', options: ['Lutter contre la piraterie', 'Lutter contre Daech en Irak et Syrie', 'Protéger le canal de Suez', 'Défendre le Mali'], correct: 1, exp: 'Chammal = opération en Irak et Syrie contre Daech (État Islamique).' },
+      { q: 'La cyberdéfense, c\'est :', options: ['La protection des frontières physiques', 'Les moyens pour combattre dans la guerre informatique (cyberespace)', 'La lutte contre le terrorisme par internet', 'Surveiller les réseaux sociaux des citoyens'], correct: 1, exp: 'Cyberdéfense = ensemble des moyens mis en place dans le cadre de la guerre informatique menée dans le cyberespace.' },
+      { q: 'Le COMCYBER travaille avec :', options: ['L\'OTAN uniquement', 'L\'ANSSI', 'L\'ONU', 'L\'armée de terre'], correct: 1, exp: 'Le COMCYBER (militaire) travaille avec l\'ANSSI (civil) pour protéger les systèmes informatiques français.' },
+      { q: 'Dans quel cadre la France mène-t-elle ses OPEX ?', options: ['Uniquement l\'ONU', 'Uniquement de façon autonome', 'Dans le cadre de l\'ONU, de l\'OTAN et de l\'UE', 'Uniquement l\'OTAN'], correct: 2, exp: 'La France agit dans le cadre de ses alliances : ONU, OTAN et UE.' },
+      { q: 'Quelle est la troisième mission de la Défense nationale ?', options: ['Protéger les frontières terrestres', 'Sauvegarder la démocratie à l\'étranger', 'Protéger contre les cyberattaques', 'Former des soldats étrangers'], correct: 2, exp: 'Les 3 missions : 1. Protéger le territoire / 2. Sauvegarder la paix dans le monde / 3. Protéger contre les cyberattaques.' },
+      { q: 'Quel niveau VIGIPIRATE s\'applique lors d\'une attaque imminente ?', options: ['Vigilance', 'Sécurité renforcée', 'Alerte attentat', 'Mobilisation générale'], correct: 2, exp: '"Alerte attentat" est le niveau le plus élevé, déclenché lors d\'une attaque imminente ou en cours.' },
+      { q: 'L\'ANSSI protège principalement :', options: ['Les forces militaires', 'Les systèmes informatiques civils', 'Les frontières terrestres', 'Les installations nucléaires'], correct: 1, exp: 'L\'ANSSI = Agence nationale de la sécurité des systèmes d\'information. Elle protège les systèmes civils (administrations, entreprises...).' },
+    ]
+  },
+
+  citoyen: {
+    title: '🧑 Le citoyen & la Défense',
+    lessons: [
+      { chapter: 'Histoire', title: 'Du service militaire obligatoire à la JDC', body: `
+        <p>L'esprit de défense chez les citoyens a beaucoup évolué :</p>
+        <ul>
+          <li>📅 <strong>De 1798 à 1997 (200 ans)</strong> : Le service militaire est <strong>obligatoire</strong> pour tous les hommes</li>
+          <li>📅 <strong>1997</strong> : Le président <strong>Jacques Chirac</strong> professionnalise les armées et remplace le service militaire par un <strong>parcours de citoyenneté en 3 étapes</strong></li>
+        </ul>
+        <div class="def"><strong>Les 3 étapes du parcours de citoyenneté</strong>
+        1. 🏫 <strong>École</strong> : Enseignement de défense en 3e et 1re (comprendre la République, devoir de défense)<br>
+        2. 🏛️ <strong>Mairie</strong> : Recensement à 16 ans (pour être convoqué à la JDC)<br>
+        3. 🪖 <strong>Armée</strong> : La JDC (Journée Défense et Citoyenneté) avant 18 ans</div>` },
+      { chapter: 'JDC', title: 'La JDC : Journée Défense et Citoyenneté', body: `
+        <div class="def"><strong>JDC (Journée Défense et Citoyenneté)</strong> : Journée de sensibilisation aux enjeux de la défense et de la sécurité nationale. Obligatoire avant 18 ans.</div>
+        <p><strong>Ce qu'on fait à la JDC :</strong></p>
+        <ul>
+          <li>Rencontre avec des femmes et des hommes de la défense</li>
+          <li>Sensibilisation aux enjeux de défense et sécurité</li>
+          <li>Test de détection des difficultés de lecture</li>
+        </ul>
+        <div class="example"><strong>Ordre du parcours</strong> : Enseignement de défense (3e/1re) → Recensement en mairie à 16 ans → JDC avant 18 ans</div>` },
+      { chapter: 'SNU', title: 'Le Service National Universel (SNU)', body: `
+        <div class="def"><strong>SNU</strong> : Projet lancé en <strong>2018</strong> par le président <strong>Emmanuel Macron</strong> pour remplacer la JDC. Concerne les garçons ET les filles de <strong>15 à 16 ans</strong>.</div>
+        <p><strong>Objectifs :</strong></p>
+        <ul>
+          <li>Renforcer la <strong>cohésion nationale</strong> autour des valeurs de la République</li>
+          <li>Développer une <strong>culture de l'engagement</strong></li>
+        </ul>
+        <p><strong>3 étapes du SNU :</strong></p>
+        <ol>
+          <li>🏕️ <strong>Séjour de cohésion</strong> (2 semaines) : Vie en communauté, code de la route, premiers secours, Marseillaise chaque matin → <strong>OBLIGATOIRE</strong></li>
+          <li>🌱 <strong>Mission d'intérêt général</strong> (2 semaines) : Soutenir une cause (sport, environnement, santé...) → <strong>FACULTATIF</strong></li>
+          <li>🎖️ <strong>Engagement</strong> (3 mois min.) : Missions de défense, préservation patrimoine/environnement, accompagnement personnes → <strong>FACULTATIF</strong></li>
+        </ol>
+        <div class="warning"><strong>Important !</strong> Aujourd'hui le SNU est encore en phase de test. Il <strong>n'est pas encore obligatoire</strong>.</div>` },
+      { chapter: 'Engagement volontaire', title: 'Service civique et réserve militaire', body: `
+        <p>Au-delà de la JDC/SNU, on peut développer l'esprit de défense volontairement :</p>
+        <div class="def"><strong>Service civique</strong> : Engagement volontaire pour les jeunes de <strong>16 à 25 ans</strong>, d'une durée de <strong>6 mois à 1 an</strong>, pour l'accomplissement d'une mission d'intérêt général.</div>
+        <div class="def"><strong>Réserve militaire</strong> : Personne qui consacre <strong>une partie de son temps</strong> à une activité de Défense nationale (sans être militaire à temps plein).</div>
+        <div class="example"><strong>Exemple</strong> : Un enseignant peut être réserviste militaire le week-end ou pendant les vacances.</div>` },
+      { chapter: 'Résumé citoyen', title: 'Résumé : ce que l\'éval peut demander', body: `
+        <ul>
+          <li>✅ <strong>Dates clés</strong> : Service militaire obligatoire de 1798 à 1997 (200 ans)</li>
+          <li>✅ <strong>1997</strong> : Chirac professionnalise l'armée → parcours citoyenneté</li>
+          <li>✅ <strong>JDC</strong> : avant 18 ans, obligatoire, sensibilisation défense + test lecture</li>
+          <li>✅ <strong>SNU</strong> : lancé 2018 par Macron, 15-16 ans, pas encore obligatoire</li>
+          <li>✅ <strong>3 étapes SNU</strong> : Séjour cohésion (oblig.) / Mission intérêt général / Engagement</li>
+          <li>✅ <strong>Service civique</strong> : 16-25 ans, 6 mois à 1 an, volontaire, intérêt général</li>
+          <li>✅ <strong>Réserve militaire</strong> : consacre une partie de son temps à la Défense</li>
+        </ul>` }
+    ],
+    flashcards: [
+      { front: 'Service militaire : dates', back: 'Obligatoire pendant 200 ans, de 1798 à 1997.' },
+      { front: 'Qui a supprimé le service militaire obligatoire ?', back: 'Jacques Chirac, en 1997. Il professionnalise les armées et crée le parcours de citoyenneté.' },
+      { front: 'Les 3 étapes du parcours de citoyenneté', back: '1. Enseignement de défense (3e/1re) → 2. Recensement en mairie à 16 ans → 3. JDC avant 18 ans.' },
+      { front: 'JDC', back: 'Journée Défense et Citoyenneté : journée obligatoire avant 18 ans, sensibilisation à la défense, test de lecture.' },
+      { front: 'SNU', back: 'Service National Universel : lancé en 2018 par Macron, pour les 15-16 ans. Pas encore obligatoire.' },
+      { front: '3 étapes du SNU', back: '1. Séjour de cohésion : 2 semaines (OBLIGATOIRE)\n2. Mission d\'intérêt général : 2 semaines (FACULTATIF)\n3. Engagement : 3 mois min. (FACULTATIF)' },
+      { front: 'Service civique', back: 'Engagement volontaire, 16-25 ans, 6 mois à 1 an, mission d\'intérêt général.' },
+      { front: 'Réserve militaire', back: 'Personne qui consacre une partie de son temps à une activité de Défense nationale.' },
+    ],
+    qcm: [
+      { q: 'Pendant combien de temps le service militaire a-t-il été obligatoire en France ?', options: ['100 ans', '150 ans', '200 ans', '50 ans'], correct: 2, exp: 'De 1798 à 1997, soit 200 ans.' },
+      { q: 'Quel président a supprimé le service militaire obligatoire en 1997 ?', options: ['François Mitterrand', 'Nicolas Sarkozy', 'Emmanuel Macron', 'Jacques Chirac'], correct: 3, exp: 'Jacques Chirac en 1997 professionnalise les armées et remplace le service militaire par le parcours de citoyenneté.' },
+      { q: 'À quel âge doit-on se recenser en mairie ?', options: ['15 ans', '16 ans', '17 ans', '18 ans'], correct: 1, exp: 'Le recensement se fait à 16 ans en mairie (ou en ligne pour certaines communes).' },
+      { q: 'La JDC doit avoir lieu :', options: ['À 15 ans', 'À 16 ans', 'Avant 18 ans', 'À 20 ans'], correct: 2, exp: 'La JDC (Journée Défense et Citoyenneté) se déroule avant les 18 ans.' },
+      { q: 'Le SNU a été lancé en :', options: ['1997', '2015', '2018', '2021'], correct: 2, exp: 'Le SNU a été lancé en 2018 par Emmanuel Macron.' },
+      { q: 'Le SNU concerne les jeunes de :', options: ['13 à 14 ans', '15 à 16 ans', '16 à 18 ans', '18 à 25 ans'], correct: 1, exp: 'Le SNU concerne les garçons et les filles âgé(e)s de 15 à 16 ans.' },
+      { q: 'Lors du SNU, le séjour de cohésion est :', options: ['Facultatif', 'Obligatoire', 'Payant uniquement', 'Réservé aux garçons'], correct: 1, exp: 'Le séjour de cohésion (1re étape) est OBLIGATOIRE. Les 2 autres étapes sont facultatives.' },
+      { q: 'Le service civique dure :', options: ['1 mois', '3 mois', '6 mois à 1 an', 'Toute une vie'], correct: 2, exp: 'Le service civique est un engagement volontaire de 6 mois à 1 an pour une mission d\'intérêt général.' },
+      { q: 'La réserve militaire, c\'est :', options: ['Un stock de matériel de l\'armée', 'Une personne qui consacre une partie de son temps à la Défense', 'Le recrutement de soldats professionnels', 'Les pompiers'], correct: 1, exp: 'La réserve militaire = personne qui consacre une partie de son temps à une activité de Défense.' },
+      { q: 'Aujourd\'hui, le SNU est :', options: ['Obligatoire pour tous', 'Obligatoire pour les garçons seulement', 'En phase de test (pas encore obligatoire)', 'Terminé et remplacé par autre chose'], correct: 2, exp: 'Aujourd\'hui, le SNU est toujours en phase de test. Il n\'est pas encore obligatoire.' },
+    ]
+  }
+};
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
+function switchTab(t) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  $('tab-' + t).classList.add('active');
+}
+
+function startMode(topic, mode) {
+  state.topic = topic; state.mode = mode; state.idx = 0; state.score = 0; state.answered = false;
+  const data = DATA[topic];
+  if (mode === 'lesson') state.items = data.lessons;
+  else if (mode === 'flashcards') state.items = data.flashcards;
+  else if (mode === 'qcm') state.items = data.qcm;
+  $('home-view').style.display = 'none';
+  $('study-view').classList.add('active');
+  $('study-view').style.display = 'block';
+  const labels = { lesson: '📖 Le cours', flashcards: '🃏 Flashcards', qcm: '🎯 QCM' };
+  setText('study-title', labels[mode]);
+  setText('study-topic', data.title);
+  $('statsScore').style.display = (mode === 'qcm') ? 'inline-block' : 'none';
+  renderItem();
+}
+function backHome() {
+  state.topic = null;
+  $('study-view').classList.remove('active');
+  $('study-view').style.display = 'none';
+  $('home-view').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderItem() {
+  const total = state.items.length;
+  setText('statsCount', (state.idx + 1) + '/' + total);
+  setText('statsScore', '✅ ' + state.score);
+  $('progressFill').style.width = ((state.idx + 1) / total * 100) + '%';
+  const item = state.items[state.idx];
+  if (state.mode === 'lesson') renderLesson(item);
+  else if (state.mode === 'flashcards') renderFlashcard(item);
+  else renderQcm(item);
+}
+
+function renderLesson(item) {
+  setHTML('study-content', `
+    <div class="lesson-card glass">
+      <div class="lesson-chapter">${escHtml(item.chapter)}</div>
+      <h3 class="lesson-title">${escHtml(item.title)}</h3>
+      <div class="lesson-body">${item.body}</div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx===0?'disabled':''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(true)">${state.idx===state.items.length-1?'Terminer ✓':'Suivant →'}</button>
+    </div>`);
+}
+
+function renderFlashcard(item) {
+  setHTML('study-content', `
+    <div class="flashcard" id="fc" onclick="document.getElementById('fc').classList.toggle('flipped')">
+      <div class="flashcard-inner">
+        <div class="flashcard-face glass">
+          <div class="fc-label">📚 Question</div>
+          <div class="fc-content">${escHtml(item.front)}</div>
+          <div class="fc-hint">Clique pour retourner</div>
+        </div>
+        <div class="flashcard-face flashcard-back glass">
+          <div class="fc-label">💡 Réponse</div>
+          <div class="fc-content sm">${escHtml(item.back)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx===0?'disabled':''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(true)">${state.idx===state.items.length-1?'Terminer ✓':'Suivant →'}</button>
+    </div>`);
+}
+
+function renderQcm(item) {
+  state.answered = false;
+  const opts = item.options.map((o,i) =>
+    `<button class="qcm-option" onclick="answerQcm(${i})">${escHtml(o)}</button>`
+  ).join('');
+  setHTML('study-content', `
+    <div class="qcm-card glass">
+      <div class="qcm-q">${escHtml(item.q)}</div>
+      <div class="qcm-options" id="opts">${opts}</div>
+      <div id="exp"></div>
+    </div>
+    <div class="controls" id="ctrl" style="display:none">
+      <button class="btn btn-ghost" onclick="prevItem()" ${state.idx===0?'disabled':''}>← Précédent</button>
+      <button class="btn btn-primary" onclick="nextItem(false)">${state.idx===state.items.length-1?'Résultat ✓':'Suivant →'}</button>
+    </div>`);
+}
+
+function answerQcm(picked) {
+  if (state.answered) return;
+  state.answered = true;
+  const item = state.items[state.idx];
+  document.querySelectorAll('.qcm-option').forEach((b,i) => {
+    b.disabled = true;
+    if (i === item.correct) b.classList.add('correct');
+    else if (i === picked) b.classList.add('wrong');
+  });
+  const ok = picked === item.correct;
+  if (ok) {
+    state.score++;
+    addXpForItem(ikey(state.topic,'qcm',state.idx), XP.qcm);
+  }
+  setHTML('exp', `<div class="qcm-exp"><strong>${ok ? '✅ Correct !' : '❌ Réponse : ' + escHtml(item.options[item.correct])}</strong><br>${escHtml(item.exp)}</div>`);
+  $('ctrl').style.display = 'flex';
+  setText('statsScore', '✅ ' + state.score);
+}
+
+function prevItem() { if (state.idx > 0) { state.idx--; state.answered = false; renderItem(); } }
+function nextItem(xpFlag) {
+  if (state.idx < state.items.length - 1) {
+    if (xpFlag) addXpForItem(ikey(state.topic, state.mode, state.idx), XP[state.mode]);
+    state.idx++; state.answered = false; renderItem();
+  } else {
+    if (xpFlag) addXpForItem(ikey(state.topic, state.mode, state.idx), XP[state.mode]);
+    showCompletion();
+  }
+}
+
+function showCompletion() {
+  const total = state.items.length;
+  const pct = state.mode === 'qcm' ? Math.round(state.score/total*100) : 100;
+  const msg = pct>=80 ? '🏆 Excellent ! Tu es prêt pour l\'éval !' : pct>=60 ? '💪 Bon travail, relis les leçons douteuses !' : '📚 Reprends le cours, tu vas y arriver !';
+  setHTML('study-content', `
+    <div class="completion glass">
+      <span class="icon">${pct>=80?'🏆':pct>=60?'🎯':'💪'}</span>
+      <h2>Terminé !</h2>
+      ${state.mode==='qcm' ? `<div class="score-big">${state.score}/${total}</div>` : ''}
+      <p>${msg}</p>
+      <div class="controls" style="margin-top:22px">
+        <button class="btn btn-ghost" onclick="backHome()">← Retour</button>
+        <button class="btn btn-primary" onclick="startMode('${state.topic}','${state.mode}')">🔄 Recommencer</button>
+      </div>
+    </div>`);
+}
+
+function showToast(msg, type) {
+  const t = $('toast'); if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' '+type : '');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ============================================================ INIT */
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  currentUser = getCurrentUser();
+  if (!currentUser) { window.location.href = '../index.html'; return; }
+  userData = loadUserData();
+  syncWithHub();
+});
+</script>
+</body>
+</html>
