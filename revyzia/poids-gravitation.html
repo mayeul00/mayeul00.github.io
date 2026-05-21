@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Physique · Poids & Gravitation</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "physique_poids_gravitation",
+  subject: "physique",
+  subjectName: "Physique-Chimie",
+  subjectIcon: "⚛️",
+  title: "Poids & Gravitation",
+  subtitle: "Masse, poids, gravitation universelle · 3e",
+  badge: "⚛️ Physique-Chimie · 3e",
+  accentColor: "#2563eb",
+  accent2Color: "#5e5cff",
+  depth: 1,
+  tabs: [
+    {
+      id: "masse_poids",
+      icon: "⚖️",
+      label: "Masse vs Poids",
+      lessons: [
+        { chapter: "Différence fondamentale", title: "Masse et poids : ce n'est PAS la même chose !", body: `
+          <div class="def"><strong>Masse (m)</strong>Quantité de matière d'un objet. Elle ne change JAMAIS, où que tu sois dans l'univers.
+          Unité : <strong>kilogramme (kg)</strong>. Se mesure avec une balance.</div>
+          <div class="def"><strong>Poids (P)</strong>Force d'attraction gravitationnelle exercée par un astre sur un objet. Le poids CHANGE selon l'astre où tu te trouves.
+          Unité : <strong>Newton (N)</strong>. Se mesure avec un dynamomètre.</div>
+          <div class="warning"><strong>Exemple concret</strong>Un astronaute de masse 70 kg pèse :
+          • Sur Terre : <strong>~700 N</strong>
+          • Sur la Lune : <strong>~115 N</strong> (6 fois moins !)
+          • Dans l'espace en apesanteur : <strong>~0 N</strong>
+          Mais sa masse reste 70 kg PARTOUT.</div>
+        ` },
+        { chapter: "La formule", title: "La formule P = m × g", body: `
+          <p>Pour calculer le poids :</p>
+          <div class="formula">P = m × g</div>
+          <ul>
+            <li><strong>P</strong> = poids (en Newtons, N)</li>
+            <li><strong>m</strong> = masse (en kilogrammes, kg)</li>
+            <li><strong>g</strong> = intensité de la pesanteur (en N/kg)</li>
+          </ul>
+          <p>Valeurs de g selon l'astre :</p>
+          <ul>
+            <li><strong>Terre</strong> : g ≈ <strong>9,8 N/kg</strong> (souvent arrondi à 10)</li>
+            <li><strong>Lune</strong> : g ≈ <strong>1,6 N/kg</strong></li>
+            <li><strong>Mars</strong> : g ≈ <strong>3,7 N/kg</strong></li>
+            <li><strong>Jupiter</strong> : g ≈ <strong>25 N/kg</strong></li>
+          </ul>
+          <div class="example"><strong>Exemple</strong> : Un objet de 5 kg pèse sur Terre : P = 5 × 9,8 = <strong>49 N</strong></div>
+        ` },
+        { chapter: "Mesures", title: "Comment mesurer ?", body: `
+          <p>Comment distinguer une mesure de masse d'une mesure de poids ?</p>
+          <ul>
+            <li>🟰 <strong>Balance</strong> (à plateaux ou électronique) → mesure la <strong>masse</strong> en kg</li>
+            <li>📏 <strong>Dynamomètre</strong> (ressort gradué en N) → mesure le <strong>poids</strong> en N</li>
+          </ul>
+          <div class="warning"><strong>Piège</strong>Une « balance de cuisine » affiche des kg mais physiquement elle mesure un poids ! Elle convertit ensuite en supposant qu'on est sur Terre (g = 9,8).</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Masse (définition)", back: "Quantité de matière. Constante partout. Unité : kilogramme (kg). Se mesure avec une balance." },
+        { front: "Poids (définition)", back: "Force d'attraction gravitationnelle d'un astre sur un objet. Varie selon l'astre. Unité : Newton (N). Se mesure avec un dynamomètre." },
+        { front: "Formule du poids", back: "P = m × g (P en N, m en kg, g en N/kg)" },
+        { front: "Intensité g sur Terre", back: "≈ 9,8 N/kg (souvent arrondi à 10)" },
+        { front: "Intensité g sur la Lune", back: "≈ 1,6 N/kg (environ 6 fois moins que sur Terre)" },
+        { front: "Unité de masse", back: "kilogramme (kg)" },
+        { front: "Unité de poids", back: "Newton (N)" },
+        { front: "Outil pour mesurer la masse", back: "Une balance" },
+        { front: "Outil pour mesurer le poids", back: "Un dynamomètre (ressort gradué)" }
+      ],
+      qcm: [
+        { q: "Quelle est l'unité de la masse ?", options: ["Newton (N)", "Kilogramme (kg)", "Kilonewton (kN)", "Gramme/seconde (g/s)"], correct: 1, exp: "La masse se mesure en kilogrammes (kg)." },
+        { q: "Quelle est l'unité du poids ?", options: ["Kilogramme (kg)", "Newton (N)", "Joule (J)", "Pascal (Pa)"], correct: 1, exp: "Le poids est une FORCE, donc en Newtons (N)." },
+        { q: "Quelle est la formule du poids ?", options: ["P = m + g", "P = m × g", "P = m / g", "P = g - m"], correct: 1, exp: "P = m × g (Poids = masse × intensité de la pesanteur)." },
+        { q: "Si je vais sur la Lune, ma masse :", options: ["Diminue car g est plus petit", "Augmente", "Ne change pas", "Disparaît"], correct: 2, exp: "La masse ne change JAMAIS. Seul le poids change." },
+        { q: "Sur Terre, g vaut environ :", options: ["1,6 N/kg", "9,8 N/kg", "100 N/kg", "0 N/kg"], correct: 1, exp: "g ≈ 9,8 N/kg sur Terre (souvent arrondi à 10)." },
+        { q: "Un objet de 2 kg pèse sur Terre :", options: ["2 N", "9,8 N", "19,6 N", "20 kg"], correct: 2, exp: "P = m × g = 2 × 9,8 = 19,6 N" },
+        { q: "Avec quoi mesure-t-on un poids ?", options: ["Une balance", "Un dynamomètre", "Une éprouvette", "Un chronomètre"], correct: 1, exp: "Le dynamomètre (un ressort gradué en N)." },
+        { q: "La masse est :", options: ["Une force", "Une quantité de matière", "Une vitesse", "Une accélération"], correct: 1, exp: "La masse est la quantité de matière d'un objet." }
+      ]
+    },
+    {
+      id: "gravitation",
+      icon: "🌍",
+      label: "La gravitation universelle",
+      lessons: [
+        { chapter: "Loi de Newton", title: "La gravitation universelle (Newton)", body: `
+          <div class="def"><strong>Gravitation universelle</strong>Force d'attraction qui s'exerce entre TOUS les corps qui ont une masse, à TOUTE distance.
+          Découverte par <strong>Isaac Newton</strong> en 1687.</div>
+          <p>Caractéristiques :</p>
+          <ul>
+            <li><strong>Universelle</strong> : agit partout dans l'univers</li>
+            <li><strong>Toujours attractive</strong> : jamais répulsive</li>
+            <li><strong>Plus la masse est grande, plus la force est grande</strong></li>
+            <li><strong>Plus la distance est grande, plus la force est faible</strong> (en 1/d²)</li>
+          </ul>
+          <div class="example"><strong>Exemples</strong> :<br>
+          • La Terre attire la Pomme (chute libre)<br>
+          • Le Soleil attire les planètes → orbites<br>
+          • La Lune attire la Terre → marées</div>
+        ` },
+        { chapter: "Système solaire", title: "Les planètes en orbite", body: `
+          <p>Le <strong>Soleil</strong> (au centre, étoile) attire toutes les planètes du système solaire :</p>
+          <ol>
+            <li>Mercure</li>
+            <li>Vénus</li>
+            <li><strong>Terre</strong> (avec sa lune : la Lune)</li>
+            <li>Mars</li>
+            <li>Jupiter (la plus massive)</li>
+            <li>Saturne</li>
+            <li>Uranus</li>
+            <li>Neptune</li>
+          </ol>
+          <div class="warning"><strong>Différence étoile / planète</strong>
+          • <strong>Étoile</strong> : produit sa propre lumière (réactions nucléaires). Ex : le Soleil
+          • <strong>Planète</strong> : ne produit PAS sa lumière, elle est éclairée par une étoile</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Gravitation universelle", back: "Force d'attraction entre tous les corps qui ont une masse. Toujours attractive. Découverte par Newton (1687)." },
+        { front: "Quand la force gravitationnelle est-elle la plus grande ?", back: "Quand les masses sont grandes ET quand la distance est petite." },
+        { front: "Isaac Newton", back: "Physicien qui a découvert la loi de la gravitation universelle en 1687." },
+        { front: "Étoile", back: "Astre qui produit sa propre lumière (réactions nucléaires). Ex : le Soleil." },
+        { front: "Planète", back: "Astre qui ne produit pas sa lumière, éclairé par une étoile." },
+        { front: "Cause des marées", back: "Attraction gravitationnelle de la Lune sur les océans terrestres." }
+      ],
+      qcm: [
+        { q: "Qui a découvert la gravitation universelle ?", options: ["Galilée", "Einstein", "Newton", "Copernic"], correct: 2, exp: "Isaac Newton, en 1687." },
+        { q: "La force gravitationnelle est :", options: ["Toujours répulsive", "Toujours attractive", "Tantôt attractive, tantôt répulsive", "Inexistante"], correct: 1, exp: "Toujours attractive entre tous les corps." },
+        { q: "Quelle est la différence entre une étoile et une planète ?", options: ["L'étoile est plus petite", "L'étoile produit sa propre lumière", "La planète tourne plus vite", "La planète a une atmosphère"], correct: 1, exp: "L'étoile produit sa lumière (réactions nucléaires)." },
+        { q: "Plus la distance augmente entre deux corps, la force gravitationnelle :", options: ["Augmente", "Diminue", "Reste constante", "Devient répulsive"], correct: 1, exp: "Elle diminue (en 1/d²)." },
+        { q: "Qu'est-ce qui provoque les marées sur Terre ?", options: ["Le vent", "L'attraction gravitationnelle de la Lune", "La rotation de la Terre", "Le Soleil seulement"], correct: 1, exp: "Principalement la Lune (et un peu le Soleil)." },
+        { q: "Le Soleil est :", options: ["Une planète", "Une étoile", "Un satellite", "Une galaxie"], correct: 1, exp: "C'est une étoile (notre étoile la plus proche)." }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>
