@@ -80,10 +80,30 @@
     window.location.href = '../'.repeat(DEPTH) + 'index.html';
   }
   function backToHub() {
-    window.location.href = '../'.repeat(DEPTH) + 'index.html';
+    // 🚀 Forcer un push immédiat avant de quitter (annuler le debounce)
+    if (pushDebounceTimer) clearTimeout(pushDebounceTimer);
+    lastFirebasePushTime = 0;  // bypass la limite "1 push / 3s"
+    try {
+      const h = JSON.parse(localStorage.getItem(hubKey()) || '{}');
+      pushToFirebase(h);
+    } catch(e) {}
+    // Petit délai pour laisser Firebase répondre, puis on redirige
+    setTimeout(function() {
+      window.location.href = '../'.repeat(DEPTH) + 'index.html';
+    }, 300);
   }
-  function userKey() { return STORAGE_KEY + (currentUser.key || currentUser.name+'__'+currentUser.klass); }
-  function hubKey() { return 'revyzia_user_' + (currentUser.key || currentUser.name+'__'+currentUser.klass); }
+  // 🔤 Génère TOUJOURS la clé normalisée (sans accents, lowercase)
+  function normalizeName(name) {
+    if (!name) return '';
+    return String(name).toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+  function getStableUserKey(u) {
+    return normalizeName(u.name) + '__' + u.klass;
+  }
+  function userKey() { return STORAGE_KEY + getStableUserKey(currentUser); }
+  function hubKey() { return 'revyzia_user_' + getStableUserKey(currentUser); }
 
   function loadUserData() {
     try { const r = localStorage.getItem(userKey()); if (r) return JSON.parse(r); } catch(e) {}
@@ -180,7 +200,7 @@
     }
     lastFirebasePushTime = now;
     try {
-      const key = (currentUser.key || currentUser.name+'__'+currentUser.klass).replace(/[.#$\[\]\/]/g, '_');
+      const key = getStableUserKey(currentUser).replace(/[.#$\[\]\/]/g, '_');
       const ref = fbDb.ref('users/' + key);
       ref.once('value').then(function(snap) {
         const remote = snap.val();
@@ -592,7 +612,7 @@
       console.log('[engine] ✅ Firebase ready');
       // Première lecture pour fusionner
       if (currentUser) {
-        const key = (currentUser.key || currentUser.name+'__'+currentUser.klass).replace(/[.#$\[\]\/]/g, '_');
+        const key = getStableUserKey(currentUser).replace(/[.#$\[\]\/]/g, '_');
         fbDb.ref('users/' + key).once('value').then(snap => {
           const remote = snap.val();
           let h = {}; try { h = JSON.parse(localStorage.getItem(hubKey()) || '{}'); } catch(e) {}
