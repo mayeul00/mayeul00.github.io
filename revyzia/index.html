@@ -543,8 +543,18 @@ function defaultUserData() {
   };
 }
 function getCurrentUser() {
-  try { const raw = localStorage.getItem('revyzia_current_user'); return raw ? JSON.parse(raw) : null; }
-  catch (e) { return null; }
+  try {
+    const raw = localStorage.getItem('revyzia_current_user');
+    if (!raw) return null;
+    const u = JSON.parse(raw);
+    // 🔤 Sécurité : si la clé n'est pas normalisée (ancienne session), on la corrige
+    const correctKey = normalizeName(u.name) + '__' + u.klass;
+    if (u.key !== correctKey) {
+      u.key = correctKey;
+      try { localStorage.setItem('revyzia_current_user', JSON.stringify(u)); } catch(e) {}
+    }
+    return u;
+  } catch (e) { return null; }
 }
 function setCurrentUser(user) {
   try { localStorage.setItem('revyzia_current_user', JSON.stringify(user)); } catch (e) {}
@@ -552,7 +562,10 @@ function setCurrentUser(user) {
 function clearCurrentUser() {
   try { localStorage.removeItem('revyzia_current_user'); } catch (e) {}
 }
-function localUserKey(user) { return 'revyzia_user_' + (user.key || user.name + '__' + user.klass); }
+function localUserKey(user) {
+  // 🔤 TOUJOURS la clé normalisée
+  return 'revyzia_user_' + normalizeName(user.name) + '__' + user.klass;
+}
 
 function loadUserData(user) {
   user = user || getCurrentUser();
@@ -622,7 +635,7 @@ function pushToFirebase(data, user) {
     return;
   }
   try {
-    const key = safeFirebaseKey(user.key || (user.name + '__' + user.klass));
+    const key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
     const ref = fbDb.ref('users/' + key);
     // ⚠️ FIX BUG : lire d'abord Firebase, puis push le MAX(local, distant)
     ref.once('value').then(function(snap) {
@@ -1132,7 +1145,7 @@ function initFirebase() {
     // ⚠️ FIX BUG : si on est déjà connecté, rapatrier les données AVANT de pousser
     const user = getCurrentUser();
     if (user) {
-      const key = safeFirebaseKey(user.key || user.name + '__' + user.klass);
+      const key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
       fbDb.ref('users/' + key).once('value').then(function(snap) {
         const remote = snap.val();
         const localData = loadUserData(user);
