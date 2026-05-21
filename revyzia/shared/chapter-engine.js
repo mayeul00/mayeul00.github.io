@@ -186,6 +186,17 @@
         const remote = snap.val();
         const merged = mergeUserData(data, remote);
         try { localStorage.setItem(hubKey(), JSON.stringify(merged)); } catch(e) {}
+
+        // 🛡️ PROTECTION : si local=0 mais Firebase a des XP, on ne push pas (on rapatrie)
+        const localXp = data.totalXp || 0;
+        const remoteXp = (remote && remote.totalXp) || 0;
+        if (localXp === 0 && remoteXp > 0) {
+          console.log('[engine] 🛡️ Local=0 vs Firebase=' + remoteXp + ' → rapatriement');
+          setText('xpNum', merged.totalXp || 0);
+          setText('streakNum', merged.streakValue || 0);
+          return;
+        }
+
         // Ne push QUE si vraiment différent
         if (remote &&
             (merged.totalXp || 0) === (remote.totalXp || 0) &&
