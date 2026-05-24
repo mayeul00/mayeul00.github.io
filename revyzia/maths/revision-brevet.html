@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Révision Brevet 2026</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_revision_brevet",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📌",
+  title: "Révision Brevet 2026",
+  subtitle: "Tous les points clés du brevet · Basé sur les sujets 0 officiels · 9 thèmes",
+  badge: "📌 Révision Brevet · Maths",
+  accentColor: "#5e5cff",
+  accent2Color: "#00c2ff",
+  depth: 1,
+  tabs: [
+    {
+      id: "nombres",
+      icon: "🔢",
+      label: "Nombres & Calculs",
+      lessons: [
+        { chapter: "Fractions", title: "Opérations sur les fractions", body: `
+          <div class="def"><strong>Addition / soustraction</strong>Il faut le MÊME dénominateur, puis on additionne les numérateurs.</div>
+          <span class="formula">a/b + c/b = (a+c)/b</span>
+          <div class="example"><strong>Exemple</strong> : 2/3 + 1/4 = 8/12 + 3/12 = 11/12 (on met au même dénominateur : 12)</div>
+          <div class="def"><strong>Multiplication</strong>On multiplie les numérateurs ensemble et les dénominateurs ensemble.</div>
+          <span class="formula">a/b × c/d = (a×c)/(b×d)</span>
+          <div class="def"><strong>Division</strong>Diviser = multiplier par l'inverse.</div>
+          <span class="formula">a/b ÷ c/d = a/b × d/c</span>
+          <div class="warning"><strong>Piège brevet</strong>Toujours simplifier la fraction finale ! Ex : 6/8 = 3/4.</div>
+        ` },
+        { chapter: "Puissances", title: "Les puissances", body: `
+          <span class="formula">aⁿ = a × a × ... × a (n fois)</span>
+          <div class="def"><strong>Règles à connaître</strong>aᵐ × aⁿ = aᵐ⁺ⁿ<br>aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>(aᵐ)ⁿ = aᵐˣⁿ<br>a⁰ = 1<br>a⁻ⁿ = 1/aⁿ</div>
+          <div class="example"><strong>Exemple</strong> : 2³ × 2⁴ = 2⁷ = 128 · 10⁻² = 1/100 = 0,01</div>
+          <div class="def"><strong>Notation scientifique</strong>a × 10ⁿ avec 1 ≤ a < 10. Ex : 45000 = 4,5 × 10⁴</div>
+        ` },
+        { chapter: "PGCD & nombres premiers", title: "PGCD et fractions irréductibles", body: `
+          <div class="def"><strong>Nombre premier</strong>Divisible uniquement par 1 et lui-même. Ex : 2, 3, 5, 7, 11, 13, 17, 19, 23...</div>
+          <div class="def"><strong>PGCD</strong>Plus Grand Commun Diviseur de deux nombres.</div>
+          <p>Pour rendre une fraction <strong>irréductible</strong>, on divise numérateur et dénominateur par leur PGCD.</p>
+          <div class="example"><strong>Exemple</strong> : 24/36. PGCD(24,36)=12. Donc 24/36 = 2/3.</div>
+        ` },
+        { chapter: "Relatifs", title: "Calculs avec les nombres relatifs", body: `
+          <div class="def"><strong>Règle des signes (×  et ÷)</strong>(+)×(+) = + · (−)×(−) = + · (+)×(−) = − · (−)×(+) = −</div>
+          <div class="example"><strong>Exemples</strong> : (−3)×(−4) = +12 · (−5)×2 = −10 · (−20)÷(−4) = +5</div>
+          <div class="warning"><strong>Addition relatifs</strong>−5 + 8 = +3 (on fait la différence, signe du plus grand) · −5 − 3 = −8</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Comment additionner deux fractions ?", back: "Mettre au même dénominateur, puis additionner les numérateurs : a/b + c/b = (a+c)/b" },
+        { front: "a/b ÷ c/d = ?", back: "a/b × d/c (multiplier par l'inverse)" },
+        { front: "aᵐ × aⁿ = ?", back: "aᵐ⁺ⁿ (on additionne les exposants)" },
+        { front: "a⁻ⁿ = ?", back: "1/aⁿ" },
+        { front: "a⁰ = ?", back: "1 (toujours, pour tout a ≠ 0)" },
+        { front: "Notation scientifique de 45000 ?", back: "4,5 × 10⁴" },
+        { front: "(−3) × (−4) = ?", back: "+12 (moins par moins = plus)" },
+        { front: "Qu'est-ce qu'un nombre premier ?", back: "Un nombre divisible uniquement par 1 et lui-même (2, 3, 5, 7, 11...)" },
+        { front: "Comment rendre une fraction irréductible ?", back: "Diviser numérateur et dénominateur par leur PGCD." }
+      ],
+      qcm: [
+        { q: "Combien vaut 2/3 + 1/6 ?", options: ["3/9", "5/6", "3/6", "1/2"], correct: 1, exp: "2/3 = 4/6, donc 4/6 + 1/6 = 5/6." },
+        { q: "Combien vaut 2⁵ ?", options: ["10", "25", "32", "16"], correct: 2, exp: "2⁵ = 2×2×2×2×2 = 32." },
+        { q: "Quelle est la notation scientifique de 0,0034 ?", options: ["3,4 × 10³", "3,4 × 10⁻³", "34 × 10⁻⁴", "0,34 × 10⁻²"], correct: 1, exp: "0,0034 = 3,4 × 10⁻³ (a entre 1 et 10)." },
+        { q: "Combien vaut (−6) × (−7) ?", options: ["−42", "42", "−13", "13"], correct: 1, exp: "Moins par moins = plus, donc +42." },
+        { q: "La fraction 18/24 est égale à :", options: ["2/3", "3/4", "4/5", "9/12"], correct: 1, exp: "PGCD(18,24)=6. 18/24 = 3/4." },
+        { q: "Combien vaut 3⁻² ?", options: ["−9", "−6", "1/9", "1/6"], correct: 2, exp: "3⁻² = 1/3² = 1/9." },
+        { q: "Combien vaut 10⁶ ?", options: ["1 000", "100 000", "1 000 000", "10 000"], correct: 2, exp: "10⁶ = 1 suivi de 6 zéros = 1 000 000." },
+        { q: "Quel nombre est premier ?", options: ["21", "27", "29", "33"], correct: 2, exp: "29 n'est divisible que par 1 et 29. (21=3×7, 27=3³, 33=3×11)" }
+      ]
+    },
+    {
+      id: "litteral",
+      icon: "✏️",
+      label: "Calcul littéral",
+      lessons: [
+        { chapter: "Développer", title: "Développer une expression", body: `
+          <div class="def"><strong>Simple distributivité</strong>k(a + b) = ka + kb</div>
+          <div class="def"><strong>Double distributivité</strong>(a + b)(c + d) = ac + ad + bc + bd</div>
+          <div class="example"><strong>Exemple</strong> : (x+3)(x+2) = x² + 2x + 3x + 6 = x² + 5x + 6</div>
+          <div class="warning"><strong>Piège brevet n°1 : les signes !</strong>−2(x − 5) = −2x + 10 (le − devant transforme tout)</div>
+        ` },
+        { chapter: "Identités remarquables", title: "Les 3 identités remarquables", body: `
+          <span class="formula">(a + b)² = a² + 2ab + b²</span>
+          <span class="formula">(a − b)² = a² − 2ab + b²</span>
+          <span class="formula">(a + b)(a − b) = a² − b²</span>
+          <div class="example"><strong>Exemples</strong><br>(x+3)² = x² + 6x + 9<br>(x−5)² = x² − 10x + 25<br>(x+4)(x−4) = x² − 16</div>
+        ` },
+        { chapter: "Factoriser", title: "Factoriser une expression", body: `
+          <div class="def"><strong>Factoriser</strong>Transformer une somme en produit. On cherche un FACTEUR COMMUN.</div>
+          <span class="formula">ka + kb = k(a + b)</span>
+          <div class="example"><strong>Exemple</strong> : 6x + 9 = 3(2x + 3) · 5x² − 10x = 5x(x − 2)</div>
+        ` },
+        { chapter: "Équations", title: "Résoudre une équation", body: `
+          <div class="def"><strong>Principe</strong>Isoler x : ce qu'on fait d'un côté du =, on le fait de l'autre.</div>
+          <div class="example"><strong>Exemple</strong> : 4x − 3 = 17<br>4x = 17 + 3 = 20<br>x = 20/4 = 5</div>
+          <div class="def"><strong>Équation produit nul</strong>Si A × B = 0, alors A = 0 OU B = 0.</div>
+          <div class="example"><strong>Ex</strong> : (x−2)(x+5) = 0 → x = 2 ou x = −5</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "(a + b)² = ?", back: "a² + 2ab + b²" },
+        { front: "(a − b)² = ?", back: "a² − 2ab + b²" },
+        { front: "(a + b)(a − b) = ?", back: "a² − b²" },
+        { front: "Développer k(a+b)", back: "ka + kb (simple distributivité)" },
+        { front: "Développer (a+b)(c+d)", back: "ac + ad + bc + bd (double distributivité)" },
+        { front: "Factoriser 6x + 9", back: "3(2x + 3) — facteur commun 3" },
+        { front: "Résoudre 4x − 3 = 17", back: "4x = 20, donc x = 5" },
+        { front: "Équation produit nul : (x−2)(x+5)=0", back: "x = 2 OU x = −5" },
+        { front: "Développer −2(x − 5)", back: "−2x + 10 (attention au signe !)" }
+      ],
+      qcm: [
+        { q: "Développer (x + 4)² :", options: ["x² + 16", "x² + 8x + 16", "x² + 4x + 16", "x² + 8x + 8"], correct: 1, exp: "(x+4)² = x² + 2·x·4 + 4² = x² + 8x + 16." },
+        { q: "Développer (x − 3)(x + 3) :", options: ["x² − 9", "x² + 9", "x² − 6x + 9", "x² − 6x − 9"], correct: 0, exp: "Identité (a−b)(a+b) = a² − b² = x² − 9." },
+        { q: "Factoriser 8x + 12 :", options: ["4(2x + 3)", "2(4x + 6)", "8(x + 12)", "4(2x + 12)"], correct: 0, exp: "PGCD(8,12)=4, donc 4(2x+3)." },
+        { q: "Résoudre 5x + 2 = 17 :", options: ["x = 3", "x = 5", "x = 15", "x = 19"], correct: 0, exp: "5x = 15, donc x = 3." },
+        { q: "Développer −3(2x − 4) :", options: ["−6x − 12", "−6x + 12", "6x − 12", "−6x − 4"], correct: 1, exp: "−3 × 2x = −6x ; −3 × (−4) = +12. Donc −6x + 12." },
+        { q: "Solutions de (x + 1)(x − 7) = 0 :", options: ["x = 1 ou x = 7", "x = −1 ou x = 7", "x = −1 ou x = −7", "x = 1 ou x = −7"], correct: 1, exp: "x + 1 = 0 → x = −1 ; x − 7 = 0 → x = 7." },
+        { q: "Développer (2x + 1)² :", options: ["4x² + 1", "2x² + 4x + 1", "4x² + 4x + 1", "4x² + 2x + 1"], correct: 2, exp: "(2x)² + 2·2x·1 + 1² = 4x² + 4x + 1." }
+      ]
+    },
+    {
+      id: "pythagore",
+      icon: "📐",
+      label: "Pythagore",
+      lessons: [
+        { chapter: "Le théorème", title: "Théorème de Pythagore", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Dans un triangle RECTANGLE, pour calculer une longueur.</div>
+          <p>Si le triangle ABC est rectangle en A, alors :</p>
+          <span class="formula">BC² = AB² + AC²</span>
+          <p>(BC est l'<strong>hypoténuse</strong> = le plus grand côté, opposé à l'angle droit)</p>
+          <div class="example"><strong>Exemple</strong> : Triangle rectangle en A, AB = 3, AC = 4.<br>BC² = 3² + 4² = 9 + 16 = 25<br>BC = √25 = 5</div>
+        ` },
+        { chapter: "Réciproque", title: "Réciproque de Pythagore", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Pour PROUVER qu'un triangle est rectangle (ou non).</div>
+          <p>On compare le carré du plus grand côté avec la somme des carrés des deux autres.</p>
+          <div class="example"><strong>Méthode</strong><br>1. On calcule séparément le plus grand côté au carré.<br>2. On calcule la somme des carrés des 2 autres.<br>3. Si ÉGAUX → rectangle. Sinon → pas rectangle.</div>
+          <div class="example"><strong>Exemple</strong> : côtés 5, 12, 13.<br>13² = 169<br>5² + 12² = 25 + 144 = 169<br>Égaux → triangle rectangle ! ✓</div>
+          <div class="warning"><strong>Piège brevet</strong>NE JAMAIS confondre le théorème (calcule une longueur) et la réciproque (prouve l'angle droit) !</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Quand utilise-t-on le théorème de Pythagore ?", back: "Dans un triangle RECTANGLE, pour calculer une longueur." },
+        { front: "Formule de Pythagore (rectangle en A)", back: "BC² = AB² + AC² (BC = hypoténuse)" },
+        { front: "Qu'est-ce que l'hypoténuse ?", back: "Le plus grand côté d'un triangle rectangle, opposé à l'angle droit." },
+        { front: "À quoi sert la RÉCIPROQUE de Pythagore ?", back: "À prouver qu'un triangle est rectangle (ou non)." },
+        { front: "Triangle 3-4-5 : est-il rectangle ?", back: "Oui ! 5² = 25 et 3²+4² = 9+16 = 25. Égaux → rectangle." },
+        { front: "Comment trouver un côté avec Pythagore ?", back: "BC = √(AB² + AC²) pour l'hypoténuse, ou AB = √(BC² − AC²) pour un autre côté." }
+      ],
+      qcm: [
+        { q: "Dans un triangle rectangle en A avec AB=6 et AC=8, combien vaut BC ?", options: ["10", "14", "48", "100"], correct: 0, exp: "BC² = 6² + 8² = 36 + 64 = 100, donc BC = 10." },
+        { q: "Quel triplet correspond à un triangle rectangle ?", options: ["2, 3, 4", "6, 8, 10", "5, 6, 7", "4, 5, 6"], correct: 1, exp: "10² = 100 et 6²+8² = 36+64 = 100. Égaux → rectangle." },
+        { q: "Pour PROUVER qu'un triangle est rectangle, on utilise :", options: ["Le théorème de Pythagore", "La réciproque de Pythagore", "Le théorème de Thalès", "La trigonométrie"], correct: 1, exp: "La réciproque sert à prouver l'angle droit." },
+        { q: "Triangle rectangle, hypoténuse = 13, un côté = 5. L'autre côté ?", options: ["8", "12", "18", "144"], correct: 1, exp: "côté² = 13² − 5² = 169 − 25 = 144, donc côté = 12." },
+        { q: "L'hypoténuse, c'est :", options: ["Le plus petit côté", "Le côté de l'angle droit", "Le plus grand côté, opposé à l'angle droit", "N'importe quel côté"], correct: 2, exp: "L'hypoténuse est le plus grand côté, face à l'angle droit." },
+        { q: "Triangle avec côtés 7, 8, 12 : est-il rectangle ?", options: ["Oui", "Non", "Impossible à dire", "Seulement si isocèle"], correct: 1, exp: "12² = 144 mais 7²+8² = 49+64 = 113. 144 ≠ 113 → PAS rectangle." }
+      ]
+    },
+    {
+      id: "thales",
+      icon: "📏",
+      label: "Thalès & Trigonométrie",
+      lessons: [
+        { chapter: "Théorème de Thalès", title: "Le théorème de Thalès", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Quand on a deux droites sécantes coupées par deux droites PARALLÈLES (configuration en "papillon" ou en "triangle").</div>
+          <p>Si (BC) // (DE), avec A, B, D alignés et A, C, E alignés :</p>
+          <span class="formula">AB/AD = AC/AE = BC/DE</span>
+          <div class="example"><strong>Exemple</strong> : AB=3, AD=6, AC=4. Trouver AE.<br>AB/AD = AC/AE → 3/6 = 4/AE → AE = (4×6)/3 = 8</div>
+        ` },
+        { chapter: "Réciproque de Thalès", title: "Réciproque (prouver le parallélisme)", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Pour prouver que deux droites sont parallèles.</div>
+          <p>Si AB/AD = AC/AE ET que les points sont alignés dans le même ordre, alors (BC) // (DE).</p>
+          <div class="warning"><strong>Piège</strong>Il faut vérifier que les rapports sont égaux ET que les points sont alignés dans le bon ordre.</div>
+        ` },
+        { chapter: "Trigonométrie", title: "Trigonométrie (SOH-CAH-TOA)", body: `
+          <div class="def"><strong>Dans un triangle rectangle</strong>cos, sin et tan relient un angle aux côtés.</div>
+          <span class="formula">cos = Adjacent / Hypoténuse<br>sin = Opposé / Hypoténuse<br>tan = Opposé / Adjacent</span>
+          <div class="def"><strong>Moyen mnémotechnique</strong>SOH-CAH-TOA :<br>Sin = Opp/Hyp · Cos = Adj/Hyp · Tan = Opp/Adj</div>
+          <div class="example"><strong>Exemple</strong> : angle 30°, hypoténuse = 10. Côté opposé ?<br>sin(30°) = opp/10 → opp = 10 × sin(30°) = 10 × 0,5 = 5</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Quand utilise-t-on Thalès ?", back: "Deux droites sécantes coupées par deux droites parallèles." },
+        { front: "Égalité de Thalès (BC // DE)", back: "AB/AD = AC/AE = BC/DE" },
+        { front: "À quoi sert la réciproque de Thalès ?", back: "À prouver que deux droites sont parallèles." },
+        { front: "cos d'un angle = ?", back: "Adjacent / Hypoténuse (CAH)" },
+        { front: "sin d'un angle = ?", back: "Opposé / Hypoténuse (SOH)" },
+        { front: "tan d'un angle = ?", back: "Opposé / Adjacent (TOA)" },
+        { front: "Moyen mnémotechnique trigo ?", back: "SOH-CAH-TOA" },
+        { front: "cos(0°), cos(90°) ?", back: "cos(0°) = 1, cos(90°) = 0" }
+      ],
+      qcm: [
+        { q: "Configuration Thalès : (BC)//(DE), AB=4, AD=10, AC=6. Combien vaut AE ?", options: ["12", "15", "2,4", "24"], correct: 1, exp: "AB/AD = AC/AE → 4/10 = 6/AE → AE = (6×10)/4 = 15." },
+        { q: "cos d'un angle correspond à :", options: ["Opposé/Hypoténuse", "Adjacent/Hypoténuse", "Opposé/Adjacent", "Hypoténuse/Adjacent"], correct: 1, exp: "CAH : Cosinus = Adjacent/Hypoténuse." },
+        { q: "Pour calculer un angle connaissant opposé et adjacent, on utilise :", options: ["cos", "sin", "tan", "Pythagore"], correct: 2, exp: "tan = Opposé/Adjacent (TOA)." },
+        { q: "La réciproque de Thalès sert à :", options: ["Calculer une longueur", "Prouver que deux droites sont parallèles", "Calculer un angle", "Prouver un angle droit"], correct: 1, exp: "Elle prouve le parallélisme." },
+        { q: "sin(30°) = ?", options: ["0", "0,5", "1", "0,87"], correct: 1, exp: "sin(30°) = 0,5 (valeur à connaître)." },
+        { q: "Dans un triangle rectangle, hypoténuse=10, angle=60°, côté adjacent ?", options: ["5", "8,7", "10", "6"], correct: 0, exp: "cos(60°) = adj/10 → adj = 10 × 0,5 = 5." }
+      ]
+    },
+    {
+      id: "fonctions",
+      icon: "📈",
+      label: "Fonctions",
+      lessons: [
+        { chapter: "Notion de fonction", title: "Qu'est-ce qu'une fonction ?", body: `
+          <div class="def"><strong>Fonction</strong>Un processus qui à un nombre x associe un seul nombre f(x) (son image).</div>
+          <p>Notation : f(x) = ... · « f de x »</p>
+          <div class="example"><strong>Exemple</strong> : f(x) = 2x + 3. L'image de 5 est f(5) = 2×5+3 = 13.</div>
+          <div class="def"><strong>Vocabulaire</strong>x = antécédent · f(x) = image</div>
+        ` },
+        { chapter: "Fonction linéaire", title: "Fonction linéaire", body: `
+          <span class="formula">f(x) = a × x</span>
+          <p>Représentée par une <strong>droite passant par l'origine</strong> (0,0). Le coefficient a est le coefficient directeur.</p>
+          <div class="def"><strong>Lien avec la proportionnalité</strong>Une fonction linéaire représente une situation de PROPORTIONNALITÉ. a = coefficient de proportionnalité.</div>
+          <div class="example"><strong>Exemple</strong> : f(x) = 3x. f(4) = 12. Droite passant par (0,0) et (4,12).</div>
+        ` },
+        { chapter: "Fonction affine", title: "Fonction affine", body: `
+          <span class="formula">f(x) = a × x + b</span>
+          <p><strong>a</strong> = coefficient directeur (pente) · <strong>b</strong> = ordonnée à l'origine (où la droite coupe l'axe des y)</p>
+          <div class="example"><strong>Exemple</strong> : f(x) = 2x − 1. Droite de pente 2, qui coupe l'axe des y en −1.</div>
+          <div class="warning"><strong>Différence clé</strong>Linéaire : passe par (0,0). Affine : passe par (0, b).</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Forme d'une fonction linéaire", back: "f(x) = ax (droite passant par l'origine)" },
+        { front: "Forme d'une fonction affine", back: "f(x) = ax + b" },
+        { front: "Dans f(x) = ax + b, que représente b ?", back: "L'ordonnée à l'origine (où la droite coupe l'axe des y)." },
+        { front: "Dans f(x) = ax + b, que représente a ?", back: "Le coefficient directeur (la pente)." },
+        { front: "Vocabulaire : x et f(x) ?", back: "x = antécédent, f(x) = image." },
+        { front: "f(x) = 2x + 3, calcule f(5)", back: "f(5) = 2×5 + 3 = 13" },
+        { front: "Quelle fonction représente une proportionnalité ?", back: "La fonction linéaire f(x) = ax." }
+      ],
+      qcm: [
+        { q: "f(x) = 3x − 2. Combien vaut f(4) ?", options: ["10", "12", "14", "5"], correct: 0, exp: "f(4) = 3×4 − 2 = 12 − 2 = 10." },
+        { q: "Quelle est une fonction linéaire ?", options: ["f(x) = 2x + 1", "f(x) = 5x", "f(x) = x²", "f(x) = 3"], correct: 1, exp: "Une fonction linéaire est de la forme ax : f(x)=5x." },
+        { q: "Dans f(x) = −2x + 7, l'ordonnée à l'origine est :", options: ["−2", "2", "7", "−7"], correct: 2, exp: "b = 7, c'est l'ordonnée à l'origine." },
+        { q: "Une fonction linéaire est représentée par :", options: ["Une parabole", "Une droite passant par l'origine", "Une droite quelconque", "Une courbe"], correct: 1, exp: "Droite passant par (0,0)." },
+        { q: "f(x) = 4x. Quel est l'antécédent de 20 ?", options: ["5", "80", "16", "24"], correct: 0, exp: "4x = 20 → x = 5." },
+        { q: "Quelle fonction passe par le point (0, 3) ?", options: ["f(x) = 3x", "f(x) = x + 3", "f(x) = 3x + 1", "f(x) = x"], correct: 1, exp: "f(0) = 3 : seule f(x)=x+3 donne f(0)=3." }
+      ]
+    },
+    {
+      id: "proportionnalite",
+      icon: "⚖️",
+      label: "Proportionnalité & %",
+      lessons: [
+        { chapter: "Proportionnalité", title: "Reconnaître la proportionnalité", body: `
+          <div class="def"><strong>Tableau de proportionnalité</strong>On passe d'une ligne à l'autre en multipliant TOUJOURS par le même nombre (coefficient).</div>
+          <div class="def"><strong>Produit en croix</strong>Si a/b = c/d, alors a×d = b×c. Permet de trouver une valeur manquante.</div>
+          <div class="example"><strong>Exemple</strong> : 3 stylos coûtent 6€. Combien coûtent 5 stylos ?<br>3/6 = 5/x → x = (5×6)/3 = 10€</div>
+        ` },
+        { chapter: "Pourcentages", title: "Les pourcentages", body: `
+          <div class="def"><strong>Calculer t% d'une valeur</strong>valeur × t/100</div>
+          <div class="example"><strong>Exemple</strong> : 20% de 150 = 150 × 20/100 = 30</div>
+          <div class="def"><strong>Augmentation de t%</strong>×(1 + t/100). Ex : +15% → ×1,15</div>
+          <div class="def"><strong>Réduction de t%</strong>×(1 − t/100). Ex : −30% → ×0,70</div>
+          <div class="example"><strong>Exemple</strong> : un article à 80€ avec −25% : 80 × 0,75 = 60€</div>
+        ` },
+        { chapter: "Vitesse", title: "Vitesse, distance, temps", body: `
+          <span class="formula">v = d / t</span>
+          <p>vitesse = distance ÷ temps · distance = v × t · temps = d ÷ v</p>
+          <div class="example"><strong>Exemple</strong> : 150 km en 2h → v = 150/2 = 75 km/h</div>
+          <div class="warning"><strong>Attention aux unités !</strong>km/h avec heures, m/s avec secondes.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Produit en croix : a/b = c/d donne ?", back: "a×d = b×c" },
+        { front: "Calculer t% d'une valeur ?", back: "valeur × t/100" },
+        { front: "Augmenter de 15% revient à multiplier par ?", back: "1,15" },
+        { front: "Réduire de 30% revient à multiplier par ?", back: "0,70" },
+        { front: "Formule de la vitesse ?", back: "v = d/t (distance divisée par temps)" },
+        { front: "20% de 150 = ?", back: "150 × 20/100 = 30" },
+        { front: "Comment reconnaître un tableau de proportionnalité ?", back: "On passe d'une ligne à l'autre en multipliant par le même coefficient." }
+      ],
+      qcm: [
+        { q: "Combien vaut 30% de 200 ?", options: ["6", "60", "30", "70"], correct: 1, exp: "200 × 30/100 = 60." },
+        { q: "Un article de 50€ augmente de 20%. Nouveau prix ?", options: ["60€", "70€", "55€", "40€"], correct: 0, exp: "50 × 1,20 = 60€." },
+        { q: "Une voiture parcourt 240 km en 3h. Sa vitesse ?", options: ["60 km/h", "80 km/h", "720 km/h", "120 km/h"], correct: 1, exp: "v = 240/3 = 80 km/h." },
+        { q: "4 kg de pommes coûtent 12€. Combien coûtent 7 kg ?", options: ["19€", "21€", "24€", "28€"], correct: 1, exp: "Produit en croix : 12/4 × 7 = 3 × 7 = 21€." },
+        { q: "Un pull à 80€ avec −25%. Prix final ?", options: ["55€", "60€", "65€", "20€"], correct: 1, exp: "80 × 0,75 = 60€." },
+        { q: "Réduire de 40% revient à multiplier par :", options: ["0,4", "0,6", "1,4", "0,96"], correct: 1, exp: "1 − 0,40 = 0,60." }
+      ]
+    },
+    {
+      id: "stats",
+      icon: "📊",
+      label: "Statistiques & Probabilités",
+      lessons: [
+        { chapter: "Moyenne, médiane, étendue", title: "Indicateurs statistiques", body: `
+          <div class="def"><strong>Moyenne</strong>Somme de toutes les valeurs ÷ nombre de valeurs.</div>
+          <div class="def"><strong>Médiane</strong>La valeur qui partage la série ordonnée en 2 moitiés. (50% en dessous, 50% au-dessus)</div>
+          <div class="def"><strong>Étendue</strong>Différence entre la plus grande et la plus petite valeur. (max − min)</div>
+          <div class="example"><strong>Exemple</strong> : série 4, 7, 9, 12, 18.<br>Moyenne = (4+7+9+12+18)/5 = 50/5 = 10<br>Médiane = 9 (valeur centrale)<br>Étendue = 18 − 4 = 14</div>
+        ` },
+        { chapter: "Médiane (cas pair)", title: "Calculer la médiane", body: `
+          <div class="warning"><strong>Nombre IMPAIR de valeurs</strong>La médiane est la valeur du milieu. Ex : 5 valeurs → la 3e.</div>
+          <div class="warning"><strong>Nombre PAIR de valeurs</strong>La médiane est la MOYENNE des deux valeurs centrales. Ex : 6 valeurs → moyenne de la 3e et 4e.</div>
+          <div class="example"><strong>Exemple pair</strong> : 2, 5, 8, 10 → médiane = (5+8)/2 = 6,5</div>
+        ` },
+        { chapter: "Probabilités", title: "Les probabilités", body: `
+          <div class="def"><strong>Probabilité</strong>P(événement) = nombre de cas favorables / nombre de cas possibles</div>
+          <p>Une probabilité est toujours entre 0 et 1.</p>
+          <div class="def"><strong>Repères</strong>Événement impossible : P = 0 · Événement certain : P = 1 · P(non A) = 1 − P(A)</div>
+          <div class="example"><strong>Exemple</strong> : dé à 6 faces. P(obtenir 4) = 1/6. P(nombre pair) = 3/6 = 1/2.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Comment calculer la moyenne ?", back: "Somme des valeurs ÷ nombre de valeurs." },
+        { front: "Qu'est-ce que la médiane ?", back: "La valeur qui partage la série ordonnée en deux moitiés égales." },
+        { front: "Qu'est-ce que l'étendue ?", back: "max − min (différence entre plus grande et plus petite valeur)." },
+        { front: "Médiane d'un nombre pair de valeurs ?", back: "Moyenne des deux valeurs centrales." },
+        { front: "Formule d'une probabilité ?", back: "P = cas favorables / cas possibles" },
+        { front: "Probabilité d'un événement certain ?", back: "1" },
+        { front: "P(non A) = ?", back: "1 − P(A)" },
+        { front: "Dé à 6 faces, P(nombre pair) ?", back: "3/6 = 1/2" }
+      ],
+      qcm: [
+        { q: "Moyenne de 5, 10, 15, 20, 25 ?", options: ["15", "75", "20", "12"], correct: 0, exp: "(5+10+15+20+25)/5 = 75/5 = 15." },
+        { q: "Médiane de 3, 7, 8, 12, 15 ?", options: ["7", "8", "12", "9"], correct: 1, exp: "5 valeurs, la médiane est la 3e : 8." },
+        { q: "Étendue de la série 12, 5, 20, 8, 17 ?", options: ["15", "20", "5", "12"], correct: 0, exp: "max − min = 20 − 5 = 15." },
+        { q: "Médiane de 4, 6, 10, 14 (nombre pair) ?", options: ["6", "8", "10", "7"], correct: 1, exp: "Moyenne des 2 centrales : (6+10)/2 = 8." },
+        { q: "On tire une carte d'un jeu de 32. P(tirer un cœur) ?", options: ["1/32", "1/8", "1/4", "1/2"], correct: 2, exp: "8 cœurs / 32 cartes = 1/4." },
+        { q: "P(A) = 0,3. Combien vaut P(non A) ?", options: ["0,3", "0,7", "1,3", "0,5"], correct: 1, exp: "P(non A) = 1 − 0,3 = 0,7." },
+        { q: "Un sac contient 5 boules rouges et 3 bleues. P(rouge) ?", options: ["3/8", "5/8", "5/3", "1/2"], correct: 1, exp: "5 rouges sur 8 boules = 5/8." }
+      ]
+    },
+    {
+      id: "geometrie",
+      icon: "🔷",
+      label: "Géométrie & Transformations",
+      lessons: [
+        { chapter: "Transformations", title: "Les transformations géométriques", body: `
+          <div class="def"><strong>Translation</strong>Glissement selon une direction, un sens, une longueur (vecteur). La figure garde la même taille et orientation.</div>
+          <div class="def"><strong>Rotation</strong>Tourne autour d'un centre, d'un certain angle.</div>
+          <div class="def"><strong>Symétrie axiale</strong>Réflexion par rapport à une droite (axe), comme un miroir.</div>
+          <div class="def"><strong>Symétrie centrale</strong>Demi-tour autour d'un point (rotation de 180°).</div>
+          <div class="def"><strong>Homothétie</strong>Agrandissement ou réduction par rapport à un centre, selon un rapport k.</div>
+        ` },
+        { chapter: "Homothéties", title: "L'homothétie en détail", body: `
+          <div class="def"><strong>Homothétie de rapport k</strong>Si |k| > 1 → agrandissement. Si 0 < |k| < 1 → réduction. Si k < 0 → de l'autre côté du centre.</div>
+          <div class="warning"><strong>Effet sur les longueurs et aires</strong>Les longueurs sont multipliées par |k|.<br>Les AIRES sont multipliées par k².<br>Les volumes par |k|³.</div>
+          <div class="example"><strong>Exemple</strong> : homothétie de rapport 3. Une longueur de 5 devient 15. Une aire de 4 devient 4×9 = 36.</div>
+        ` },
+        { chapter: "Volumes", title: "Aires et volumes à connaître", body: `
+          <div class="def"><strong>Aires</strong>Rectangle : L×l · Triangle : (b×h)/2 · Disque : π×r²</div>
+          <div class="def"><strong>Volumes</strong>Pavé : L×l×h · Cylindre : π×r²×h · Cône : (π×r²×h)/3 · Pyramide : (Aire base × h)/3 · Boule : (4/3)×π×r³</div>
+          <div class="example"><strong>Exemple</strong> : cylindre rayon 2, hauteur 10. V = π × 2² × 10 = 40π ≈ 125,7</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Symétrie centrale = ?", back: "Demi-tour autour d'un point (rotation de 180°)." },
+        { front: "Translation = ?", back: "Glissement selon une direction, un sens et une longueur (vecteur)." },
+        { front: "Homothétie de rapport k : effet sur les longueurs ?", back: "Les longueurs sont multipliées par |k|." },
+        { front: "Homothétie : effet sur les AIRES ?", back: "Les aires sont multipliées par k²." },
+        { front: "Aire d'un disque ?", back: "π × r²" },
+        { front: "Volume d'un cylindre ?", back: "π × r² × h" },
+        { front: "Volume d'une pyramide / d'un cône ?", back: "(Aire de la base × hauteur) / 3" },
+        { front: "Volume d'une boule ?", back: "(4/3) × π × r³" }
+      ],
+      qcm: [
+        { q: "Une symétrie centrale est équivalente à une rotation de :", options: ["90°", "180°", "360°", "45°"], correct: 1, exp: "Symétrie centrale = rotation de 180°." },
+        { q: "Homothétie de rapport 2 : une aire de 5 devient :", options: ["10", "20", "25", "7"], correct: 1, exp: "Les aires sont multipliées par k² = 4. Donc 5×4 = 20." },
+        { q: "Aire d'un disque de rayon 3 ?", options: ["6π", "9π", "3π", "12π"], correct: 1, exp: "Aire = π × r² = π × 9 = 9π." },
+        { q: "Volume d'un pavé 2×3×4 ?", options: ["9", "24", "12", "20"], correct: 1, exp: "V = L×l×h = 2×3×4 = 24." },
+        { q: "Quelle transformation conserve les longueurs ET l'orientation ?", options: ["L'homothétie de rapport 2", "La symétrie axiale", "La translation", "La réduction"], correct: 2, exp: "La translation conserve tout (taille, orientation)." },
+        { q: "Homothétie de rapport 3 : une longueur de 4 devient :", options: ["7", "12", "9", "4"], correct: 1, exp: "Longueurs × |k| = 4 × 3 = 12." }
+      ]
+    },
+    {
+      id: "scratch",
+      icon: "💻",
+      label: "Algorithmique (Scratch)",
+      lessons: [
+        { chapter: "Bases", title: "Lire un programme Scratch", body: `
+          <div class="def"><strong>Boucle « répéter »</strong>Répète des instructions un certain nombre de fois.</div>
+          <div class="def"><strong>Variable</strong>Une "boîte" qui stocke une valeur qui peut changer.</div>
+          <div class="def"><strong>Condition « si...alors »</strong>Exécute des instructions seulement si une condition est vraie.</div>
+        ` },
+        { chapter: "Figures géométriques", title: "Dessiner des figures", body: `
+          <div class="warning"><strong>Règle d'or</strong>Pour un polygone régulier à n côtés, l'angle de rotation = 360°/n.</div>
+          <div class="example"><strong>Exemples</strong><br>Carré : répéter 4 fois (avancer, tourner de 90°)<br>Triangle équilatéral : répéter 3 fois (avancer, tourner de 120°)<br>Hexagone : répéter 6 fois (avancer, tourner de 60°)</div>
+        ` },
+        { chapter: "Programmes de calcul", title: "Programmes de calcul", body: `
+          <div class="example"><strong>Exemple</strong> : "Choisir x, multiplier par 2, ajouter 3"<br>Si x = 4 → 4×2 = 8, puis 8+3 = 11.<br>Expression générale : 2x + 3</div>
+          <div class="warning"><strong>Astuce brevet</strong>Pour trouver l'expression générale, remplace le nombre choisi par x et suis les étapes.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Carré en Scratch : combien de répétitions et quel angle ?", back: "Répéter 4 fois, tourner de 90°." },
+        { front: "Triangle équilatéral en Scratch ?", back: "Répéter 3 fois, tourner de 120° (= 360/3)." },
+        { front: "Hexagone régulier en Scratch ?", back: "Répéter 6 fois, tourner de 60° (= 360/6)." },
+        { front: "Angle de rotation pour un polygone à n côtés ?", back: "360° / n" },
+        { front: "Programme : choisir x, ×2, +3. Avec x=5 ?", back: "5×2 = 10, puis 10+3 = 13." },
+        { front: "Qu'est-ce qu'une variable en programmation ?", back: "Une boîte qui stocke une valeur pouvant changer." }
+      ],
+      qcm: [
+        { q: "Pour dessiner un carré en Scratch, on répète 4 fois en tournant de :", options: ["45°", "60°", "90°", "120°"], correct: 2, exp: "Carré : 360/4 = 90°." },
+        { q: "Pour un pentagone régulier (5 côtés), l'angle est :", options: ["60°", "72°", "90°", "108°"], correct: 1, exp: "360/5 = 72°." },
+        { q: "Programme : choisir x, multiplier par 3, soustraire 2. Avec x=4 ?", options: ["10", "12", "14", "9"], correct: 0, exp: "4×3 = 12, puis 12−2 = 10." },
+        { q: "Programme : choisir x, ×2, +5. Quelle expression ?", options: ["2x + 5", "2(x+5)", "x + 7", "5x + 2"], correct: 0, exp: "On multiplie d'abord par 2 (2x), puis +5 → 2x+5." },
+        { q: "Triangle équilatéral en Scratch : on tourne de :", options: ["60°", "90°", "120°", "180°"], correct: 2, exp: "360/3 = 120°." },
+        { q: "Pour un hexagone (6 côtés), on répète 6 fois en tournant de :", options: ["30°", "45°", "60°", "72°"], correct: 2, exp: "360/6 = 60°." }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

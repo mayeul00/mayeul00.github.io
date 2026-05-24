@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Espagnol · Le Prétérit</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "espagnol_preterit",
+  subject: "espagnol",
+  subjectName: "Espagnol",
+  subjectIcon: "💃",
+  title: "Le Prétérit (Pretérito Indefinido)",
+  subtitle: "Le passé simple espagnol · Conjugaisons & emplois",
+  badge: "💃 Espagnol · 3e",
+  accentColor: "#c8472e",
+  accent2Color: "#ff9f0a",
+  depth: 1,
+  tabs: [
+    {
+      id: "cours",
+      icon: "📖",
+      label: "Le cours",
+      lessons: [
+        { chapter: "Qu'est-ce que c'est ?", title: "Le prétérit indéfini : définition", body: `
+          <div class="def"><strong>Pretérito Indefinido</strong>Temps du passé en espagnol, qui correspond au passé simple en français (ou parfois au passé composé). On l'utilise pour des actions <strong>terminées</strong>, <strong>datées</strong> dans le passé.</div>
+          <p><strong>Exemples</strong> :</p>
+          <ul>
+            <li>« Hier, je suis allé au marché » → <em>Ayer, fui al mercado</em></li>
+            <li>« En 1989, le Mur de Berlin est tombé » → <em>En 1989, cayó el Muro de Berlín</em></li>
+            <li>« Picasso est né en 1881 » → <em>Picasso nació en 1881</em></li>
+          </ul>
+          <div class="warning"><strong>Indicateurs temporels</strong>ayer, anoche, el año pasado, en 1989, hace 3 días...</div>
+        ` },
+        { chapter: "Conjugaison régulière", title: "Verbes en -AR, -ER, -IR (réguliers)", body: `
+          <p>Trois familles de verbes réguliers :</p>
+          <div class="formula">
+HABLAR (-AR)<br>
+yo hablé · tú hablaste · él habló<br>
+nosotros hablamos · vosotros hablasteis · ellos hablaron
+          </div>
+          <div class="formula">
+COMER (-ER)<br>
+yo comí · tú comiste · él comió<br>
+nosotros comimos · vosotros comisteis · ellos comieron
+          </div>
+          <div class="formula">
+VIVIR (-IR)<br>
+yo viví · tú viviste · él vivió<br>
+nosotros vivimos · vosotros vivisteis · ellos vivieron
+          </div>
+          <div class="warning"><strong>À retenir</strong>Les verbes en -ER et -IR ont les MÊMES terminaisons au prétérit !</div>
+        ` },
+        { chapter: "Verbes irréguliers", title: "Les principaux verbes irréguliers", body: `
+          <p>Certains verbes très courants sont irréguliers et <strong>à connaître par cœur</strong> :</p>
+          <div class="def"><strong>SER / IR (les deux ont la même forme !)</strong>fui · fuiste · fue · fuimos · fuisteis · fueron</div>
+          <div class="def"><strong>ESTAR</strong>estuve · estuviste · estuvo · estuvimos · estuvisteis · estuvieron</div>
+          <div class="def"><strong>TENER</strong>tuve · tuviste · tuvo · tuvimos · tuvisteis · tuvieron</div>
+          <div class="def"><strong>HACER</strong>hice · hiciste · hizo (attention le c→z !) · hicimos · hicisteis · hicieron</div>
+          <div class="def"><strong>DECIR</strong>dije · dijiste · dijo · dijimos · dijisteis · <strong>dijeron</strong> (pas dijieron !)</div>
+          <div class="def"><strong>VER</strong>vi · viste · vio · vimos · visteis · vieron (sans accents)</div>
+          <div class="def"><strong>DAR</strong>di · diste · dio · dimos · disteis · dieron</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "estar (yo)", back: "estuve" },
+        { front: "estar (él)", back: "estuvo" },
+        { front: "estar (ellos)", back: "estuvieron" },
+        { front: "tener (yo)", back: "tuve" },
+        { front: "tener (él)", back: "tuvo" },
+        { front: "tener (ellos)", back: "tuvieron" },
+        { front: "hacer (yo)", back: "hice" },
+        { front: "hacer (él)", back: "hizo (avec un z !)" },
+        { front: "hacer (ellos)", back: "hicieron" },
+        { front: "ir / ser (yo)", back: "fui (même conjugaison pour les 2 !)" },
+        { front: "ir / ser (él)", back: "fue" },
+        { front: "ir / ser (ellos)", back: "fueron" },
+        { front: "decir (yo)", back: "dije" },
+        { front: "decir (ellos)", back: "dijeron (pas dijieron !)" },
+        { front: "ver (yo)", back: "vi" },
+        { front: "ver (él)", back: "vio (sans accent)" },
+        { front: "dar (yo)", back: "di" },
+        { front: "dar (él)", back: "dio" },
+        { front: "Terminaisons -AR (réguliers)", back: "-é, -aste, -ó, -amos, -asteis, -aron" },
+        { front: "Terminaisons -ER / -IR (réguliers)", back: "-í, -iste, -ió, -imos, -isteis, -ieron (les deux ont les MÊMES terminaisons)" }
+      ],
+      qcm: [
+        { q: "« Hablar » à la 1re personne du singulier au prétérit ?", options: ["hablo", "hablé", "hablaba", "hablado"], correct: 1, exp: "hablé (avec accent sur le é)." },
+        { q: "« Comer » à la 3e personne du singulier au prétérit ?", options: ["come", "comió", "comía", "comido"], correct: 1, exp: "comió, terminaison -ió pour él/ella." },
+        { q: "« Estar » à la 1re personne du singulier au prétérit ?", options: ["estaba", "estuve", "esté", "estoy"], correct: 1, exp: "estuve. Verbe IRRÉGULIER à connaître." },
+        { q: "« Hacer » à la 3e personne du singulier au prétérit ?", options: ["hizo", "hicieron", "hace", "hacía"], correct: 0, exp: "hizo, attention le c se transforme en z !" },
+        { q: "Quelle est la forme prétérit de « ir » à yo ?", options: ["voy", "fui", "iba", "iré"], correct: 1, exp: "fui. SER et IR ont la même conjugaison au prétérit !" },
+        { q: "« Decir » à la 3e personne du pluriel au prétérit ?", options: ["dijieron", "dijeron", "dicieron", "dicen"], correct: 1, exp: "dijeron, sans i après le j !" },
+        { q: "Quand utilise-t-on le prétérit ?", options: ["Pour une action habituelle", "Pour une action terminée et datée dans le passé", "Pour parler du futur", "Pour donner un conseil"], correct: 1, exp: "Action terminée, datée, ponctuelle dans le passé (souvent avec ayer, en 1989, etc.)." },
+        { q: "« Tener » à la 3e personne du singulier au prétérit ?", options: ["tiene", "tenía", "tuvo", "tendrá"], correct: 2, exp: "tuvo, à apprendre par cœur." },
+        { q: "« Ver » à la 1re personne du singulier au prétérit ?", options: ["veo", "vi", "veía", "vio"], correct: 1, exp: "vi (sans accent, c'est le piège !)" },
+        { q: "Indicateur temporel typique du prétérit ?", options: ["mañana", "ahora", "ayer", "todos los días"], correct: 2, exp: "ayer (hier), anoche, el año pasado, en + année..." }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>
