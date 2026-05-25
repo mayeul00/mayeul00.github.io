@@ -628,6 +628,8 @@ function mergeUserData(local, remote) {
     bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0),
     lastReviewDate: latestReviewDate || null,
     badges: (local.badges && local.badges.length >= (remote.badges || []).length) ? local.badges : (remote.badges || []),
+    pinnedChapters: mergePins(local.pinnedChapters, remote.pinnedChapters, local.pinsUpdatedAt, remote.pinsUpdatedAt),
+    pinsUpdatedAt: Math.max(local.pinsUpdatedAt || 0, remote.pinsUpdatedAt || 0),
     chapters: {},
     createdAt: Math.min(local.createdAt || Date.now(), remote.createdAt || Date.now()),
     lastSeen: Date.now()
@@ -692,6 +694,8 @@ function pushToFirebase(data, user) {
         bestStreakDays: merged.bestStreakDays || 0,
         lastReviewDate: merged.lastReviewDate || null,
         badges: merged.badges || [],
+        pinnedChapters: merged.pinnedChapters || [],
+        pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
         lastSeen: Date.now()
       }).then(function() {
@@ -977,6 +981,8 @@ function dedupAndMergeFirebaseEntries(user) {
         bestStreakDays: merged.bestStreakDays || 0,
         lastReviewDate: merged.lastReviewDate || null,
         badges: merged.badges || [],
+        pinnedChapters: merged.pinnedChapters || [],
+        pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
         lastSeen: Date.now()
       }).then(function() {
@@ -1094,6 +1100,15 @@ function getUserPins() {
   const data = loadUserData(user);
   return data.pinnedChapters || [];
 }
+// 📌 Fusionne les pins selon le timestamp le plus récent (permet le désépinglage multi-appareils)
+function mergePins(localPins, remotePins, localTs, remoteTs) {
+  if (!localPins && !remotePins) return [];
+  if (!localPins) return remotePins || [];
+  if (!remotePins) return localPins || [];
+  // Les deux existent : la version la plus récemment modifiée gagne
+  if ((localTs || 0) >= (remoteTs || 0)) return localPins;
+  return remotePins;
+}
 function toggleUserPin(chapterId, event) {
   if (event) { event.preventDefault(); event.stopPropagation(); }
   const user = getCurrentUser();
@@ -1103,6 +1118,7 @@ function toggleUserPin(chapterId, event) {
   const idx = data.pinnedChapters.indexOf(chapterId);
   if (idx >= 0) data.pinnedChapters.splice(idx, 1);
   else data.pinnedChapters.push(chapterId);
+  data.pinsUpdatedAt = Date.now();
   saveUserData(data, user);
   // Re-render
   if (state.currentSubject) showChapters(state.currentSubject);

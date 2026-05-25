@@ -243,14 +243,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
     <p class="subtitle">La nouvelle partie du brevet 2026 : 20 minutes, sans calculatrice, sans justification. 6 points faciles à gagner si tu connais tes réflexes !</p>
   </div>
 
-  <div class="info-card glass">
-    <strong>📋 Format de l'épreuve</strong>
-    <p>• <strong>Partie 1 (Automatismes)</strong> : 20 minutes, sans calculatrice, sans justification → <strong>6 points</strong><br>
-    • <strong>Partie 2 (Raisonnement)</strong> : 1h40, avec calculatrice, avec justification → 14 points<br>
-    • Les questions sont des QCM ou des réponses directes. <strong>Pas le droit de revenir</strong> dessus après les 20 min !</p>
-  </div>
-
-  <h2 style="text-align:center; margin: 24px 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.6px;">🎯 Choisis ton mode</h2>
+  <h2 style="text-align:center; margin: 8px 0 14px; font-size: 22px; font-weight: 800; letter-spacing: -0.6px;">🎯 Choisis ton mode</h2>
 
   <div class="modes-grid">
     <div class="mode-card featured glass" onclick="startExam('A')">
@@ -266,9 +259,9 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
       <div class="meta">9 questions · 20 min · 6 pts</div>
     </div>
     <div class="mode-card featured glass" onclick="startExam('C')" style="background: linear-gradient(135deg, #ff9f0a, #ff6b35);">
-      <span class="icon">📄</span>
-      <h3>Séance 7</h3>
-      <p>Automatismes<br>(fiche de classe)</p>
+      <span class="icon">📝</span>
+      <h3>Sujet 0 - C</h3>
+      <p>Examen blanc<br>(fiche de classe)</p>
       <div class="meta">10 questions · 20 min</div>
     </div>
     <div class="mode-card glass" style="--mc:#5e5cff" onclick="startTraining('nombres')">
@@ -309,7 +302,14 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
     </div>
   </div>
 
-  <div class="info-card glass" style="background: rgba(52,199,89,0.1); border-left-color: var(--green); margin-top: 24px;">
+  <div class="info-card glass" style="margin-top: 24px;">
+    <strong>📋 Format de l'épreuve</strong>
+    <p>• <strong>Partie 1 (Automatismes)</strong> : 20 minutes, sans calculatrice, sans justification → <strong>6 points</strong><br>
+    • <strong>Partie 2 (Raisonnement)</strong> : 1h40, avec calculatrice, avec justification → 14 points<br>
+    • Les questions sont des QCM ou des réponses directes. <strong>Pas le droit de revenir</strong> dessus après les 20 min !</p>
+  </div>
+
+  <div class="info-card glass" style="background: rgba(52,199,89,0.1); border-left-color: var(--green); margin-top: 16px;">
     <strong style="color: var(--green);">💡 Conseil stratégie</strong>
     <p>Pour le brevet, vise <strong>6/6 sur les automatismes</strong> ! C'est 30% de la note totale. Entraîne-toi sur les <strong>sujets 0 d'abord en conditions réelles</strong> (avec chrono), puis travaille tes points faibles par thème.</p>
   </div>
@@ -575,7 +575,7 @@ const EXAM_B = [
   { type: 'text', q: 'Programme : "Choisir x, multiplier par 2, ajouter 3". Quel résultat obtient-on si on part de 1 ?', ans: '5', tol: 0, exp: '1 × 2 = 2, puis 2 + 3 = 5.' }
 ];
 
-// Séance 7 - Automatismes (document classe)
+// Sujet 0 - C (fiche de classe Archimede)
 const EXAM_C = [
   { type: 'text', q: 'Calculer mentalement : 25 × 48', ans: '1200', tol: 0, exp: 'Astuce : 25 × 48 = 25 × (50 − 2) = 1250 − 50 = 1200.' },
   { type: 'text', q: 'Compléter : 3,7 + ... = 10', ans: '6,3', tol: 0, exp: '10 − 3,7 = 6,3.' },

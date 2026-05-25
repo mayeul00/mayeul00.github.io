@@ -147,7 +147,7 @@
   function getTotalItems() {
     let total = 0;
     (D.tabs || []).forEach(function(t) {
-      total += (t.lessons || []).length + (t.flashcards || []).length + (t.qcm || []).length;
+      total += (t.lessons || []).length + (t.flashcards || []).length + (t.qcm || []).length + (t.exercises || []).length;
     });
     return total;
   }
@@ -446,6 +446,10 @@
       html += `<div class="mode-card glass" style="--mc:${colors[2]}" onclick="window.__rev_startMode('qcm')">
         <span class="icon">🎯</span><h3>QCM</h3><p>Tester</p><div class="meta">${tab.qcm.length} questions</div></div>`;
     }
+    if (tab.exercises && tab.exercises.length) {
+      html += `<div class="mode-card glass" style="--mc:${colors[3]}" onclick="window.__rev_startMode('exercises')">
+        <span class="icon">📝</span><h3>Exos type Brevet</h3><p>S'entraîner</p><div class="meta">${tab.exercises.length} exercices</div></div>`;
+    }
     html += '</div>';
     c.innerHTML = html;
   }
@@ -463,12 +467,13 @@
     if (mode === 'lesson') state.items = tab.lessons;
     else if (mode === 'flashcards') state.items = tab.flashcards;
     else if (mode === 'qcm') state.items = tab.qcm;
+    else if (mode === 'exercises') state.items = tab.exercises;
 
     $('home-view').style.display = 'none';
     $('study-view').classList.add('active');
     $('study-view').style.display = 'block';
 
-    const labels = { lesson: '📖 Le cours', flashcards: '🃏 Flashcards', qcm: '🎯 QCM' };
+    const labels = { lesson: '📖 Le cours', flashcards: '🃏 Flashcards', qcm: '🎯 QCM', exercises: '📝 Exos type Brevet' };
     setText('study-title', labels[mode]);
     setText('study-topic', (tab.icon || '') + ' ' + tab.label);
     $('statsScore').style.display = (mode === 'qcm') ? 'inline-block' : 'none';
@@ -491,7 +496,27 @@
     const item = state.items[state.idx];
     if (state.mode === 'lesson') renderLesson(item);
     else if (state.mode === 'flashcards') renderFlashcard(item);
+    else if (state.mode === 'exercises') renderExercise(item);
     else renderQcm(item);
+  }
+
+  // Exercice type brevet : énoncé + bouton "voir correction" + correction détaillée
+  function renderExercise(item) {
+    setHTML('study-content', `
+      <div class="lesson-card glass">
+        <div class="lesson-chapter">${escHtml(item.source || 'Exercice type Brevet')} ${item.points ? '· ' + item.points + ' pts' : ''}</div>
+        <h3 class="lesson-title">${escHtml(item.title || 'Exercice')}</h3>
+        <div class="lesson-body">${item.statement}</div>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="window.__rev_toggleCorrection()">👁️ Voir la correction</button>
+        <div id="correction" style="display:none; margin-top:16px;">
+          <div class="qcm-exp exp-ok"><strong>✅ Correction</strong>${item.correction}</div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn btn-ghost" onclick="window.__rev_prevItem()" ${state.idx===0?'disabled':''}>← Précédent</button>
+        <button class="btn btn-primary" onclick="window.__rev_nextItem(true)">${state.idx===state.items.length-1?'Terminer ✓':'Suivant →'}</button>
+      </div>
+    `);
   }
 
   function renderLesson(item) {
@@ -732,6 +757,10 @@
   window.__rev_nextItem = nextItem;
   window.__rev_answerQcm = answerQcm;
   window.__rev_advanceQcm = advanceQcm;
+  window.__rev_toggleCorrection = function() {
+    const el = $('correction');
+    if (el) el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  };
 
   // ============================================================
   // INIT
