@@ -55,6 +55,11 @@ button,a{-webkit-tap-highlight-color:transparent}
 :focus{outline:none}
 :focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+/* Sur ordinateur, réduire légèrement la taille de base pour que tout paraisse moins zoomé.
+   Sur mobile (< 900px), garder la taille système (16px) qui rend parfaitement. */
+@media (min-width:901px){
+  html{font-size:14.5px}
+}
 body{
   font-family:'Manrope',-apple-system,BlinkMacSystemFont,sans-serif;
   background:var(--paper);
@@ -419,11 +424,14 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
     display:flex;align-items:baseline;gap:14px;justify-content:center;
     padding:104px 0 18px;margin:0 0 6px;text-align:center;
     transition:opacity .4s}
-  /* le fond noir part du tout en haut de l'écran (derrière le flou) et masque
-     le contenu de l'étape précédente qui défile derrière le chiffre */
+  /* le fond bleu nuit part du tout en haut de l'écran (derrière le flou) et masque
+     le contenu de l'étape précédente qui défile derrière le chiffre.
+     Même grain que la section pour que la teinte soit parfaitement uniforme. */
   .method-sticky::before{content:"";position:absolute;left:50%;transform:translateX(-50%);
     top:0;bottom:0;width:100vw;z-index:-1;
-    background:linear-gradient(180deg,var(--black) 0%,var(--black) 82%,transparent 100%)}
+    background:var(--black);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    background-size:auto,140px 140px;background-blend-mode:screen}
   .method-sticky .mbig{font-size:clamp(3.4rem,18vw,5.5rem);line-height:1}
   .method-sticky .mlabel{font-size:clamp(1.1rem,5vw,1.6rem);margin-top:0}
   .mstep2{min-height:64vh;padding:0;justify-content:center}
@@ -470,25 +478,47 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
   .hero-stage{min-height:180px}
 }
 
-/* ---------- Section TUTEURS : 2 niveaux Senior / Expert ---------- */
-.tutor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:1100px;margin:0 auto}
-.tutor-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.10);border-radius:24px;padding:36px 32px;position:relative;transition:transform .4s cubic-bezier(.16,1,.3,1),background .3s,border-color .3s}
-.tutor-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
-.tutor-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.45em .9em;border-radius:999px;margin-bottom:16px}
-.tutor-badge-senior{background:rgba(110,140,220,.18);color:#a7bcf0;border:1px solid rgba(110,140,220,.35)}
-.tutor-badge-expert{background:rgba(30,79,214,.22);color:#7eaaff;border:1px solid rgba(30,79,214,.45)}
-.tutor-card h3{font-size:clamp(1.35rem,2.2vw,1.7rem);font-weight:700;color:#f5f5f7;margin-bottom:12px;letter-spacing:-.01em}
-.tutor-lead{color:#c2c2c8;line-height:1.6;margin-bottom:20px}
-.tutor-points{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
-.tutor-points li{display:flex;align-items:flex-start;gap:10px;color:#d8d8dc;font-size:.96rem;line-height:1.5}
-.tutor-points li svg{flex-shrink:0;margin-top:3px;color:var(--blue-soft)}
-@media (max-width:760px){
-  .tutor-grid{grid-template-columns:1fr;gap:18px}
-  .tutor-card{padding:28px 24px}
-}
-
 /* ---------- Section TARIFS : grille format × niveau ---------- */
 /* === Tarifs : une carte par format de cours, avec tarifs Senior/Expert dedans === */
+/* === Tuteurs : section blanche, cartes bleu nuit granulé === */
+.tutors-section{padding:0;background:var(--paper);color:#1d1d1f;position:relative}
+.tutors-head{padding:clamp(70px,8vw,110px) 24px 40px;text-align:center;max-width:760px;margin:0 auto}
+.tutors-head .kicker{margin-bottom:14px}
+.tutors-head h2{margin-bottom:18px}
+.tutors-head .ptext{margin:0 auto;max-width:600px}
+.tutors-pin{position:relative;height:300vh}
+.tutors-stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.tutors-track{display:flex;gap:28px;padding:0 8vw;will-change:transform;transition:transform .05s linear}
+/* Cartes en bleu nuit granulé */
+.tutor-card{flex:0 0 clamp(280px,32vw,420px);background:var(--night);color:#f5f5f7;border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;box-shadow:0 18px 50px -18px rgba(10,23,51,.4);display:flex;flex-direction:column;position:relative}
+.tutor-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:140px 140px;opacity:.22;mix-blend-mode:screen}
+.tutor-card>*{position:relative;z-index:2}
+.tutor-photo{position:relative;aspect-ratio:1;background:rgba(255,255,255,.06);overflow:hidden}
+.tutor-photo svg{display:block;width:100%;height:100%;opacity:.5}
+.tutor-photo-hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.75);background:rgba(255,255,255,.10);padding:.35em .8em;border-radius:999px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.tutor-info{padding:24px 26px 28px;display:flex;flex-direction:column;gap:10px}
+.tutor-info h3{font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:-.01em;line-height:1.2}
+.tutor-role{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-soft)}
+.tutor-desc{color:rgba(255,255,255,.75);font-size:.95rem;line-height:1.55;margin-top:4px}
+.tutor-success{margin-top:auto;padding-top:6px}
+.tutor-success-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-soft);margin-bottom:6px}
+.tutor-success p{font-size:.92rem;line-height:1.5;color:rgba(255,255,255,.9);font-style:italic}
+
+/* Mobile : swipe horizontal natif sur la rangée, scroll vertical de page libre */
+@media (max-width:900px){
+  .tutors-pin{height:auto}
+  /* touch-action:pan-x pan-y autorise les DEUX directions : le navigateur choisit
+     selon l'angle du geste (geste vertical → scroll page ; horizontal → carrousel) */
+  .tutors-stage{position:static;height:auto;overflow-x:auto;overflow-y:visible;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:30px;
+    touch-action:pan-x pan-y}
+  .tutors-track{transform:none!important;padding:10px calc((100vw - min(82vw,360px)) / 2) 0;gap:18px}
+  .tutor-card{flex:0 0 min(82vw,360px);scroll-snap-align:center}
+  .tutor-info{padding:20px 22px 24px}
+}
+
 /* === Services : 4 cartes (1 par format) avec tarif(s) + prestations incluses === */
 .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:1180px;margin:0 auto;align-items:start}
 .svc-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px 30px;display:flex;flex-direction:column;gap:22px;box-shadow:0 8px 30px -12px rgba(0,0,0,.08);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s,border-color .3s}
@@ -540,7 +570,7 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
   <div class="nav-links">
     <a href="#apropos">À propos</a>
     <a href="#fondateur">Le fondateur</a>
-    <a href="#methode">Méthode</a>
+    <a href="#tuteurs">Tuteurs</a>
     <a href="#formules">Services</a>
     <a href="#avis">Livre d'or</a>
     <a href="#contact">Contact</a>
@@ -567,7 +597,7 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
     <nav class="mobile-nav">
       <a href="#apropos"><span>À propos</span><i>01</i></a>
       <a href="#fondateur"><span>Le fondateur</span><i>02</i></a>
-      <a href="#methode"><span>Méthode</span><i>03</i></a>
+      <a href="#tuteurs"><span>Tuteurs</span><i>03</i></a>
       <a href="#formules"><span>Services</span><i>04</i></a>
       <a href="#avis"><span>Livre d'or</span><i>05</i></a>
       <a href="#contact"><span>Contact</span><i>06</i></a>
@@ -671,35 +701,101 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
   </div>
 </section>
 
-<!-- ===== METHOD (sticky scroll) ===== -->
-<section id="methode" class="panel dark">
-  <div class="wrap-wide">
-    <div class="center-head">
-      <div class="kicker">La méthode</div>
-      <h2 class="center">Une progression structurée, pas du hasard.</h2>
-    </div>
-    <div class="method-wrap">
-      <div class="method-sticky">
-        <div class="mbig" id="mbig">01</div>
-        <div class="mlabel" id="mlabel">Diagnostic</div>
-      </div>
-      <div class="method-steps2" id="msteps">
-        <div class="mstep2" data-n="01" data-label="Diagnostic">
-          <div class="mn">Étape 01</div><h4>Diagnostic</h4>
-          <p>Évaluation précise des lacunes et des objectifs, pour bâtir un plan de travail entièrement sur-mesure.</p>
-        </div>
-        <div class="mstep2" data-n="02" data-label="Entraînement">
-          <div class="mn">Étape 02</div><h4>Entraînement ciblé</h4>
-          <p>Sélection personnalisée d'exercices issus d'une base de données mise à jour en permanence.</p>
-        </div>
-        <div class="mstep2" data-n="03" data-label="Suivi continu">
-          <div class="mn">Étape 03</div><h4>Suivi continu</h4>
-          <p>Groupe WhatsApp 24/7, bilan téléphonique mensuel et plateforme d'entraînement interactive.</p>
-        </div>
-        <div class="mstep2" data-n="04" data-label="Orientation">
-          <div class="mn">Étape 04</div><h4>Orientation</h4>
-          <p>Aide à l'orientation post-bac et mise en relation avec le réseau des alumni Archimède HK.</p>
-        </div>
+<!-- ===== TUTEURS : défilement horizontal piloté par le scroll vertical (desktop)
+     / swipe horizontal classique (mobile). 4 cartes squelettes à remplir avec
+     photo, nom, description et success story pour chaque tuteur. ===== -->
+<section id="tuteurs" class="panel tutors-section">
+  <div class="tutors-head">
+    <div class="kicker">L'équipe</div>
+    <h2 class="center">Nos tuteurs seniors.</h2>
+    <p class="ptext">Des profils d'excellence, sélectionnés et formés par Martin pour transmettre les mathématiques et la physique-chimie avec rigueur et bienveillance.</p>
+  </div>
+
+  <!-- Conteneur pinné qui pilote le défilement horizontal -->
+  <div class="tutors-pin">
+    <div class="tutors-stage">
+      <div class="tutors-track">
+
+        <!-- Carte tuteur 1 (squelette : à remplir) -->
+        <article class="tutor-card">
+          <div class="tutor-photo">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect width="100" height="100" fill="#e9eef6"/>
+              <circle cx="50" cy="38" r="16" fill="#c7d2e3"/>
+              <path d="M20 90 C 20 68 80 68 80 90 Z" fill="#c7d2e3"/>
+            </svg>
+            <div class="tutor-photo-hint">Photo du tuteur</div>
+          </div>
+          <div class="tutor-info">
+            <h3>Nom du tuteur</h3>
+            <div class="tutor-role">Tuteur Senior · Matière</div>
+            <div class="tutor-success">
+              <div class="tutor-success-label">Success story</div>
+              <p>Un exemple concret de réussite accompagnée par ce tuteur (parcours d'élève, résultat obtenu, école intégrée…).</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Carte tuteur 2 -->
+        <article class="tutor-card">
+          <div class="tutor-photo">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect width="100" height="100" fill="#e9eef6"/>
+              <circle cx="50" cy="38" r="16" fill="#c7d2e3"/>
+              <path d="M20 90 C 20 68 80 68 80 90 Z" fill="#c7d2e3"/>
+            </svg>
+            <div class="tutor-photo-hint">Photo du tuteur</div>
+          </div>
+          <div class="tutor-info">
+            <h3>Nom du tuteur</h3>
+            <div class="tutor-role">Tuteur Senior · Matière</div>
+            <div class="tutor-success">
+              <div class="tutor-success-label">Success story</div>
+              <p>Un exemple concret de réussite accompagnée par ce tuteur (parcours d'élève, résultat obtenu, école intégrée…).</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Carte tuteur 3 -->
+        <article class="tutor-card">
+          <div class="tutor-photo">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect width="100" height="100" fill="#e9eef6"/>
+              <circle cx="50" cy="38" r="16" fill="#c7d2e3"/>
+              <path d="M20 90 C 20 68 80 68 80 90 Z" fill="#c7d2e3"/>
+            </svg>
+            <div class="tutor-photo-hint">Photo du tuteur</div>
+          </div>
+          <div class="tutor-info">
+            <h3>Nom du tuteur</h3>
+            <div class="tutor-role">Tuteur Senior · Matière</div>
+            <div class="tutor-success">
+              <div class="tutor-success-label">Success story</div>
+              <p>Un exemple concret de réussite accompagnée par ce tuteur (parcours d'élève, résultat obtenu, école intégrée…).</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Carte tuteur 4 -->
+        <article class="tutor-card">
+          <div class="tutor-photo">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+              <rect width="100" height="100" fill="#e9eef6"/>
+              <circle cx="50" cy="38" r="16" fill="#c7d2e3"/>
+              <path d="M20 90 C 20 68 80 68 80 90 Z" fill="#c7d2e3"/>
+            </svg>
+            <div class="tutor-photo-hint">Photo du tuteur</div>
+          </div>
+          <div class="tutor-info">
+            <h3>Nom du tuteur</h3>
+            <div class="tutor-role">Tuteur Senior · Matière</div>
+            <div class="tutor-success">
+              <div class="tutor-success-label">Success story</div>
+              <p>Un exemple concret de réussite accompagnée par ce tuteur (parcours d'élève, résultat obtenu, école intégrée…).</p>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </div>
@@ -1240,55 +1336,7 @@ function initHero() {
 
 
 /* -----------------------------------------------------------------------------
-   5. Méthode : le gros numéro (sticky) reflète l'étape actuellement visible
-   --------------------------------------------------------------------------- */
-function initMethod() {
-  const steps = $$('.mstep2');
-  if (!steps.length) return;
-
-  const stickyBox = $('.method-sticky');
-  const methodSection = $('#methode');
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      steps.forEach(s => s.classList.remove('active'));
-      e.target.classList.add('active');
-
-      els.mbig.style.opacity = 0;
-      els.mlabel.style.opacity = 0;
-      setTimeout(() => {
-        els.mbig.textContent = e.target.dataset.n;
-        els.mlabel.textContent = e.target.dataset.label;
-        els.mbig.style.opacity = 1;
-        els.mlabel.style.opacity = 1;
-      }, 180);
-    });
-  }, { threshold: .6, rootMargin: '-20% 0px -20% 0px' });
-
-  steps.forEach(s => io.observe(s));
-
-  // Le chiffre figé (sticky) reste visible pendant toute la section méthode,
-  // puis s'efface quand la section sort de l'écran par le haut (avant #formules).
-  // Utile surtout sur mobile, où le chiffre est empilé en haut de la section.
-  if (stickyBox && methodSection) {
-    function updateStickyFade() {
-      // sur desktop, le chiffre est sur le côté et suit le flux normal : pas de fade forcé
-      if (window.innerWidth > 900) { stickyBox.style.opacity = '1'; return; }
-      const r = methodSection.getBoundingClientRect();
-      // visible tant que le bas de la section est encore assez bas à l'écran
-      const visible = r.bottom > window.innerHeight * 0.45 && r.top < window.innerHeight;
-      stickyBox.style.opacity = visible ? '1' : '0';
-    }
-    updateStickyFade();
-    window.addEventListener('scroll', updateStickyFade, { passive: true });
-    window.addEventListener('resize', updateStickyFade, { passive: true });
-  }
-}
-
-
-/* -----------------------------------------------------------------------------
-   6. WhatsApp flottant : le bouton apparaît à la section #formules ;
+   5. WhatsApp flottant : le bouton apparaît à la section #formules ;
       clic = ouvre/ferme le popup ; clic extérieur ou Échap = ferme.
    --------------------------------------------------------------------------- */
 function initWhatsApp() {
@@ -1350,16 +1398,66 @@ function initMap() {
 
 
 /* -----------------------------------------------------------------------------
+   9. Tuteurs : sur desktop (largeur > 900 px), la rangée de cartes défile
+      horizontalement au rythme du scroll vertical pendant que la section est
+      "pinnée". Sur mobile, on laisse le scroll horizontal natif (swipe).
+   --------------------------------------------------------------------------- */
+function initTutors() {
+  const pin = $('.tutors-pin');
+  const stage = $('.tutors-stage');
+  const track = $('.tutors-track');
+  if (!pin || !stage || !track) return;
+
+  // Désactiver le défilement piloté sur mobile (le CSS gère un swipe natif)
+  const mq = window.matchMedia('(max-width: 900px)');
+  let active = !mq.matches;
+  mq.addEventListener('change', e => {
+    active = !e.matches;
+    if (!active) track.style.transform = '';
+  });
+
+  function update() {
+    if (!active) return;
+    const pinRect = pin.getBoundingClientRect();
+    const pinHeight = pin.offsetHeight;
+    const stageHeight = stage.offsetHeight;
+    // course verticale disponible pour le défilement horizontal
+    const scrollable = pinHeight - stageHeight;
+    // progression entre 0 et 1 (négatif quand on est avant, > 1 quand on est après)
+    const progress = Math.min(1, Math.max(0, -pinRect.top / scrollable));
+    // distance horizontale à parcourir = largeur de la piste - largeur du stage
+    const trackWidth = track.scrollWidth;
+    const stageWidth = stage.clientWidth;
+    const maxShift = Math.max(0, trackWidth - stageWidth);
+    const x = -progress * maxShift;
+    track.style.transform = `translate3d(${x}px,0,0)`;
+  }
+
+  // throttling via requestAnimationFrame
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => { update(); ticking = false; });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+}
+
+
+/* -----------------------------------------------------------------------------
    Initialisation
    --------------------------------------------------------------------------- */
 Nav.init();
 initReveal();
 initCounters();
 initHero();
-initMethod();
 initWhatsApp();
 initReviews();
 initMap();
+initTutors();
 </script>
 </body>
 </html>
