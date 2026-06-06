@@ -166,7 +166,10 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
 .stat-card .xp-detail { margin-top: 6px; font-size: 11px; color: var(--ink-soft); }
 
 .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.7px; margin: 22px 4px 14px; text-align: center; }
-.subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.subjects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 28px; }
+.subjects-grid .subject-card { flex: 1 1 150px; max-width: 200px; }
+.chapter-group-title { grid-column: 1 / -1; font-size: 18px; font-weight: 800; letter-spacing: -0.4px; margin: 6px 2px 2px; display: flex; align-items: center; gap: 8px; color: var(--accent); }
+.chapter-group-title span { font-size: 20px; }
 .subject-card { padding: 22px 14px; border-radius: 22px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; text-align: center; }
 .subject-card.brevet { border: 2px solid var(--sc, var(--accent)); box-shadow: 0 0 0 1px var(--sc, var(--accent)), var(--glass-shadow); }
 .subject-card .brevet-tag { position: absolute; top: 8px; right: 8px; font-size: 8px; font-weight: 800; letter-spacing: 0.5px; padding: 3px 7px; border-radius: 100px; background: var(--sc, var(--accent)); color: white; opacity: 0.9; }
@@ -531,10 +534,10 @@ const LEVELS = [
   { lvl: 3, xp: 250, title: 'Studieux' },
   { lvl: 4, xp: 500, title: 'Élève sérieux' },
   { lvl: 5, xp: 800, title: 'Expert junior' },
-  { lvl: 6, xp: 1200, title: 'Historien' },
+  { lvl: 6, xp: 1200, title: 'Érudit' },
   { lvl: 7, xp: 1700, title: 'Spécialiste' },
-  { lvl: 8, xp: 2300, title: 'Stratège' },
-  { lvl: 9, xp: 3000, title: 'Géopoliticien' },
+  { lvl: 8, xp: 2300, title: 'Maître' },
+  { lvl: 9, xp: 3000, title: 'Sage' },
   { lvl: 10, xp: 4000, title: 'Légende' }
 ];
 
@@ -580,7 +583,11 @@ function getLevel(xp) {
   return { lvl: 1, xp: 0, title: 'Apprenti', nextXp: 100, nextTitle: 'Curieux' };
 }
 
-function todayStr() { return new Date().toISOString().slice(0, 10); }
+function todayStr() {
+  // 📅 Date du jour au fuseau de Hong Kong (UTC+8), identique quel que soit l'appareil.
+  // (epoch UTC + 8h) puis on prend la partie date : ça donne le jour calendaire de HK.
+  return new Date(Date.now() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+}
 function daysBetween(d1, d2) {
   const a = new Date(d1 + 'T00:00:00Z');
   const b = new Date(d2 + 'T00:00:00Z');
@@ -1351,13 +1358,16 @@ function showChapters(subject) {
   const userPins = userData.pinnedChapters || [];
 
   // 📌 Trier : épinglés (auteur OU user) en premier
-  const sorted = subject.chapters.slice().sort(function(a, b) {
-    const aPin = (a.pinned ? 2 : 0) + (userPins.indexOf(a.id) >= 0 ? 1 : 0);
-    const bPin = (b.pinned ? 2 : 0) + (userPins.indexOf(b.id) >= 0 ? 1 : 0);
-    return bPin - aPin;
-  });
+  function sortByPin(arr) {
+    return arr.slice().sort(function(a, b) {
+      const aPin = (a.pinned ? 2 : 0) + (userPins.indexOf(a.id) >= 0 ? 1 : 0);
+      const bPin = (b.pinned ? 2 : 0) + (userPins.indexOf(b.id) >= 0 ? 1 : 0);
+      return bPin - aPin;
+    });
+  }
 
-  sorted.forEach(function(c) {
+  // Construit la carte d'un chapitre et l'ajoute à la grille
+  function appendCard(c) {
     const prog = userChapters[c.id] || {};
     const progress = prog.progress || 0;
     const qcmScore = prog.qcmScore || 0;
@@ -1372,26 +1382,39 @@ function showChapters(subject) {
 
     let html = '';
     if (c.pinned) html += '<div class="pin-badge">📌 À réviser en priorité</div>';
-    // Bouton épingle utilisateur (seulement si chapitre prêt et pas déjà épinglé par l'auteur)
     if (c.ready && !c.pinned) {
       html += '<button class="user-pin-btn' + (isUserPinned ? ' active' : '') + '" onclick="toggleUserPin(\'' + c.id + '\', event)" title="' + (isUserPinned ? 'Retirer l\'épingle' : 'Épingler ce chapitre') + '">' + (isUserPinned ? '📌' : '📍') + '</button>';
     }
     html += '<h3>' + escapeHtml(c.title) + '</h3>';
     html += '<div class="chapter-sub">' + escapeHtml(c.sub) + '</div>';
-
-    // Étoiles + barre de progression (seulement si chapitre prêt)
     if (c.ready) {
       html += '<div class="chapter-progress-row">' + starsHtml(qcmScore, progress) + '<span class="progress-pct">' + progress + '%</span></div>';
       html += '<div class="chapter-progbar"><div class="chapter-progbar-fill" style="width:' + progress + '%"></div></div>';
     }
-
     html += '<div class="chapter-stats">' +
       (c.ready ? (progress > 0 ? '📖 Continuer · <strong>Reprendre →</strong>' : '✅ Disponible · <strong>Commencer →</strong>') : '🔒 Bientôt disponible') +
       '</div>';
-
     a.innerHTML = html;
     grid.appendChild(a);
-  });
+  }
+
+  // Ajoute un titre de sous-section (ex : Histoire / Géographie)
+  function appendGroupTitle(label, icon) {
+    const h = document.createElement('div');
+    h.className = 'chapter-group-title';
+    h.innerHTML = '<span>' + icon + '</span> ' + escapeHtml(label);
+    grid.appendChild(h);
+  }
+
+  // 🗺️ Histoire-Géo : on dissocie les chapitres d'Histoire et de Géographie
+  if (subject.id === 'histoire') {
+    const geoCh = sortByPin(subject.chapters.filter(function(c) { return (c.file || '').indexOf('geo/') === 0; }));
+    const histoCh = sortByPin(subject.chapters.filter(function(c) { return (c.file || '').indexOf('geo/') !== 0; }));
+    if (histoCh.length) { appendGroupTitle('Histoire', '📚'); histoCh.forEach(appendCard); }
+    if (geoCh.length) { appendGroupTitle('Géographie', '🗺️'); geoCh.forEach(appendCard); }
+  } else {
+    sortByPin(subject.chapters).forEach(appendCard);
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function backToSubjects() {
@@ -1642,9 +1665,10 @@ document.addEventListener('DOMContentLoaded', function() {
   const reqInp = $('reqName');
   if (reqInp) reqInp.addEventListener('input', updateRequestButton);
 
-  // Auto-login si déjà connecté
+  // Auto-login si déjà connecté → on passe par loginAs pour que la SÉRIE soit
+  // recalculée (tick) après fusion Firebase, comme lors d'une vraie connexion.
   const existingUser = getCurrentUser();
-  if (existingUser) showDashboard();
+  if (existingUser) loginAs(existingUser.name, existingUser.klass);
 
   // ← Retour depuis une page chapitre : ?subject=X ouvre la liste des chapitres de la matière
   try {
