@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Français · Grammaire & Méthodologie Brevet</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "francais_grammaire_methodo",
+  subject: "francais",
+  subjectName: "Français",
+  subjectIcon: "📖",
+  title: "Grammaire & Méthodologie Brevet",
+  subtitle: "Français · L'essentiel pour les compétences linguistiques et la rédaction",
+  badge: "📖 Français · 3e",
+  accentColor: "#5e5cff",
+  accent2Color: "#ff3b80",
+  depth: 1,
+  tabs: [
+    {
+      id: "grammaire",
+      icon: "🔤",
+      label: "Grammaire",
+      lessons: [
+        { chapter: "Les classes de mots", title: "Classes variables et invariables", body: `
+          <p>Chaque mot appartient à une <strong>classe grammaticale</strong> (sa nature).</p>
+          <div class="def"><strong>Classes variables</strong>(changent de forme) : nom, déterminant, adjectif, pronom, verbe.</div>
+          <div class="def"><strong>Classes invariables</strong>(ne changent jamais) : adverbe, préposition, conjonction (de coordination ou de subordination), interjection.</div>
+          <div class="warning"><strong>Astuce</strong>Ne confonds pas la <strong>classe</strong> (nature : ce qu'est le mot) et la <strong>fonction</strong> (le rôle du mot dans la phrase).</div>
+        ` },
+        { chapter: "Les fonctions", title: "Le rôle des mots dans la phrase", body: `
+          <p>Les principales <strong>fonctions</strong> :</p>
+          <ul>
+            <li><strong>Sujet</strong> : fait l'action (« Qui est-ce qui… ? »).</li>
+            <li><strong>COD</strong> : complément d'objet direct (sans préposition).</li>
+            <li><strong>COI</strong> : complément d'objet indirect (avec préposition : à, de…).</li>
+            <li><strong>Attribut du sujet</strong> : après un verbe d'état (être, paraître, sembler…).</li>
+            <li><strong>Épithète</strong> : adjectif directement lié au nom.</li>
+            <li><strong>Compléments circonstanciels (CC)</strong> : temps, lieu, manière, cause… (souvent déplaçables/supprimables).</li>
+          </ul>
+        ` },
+        { chapter: "Les propositions", title: "Phrase simple et phrase complexe", body: `
+          <p>Une proposition est organisée autour d'un verbe conjugué.</p>
+          <div class="def"><strong>Proposition indépendante</strong>Seule, elle forme une phrase simple.</div>
+          <div class="def"><strong>Principale + subordonnée</strong>La subordonnée dépend de la principale. Ex : <em>Je pense [principale] que tu as raison [subordonnée conjonctive].</em></div>
+          <p>Liaisons : <strong>juxtaposition</strong> (virgule), <strong>coordination</strong> (mais, ou, et, donc, or, ni, car), <strong>subordination</strong> (que, parce que, quand…).</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Classe vs fonction", back: "La classe = la nature du mot (nom, verbe…). La fonction = son rôle dans la phrase (sujet, COD…)." },
+        { front: "Classes variables", back: "Nom, déterminant, adjectif, pronom, verbe." },
+        { front: "Classes invariables", back: "Adverbe, préposition, conjonction, interjection." },
+        { front: "COD / COI", back: "COD : sans préposition. COI : avec préposition (à, de…)." },
+        { front: "Attribut du sujet", back: "Mot relié au sujet par un verbe d'état (être, sembler, paraître…)." },
+        { front: "Épithète", back: "Adjectif directement lié au nom (sans verbe d'état)." },
+        { front: "Les 3 façons de relier des propositions", back: "Juxtaposition (virgule), coordination (mais, ou, et…), subordination (que, quand…)." },
+        { front: "Conjonctions de coordination", back: "Mais, ou, et, donc, or, ni, car (« Mais où est donc Ornicar ? »)." }
+      ],
+      qcm: [
+        { q: "Quelle est la nature (classe) du mot « rapidement » ?", options: ["Adjectif", "Adverbe", "Nom", "Verbe"], correct: 1, exp: "« rapidement » est un adverbe (invariable)." },
+        { q: "Dans « Je mange une pomme », quelle est la fonction de « une pomme » ?", options: ["Sujet", "COD", "COI", "Attribut"], correct: 1, exp: "COD : complément d'objet direct (sans préposition)." },
+        { q: "Dans « Il parle à son frère », « à son frère » est…", options: ["un COD", "un COI", "un sujet", "une épithète"], correct: 1, exp: "COI : complément introduit par la préposition « à »." },
+        { q: "Dans « Elle semble heureuse », « heureuse » est…", options: ["épithète", "attribut du sujet", "COD", "CC"], correct: 1, exp: "Attribut du sujet (après le verbe d'état « semble »)." },
+        { q: "Laquelle est une conjonction de coordination ?", options: ["quand", "donc", "parce que", "rapidement"], correct: 1, exp: "« donc » coordonne ; « quand » et « parce que » subordonnent." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Analyser une phrase", statement: `Dans « Le vieux capitaine, fatigué, regardait l'horizon avec mélancolie », identifie : la classe de « fatigué », la fonction de « l'horizon », la fonction de « avec mélancolie ».`, correction: `
+          <ul>
+            <li><strong>« fatigué »</strong> : classe = adjectif ; fonction = épithète détachée (apposition) du nom « capitaine ».</li>
+            <li><strong>« l'horizon »</strong> : COD du verbe « regardait ».</li>
+            <li><strong>« avec mélancolie »</strong> : complément circonstanciel de manière.</li>
+          </ul>` }
+      ]
+    },
+    {
+      id: "conjugaison",
+      icon: "⏳",
+      label: "Conjugaison & temps",
+      lessons: [
+        { chapter: "Valeurs des temps", title: "Imparfait, passé simple, présent", body: `
+          <ul>
+            <li><strong>Imparfait</strong> : décor, description, habitude, action longue (arrière-plan du récit).</li>
+            <li><strong>Passé simple</strong> : actions brèves, de premier plan, qui font avancer le récit.</li>
+            <li><strong>Présent</strong> : énonciation, vérité générale, présent de narration (rend le récit vivant).</li>
+            <li><strong>Plus-que-parfait</strong> : action antérieure à une autre action passée.</li>
+          </ul>
+          <div class="example"><strong>Exemple</strong>« Il <strong>lisait</strong> (imparfait : arrière-plan) quand on <strong>frappa</strong> (passé simple : premier plan). »</div>
+        ` },
+        { chapter: "Modes", title: "Les modes du verbe", body: `
+          <ul>
+            <li><strong>Indicatif</strong> : le réel (présent, imparfait, futur…).</li>
+            <li><strong>Conditionnel</strong> : l'hypothèse, le souhait, le futur dans le passé.</li>
+            <li><strong>Subjonctif</strong> : le souhait, le doute, l'incertitude (souvent après « que »).</li>
+            <li><strong>Impératif</strong> : l'ordre, le conseil.</li>
+          </ul>
+        ` },
+        { chapter: "Accord du participe passé", title: "Les règles essentielles", body: `
+          <div class="def"><strong>Avec « être »</strong>Le participe passé s'accorde avec le <strong>sujet</strong>. Ex : <em>Elles sont parties.</em></div>
+          <div class="def"><strong>Avec « avoir »</strong>Pas d'accord avec le sujet ; il s'accorde avec le <strong>COD placé avant</strong> le verbe. Ex : <em>Les pommes que j'ai mangées.</em></div>
+          <div class="warning"><strong>Piège fréquent</strong>« avoir » : sans COD avant, pas d'accord. <em>J'ai mangé des pommes</em> (COD après → invariable).</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Valeur de l'imparfait", back: "Description, décor, habitude, action longue (arrière-plan)." },
+        { front: "Valeur du passé simple", back: "Action brève de premier plan qui fait avancer le récit." },
+        { front: "Présent de narration", back: "Présent employé dans un récit au passé pour le rendre vivant." },
+        { front: "Plus-que-parfait", back: "Exprime une action antérieure à une autre action passée." },
+        { front: "Les 4 modes principaux", back: "Indicatif (réel), conditionnel (hypothèse), subjonctif (doute/souhait), impératif (ordre)." },
+        { front: "Participe passé avec être", back: "S'accorde avec le sujet (Elles sont parties)." },
+        { front: "Participe passé avec avoir", back: "S'accorde avec le COD seulement s'il est placé avant (les pommes que j'ai mangées)." }
+      ],
+      qcm: [
+        { q: "Quel temps exprime une habitude ou une description ?", options: ["Passé simple", "Imparfait", "Futur", "Impératif"], correct: 1, exp: "L'imparfait : arrière-plan, habitude, description." },
+        { q: "Quel temps fait avancer le récit (actions brèves) ?", options: ["Imparfait", "Passé simple", "Présent", "Conditionnel"], correct: 1, exp: "Le passé simple, de premier plan." },
+        { q: "Quel mode exprime le doute ou le souhait ?", options: ["Indicatif", "Subjonctif", "Impératif", "Participe"], correct: 1, exp: "Le subjonctif (souvent après « que »)." },
+        { q: "« Les lettres que j'ai écrit__ » : quelle terminaison ?", options: ["écrit", "écrites", "écrit(s)", "écrivit"], correct: 1, exp: "Avec avoir + COD (« que » = les lettres) placé avant → accord : « écrites »." },
+        { q: "« Elles sont arrivé__ » : quelle terminaison ?", options: ["arrivé", "arrivés", "arrivées", "arriver"], correct: 2, exp: "Avec être → accord avec le sujet « elles » : « arrivées »." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Justifier l'emploi des temps", statement: `Dans « La nuit tombait. Soudain, un cri retentit. », explique pourquoi l'auteur emploie l'imparfait puis le passé simple.`, correction: `
+          <p>« tombait » est à l'<strong>imparfait</strong> : il pose le décor, l'arrière-plan (action longue). « retentit » est au <strong>passé simple</strong> : c'est une action brève, de premier plan, qui surgit et fait avancer le récit. Le contraste entre les deux temps crée un effet de rupture (« Soudain »).</p>` }
+      ]
+    },
+    {
+      id: "outils",
+      icon: "🎭",
+      label: "Outils d'analyse",
+      lessons: [
+        { chapter: "Figures de style", title: "Les figures à connaître", body: `
+          <ul>
+            <li><strong>Comparaison</strong> : rapproche deux éléments avec un outil (comme, tel, semblable à…).</li>
+            <li><strong>Métaphore</strong> : comparaison sans outil de comparaison.</li>
+            <li><strong>Personnification</strong> : donne des traits humains à une chose ou un animal.</li>
+            <li><strong>Hyperbole</strong> : exagération.</li>
+            <li><strong>Énumération / accumulation</strong> : liste d'éléments.</li>
+            <li><strong>Anaphore</strong> : répétition d'un mot en début de phrases ou de vers.</li>
+            <li><strong>Antithèse</strong> : oppose deux mots/idées ; <strong>oxymore</strong> : deux mots contradictoires côte à côte (« un soleil noir »).</li>
+            <li><strong>Gradation</strong> : termes en intensité croissante (ou décroissante).</li>
+          </ul>
+        ` },
+        { chapter: "Discours rapporté", title: "Direct, indirect, indirect libre", body: `
+          <div class="def"><strong>Discours direct</strong>Paroles rapportées telles quelles (guillemets, tirets). Ex : <em>Il dit : « Je pars. »</em></div>
+          <div class="def"><strong>Discours indirect</strong>Paroles intégrées dans une subordonnée (sans guillemets). Ex : <em>Il dit qu'il partait.</em></div>
+          <div class="def"><strong>Discours indirect libre</strong>Mélange : pas de guillemets ni de « que », mais on entend la voix du personnage.</div>
+        ` },
+        { chapter: "Registres & poésie", title: "Tonalités et versification", body: `
+          <p><strong>Registres (tonalités)</strong> : comique, tragique, pathétique (émouvoir/pitié), lyrique (sentiments), épique (exploits), satirique/ironique.</p>
+          <p><strong>Versification</strong> : le <strong>vers</strong> se compte en syllabes (alexandrin = 12). La <strong>strophe</strong> regroupe des vers. La <strong>rime</strong> peut être suivie (AABB), croisée (ABAB) ou embrassée (ABBA).</p>
+          <div class="def"><strong>Alexandrin</strong>Vers de 12 syllabes.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Comparaison vs métaphore", back: "Comparaison : avec outil (comme, tel). Métaphore : sans outil." },
+        { front: "Personnification", back: "Donner des traits humains à une chose, une idée ou un animal." },
+        { front: "Hyperbole", back: "Exagération." },
+        { front: "Anaphore", back: "Répétition d'un mot en début de phrases ou de vers." },
+        { front: "Oxymore", back: "Deux mots contradictoires côte à côte (ex : « un soleil noir »)." },
+        { front: "Antithèse", back: "Opposition de deux mots ou idées dans la phrase." },
+        { front: "Discours direct / indirect", back: "Direct : paroles citées (guillemets). Indirect : paroles dans une subordonnée (« il dit qu'… »)." },
+        { front: "Alexandrin", back: "Vers de 12 syllabes." },
+        { front: "Types de rimes", back: "Suivies (AABB), croisées (ABAB), embrassées (ABBA)." },
+        { front: "Registre pathétique vs lyrique", back: "Pathétique : émouvoir, susciter la pitié. Lyrique : exprimer des sentiments personnels." }
+      ],
+      qcm: [
+        { q: "« Cet homme est un lion » est une…", options: ["comparaison", "métaphore", "hyperbole", "anaphore"], correct: 1, exp: "Métaphore : pas d'outil de comparaison." },
+        { q: "« Le vent hurlait dans la nuit » est une…", options: ["personnification", "litote", "métaphore", "gradation"], correct: 0, exp: "Personnification : « hurler » est une action humaine." },
+        { q: "« Je pars demain », dit-il → au discours indirect :", options: ["Il dit : « Je pars demain. »", "Il dit qu'il partait le lendemain", "Il part demain", "Pars demain !"], correct: 1, exp: "Discours indirect : subordonnée, changement de temps et de repère temporel." },
+        { q: "Un alexandrin compte combien de syllabes ?", options: ["8", "10", "12", "14"], correct: 2, exp: "12 syllabes." },
+        { q: "Des rimes ABBA sont…", options: ["suivies", "croisées", "embrassées", "plates"], correct: 2, exp: "ABBA = rimes embrassées." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Identifier et interpréter une figure", statement: `« La ville dormait, indifférente à nos malheurs. » Nomme la figure de style et explique son effet.`, correction: `
+          <p>C'est une <strong>personnification</strong> : la ville « dort » et est « indifférente », attitudes humaines. <strong>Effet</strong> : elle accentue la solitude et la détresse du narrateur, en opposant l'immensité indifférente de la ville à ses « malheurs » (tonalité pathétique).</p>` }
+      ]
+    },
+    {
+      id: "redaction",
+      icon: "✍️",
+      label: "Méthodo rédaction",
+      lessons: [
+        { chapter: "Les deux sujets", title: "Réflexion ou imagination", body: `
+          <p>Au brevet, tu choisis entre deux sujets de rédaction :</p>
+          <div class="def"><strong>Sujet de réflexion</strong>On te pose une question et tu dois argumenter (donner ton avis avec des arguments et des exemples).</div>
+          <div class="def"><strong>Sujet d'imagination</strong>On te demande d'inventer un texte (récit, suite de texte, lettre…) en respectant des consignes.</div>
+          <div class="warning"><strong>Avant de rédiger</strong>Lis bien la consigne, repère le type de sujet, les contraintes (personne, temps, longueur) et fais un brouillon (plan).</div>
+        ` },
+        { chapter: "Le sujet de réflexion", title: "Méthode en 3 temps", body: `
+          <p><strong>Introduction</strong> : présente le thème, reformule la question, annonce ton plan.</p>
+          <p><strong>Développement</strong> : 2 ou 3 paragraphes, chacun avec <strong>un argument</strong> + <strong>un exemple</strong> précis (lecture, film, actualité, expérience). Utilise des <strong>connecteurs logiques</strong> (d'abord, de plus, cependant, en effet, par conséquent…).</p>
+          <p><strong>Conclusion</strong> : réponds clairement à la question et ouvre éventuellement sur une autre idée.</p>
+          <div class="example"><strong>Astuce</strong>Un paragraphe = une idée. Saute une ligne entre les paragraphes pour aérer.</div>
+        ` },
+        { chapter: "Imagination & dictée", title: "Réussir le récit et la dictée", body: `
+          <p><strong>Sujet d'imagination</strong> : respecte le <strong>cadre</strong> imposé (mêmes personnages, même époque, même temps que le texte), soigne les <strong>descriptions</strong> et les <strong>figures de style</strong>, varie le vocabulaire, et relis pour corriger.</p>
+          <p><strong>Dictée</strong> : attention aux <strong>accords</strong> (sujet-verbe, participes passés), aux <strong>homophones</strong> (a/à, et/est, ce/se, ces/ses, on/ont, son/sont), et à la ponctuation. Relis en te concentrant sur les terminaisons des verbes.</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Sujet de réflexion", back: "Argumenter pour répondre à une question (arguments + exemples)." },
+        { front: "Sujet d'imagination", back: "Inventer un texte (récit, suite, lettre) en respectant les consignes." },
+        { front: "Structure d'un sujet de réflexion", back: "Introduction (thème + question + plan), développement (arguments + exemples), conclusion." },
+        { front: "Règle d'or des paragraphes", back: "Un paragraphe = une idée (argument + exemple), avec connecteurs logiques." },
+        { front: "Connecteurs logiques utiles", back: "D'abord, de plus, cependant, en effet, par conséquent, enfin." },
+        { front: "Homophones à surveiller (dictée)", back: "a/à, et/est, ce/se, ces/ses, on/ont, son/sont, ou/où." },
+        { front: "Sujet d'imagination : respecter…", back: "Le cadre imposé (personnages, époque, temps), soigner descriptions et style." }
+      ],
+      qcm: [
+        { q: "Que demande un sujet de réflexion ?", options: ["Inventer une histoire", "Argumenter pour répondre à une question", "Recopier le texte", "Faire une dictée"], correct: 1, exp: "Donner son avis avec arguments et exemples." },
+        { q: "Que doit contenir chaque paragraphe d'argumentation ?", options: ["Un argument + un exemple", "Seulement un exemple", "Une question", "Une définition"], correct: 0, exp: "Une idée = un argument appuyé par un exemple précis." },
+        { q: "Dans un sujet d'imagination « suite de texte », que faut-il respecter ?", options: ["Changer les personnages", "Le cadre du texte (personnages, époque, temps)", "Écrire en anglais", "Faire un poème obligatoire"], correct: 1, exp: "Continuer dans la cohérence du texte de départ." },
+        { q: "Quel homophone complète : « Il __ mangé » ?", options: ["à", "a", "as", "ah"], correct: 1, exp: "« a » = verbe avoir (il a mangé)." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 18, title: "Plan d'un sujet de réflexion", statement: `Sujet : « Selon vous, la lecture est-elle encore utile aujourd'hui ? » Propose un plan détaillé (intro, 2-3 arguments avec exemples, conclusion).`, correction: `
+          <p><strong>Introduction.</strong> Présenter le thème (la place de la lecture), reformuler la question, annoncer le plan.</p>
+          <p><strong>Argument 1.</strong> La lecture développe l'imagination et le vocabulaire. <em>Exemple</em> : un roman qui nous fait vivre d'autres vies.</p>
+          <p><strong>Argument 2.</strong> Elle aide à comprendre le monde et à réfléchir. <em>Exemple</em> : un texte argumentatif ou un article qui éclaire un débat.</p>
+          <p><strong>Argument 3 (nuance).</strong> Face aux écrans, certains la jugent dépassée, mais elle reste irremplaçable pour la concentration. <em>Exemple</em> : la différence entre lire un livre et survoler des vidéos.</p>
+          <p><strong>Conclusion.</strong> Oui, la lecture reste utile : elle forme l'esprit et la sensibilité. Ouverture : comment donner envie de lire aux jeunes ?</p>
+          <p><em>Conseil</em> : ≈ 2 pages, paragraphes aérés, connecteurs logiques, relecture orthographe.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>
