@@ -458,7 +458,7 @@ const CLASSES = {
     "Charline", "Paula", "Quentin", "Benjamin", "Théodore", "Lucie",
     "Charlotte", "Louis", "Nina", "Simon", "Théo", "Laetitia",
     "Bérénice", "Valentin", "Mahaut", "Tina", "Ely", "Victor",
-    "Hichem", "Raphael", "Jules", "Natalia", "Andrew", "Alexandre", "Itahi"
+    "Hichem", "Raphael", "Jules", "Natalia", "Andrew", "Alexandre"
   ],
   // 👨‍🏫 Classe cachée pour les profs (ne s'affiche pas dans le podium)
   "Prof": ["Martin", "Mounia"]
@@ -472,7 +472,13 @@ const PROFS_META = {
 
 const SUBJECTS = [
   { id: 'francais', name: 'Français', icon: '📖', color: '#5e5cff', brevet: true, chapters: [
-    { id: 'antigone', title: 'Antigone de Jean Anouilh', sub: 'Tragédie · 3e · Étude d\'œuvre', file: 'francais/antigone.html', ready: true }
+    { id: 'grammaire-methodo', title: 'Grammaire & Méthodo Brevet', sub: 'Grammaire · conjugaison · figures · rédaction · dictée', file: 'francais/grammaire-methodo.html', ready: true },
+    { id: 'autobiographie', title: 'L\'autobiographie', sub: 'Séquence · Écrire sur soi', file: 'francais/autobiographie.html', ready: true },
+    { id: 'nouvelle-societe', title: 'La nouvelle & la satire sociale', sub: 'Séquence · « Le Credo » (Sternberg)', file: 'francais/nouvelle-societe.html', ready: true },
+    { id: 'poesie', title: 'Poésie : du lyrisme à l\'engagement', sub: 'Séquence · Le pouvoir des mots', file: 'francais/poesie.html', ready: true },
+    { id: 'tragedie-grecque', title: 'Le théâtre & la tragédie grecque', sub: 'Séquence · Œdipe et les Labdacides', file: 'francais/tragedie-grecque.html', ready: true },
+    { id: 'antigone', title: 'Antigone de Jean Anouilh', sub: 'Tragédie · 3e · Étude d\'œuvre', file: 'francais/antigone.html', ready: true },
+    { id: 'joueur-echecs', title: 'Le Joueur d\'échecs (Zweig)', sub: 'Étude d\'œuvre · Nouvelle', file: 'francais/joueur-echecs.html', ready: true }
   ]},
   { id: 'histoire', name: 'Histoire-Géo', icon: '🌍', color: '#ff3b80', brevet: true, chapters: [
     { id: 'pgm', title: 'Première Guerre mondiale', sub: 'Th1 · Ch1 · Civils et militaires (1914-1918)', file: 'histoire/premiere-guerre-mondiale.html', ready: true },
@@ -483,9 +489,17 @@ const SUBJECTS = [
     { id: 'decolonisation', title: 'La décolonisation', sub: 'Th2 · Ch6 · Indépendances et nouveaux États', file: 'histoire/decolonisation.html', ready: true },
     { id: 'projet_europeen', title: 'Le projet européen', sub: 'Th2 · Ch7 · De la CECA à l\'Union européenne', file: 'histoire/projet-europeen.html', ready: true },
     { id: '1989', title: 'Le monde après 1989', sub: 'Th2 · Ch8 · Enjeux et conflits depuis la Guerre froide', file: 'histoire/1989.html', ready: true },
-    { id: 'republique_repensee', title: 'Une République repensée', sub: 'Th3 · Ch9 · Françaises et Français (1944-1980)', file: 'histoire/republique-repensee.html', ready: true }
+    { id: 'republique_repensee', title: 'Une République repensée', sub: 'Th3 · Ch9 · Françaises et Français (1944-1980)', file: 'histoire/republique-repensee.html', ready: true },
+    { id: 'geo_urbain', title: 'Territoire sous influence urbaine', sub: 'Géo · Th1 · Ch1 · Les aires urbaines', file: 'geo/territoire-urbain.html', ready: true },
+    { id: 'geo_productifs', title: 'Les espaces productifs', sub: 'Géo · Th1 · Ch2 · Agriculture, industrie, services', file: 'geo/espaces-productifs.html', ready: true },
+    { id: 'geo_densite', title: 'Espaces de faible densité', sub: 'Géo · Th1 · Ch3 · Atouts et difficultés', file: 'geo/faible-densite.html', ready: true },
+    { id: 'geo_amenager', title: 'Aménager le territoire', sub: 'Géo · Th2 · Ch4 · Réduire les inégalités', file: 'geo/amenager-territoire.html', ready: true },
+    { id: 'geo_ultramarins', title: 'Les territoires ultramarins', sub: 'Géo · Th2 · Ch5 · Une problématique spécifique', file: 'geo/ultramarins.html', ready: true },
+    { id: 'geo_ue', title: 'L\'UE, un territoire de référence', sub: 'Géo · Th3 · Ch1 · Territoire d\'appartenance', file: 'geo/ue-territoire.html', ready: true },
+    { id: 'geo_france_monde', title: 'La France et l\'Europe dans le monde', sub: 'Géo · Th3 · Ch2 · Puissances d\'influence', file: 'geo/france-europe-monde.html', ready: true }
   ]},
   { id: 'emc', name: 'EMC', icon: '⚖️', color: '#2d6a4f', brevet: true, chapters: [
+    { id: 'republique-citoyennete', title: 'La République et la citoyenneté', sub: 'Th1 · Valeurs, principes, symboles · Nationalité', file: 'emc/republique-citoyennete.html', ready: true },
     { id: 'defense-nationale', title: 'Armée française & Défense nationale', sub: '⭐ Éval · Organisation · Missions · SNU · JDC', file: 'emc/defense-nationale.html', ready: true }
   ]},
   { id: 'maths', name: 'Mathématiques', icon: '📐', color: '#00c2ff', brevet: true, chapters: [
@@ -1631,6 +1645,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // Auto-login si déjà connecté
   const existingUser = getCurrentUser();
   if (existingUser) showDashboard();
+
+  // ← Retour depuis une page chapitre : ?subject=X ouvre la liste des chapitres de la matière
+  try {
+    const subjParam = new URLSearchParams(window.location.search).get('subject');
+    if (existingUser && subjParam) {
+      const subj = SUBJECTS.find(function(s) { return s.id === subjParam; });
+      if (subj) {
+        showChapters(subj);
+        try { window.history.replaceState({}, document.title, window.location.pathname); } catch(e) {}
+      }
+    }
+  } catch(e) {}
 
   // Charge Firebase
   loadFirebaseSDK(
