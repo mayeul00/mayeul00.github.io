@@ -79,7 +79,7 @@
     try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
     window.location.href = '../'.repeat(DEPTH) + 'index.html';
   }
-  function backToHub() {
+  function navAway(suffix) {
     // 🚀 Forcer un push immédiat avant de quitter (annuler le debounce)
     if (pushDebounceTimer) clearTimeout(pushDebounceTimer);
     lastFirebasePushTime = 0;  // bypass la limite "1 push / 3s"
@@ -89,9 +89,13 @@
     } catch(e) {}
     // Petit délai pour laisser Firebase répondre, puis on redirige
     setTimeout(function() {
-      window.location.href = '../'.repeat(DEPTH) + 'index.html';
+      window.location.href = '../'.repeat(DEPTH) + 'index.html' + (suffix || '');
     }, 300);
   }
+  // ← Retour à la LISTE DES CHAPITRES de la matière
+  function backToChapters() { navAway('?subject=' + encodeURIComponent(D.subject || '')); }
+  // 🏠 Retour à l'ACCUEIL (choix de la matière)
+  function backToHub() { navAway(''); }
   // 🔤 Génère TOUJOURS la clé normalisée (sans accents, lowercase)
   function normalizeName(name) {
     if (!name) return '';
@@ -118,24 +122,25 @@
   // STREAK
   // ============================================================
   function recomputeStreakOnLoad(d) {
-    if (!d.lastReviewDate) { d.streakDays = 0; d.streakValue = 0; return; }
+    if (!d.lastReviewDate) { d.streakValue = 0; return; }
     const diff = daysBetween(d.lastReviewDate, todayStr());
-    if (diff === 0 || diff === 1) d.streakValue = d.streakDays || 0;
-    else if (diff === 2) d.streakValue = Math.floor((d.streakDays || 0) / 2);
-    else if (diff >= 3) { d.streakDays = 0; d.streakValue = 0; }
+    if (diff <= 1) d.streakValue = d.streakDays || 0;
+    else d.streakValue = 0;
   }
   function tickStreak(d) {
     const today = todayStr();
-    if (d.lastReviewDate === today) return false;
-    if (!d.lastReviewDate) d.streakDays = 1;
-    else {
-      const diff = daysBetween(d.lastReviewDate, today);
-      if (diff === 1) d.streakDays = (d.streakDays || 0) + 1;
-      else if (diff === 2) d.streakDays = Math.max(1, Math.floor((d.streakDays || 0)/2) + 1);
-      else d.streakDays = 1;
+    if (typeof d.streakDays !== 'number') d.streakDays = 0;
+    if (!d.lastReviewDate) {
+      d.streakDays = 1; d.lastReviewDate = today; d.streakValue = 1;
+      if (d.streakDays > (d.bestStreakDays || 0)) d.bestStreakDays = d.streakDays;
+      return true;
     }
-    d.streakValue = d.streakDays;
+    const diff = daysBetween(d.lastReviewDate, today);
+    if (diff <= 0) { d.streakValue = d.streakDays; return false; }
+    if (diff === 1) d.streakDays = d.streakDays + 1;
+    else d.streakDays = 1;
     d.lastReviewDate = today;
+    d.streakValue = d.streakDays;
     if (d.streakDays > (d.bestStreakDays || 0)) d.bestStreakDays = d.streakDays;
     return true;
   }
@@ -198,9 +203,8 @@
       h.name = currentUser.name;
       h.userClass = currentUser.klass;
 
-      // Streak : on tique côté hub aussi
+      // Streak : on recalcule juste l'affichage (le tick se fait à l'ouverture de la page)
       recomputeStreakOnLoad(h);
-      tickStreak(h);
 
       localStorage.setItem(hubKey(), JSON.stringify(h));
 
@@ -264,6 +268,8 @@
           bestStreakDays: merged.bestStreakDays || 0,
           lastReviewDate: merged.lastReviewDate || null,
           badges: merged.badges || [],
+          pinnedChapters: merged.pinnedChapters || [],
+          pinsUpdatedAt: merged.pinsUpdatedAt || 0,
           chapters: merged.chapters || {},
           lastSeen: Date.now()
         }).then(() => {
@@ -280,16 +286,28 @@
     if (!local) return remote;
     const localDate = local.lastReviewDate || '';
     const remoteDate = remote.lastReviewDate || '';
-    const latestReviewDate = localDate > remoteDate ? localDate : remoteDate;
+    // Streak cohérent : on prend celui de la date la plus récente (pas le max aveugle)
+    let streakDays, streakValue, latestReviewDate;
+    if (localDate > remoteDate) {
+      latestReviewDate = localDate; streakDays = local.streakDays || 0; streakValue = local.streakValue || 0;
+    } else if (remoteDate > localDate) {
+      latestReviewDate = remoteDate; streakDays = remote.streakDays || 0; streakValue = remote.streakValue || 0;
+    } else {
+      latestReviewDate = localDate || null;
+      streakDays = Math.max(local.streakDays || 0, remote.streakDays || 0);
+      streakValue = Math.max(local.streakValue || 0, remote.streakValue || 0);
+    }
     const merged = {
       name: local.name || remote.name,
       userClass: local.userClass || remote.userClass,
       totalXp: Math.max(local.totalXp || 0, remote.totalXp || 0),
-      streakDays: Math.max(local.streakDays || 0, remote.streakDays || 0),
-      streakValue: Math.max(local.streakValue || 0, remote.streakValue || 0),
+      streakDays: streakDays,
+      streakValue: streakValue,
       bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0),
       lastReviewDate: latestReviewDate || null,
       badges: (local.badges && local.badges.length >= (remote.badges || []).length) ? local.badges : (remote.badges || []),
+      pinnedChapters: (local.pinsUpdatedAt || 0) >= (remote.pinsUpdatedAt || 0) ? (local.pinnedChapters || remote.pinnedChapters || []) : (remote.pinnedChapters || []),
+      pinsUpdatedAt: Math.max(local.pinsUpdatedAt || 0, remote.pinsUpdatedAt || 0),
       chapters: {}
     };
     const allKeys = new Set([...Object.keys(local.chapters || {}), ...Object.keys(remote.chapters || {})]);
@@ -366,7 +384,8 @@
 
 <header class="top-bar glass">
   <div class="brand">
-    <button class="back-btn" onclick="window.__rev_backToHub()" title="Retour au hub">←</button>
+    <button class="back-btn" onclick="window.__rev_backToChapters()" title="Retour aux chapitres">←</button>
+    <button class="back-btn" onclick="window.__rev_backToHub()" title="Accueil (choix de la matière)">🏠</button>
     <div class="brand-icon">${D.subjectIcon || '📚'}</div>
     <span class="brand-name">${escHtml(D.subjectName || D.subject)}</span>
   </div>
@@ -748,6 +767,7 @@
   // GLOBAL HANDLERS (pour onclick)
   // ============================================================
   window.__rev_backToHub = backToHub;
+  window.__rev_backToChapters = backToChapters;
   window.__rev_logout = logout;
   window.__rev_toggleTheme = toggleTheme;
   window.__rev_switchTab = (i) => { renderModes(i); };
