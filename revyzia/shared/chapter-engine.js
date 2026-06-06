@@ -385,7 +385,7 @@
 <header class="top-bar glass">
   <div class="brand">
     <button class="back-btn" onclick="window.__rev_backToChapters()" title="Retour aux chapitres">←</button>
-    <button class="back-btn" onclick="window.__rev_backToHub()" title="Accueil (choix de la matière)">🏠</button>
+    <button class="back-btn" onclick="window.__rev_backToHub()" title="Accueil (choix de la matière)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></button>
     <div class="brand-icon">${D.subjectIcon || '📚'}</div>
     <span class="brand-name">${escHtml(D.subjectName || D.subject)}</span>
   </div>
