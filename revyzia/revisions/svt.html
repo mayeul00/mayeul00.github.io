@@ -4,45 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Révisions Brevet · SVT</title>
-<style>
-  :root{--card:#161e26;--card2:#1b2630;--ink:#eaf2f7;--muted:#9fb2bf;--accent:#16c79a;--accent2:#36d399;--line:rgba(255,255,255,.09);--green-bg:rgba(54,211,153,.12);--amber:#fbbf24;--amber-bg:rgba(251,191,36,.10);--blue-bg:rgba(22,199,154,.12);}
-  *{box-sizing:border-box;}
-  body{margin:0;background:linear-gradient(160deg,#0c1116,#0e1722);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;}
-  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(14,20,25,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-  .topbar .sp{flex:1;}
-  .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
-  .brandt{font-weight:800;font-size:16px;}
-  .wrap{max-width:920px;margin:0 auto;padding:22px 18px 80px;}
-  .hero{background:linear-gradient(135deg,rgba(22,199,154,.18),rgba(54,211,153,.08));border:1px solid var(--line);border-radius:20px;padding:20px 22px;margin-bottom:16px;}
-  .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.6px;}.hero p{margin:0;color:var(--muted);font-size:14px;}
-  .toc{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 8px;}
-  .toc a{font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--muted);text-decoration:none;}
-  section{scroll-margin-top:70px;margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
-  .sec-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(22,199,154,.15),transparent);border-bottom:1px solid var(--line);}
-  .sec-head .num{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#04231b;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto;}
-  .sec-head h2{margin:0;font-size:18px;}
-  .sec-body{padding:8px 18px 18px;}
-  h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin:15px 0 7px;}
-  .keyrow{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin:7px 0;font-size:13.8px;}.keyrow b{color:var(--ink);}
-  .method{background:var(--green-bg);border:1px solid rgba(54,211,153,.3);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.8px;}.method .t{font-weight:800;color:var(--accent2);display:block;margin-bottom:3px;}
-  .ex{background:var(--amber-bg);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:11px 14px;margin:9px 0;font-size:13.6px;}.ex .t{font-weight:800;color:var(--amber);display:block;margin-bottom:3px;}
-  ul{margin:6px 0 8px;padding-left:20px;}li{margin:3px 0;font-size:13.8px;}
-  .exo{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:11px 0;}.exo .q{font-size:14.3px;}.exo .q b{color:var(--accent);}
-  details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;}
-  summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:13.5px;list-style:none;display:flex;gap:6px;align-items:center;}
-  summary::-webkit-details-marker{display:none;}summary::before{content:"▸";transition:transform .15s;}details[open] summary::before{transform:rotate(90deg);}
-  .corr{margin-top:9px;font-size:13.8px;background:rgba(0,0,0,.18);border-radius:8px;padding:10px 13px;}.corr b{color:#fff;}
-  .fig{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;}.fig svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto;}.figcap{text-align:center;font-size:12px;color:var(--muted);margin-top:6px;}
-  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;}
-  .backtop{position:fixed;right:16px;bottom:16px;z-index:40;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#04231b;border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);}
-</style>
+<link rel="stylesheet" href="../shared/brevet-pages.css">
+<style>:root{--ch-accent:#16c79a;--ch-accent-2:#34c759;}</style>
 </head>
 <body>
-<div class="topbar">
-  <a class="iconbtn" href="../index.html?subject=svt" title="Retour aux chapitres">←</a>
-  <span class="brandt">🧬 Révisions Brevet · SVT</span><span class="sp"></span>
-  <a class="iconbtn" href="../fiches/svt.html" title="Fiche imprimable">🖨️</a>
-</div>
+<div class="orb orb-1"></div><div class="orb orb-2"></div>
+<header class="top-bar glass">
+  <div class="brand">
+    <a class="back-btn" href="../index.html?subject=svt" title="Retour aux chapitres">←</a>
+    <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
+    <div class="brand-icon">🧬</div>
+    <span class="brand-name">SVT</span>
+  </div>
+  <div class="top-right"><a class="tb-btn" href="../fiches/svt.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+</header>
 <div class="wrap">
   <div class="hero"><h1>SVT : tout le programme pour le brevet</h1><p>L'essentiel → la méthode → un exemple → à toi de jouer (correction cachée). Pense à bien <b>justifier</b> tes réponses à partir des documents.</p></div>
   <div class="toc"><a href="#s1">1 · Génétique</a><a href="#s2">2 · Immunité</a><a href="#s3">3 · Évolution</a><a href="#s4">4 · La Terre &amp; risques</a></div>

@@ -4,88 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Révisions Brevet · Mathématiques</title>
-<style>
-  :root{
-    --bg:#0e1419; --card:#161e26; --card2:#1b2630; --ink:#eaf2f7; --muted:#9fb2bf;
-    --accent:#00c2ff; --accent2:#34e0c0; --line:rgba(255,255,255,.09);
-    --green:#36d399; --amber:#fbbf24; --pink:#ff5d8f;
-    --green-bg:rgba(54,211,153,.10); --amber-bg:rgba(251,191,36,.10); --blue-bg:rgba(0,194,255,.10);
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;background:linear-gradient(160deg,#0c1116,#0e1722);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
-  a{color:inherit;}
-  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;
-    padding:12px 18px;background:rgba(14,20,25,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-  .topbar .sp{flex:1;}
-  .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);
-    color:var(--ink);font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
-  .iconbtn:hover{background:var(--card2);}
-  .brandt{font-weight:800;letter-spacing:-.3px;font-size:16px;}
-  .wrap{max-width:920px;margin:0 auto;padding:22px 18px 80px;}
-  .hero{background:linear-gradient(135deg,rgba(0,194,255,.16),rgba(52,224,192,.10));
-    border:1px solid var(--line);border-radius:20px;padding:22px 22px;margin-bottom:18px;}
-  .hero h1{margin:0 0 6px;font-size:27px;letter-spacing:-.6px;}
-  .hero p{margin:0;color:var(--muted);font-size:14px;}
-  .howto{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0 6px;font-size:14px;}
-  .howto b{color:var(--accent2);}
-  /* nav */
-  .toc{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px;}
-  .toc a{font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:20px;background:var(--card);
-    border:1px solid var(--line);color:var(--muted);text-decoration:none;}
-  .toc a:hover{color:var(--ink);border-color:var(--accent);}
-  /* sections */
-  section{scroll-margin-top:70px;margin:26px 0;background:var(--card);border:1px solid var(--line);
-    border-radius:18px;overflow:hidden;}
-  .sec-head{display:flex;align-items:center;gap:12px;padding:15px 18px;
-    background:linear-gradient(135deg,rgba(0,194,255,.14),transparent);border-bottom:1px solid var(--line);}
-  .sec-head .num{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#04222e;
-    font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto;}
-  .sec-head h2{margin:0;font-size:19px;letter-spacing:-.3px;}
-  .sec-body{padding:8px 18px 18px;}
-  h3{font-size:14px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin:18px 0 8px;}
-  .formula{font-family:"Cambria Math",Georgia,serif;font-size:16px;background:var(--blue-bg);
-    border-left:3px solid var(--accent);padding:7px 12px;border-radius:6px;margin:7px 0;display:block;}
-  .keyrow{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin:7px 0;font-size:14px;}
-  .keyrow b{color:var(--ink);}
-  .method{background:var(--green-bg);border:1px solid rgba(54,211,153,.3);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:14px;}
-  .method .t{font-weight:800;color:var(--green);display:block;margin-bottom:3px;}
-  .ex{background:var(--amber-bg);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:14px;}
-  .ex .t{font-weight:800;color:var(--amber);display:block;margin-bottom:3px;}
-  ul,ol{margin:6px 0 8px;padding-left:20px;}
-  li{margin:3px 0;}
-  sup{font-size:.72em;}
-  /* exercices révélables */
-  .exo{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:12px 0;}
-  .exo .q{font-size:14.5px;}
-  .exo .q b{color:var(--accent);}
-  details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;}
-  summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:13.5px;list-style:none;display:flex;align-items:center;gap:6px;}
-  summary::-webkit-details-marker{display:none;}
-  summary::before{content:"▸";transition:transform .15s;}
-  details[open] summary::before{transform:rotate(90deg);}
-  .corr{margin-top:9px;font-size:14px;color:#dfeaf1;background:rgba(0,0,0,.18);border-radius:8px;padding:10px 13px;}
-  .corr b{color:#fff;}
-  .pill{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);
-    border-radius:20px;padding:1px 9px;margin-left:6px;vertical-align:middle;}
-  .tip{font-size:13px;color:var(--muted);font-style:italic;margin-top:4px;}
-  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;}
-  .backtop{position:fixed;right:16px;bottom:16px;z-index:40;width:46px;height:46px;border-radius:50%;
-    background:var(--accent);color:#04222e;border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);}
-  .fig{display:block;margin:12px auto;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px;}
-  .fig svg{display:block;margin:0 auto;width:100%;height:auto;max-width:380px;}
-  .figcap{text-align:center;font-size:12px;color:var(--muted);margin-top:6px;}
-  .figrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
-  .figrow .fig{flex:1 1 240px;margin:8px 0;}
-</style>
+<link rel="stylesheet" href="../shared/brevet-pages.css">
+<style>:root{--ch-accent:#00c2ff;--ch-accent-2:#34e0c0;}</style>
 </head>
 <body>
-<div class="topbar">
-  <a class="iconbtn" href="../index.html?subject=maths" title="Retour aux chapitres">←</a>
-  <span class="brandt">📐 Révisions Brevet · Maths</span>
-  <span class="sp"></span>
-  <a class="iconbtn" href="../fiches/maths.html" title="Fiche mémo imprimable">🖨️</a>
-</div>
+<div class="orb orb-1"></div><div class="orb orb-2"></div>
+<header class="top-bar glass">
+  <div class="brand">
+    <a class="back-btn" href="../index.html?subject=maths" title="Retour aux chapitres">←</a>
+    <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
+    <div class="brand-icon">📐</div>
+    <span class="brand-name">Mathématiques</span>
+  </div>
+  <div class="top-right"><a class="tb-btn" href="../fiches/maths.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+</header>
 
 <div class="wrap">
   <div class="hero">
