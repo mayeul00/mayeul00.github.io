@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SVT · Les réactions immunitaires</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "svt_immunite",
+  subject: "svt",
+  subjectName: "SVT",
+  subjectIcon: "🧬",
+  title: "Le corps humain et la santé : l'immunité",
+  subtitle: "SVT · Microorganismes & réactions immunitaires",
+  badge: "🧬 SVT · 3e",
+  accentColor: "#16a085",
+  accent2Color: "#1abc9c",
+  depth: 1,
+  tabs: [
+    {
+      id: "microorganismes",
+      icon: "🦠",
+      label: "Microorganismes",
+      lessons: [
+        { chapter: "Contamination & infection", title: "L'organisme face aux microbes", body: `
+          <p>L'Homme est en contact permanent avec des <strong>micro-organismes</strong> (bactéries, virus, champignons). La plupart sont arrêtés par les <strong>barrières naturelles</strong> : la <strong>peau</strong> et les <strong>muqueuses</strong>.</p>
+          <div class="def"><strong>Contamination</strong>Entrée de micro-organismes dans l'organisme.</div>
+          <div class="def"><strong>Infection</strong>Multiplication des micro-organismes dans l'organisme après la contamination.</div>
+          <p>Quand un micro-organisme franchit les barrières et infecte le corps, l'organisme se défend : c'est la <strong>réaction immunitaire</strong>, assurée par le <strong>système immunitaire</strong>.</p>
+          <div class="def"><strong>Système immunitaire</strong>Ensemble des organes et cellules (les leucocytes = globules blancs) qui défendent l'organisme contre les micro-organismes.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Barrières naturelles du corps", back: "La peau et les muqueuses : elles bloquent l'entrée des micro-organismes." },
+        { front: "Contamination", back: "Entrée des micro-organismes dans l'organisme." },
+        { front: "Infection", back: "Multiplication des micro-organismes dans l'organisme." },
+        { front: "Système immunitaire", back: "Organes et cellules (leucocytes) qui défendent l'organisme contre les microbes." },
+        { front: "Leucocyte", back: "Globule blanc : cellule du système immunitaire présente dans le sang et la lymphe." }
+      ],
+      qcm: [
+        { q: "Quelles sont les barrières naturelles ?", options: ["Le sang", "La peau et les muqueuses", "Les os", "Les poumons"], correct: 1, exp: "Peau et muqueuses bloquent l'entrée des microbes." },
+        { q: "Quelle est la différence contamination / infection ?", options: ["Aucune", "Contamination = entrée ; infection = multiplication", "Infection = entrée", "Les deux = guérison"], correct: 1, exp: "D'abord l'entrée, puis la multiplication." },
+        { q: "Qu'est-ce qu'un leucocyte ?", options: ["Un microbe", "Un globule blanc", "Un globule rouge", "Un anticorps"], correct: 1, exp: "Globule blanc, cellule immunitaire." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 4, title: "Vocabulaire de l'infection", statement: `Définis « contamination » et « infection » et explique le rôle de la peau.`, correction: `
+          <p>La <strong>contamination</strong> est l'entrée des micro-organismes dans le corps ; l'<strong>infection</strong> est leur multiplication. La <strong>peau</strong> (avec les muqueuses) est une barrière naturelle qui empêche normalement leur entrée.</p>` }
+      ]
+    },
+    {
+      id: "rapide",
+      icon: "🔥",
+      label: "Réaction rapide",
+      lessons: [
+        { chapter: "L'inflammation", title: "Une réaction rapide et locale", body: `
+          <div class="def"><strong>Inflammation</strong>Réaction immunitaire rapide et locale, sur le lieu de l'infection (rougeur, chaleur, gonflement, douleur).</div>
+          <p>Elle est déclenchée par les <strong>cellules sentinelles</strong>, qui reconnaissent les microbes et attirent les <strong>phagocytes</strong> vers la zone infectée.</p>
+          <div class="def"><strong>Phagocytose</strong>Les phagocytes sortent des vaisseaux sanguins, <strong>absorbent et digèrent</strong> les micro-organismes, puis rejettent les déchets. 4 étapes : adhésion → absorption → digestion → rejet.</div>
+          <p>La phagocytose est une réaction <strong>non spécifique</strong> (elle agit contre tous les microbes) et suffit le plus souvent à stopper l'infection.</p>
+        ` },
+        { chapter: "Si l'infection persiste", title: "Des symptômes apparaissent", body: `
+          <p>Si l'inflammation ne suffit pas, des symptômes signalent une réaction plus globale : <strong>ganglions lymphatiques gonflés</strong> et <strong>fièvre</strong>. D'autres globules blancs entrent en jeu : les <strong>lymphocytes</strong> (réaction plus lente).</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Inflammation", back: "Réaction immunitaire rapide et locale (rougeur, chaleur, gonflement, douleur)." },
+        { front: "Cellules sentinelles", back: "Reconnaissent les microbes et attirent les phagocytes vers la zone infectée." },
+        { front: "Phagocytose", back: "Un phagocyte absorbe et digère un microbe. 4 étapes : adhésion, absorption, digestion, rejet." },
+        { front: "La phagocytose est-elle spécifique ?", back: "Non : c'est une réaction NON spécifique (contre tous les microbes)." },
+        { front: "Signes d'une réaction plus globale", back: "Ganglions gonflés et fièvre → les lymphocytes interviennent." }
+      ],
+      qcm: [
+        { q: "Quelle réaction est rapide et locale ?", options: ["La production d'anticorps", "L'inflammation", "La vaccination", "La fièvre seule"], correct: 1, exp: "L'inflammation, avec la phagocytose." },
+        { q: "Quelles cellules réalisent la phagocytose ?", options: ["Les lymphocytes", "Les phagocytes", "Les sentinelles", "Les anticorps"], correct: 1, exp: "Les phagocytes ingèrent et digèrent les microbes." },
+        { q: "Dans l'ordre, les 4 étapes de la phagocytose :", options: ["Digestion, rejet, adhésion, absorption", "Adhésion, absorption, digestion, rejet", "Absorption, adhésion, rejet, digestion", "Rejet, digestion, absorption, adhésion"], correct: 1, exp: "Adhésion → absorption → digestion → rejet." },
+        { q: "La phagocytose est :", options: ["spécifique", "non spécifique", "lente", "inutile"], correct: 1, exp: "Non spécifique : elle agit contre tous les microbes." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Expliquer la phagocytose", statement: `Décris les étapes de la phagocytose et précise si elle est spécifique.`, correction: `
+          <p>Une cellule sentinelle attire le phagocyte. Le phagocyte réalise la phagocytose en 4 étapes : <strong>adhésion</strong> au microbe, <strong>absorption</strong>, <strong>digestion</strong>, puis <strong>rejet des déchets</strong>. Elle est <strong>non spécifique</strong> (agit contre tous les micro-organismes) et stoppe souvent l'infection.</p>` }
+      ]
+    },
+    {
+      id: "lente",
+      icon: "🎯",
+      label: "Réaction lente",
+      lessons: [
+        { chapter: "Les anticorps", title: "Les lymphocytes B", body: `
+          <p>Si l'infection persiste, une réaction <strong>lente et spécifique</strong> se met en place (en quelques jours).</p>
+          <div class="def"><strong>Antigène</strong>Molécule portée par un micro-organisme, reconnue par les lymphocytes et les anticorps.</div>
+          <p>Les <strong>lymphocytes B</strong>, après reconnaissance de l'antigène, se multiplient et produisent des <strong>anticorps spécifiques</strong> (qui ne reconnaissent que cet agent infectieux).</p>
+          <div class="def"><strong>Anticorps</strong>Molécule spécifique d'un antigène, produite par un lymphocyte B. Il se fixe sur l'antigène → complexe « antigène-anticorps » → neutralisation et destruction par phagocytose.</div>
+          <div class="def"><strong>Séropositif</strong>Personne qui possède dans son sang des anticorps spécifiques d'un antigène donné.</div>
+        ` },
+        { chapter: "Contre les virus", title: "Les lymphocytes T", body: `
+          <p>Quand un <strong>virus pénètre dans les cellules</strong>, ce sont les <strong>lymphocytes T</strong> qui agissent : ils reconnaissent les cellules infectées (reconnaissance spécifique de l'antigène viral) et les <strong>détruisent par contact</strong> (ils perforent leur membrane). Les débris sont ensuite phagocytés.</p>
+          <div class="warning"><strong>À retenir</strong>Lymphocytes B → <strong>anticorps</strong> (neutralisent les antigènes). Lymphocytes T → <strong>détruisent les cellules infectées par les virus</strong>.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Antigène", back: "Molécule portée par un microbe, reconnue par les lymphocytes et anticorps." },
+        { front: "Anticorps", back: "Molécule spécifique d'un antigène, produite par les lymphocytes B ; forme le complexe antigène-anticorps." },
+        { front: "Rôle des lymphocytes B", back: "Produire des anticorps spécifiques qui neutralisent les antigènes." },
+        { front: "Rôle des lymphocytes T", back: "Détruire par contact les cellules infectées par un virus." },
+        { front: "Réaction lente = spécifique ?", back: "Oui : les lymphocytes sont spécifiques d'un antigène donné." },
+        { front: "Séropositif", back: "Personne ayant dans son sang des anticorps spécifiques d'un antigène." }
+      ],
+      qcm: [
+        { q: "Qui produit les anticorps ?", options: ["Les lymphocytes T", "Les lymphocytes B", "Les phagocytes", "Les sentinelles"], correct: 1, exp: "Les lymphocytes B produisent les anticorps." },
+        { q: "Qu'est-ce qu'un antigène ?", options: ["Un anticorps", "Une molécule du microbe reconnue par le système immunitaire", "Un globule rouge", "Un phagocyte"], correct: 1, exp: "Reconnue par lymphocytes et anticorps." },
+        { q: "Que font les lymphocytes T ?", options: ["Produisent des anticorps", "Détruisent par contact les cellules infectées par un virus", "Digèrent les microbes", "Rien"], correct: 1, exp: "Ils éliminent les cellules infectées." },
+        { q: "La réaction à anticorps est :", options: ["non spécifique", "spécifique d'un antigène", "instantanée", "inutile"], correct: 1, exp: "Spécifique : un anticorps ne reconnaît qu'un antigène." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Réactions lentes spécifiques", statement: `Explique comment l'organisme réagit (1) contre une bactérie et (2) contre une cellule infectée par un virus.`, correction: `
+          <p><strong>1) Bactérie</strong> : les lymphocytes B reconnaissent l'antigène, se multiplient et produisent des <strong>anticorps spécifiques</strong>. Ceux-ci se fixent sur les antigènes (complexe antigène-anticorps), neutralisent les microbes, ensuite détruits par phagocytose.</p>
+          <p><strong>2) Virus dans les cellules</strong> : les <strong>lymphocytes T</strong> reconnaissent les cellules infectées et les détruisent par contact ; les débris sont phagocytés.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

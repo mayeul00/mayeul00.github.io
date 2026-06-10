@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SVT · Génétique : du génotype au phénotype</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "svt_genetique",
+  subject: "svt",
+  subjectName: "SVT",
+  subjectIcon: "🧬",
+  title: "Génétique : du génotype au phénotype",
+  subtitle: "SVT · Le vivant et son évolution · Les caractères héréditaires",
+  badge: "🧬 SVT · 3e",
+  accentColor: "#16a085",
+  accent2Color: "#1abc9c",
+  depth: 1,
+  tabs: [
+    {
+      id: "caracteres",
+      icon: "👁️",
+      label: "Caractères & phénotype",
+      lessons: [
+        { chapter: "Les caractères", title: "Espèce, individuel, héréditaire", body: `
+          <div class="def"><strong>Caractère d'espèce (spécifique)</strong>Caractère réalisé de la même manière chez tous les individus d'une même espèce (ex : l'Homme est bipède, a un menton).</div>
+          <div class="def"><strong>Caractère individuel</strong>Caractère propre à un individu (couleur des yeux, groupe sanguin…). Certains sont visibles, d'autres non.</div>
+          <div class="def"><strong>Caractère héréditaire</strong>Caractère transmis par les parents, de génération en génération.</div>
+          <div class="def"><strong>Phénotype</strong>Ensemble des caractères observables chez un individu.</div>
+        ` },
+        { chapter: "Rôle de l'environnement", title: "Le phénotype peut être modifié", body: `
+          <p>Le phénotype peut être influencé par l'<strong>environnement</strong> (le mode de vie) :</p>
+          <ul>
+            <li>le <strong>bronzage</strong> (exposition au soleil),</li>
+            <li>le <strong>volume musculaire</strong> (entraînement),</li>
+            <li>l'<strong>allure d'un arbre</strong> selon le vent.</li>
+          </ul>
+          <div class="warning"><strong>À retenir</strong>Ces modifications dues à l'environnement sont <strong>réversibles</strong> et <strong>non transmissibles</strong> à la descendance : elles ne sont <strong>pas héréditaires</strong>.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Caractère d'espèce", back: "Caractère réalisé de la même façon chez tous les individus de l'espèce (bipédie, menton chez l'Homme)." },
+        { front: "Caractère individuel", back: "Caractère propre à un individu (couleur des yeux, groupe sanguin)." },
+        { front: "Caractère héréditaire", back: "Caractère transmis par les parents de génération en génération." },
+        { front: "Phénotype", back: "Ensemble des caractères observables d'un individu." },
+        { front: "L'environnement et le phénotype", back: "Il peut le modifier (bronzage, muscle), mais ces changements sont réversibles et NON héréditaires." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce que le phénotype ?", options: ["L'ensemble des gènes", "L'ensemble des caractères observables", "Un chromosome", "Une mutation"], correct: 1, exp: "Le phénotype = les caractères observables." },
+        { q: "Le bronzage est-il héréditaire ?", options: ["Oui", "Non, c'est dû à l'environnement et réversible", "Oui si les parents bronzent", "Seulement chez l'adulte"], correct: 1, exp: "Modification environnementale, non transmissible." },
+        { q: "Lequel est un caractère d'espèce chez l'Homme ?", options: ["La couleur des yeux", "Le groupe sanguin", "La bipédie", "Le bronzage"], correct: 2, exp: "La bipédie est commune à toute l'espèce." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Caractère héréditaire ou environnemental ?", statement: `Classe ces caractères : <em>groupe sanguin · musculature développée par le sport · couleur naturelle des yeux · peau bronzée</em>.`, correction: `
+          <ul>
+            <li><strong>Héréditaires</strong> : groupe sanguin, couleur naturelle des yeux.</li>
+            <li><strong>Liés à l'environnement (non héréditaires)</strong> : musculature (sport), peau bronzée (soleil).</li>
+          </ul>` }
+      ]
+    },
+    {
+      id: "chromosomes",
+      icon: "🧫",
+      label: "Chromosomes & ADN",
+      lessons: [
+        { chapter: "L'information génétique", title: "Localisée dans le noyau", body: `
+          <p>L'expérience de clonage (le chien Snuppy, né du seul noyau d'une cellule de son « père ») montre que l'<strong>information héréditaire est contenue dans le noyau</strong> de toutes les cellules.</p>
+          <div class="def"><strong>Information héréditaire (génétique)</strong>Information qui détermine les caractères héréditaires d'un individu ; elle est située dans le noyau des cellules.</div>
+        ` },
+        { chapter: "Les chromosomes", title: "Caryotype et nombre de chromosomes", body: `
+          <p>Dans le noyau, l'information est portée par les <strong>chromosomes</strong>.</p>
+          <div class="def"><strong>Caryotype</strong>Photographie de l'ensemble des chromosomes d'une cellule, classés par paires.</div>
+          <ul>
+            <li>Une cellule humaine possède <strong>23 paires = 46 chromosomes</strong>.</li>
+            <li>La 23ᵉ paire = <strong>chromosomes sexuels</strong> : <strong>XX</strong> chez la femme, <strong>XY</strong> chez l'homme.</li>
+            <li>Toutes les cellules d'un individu ont le même caryotype ; il varie selon l'espèce (4 paires chez la drosophile, 23 chez l'Homme).</li>
+          </ul>
+          <div class="example"><strong>Anomalie chromosomique</strong>Trisomie 21 (syndrome de Down) : un chromosome 21 en trop (47 chromosomes). Une modification du caryotype modifie les caractères → preuve que les chromosomes portent l'information héréditaire.</div>
+        ` },
+        { chapter: "L'ADN", title: "Le constituant des chromosomes", body: `
+          <div class="def"><strong>ADN</strong>Molécule qui compose les chromosomes et porte l'information héréditaire.</div>
+          <p>L'ADN est une très longue molécule qui peut s'enrouler :</p>
+          <ul>
+            <li>cellule <strong>en division</strong> → ADN condensé → on voit les chromosomes ;</li>
+            <li>cellule <strong>hors division</strong> → ADN déroulé en longs filaments → chromosomes invisibles (mais présents).</li>
+          </ul>
+        ` }
+      ],
+      flashcards: [
+        { front: "Où est l'information héréditaire ?", back: "Dans le noyau de toutes les cellules (montré par le clonage de Snuppy)." },
+        { front: "Caryotype", back: "Photographie des chromosomes d'une cellule classés par paires." },
+        { front: "Nombre de chromosomes chez l'Homme", back: "23 paires, soit 46 chromosomes." },
+        { front: "Chromosomes sexuels", back: "XX chez la femme, XY chez l'homme (23ᵉ paire)." },
+        { front: "Trisomie 21", back: "Un chromosome 21 surnuméraire (47 chromosomes) : anomalie chromosomique." },
+        { front: "ADN", back: "Molécule qui compose les chromosomes et porte l'information héréditaire." },
+        { front: "Pourquoi voit-on les chromosomes seulement en division ?", back: "L'ADN se condense (s'enroule) pendant la division ; sinon il est déroulé et invisible." }
+      ],
+      qcm: [
+        { q: "Combien de chromosomes possède une cellule humaine ?", options: ["23", "46", "44", "48"], correct: 1, exp: "23 paires = 46 chromosomes." },
+        { q: "Quel est le caryotype sexuel d'un homme ?", options: ["XX", "XY", "YY", "X"], correct: 1, exp: "XY chez l'homme, XX chez la femme." },
+        { q: "Qu'est-ce que la trisomie 21 ?", options: ["Un chromosome 21 manquant", "Un chromosome 21 en trop", "Une maladie de l'ADN", "Une mutation de l'œil"], correct: 1, exp: "47 chromosomes : un 21 surnuméraire." },
+        { q: "De quoi sont composés les chromosomes ?", options: ["De protéines seules", "d'ADN", "de sucre", "d'eau"], correct: 1, exp: "L'ADN porte l'information héréditaire." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Lire un caryotype", statement: `Un caryotype présente 46 chromosomes dont une 23ᵉ paire XY. 1) De quel sexe est l'individu ? 2) Que pourrait indiquer un chromosome 21 supplémentaire ?`, correction: `
+          <p><strong>1)</strong> XY → individu de <strong>sexe masculin</strong>.</p>
+          <p><strong>2)</strong> Un chromosome 21 en trop (47 chromosomes) indiquerait une <strong>trisomie 21</strong> (anomalie chromosomique).</p>` }
+      ]
+    },
+    {
+      id: "genes",
+      icon: "🔬",
+      label: "Gènes, allèles & mutations",
+      lessons: [
+        { chapter: "Gènes et génome", title: "L'organisation de l'information", body: `
+          <div class="def"><strong>Gène</strong>Portion de chromosome (d'ADN) qui contient une information génétique déterminant un caractère héréditaire.</div>
+          <div class="def"><strong>Génome</strong>Ensemble des gènes d'un individu. Tous les individus d'une même espèce ont le même génome (les mêmes gènes).</div>
+          <p>Les chromosomes d'une même paire (<strong>chromosomes homologues</strong>) portent les <strong>mêmes gènes</strong>, aux mêmes endroits : chaque gène existe donc en <strong>2 exemplaires</strong>.</p>
+        ` },
+        { chapter: "Allèles et génotype", title: "L'origine de la diversité", body: `
+          <div class="def"><strong>Allèle</strong>Version d'un gène. Pour un gène, un individu possède 2 allèles (un par chromosome homologue), identiques ou différents.</div>
+          <div class="def"><strong>Génotype</strong>Ensemble des allèles d'un individu. Le génotype détermine le phénotype.</div>
+          <div class="example"><strong>Exemple : les groupes sanguins</strong>3 allèles (A, B, O) → 4 phénotypes : Groupe A (AA ou AO), Groupe B (BB ou BO), Groupe AB (AB), Groupe O (OO).</div>
+          <p>C'est la <strong>diversité des génotypes</strong> qui explique la diversité des caractères entre individus.</p>
+        ` },
+        { chapter: "Les mutations", title: "Apparition de nouveaux caractères", body: `
+          <div class="def"><strong>Mutation</strong>Modification rare, naturelle et aléatoire de l'information génétique (de l'ADN d'un gène).</div>
+          <ul>
+            <li><strong>Mutation somatique</strong> (cellule non reproductrice) : <strong>non transmise</strong> à la descendance, disparaît avec l'individu.</li>
+            <li><strong>Mutation germinale</strong> (cellule reproductrice) : peut être <strong>transmise</strong> à la descendance → le caractère devient héréditaire.</li>
+          </ul>
+          <p>Les mutations créent de <strong>nouveaux allèles</strong> : elles augmentent la diversité génétique.</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Gène", back: "Portion d'ADN (de chromosome) qui détermine un caractère héréditaire." },
+        { front: "Génome", back: "Ensemble des gènes d'un individu (identique au sein d'une espèce)." },
+        { front: "Chromosomes homologues", back: "Les 2 chromosomes d'une même paire ; ils portent les mêmes gènes → chaque gène en 2 exemplaires." },
+        { front: "Allèle", back: "Version d'un gène ; un individu en a 2 par gène (un par chromosome homologue)." },
+        { front: "Génotype", back: "Ensemble des allèles d'un individu ; il détermine le phénotype." },
+        { front: "Groupes sanguins", back: "3 allèles (A, B, O) → 4 phénotypes : A, B, AB, O." },
+        { front: "Mutation", back: "Modification rare, naturelle et aléatoire de l'ADN d'un gène." },
+        { front: "Mutation somatique vs germinale", back: "Somatique = non héréditaire (cellule ordinaire). Germinale = héréditaire (cellule reproductrice)." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce qu'un gène ?", options: ["Une cellule", "Une portion d'ADN déterminant un caractère", "Un chromosome entier", "Une protéine"], correct: 1, exp: "Portion de chromosome porteuse d'une information." },
+        { q: "Qu'est-ce qu'un allèle ?", options: ["Un chromosome", "Une version d'un gène", "Un noyau", "Une mutation"], correct: 1, exp: "Versions différentes d'un même gène." },
+        { q: "Le génotype Groupe O correspond à :", options: ["AA", "AO", "OO", "AB"], correct: 2, exp: "Groupe O = OO." },
+        { q: "Quelle mutation est transmise à la descendance ?", options: ["Somatique", "Germinale (cellule reproductrice)", "Aucune", "Toutes"], correct: 1, exp: "Seules les mutations germinales sont héréditaires." },
+        { q: "Qu'apportent les mutations à une espèce ?", options: ["Rien", "De nouveaux allèles, donc de la diversité", "Moins de gènes", "La disparition"], correct: 1, exp: "Elles créent de nouveaux allèles." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Génotype et groupe sanguin", statement: `Une personne est de groupe sanguin A. 1) Quels génotypes peut-elle avoir ? 2) Explique comment 3 allèles donnent 4 groupes.`, correction: `
+          <p><strong>1)</strong> Groupe A → génotype <strong>AA ou AO</strong>.</p>
+          <p><strong>2)</strong> Les 3 allèles (A, B, O) se combinent par 2 : AA/AO → A, BB/BO → B, AB → AB, OO → O. Soit <strong>4 phénotypes</strong> à partir de 3 allèles.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

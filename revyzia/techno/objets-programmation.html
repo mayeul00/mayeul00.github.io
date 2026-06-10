@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Techno · Objets techniques & programmation</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "techno_objets_programmation",
+  subject: "techno",
+  subjectName: "Technologie",
+  subjectIcon: "⚙️",
+  title: "Objets techniques & programmation",
+  subtitle: "Techno · Chaîne d'énergie et d'information, capteurs, algorithmique",
+  badge: "⚙️ Techno · 3e",
+  accentColor: "#0ea5e9",
+  accent2Color: "#6366f1",
+  depth: 1,
+  tabs: [
+    {
+      id: "objet",
+      icon: "🔧",
+      label: "L'objet technique",
+      lessons: [
+        { chapter: "Fonctions", title: "À quoi sert un objet technique ?", body: `
+          <div class="def"><strong>Objet technique</strong>Objet conçu et fabriqué par l'Homme pour répondre à un <strong>besoin</strong>.</div>
+          <div class="def"><strong>Fonction d'usage</strong>Le service rendu par l'objet (à quoi il sert).</div>
+          <div class="def"><strong>Fonction technique</strong>Rôle d'une partie de l'objet qui participe à la fonction d'usage.</div>
+          <div class="def"><strong>Contrainte</strong>Limite à respecter lors de la conception (coût, sécurité, taille, environnement…).</div>
+        ` },
+        { chapter: "Les deux chaînes", title: "Énergie et information", body: `
+          <p>Un objet technique « intelligent » repose sur deux chaînes :</p>
+          <div class="def"><strong>Chaîne d'énergie</strong>Gère l'énergie. 4 fonctions : <strong>alimenter → distribuer → convertir → transmettre</strong> (ex : batterie → interrupteur → moteur → roue).</div>
+          <div class="def"><strong>Chaîne d'information</strong>Gère l'information. 3 fonctions : <strong>acquérir → traiter → communiquer</strong> (ex : capteur → carte programmable → afficheur).</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Objet technique", back: "Objet conçu par l'Homme pour répondre à un besoin." },
+        { front: "Fonction d'usage", back: "Le service rendu par l'objet (à quoi il sert)." },
+        { front: "Fonction technique", back: "Rôle d'une partie de l'objet qui participe à la fonction d'usage." },
+        { front: "Contrainte", back: "Limite à respecter en conception (coût, sécurité, taille, environnement…)." },
+        { front: "Chaîne d'énergie (4 fonctions)", back: "Alimenter → distribuer → convertir → transmettre." },
+        { front: "Chaîne d'information (3 fonctions)", back: "Acquérir → traiter → communiquer." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce que la fonction d'usage ?", options: ["Le prix", "Le service rendu par l'objet", "La couleur", "Le poids"], correct: 1, exp: "À quoi sert l'objet." },
+        { q: "Quelles sont les fonctions de la chaîne d'énergie ?", options: ["Acquérir, traiter, communiquer", "Alimenter, distribuer, convertir, transmettre", "Lire, écrire", "Allumer, éteindre"], correct: 1, exp: "4 fonctions de l'énergie." },
+        { q: "Quelles sont les fonctions de la chaîne d'information ?", options: ["Alimenter, convertir", "Acquérir, traiter, communiquer", "Couper, relier", "Stocker seulement"], correct: 1, exp: "3 fonctions de l'information." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Identifier les chaînes", statement: `Pour une lampe automatique (s'allume quand il fait nuit) : place « capteur de lumière », « carte programmable », « ampoule », « batterie » dans la bonne chaîne.`, correction: `
+          <p><strong>Chaîne d'information</strong> : capteur de lumière (acquérir) → carte programmable (traiter) → commande (communiquer).</p>
+          <p><strong>Chaîne d'énergie</strong> : batterie (alimenter) → ampoule (convertir l'énergie électrique en lumière).</p>` }
+      ]
+    },
+    {
+      id: "capteurs",
+      icon: "📡",
+      label: "Capteurs & actionneurs",
+      lessons: [
+        { chapter: "Entrées et sorties", title: "Capteurs, actionneurs, interface", body: `
+          <div class="def"><strong>Capteur</strong>Composant qui mesure une grandeur de l'environnement (lumière, température, distance, mouvement…) et fournit une information (entrée).</div>
+          <div class="def"><strong>Actionneur</strong>Composant qui agit et produit un effet (moteur, lampe, buzzer, écran…) : c'est une sortie.</div>
+          <div class="def"><strong>Interface / carte programmable</strong>(ex : micro:bit, Arduino) Elle traite les informations des capteurs et commande les actionneurs selon un programme.</div>
+        ` },
+        { chapter: "Objets connectés", title: "Domotique et IoT", body: `
+          <div class="def"><strong>Objet connecté</strong>Objet capable d'échanger des informations via un réseau (Internet). Ensemble : l'<strong>IoT</strong> (Internet des objets).</div>
+          <p>En <strong>domotique</strong> (maison connectée), des capteurs et actionneurs reliés à un réseau automatisent la maison (chauffage, éclairage, alarme). Avantages : confort, économies d'énergie ; limites : sécurité des données, dépendance.</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Capteur", back: "Mesure une grandeur (lumière, température…) et fournit une information : c'est une entrée." },
+        { front: "Actionneur", back: "Produit un effet (moteur, lampe, buzzer) : c'est une sortie." },
+        { front: "Carte programmable / interface", back: "Traite les infos des capteurs et commande les actionneurs (micro:bit, Arduino)." },
+        { front: "Objet connecté", back: "Objet qui échange des informations via un réseau (Internet)." },
+        { front: "IoT", back: "Internet des objets : l'ensemble des objets connectés." },
+        { front: "Domotique", back: "Automatisation de la maison via capteurs/actionneurs connectés." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce qu'un capteur ?", options: ["Une sortie qui agit", "Une entrée qui mesure une grandeur", "Un moteur", "Une batterie"], correct: 1, exp: "Il mesure (lumière, température…) → information." },
+        { q: "Lequel est un actionneur ?", options: ["Un capteur de température", "Un moteur", "Un bouton", "Un thermomètre"], correct: 1, exp: "L'actionneur agit (moteur, lampe…)." },
+        { q: "Qu'est-ce que l'IoT ?", options: ["Un logiciel", "L'Internet des objets (objets connectés)", "Un capteur", "Un réseau électrique"], correct: 1, exp: "Internet of Things." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Capteur ou actionneur ?", statement: `Classe : <em>moteur · capteur de distance · LED · bouton poussoir · capteur de température</em>.`, correction: `
+          <ul>
+            <li><strong>Capteurs (entrées)</strong> : capteur de distance, bouton poussoir, capteur de température.</li>
+            <li><strong>Actionneurs (sorties)</strong> : moteur, LED.</li>
+          </ul>` }
+      ]
+    },
+    {
+      id: "programmation",
+      icon: "💻",
+      label: "Algorithmique",
+      lessons: [
+        { chapter: "Algorithme", title: "Algorithme et algorigramme", body: `
+          <div class="def"><strong>Algorithme</strong>Suite d'instructions ordonnées pour réaliser une tâche ou résoudre un problème.</div>
+          <div class="def"><strong>Algorigramme (organigramme)</strong>Représentation graphique d'un algorithme avec des symboles (début/fin, action, test/condition).</div>
+          <p>Un <strong>programme</strong> est la traduction d'un algorithme dans un langage compris par la machine (ex : <strong>Scratch</strong>).</p>
+        ` },
+        { chapter: "Les structures", title: "Boucles, conditions, variables", body: `
+          <ul>
+            <li><strong>Séquence</strong> : instructions exécutées dans l'ordre.</li>
+            <li><strong>Condition (si… alors… sinon)</strong> : exécute selon qu'un test est vrai ou faux.</li>
+            <li><strong>Boucle</strong> : répète des instructions (« répéter 10 fois », « répéter jusqu'à… »).</li>
+            <li><strong>Variable</strong> : case mémoire qui stocke une valeur (un score, une distance…).</li>
+          </ul>
+          <div class="example"><strong>Exemple</strong>« SI distance &lt; 10 cm ALORS arrêter le moteur SINON avancer » : une condition qui pilote un robot grâce à un capteur.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Algorithme", back: "Suite d'instructions ordonnées pour réaliser une tâche." },
+        { front: "Algorigramme", back: "Représentation graphique d'un algorithme (symboles : début/fin, action, test)." },
+        { front: "Programme", back: "Traduction d'un algorithme dans un langage compris par la machine (ex : Scratch)." },
+        { front: "Condition (si… alors… sinon)", back: "Exécute des instructions selon qu'un test est vrai ou faux." },
+        { front: "Boucle", back: "Répète des instructions (répéter n fois, répéter jusqu'à…)." },
+        { front: "Variable", back: "Case mémoire qui stocke une valeur (score, distance…)." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce qu'un algorithme ?", options: ["Un robot", "Une suite d'instructions ordonnées", "Un capteur", "Un langage"], correct: 1, exp: "Étapes pour réaliser une tâche." },
+        { q: "À quoi sert une boucle ?", options: ["Tester une condition", "Répéter des instructions", "Stocker une valeur", "Arrêter le programme"], correct: 1, exp: "Répétition." },
+        { q: "Qu'est-ce qu'une variable ?", options: ["Une boucle", "Une case mémoire qui stocke une valeur", "Un capteur", "Un test"], correct: 1, exp: "Mémorise une donnée (ex : score)." },
+        { q: "« SI… ALORS… SINON » est :", options: ["une boucle", "une condition", "une variable", "un capteur"], correct: 1, exp: "Structure conditionnelle." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Lire un programme", statement: `Un robot exécute : « répéter jusqu'à (capteur de contact pressé) : avancer ». Que fait-il ? Quelle structure est utilisée ?`, correction: `
+          <p>Le robot <strong>avance</strong> tant que le capteur de contact n'est pas pressé, puis s'arrête dès qu'il touche un obstacle. La structure est une <strong>boucle « répéter jusqu'à »</strong> qui teste une <strong>condition</strong> (capteur pressé).</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

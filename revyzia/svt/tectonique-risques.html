@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SVT · La Terre, tectonique et risques naturels</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "svt_tectonique_risques",
+  subject: "svt",
+  subjectName: "SVT",
+  subjectIcon: "🧬",
+  title: "La Terre : tectonique et risques naturels",
+  subtitle: "SVT · La planète Terre, l'environnement et l'action humaine",
+  badge: "🧬 SVT · 3e",
+  accentColor: "#16a085",
+  accent2Color: "#1abc9c",
+  depth: 1,
+  tabs: [
+    {
+      id: "tectonique",
+      icon: "🌐",
+      label: "Tectonique des plaques",
+      lessons: [
+        { chapter: "La structure de la Terre", title: "Une surface en plaques", body: `
+          <p>La couche externe rigide de la Terre (la <strong>lithosphère</strong>) est découpée en une douzaine de <strong>plaques</strong> qui se déplacent lentement (quelques cm par an) sur une couche plus souple.</p>
+          <div class="def"><strong>Plaque (lithosphérique)</strong>Vaste morceau rigide de la surface terrestre, qui se déplace lentement.</div>
+          <div class="def"><strong>Tectonique des plaques</strong>Théorie expliquant les mouvements des plaques et leurs conséquences (séismes, volcans, montagnes).</div>
+        ` },
+        { chapter: "Les mouvements", title: "Aux frontières des plaques", body: `
+          <p>C'est aux <strong>frontières des plaques</strong> que se concentrent les séismes et les volcans :</p>
+          <ul>
+            <li><strong>Écartement</strong> (dorsales océaniques) : les plaques s'éloignent, du magma remonte et crée de la nouvelle croûte.</li>
+            <li><strong>Rapprochement</strong> (subduction / collision) : une plaque plonge sous une autre, ou deux plaques se heurtent et forment des montagnes (ex : l'Himalaya).</li>
+            <li><strong>Coulissage</strong> : deux plaques glissent l'une contre l'autre (failles).</li>
+          </ul>
+        ` }
+      ],
+      flashcards: [
+        { front: "Lithosphère", back: "Couche externe rigide de la Terre, découpée en plaques." },
+        { front: "Plaque lithosphérique", back: "Vaste morceau rigide de surface qui se déplace lentement (quelques cm/an)." },
+        { front: "Tectonique des plaques", back: "Théorie expliquant les mouvements des plaques et leurs conséquences." },
+        { front: "Où se concentrent séismes et volcans ?", back: "Aux frontières des plaques." },
+        { front: "Types de frontières", back: "Écartement (dorsales), rapprochement (subduction/collision → montagnes), coulissage (failles)." }
+      ],
+      qcm: [
+        { q: "De quoi est faite la surface rigide de la Terre ?", options: ["D'une seule masse", "De plaques lithosphériques", "De magma", "d'eau"], correct: 1, exp: "Une douzaine de plaques mobiles." },
+        { q: "Où se produisent surtout séismes et volcans ?", options: ["Au centre des plaques", "Aux frontières des plaques", "Partout pareil", "Dans les océans seulement"], correct: 1, exp: "Aux limites des plaques." },
+        { q: "Que se passe-t-il quand deux plaques se rapprochent ?", options: ["Rien", "Subduction ou collision (montagnes)", "Elles disparaissent", "Un océan se crée"], correct: 1, exp: "Ex : collision → Himalaya." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Frontières de plaques", statement: `Pourquoi les séismes et volcans ne sont-ils pas répartis au hasard sur la Terre ?`, correction: `
+          <p>Parce qu'ils se concentrent aux <strong>frontières des plaques</strong> lithosphériques, là où les plaques s'écartent, se rapprochent ou coulissent. Les mouvements des plaques y libèrent de l'énergie (séismes) et permettent la remontée de magma (volcans).</p>` }
+      ]
+    },
+    {
+      id: "risques",
+      icon: "⚠️",
+      label: "Risques naturels",
+      lessons: [
+        { chapter: "Aléa, enjeu, risque", title: "Comprendre le risque", body: `
+          <div class="def"><strong>Aléa</strong>Phénomène naturel dangereux possible (séisme, éruption, inondation, cyclone…).</div>
+          <div class="def"><strong>Enjeu</strong>Ce qui peut être touché : population, bâtiments, activités.</div>
+          <div class="def"><strong>Risque</strong>Présence d'un aléa ET d'enjeux. Risque = aléa × enjeux.</div>
+          <div class="example"><strong>Exemple</strong>Un séisme en plein désert (aléa fort, pas d'enjeu) = risque faible. Le même séisme sous une grande ville = risque très élevé.</div>
+        ` },
+        { chapter: "Se protéger", title: "Prévision et prévention", body: `
+          <p>On ne peut pas empêcher les aléas, mais on peut <strong>réduire le risque</strong> :</p>
+          <ul>
+            <li><strong>Prévision</strong> : surveiller (sismographes, satellites), alerter.</li>
+            <li><strong>Prévention</strong> : constructions parasismiques, plans d'évacuation, éducation, zones constructibles réglementées.</li>
+          </ul>
+          <div class="warning"><strong>Action humaine</strong>Les activités humaines peuvent aussi augmenter certains risques (ex : artificialisation des sols → inondations) et modifier l'environnement.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Aléa", back: "Phénomène naturel dangereux possible (séisme, éruption, cyclone…)." },
+        { front: "Enjeu", back: "Ce qui peut être touché : population, bâtiments, activités." },
+        { front: "Risque", back: "Présence d'un aléa ET d'enjeux (risque = aléa × enjeux)." },
+        { front: "Prévision", back: "Surveiller et alerter (sismographes, satellites)." },
+        { front: "Prévention", back: "Réduire les dégâts : constructions parasismiques, plans d'évacuation, réglementation." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce qu'un aléa ?", options: ["Les bâtiments", "Un phénomène naturel dangereux possible", "La population", "Un plan d'évacuation"], correct: 1, exp: "Le phénomène lui-même (séisme, éruption…)." },
+        { q: "Le risque dépend de :", options: ["l'aléa seul", "l'aléa ET des enjeux", "des enjeux seuls", "rien"], correct: 1, exp: "Risque = aléa × enjeux." },
+        { q: "Qu'est-ce que la prévention ?", options: ["Prévoir l'aléa", "Réduire les dégâts (constructions, évacuation)", "Provoquer l'aléa", "Ne rien faire"], correct: 1, exp: "Mesures pour limiter les conséquences." },
+        { q: "Un séisme fort en plein désert :", options: ["risque élevé", "risque faible (peu d'enjeux)", "pas un aléa", "impossible"], correct: 1, exp: "Sans enjeux, le risque est faible." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Aléa, enjeu, risque", statement: `Définis aléa, enjeu et risque, puis explique pourquoi une même éruption volcanique présente un risque différent selon l'endroit.`, correction: `
+          <p>L'<strong>aléa</strong> est le phénomène dangereux (l'éruption) ; l'<strong>enjeu</strong> est ce qui peut être touché (population, bâtiments) ; le <strong>risque</strong> combine les deux. Une même éruption près d'une ville peuplée (enjeux élevés) présente un <strong>risque fort</strong>, alors que loin de toute population (peu d'enjeux), le <strong>risque est faible</strong>. On réduit le risque par la prévision et la prévention.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

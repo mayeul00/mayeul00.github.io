@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Techno · Réseaux informatiques & cycle de vie</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "techno_reseaux_cycle",
+  subject: "techno",
+  subjectName: "Technologie",
+  subjectIcon: "⚙️",
+  title: "Réseaux informatiques & cycle de vie",
+  subtitle: "Techno · Comprendre un réseau, Internet, et le cycle de vie d'un produit",
+  badge: "⚙️ Techno · 3e",
+  accentColor: "#0ea5e9",
+  accent2Color: "#6366f1",
+  depth: 1,
+  tabs: [
+    {
+      id: "reseau",
+      icon: "🌐",
+      label: "Réseau informatique",
+      lessons: [
+        { chapter: "Qu'est-ce qu'un réseau ?", title: "Relier des machines", body: `
+          <div class="def"><strong>Réseau informatique</strong>Ensemble d'équipements (ordinateurs, tablettes, serveurs…) reliés entre eux pour <strong>échanger des données</strong> et partager des ressources.</div>
+          <p>Les équipements d'interconnexion principaux :</p>
+          <ul>
+            <li><strong>Switch (commutateur)</strong> : relie les machines d'un même réseau local.</li>
+            <li><strong>Routeur</strong> : relie différents réseaux entre eux (et à Internet).</li>
+            <li><strong>Serveur</strong> : ordinateur qui fournit des services/ressources aux autres (les « clients »).</li>
+          </ul>
+          <div class="def"><strong>Réseau local (LAN)</strong>Réseau limité à une zone réduite (maison, école).</div>
+        ` },
+        { chapter: "Internet", title: "Adresse IP et protocoles", body: `
+          <div class="def"><strong>Internet</strong>Réseau mondial qui relie des millions de réseaux entre eux.</div>
+          <div class="def"><strong>Adresse IP</strong>Numéro unique qui identifie chaque appareil sur un réseau (comme une adresse postale).</div>
+          <div class="def"><strong>Protocole</strong>Ensemble de règles communes qui permettent aux machines de communiquer (ex : les données sont découpées en « paquets » qui circulent puis sont réassemblés).</div>
+          <p>Le <strong>Web</strong> (les pages consultées par un navigateur) n'est qu'un des services d'Internet, parmi d'autres (mail, jeux en ligne…).</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Réseau informatique", back: "Équipements reliés pour échanger des données et partager des ressources." },
+        { front: "Switch", back: "Relie les machines d'un même réseau local." },
+        { front: "Routeur", back: "Relie différents réseaux entre eux (et à Internet)." },
+        { front: "Serveur", back: "Ordinateur qui fournit des services/ressources aux clients." },
+        { front: "Internet", back: "Réseau mondial reliant des millions de réseaux." },
+        { front: "Adresse IP", back: "Numéro unique identifiant un appareil sur un réseau." },
+        { front: "Protocole", back: "Règles communes qui permettent aux machines de communiquer (paquets de données)." },
+        { front: "Web ≠ Internet", back: "Le Web (les pages) est UN service d'Internet, parmi d'autres (mail, jeux…)." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce qu'un réseau informatique ?", options: ["Un seul ordinateur", "Des équipements reliés pour échanger des données", "Un logiciel", "Une imprimante"], correct: 1, exp: "Machines reliées pour partager des données." },
+        { q: "Quel équipement relie différents réseaux ?", options: ["Le switch", "Le routeur", "Le serveur", "Le capteur"], correct: 1, exp: "Le routeur relie les réseaux et à Internet." },
+        { q: "Qu'est-ce qu'une adresse IP ?", options: ["Un mot de passe", "Un numéro unique identifiant un appareil", "Un câble", "Un site web"], correct: 1, exp: "Comme une adresse postale pour les machines." },
+        { q: "Le Web, c'est :", options: ["la même chose qu'Internet", "un des services d'Internet", "un câble", "un routeur"], correct: 1, exp: "Internet propose plusieurs services dont le Web." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Rôle des équipements", statement: `Dans un collège, explique le rôle du switch, du routeur et du serveur.`, correction: `
+          <p>Le <strong>switch</strong> relie entre eux les ordinateurs d'une même salle (réseau local). Le <strong>routeur</strong> relie le réseau du collège à d'autres réseaux et à Internet. Le <strong>serveur</strong> fournit des ressources aux ordinateurs (fichiers, comptes, applications).</p>` }
+      ]
+    },
+    {
+      id: "cycle",
+      icon: "♻️",
+      label: "Cycle de vie",
+      lessons: [
+        { chapter: "Le cycle de vie", title: "De la matière au recyclage", body: `
+          <div class="def"><strong>Cycle de vie d'un produit</strong>Ensemble des étapes de la vie d'un objet : <strong>extraction des matières premières → fabrication → transport/distribution → utilisation → fin de vie (recyclage ou déchet)</strong>.</div>
+          <p>Chaque étape a un <strong>impact environnemental</strong> (énergie, pollution, ressources). L'<strong>analyse du cycle de vie (ACV)</strong> sert à mesurer cet impact pour concevoir des produits plus respectueux de l'environnement.</p>
+        ` },
+        { chapter: "Développement durable", title: "Écoconception", body: `
+          <div class="def"><strong>Développement durable</strong>Répondre aux besoins actuels sans compromettre ceux des générations futures (équilibre entre économie, société et environnement).</div>
+          <div class="def"><strong>Écoconception</strong>Concevoir un objet en réduisant son impact sur l'environnement (matériaux recyclables, moins d'énergie, réparabilité, durée de vie…).</div>
+          <p>Bonnes pratiques : réduire, réutiliser, réparer, recycler (les « 4 R »).</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Cycle de vie d'un produit", back: "Extraction → fabrication → transport → utilisation → fin de vie (recyclage/déchet)." },
+        { front: "Analyse du cycle de vie (ACV)", back: "Mesurer l'impact environnemental de chaque étape de la vie d'un produit." },
+        { front: "Développement durable", back: "Répondre aux besoins présents sans compromettre ceux des générations futures." },
+        { front: "Écoconception", back: "Concevoir un objet en réduisant son impact environnemental." },
+        { front: "Les 4 R", back: "Réduire, réutiliser, réparer, recycler." }
+      ],
+      qcm: [
+        { q: "Quelle est la première étape du cycle de vie ?", options: ["Le recyclage", "L'extraction des matières premières", "L'utilisation", "Le transport"], correct: 1, exp: "Tout commence par les matières premières." },
+        { q: "À quoi sert l'analyse du cycle de vie ?", options: ["À vendre plus", "À mesurer l'impact environnemental", "À fabriquer plus vite", "À fixer le prix"], correct: 1, exp: "Évaluer l'impact pour mieux concevoir." },
+        { q: "Qu'est-ce que l'écoconception ?", options: ["Concevoir moins cher", "Concevoir en réduisant l'impact environnemental", "Recycler uniquement", "Fabriquer à l'étranger"], correct: 1, exp: "Réduire l'impact dès la conception." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Étapes et impact", statement: `Cite les étapes du cycle de vie d'un smartphone et propose deux actions pour réduire son impact.`, correction: `
+          <p><strong>Étapes</strong> : extraction des matières premières → fabrication → transport/distribution → utilisation → fin de vie (recyclage ou déchet).</p>
+          <p><strong>Réduire l'impact</strong> : le garder plus longtemps / le réparer (allonger la durée de vie), et le recycler en fin de vie (récupérer les métaux) plutôt que le jeter.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

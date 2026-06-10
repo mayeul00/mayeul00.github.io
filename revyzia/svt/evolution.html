@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>SVT · Évolution et biodiversité</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "svt_evolution",
+  subject: "svt",
+  subjectName: "SVT",
+  subjectIcon: "🧬",
+  title: "Évolution et biodiversité",
+  subtitle: "SVT · Le vivant et son évolution · Parentés, sélection, biodiversité",
+  badge: "🧬 SVT · 3e",
+  accentColor: "#16a085",
+  accent2Color: "#1abc9c",
+  depth: 1,
+  tabs: [
+    {
+      id: "parentes",
+      icon: "🌳",
+      label: "Parentés",
+      lessons: [
+        { chapter: "Caractères communs", title: "Des liens de parenté", body: `
+          <p>Les êtres vivants partagent des <strong>caractères communs</strong> (ex : squelette des vertébrés, quatre membres…). Plus deux espèces partagent de caractères, plus elles sont <strong>proches parentes</strong>.</p>
+          <div class="def"><strong>Ancêtre commun</strong>Espèce du passé dont descendent plusieurs espèces actuelles qui partagent un même caractère hérité de lui.</div>
+        ` },
+        { chapter: "Arbre de parenté", title: "Classer le vivant", body: `
+          <p>On représente les liens de parenté par un <strong>arbre de parenté (phylogénétique)</strong> : les espèces qui partagent le plus de caractères sont regroupées et descendent d'un ancêtre commun récent.</p>
+          <div class="def"><strong>Groupes emboîtés</strong>Classification où chaque groupe est défini par un caractère partagé (ex : tous les vertébrés ont un squelette interne ; parmi eux, les tétrapodes ont 4 membres…).</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Comment évaluer la parenté entre espèces ?", back: "Plus elles partagent de caractères communs, plus elles sont proches parentes." },
+        { front: "Ancêtre commun", back: "Espèce du passé dont descendent plusieurs espèces partageant un caractère hérité." },
+        { front: "Arbre de parenté (phylogénétique)", back: "Schéma représentant les liens de parenté et les ancêtres communs." },
+        { front: "Groupes emboîtés", back: "Classification où chaque groupe est défini par un caractère partagé." }
+      ],
+      qcm: [
+        { q: "Comment savoir si deux espèces sont proches ?", options: ["Elles vivent au même endroit", "Elles partagent beaucoup de caractères communs", "Elles ont la même taille", "Elles mangent pareil"], correct: 1, exp: "Plus de caractères communs = parenté plus proche." },
+        { q: "Qu'est-ce qu'un ancêtre commun ?", options: ["Le plus vieux animal", "Une espèce passée dont descendent plusieurs espèces", "Un fossile quelconque", "Un humain"], correct: 1, exp: "Origine commune partageant un caractère hérité." },
+        { q: "Que montre un arbre phylogénétique ?", options: ["L'âge des animaux", "Les liens de parenté et les ancêtres communs", "Le poids", "Le régime alimentaire"], correct: 1, exp: "Il organise les parentés." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Lire un arbre de parenté", statement: `Deux espèces partagent un ancêtre commun récent. Sont-elles proches ou éloignées ? Justifie avec la notion de caractères partagés.`, correction: `
+          <p>Elles sont <strong>proches parentes</strong> : un ancêtre commun récent signifie qu'elles partagent beaucoup de caractères hérités de lui. Plus l'ancêtre commun est récent, plus la parenté est étroite.</p>` }
+      ]
+    },
+    {
+      id: "selection",
+      icon: "🦋",
+      label: "Sélection naturelle",
+      lessons: [
+        { chapter: "Variations & sélection", title: "Le moteur de l'évolution", body: `
+          <p>Au sein d'une espèce, les individus présentent des <strong>variations</strong> (dues aux allèles, aux mutations). Selon le milieu, certaines variations sont plus <strong>avantageuses</strong> : les individus qui les portent survivent et se reproduisent davantage.</p>
+          <div class="def"><strong>Sélection naturelle</strong>Le milieu « sélectionne » les individus les mieux adaptés, qui transmettent leurs caractères à leur descendance. Au fil des générations, l'espèce évolue.</div>
+          <div class="example"><strong>Exemple</strong>La phalène du bouleau (papillon) : en milieu pollué (troncs noircis), les papillons foncés, mieux camouflés, sont plus nombreux à survivre.</div>
+        ` },
+        { chapter: "Diversification", title: "L'évolution du vivant", body: `
+          <div class="def"><strong>Évolution</strong>Transformation des espèces au cours du temps. Les espèces actuelles descendent d'espèces passées.</div>
+          <p>Les preuves : les <strong>fossiles</strong> (restes d'êtres vivants du passé) montrent que la vie s'est <strong>diversifiée</strong> au cours des temps géologiques.</p>
+        ` }
+      ],
+      flashcards: [
+        { front: "Sélection naturelle", back: "Le milieu favorise les individus les mieux adaptés, qui se reproduisent plus et transmettent leurs caractères." },
+        { front: "Origine des variations", back: "Les allèles et les mutations créent des différences entre individus." },
+        { front: "Exemple de sélection naturelle", back: "La phalène du bouleau : les papillons foncés survivent mieux sur des troncs pollués." },
+        { front: "Évolution", back: "Transformation des espèces au cours du temps." },
+        { front: "Preuves de l'évolution", back: "Les fossiles montrent la diversification de la vie au fil des temps géologiques." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce que la sélection naturelle ?", options: ["Le choix des éleveurs", "Le milieu favorise les mieux adaptés", "Le hasard total", "Une mutation"], correct: 1, exp: "Les mieux adaptés survivent et se reproduisent davantage." },
+        { q: "D'où viennent les variations entre individus ?", options: ["Du climat seul", "Des allèles et des mutations", "De la nourriture", "De l'âge"], correct: 1, exp: "Diversité génétique (allèles, mutations)." },
+        { q: "Que nous apprennent les fossiles ?", options: ["Rien", "Que la vie s'est diversifiée au cours du temps", "L'âge de la Terre exactement", "Le climat actuel"], correct: 1, exp: "Preuves de l'évolution et de la diversification." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 8, title: "Expliquer une adaptation", statement: `Sur une île, après une sécheresse, les oiseaux à gros bec (capables de manger de grosses graines) deviennent majoritaires. Explique avec la sélection naturelle.`, correction: `
+          <p>Les oiseaux varient (taille du bec). Lors de la sécheresse, seules restent les grosses graines : les oiseaux à <strong>gros bec</strong> se nourrissent mieux, <strong>survivent</strong> et se <strong>reproduisent davantage</strong>. Ils transmettent ce caractère ; au fil des générations, les gros becs deviennent majoritaires : c'est la <strong>sélection naturelle</strong>.</p>` }
+      ]
+    },
+    {
+      id: "biodiversite",
+      icon: "🌍",
+      label: "Biodiversité & Homme",
+      lessons: [
+        { chapter: "La biodiversité", title: "Diversité et crises", body: `
+          <div class="def"><strong>Biodiversité</strong>Diversité du vivant : diversité des espèces, des individus (génétique) et des écosystèmes.</div>
+          <p>La biodiversité a changé au cours du temps : des espèces apparaissent, d'autres disparaissent. Lors des <strong>crises biologiques</strong>, un grand nombre d'espèces disparaissent en peu de temps.</p>
+          <div class="example"><strong>Exemple</strong>La crise de la fin du Crétacé, il y a environ <strong>66 millions d'années</strong> : disparition des dinosaures (non-aviens), libérant la place pour les mammifères.</div>
+        ` },
+        { chapter: "La place de l'Homme", title: "L'Homme dans l'évolution", body: `
+          <p>L'espèce humaine (<em>Homo sapiens</em>) est un <strong>primate</strong>, proche parent du chimpanzé (ancêtre commun il y a environ 7 millions d'années). L'Homme s'inscrit pleinement dans l'<strong>arbre de l'évolution</strong> : il n'est pas « à part », mais une espèce parmi d'autres, issue d'une longue histoire.</p>
+          <div class="warning"><strong>Aujourd'hui</strong>Les activités humaines (pollution, destruction des milieux) accélèrent la disparition d'espèces : on parle d'une crise de biodiversité actuelle.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Biodiversité", back: "Diversité du vivant : espèces, individus (génétique), écosystèmes." },
+        { front: "Crise biologique", back: "Disparition d'un grand nombre d'espèces en peu de temps." },
+        { front: "Crise de la fin du Crétacé", back: "≈ 66 millions d'années : disparition des dinosaures non-aviens." },
+        { front: "Place de l'Homme", back: "Homo sapiens est un primate, proche parent du chimpanzé ; il fait partie de l'arbre de l'évolution." },
+        { front: "Crise de biodiversité actuelle", back: "Les activités humaines accélèrent la disparition d'espèces." }
+      ],
+      qcm: [
+        { q: "Qu'est-ce que la biodiversité ?", options: ["Le nombre d'humains", "La diversité du vivant (espèces, gènes, écosystèmes)", "Le climat", "Les fossiles"], correct: 1, exp: "Diversité à plusieurs niveaux." },
+        { q: "Qu'est-ce qu'une crise biologique ?", options: ["Une maladie", "La disparition de nombreuses espèces en peu de temps", "Une mutation", "Une sécheresse"], correct: 1, exp: "Extinction massive et rapide." },
+        { q: "Quand les dinosaures disparaissent-ils ?", options: ["Il y a 10 000 ans", "Il y a ≈ 66 millions d'années", "Il y a 1 million d'années", "Hier"], correct: 1, exp: "Crise de la fin du Crétacé." },
+        { q: "L'Homme dans l'évolution :", options: ["est à part du vivant", "est un primate dans l'arbre de l'évolution", "n'a pas d'ancêtre", "descend du chimpanzé actuel"], correct: 1, exp: "Proche parent du chimpanzé (ancêtre commun)." }
+      ],
+      exercises: [
+        { source: "Exercice type Brevet", points: 6, title: "Crises et biodiversité", statement: `Qu'est-ce qu'une crise biologique ? Donne un exemple et explique une conséquence.`, correction: `
+          <p>Une <strong>crise biologique</strong> est la disparition d'un grand nombre d'espèces en peu de temps. Exemple : la fin du Crétacé (≈ 66 Ma), avec la disparition des <strong>dinosaures non-aviens</strong>. Conséquence : libération de niches écologiques, permettant la <strong>diversification des mammifères</strong>.</p>` }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>
