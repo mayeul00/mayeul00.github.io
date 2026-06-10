@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Revyzia · Révise avec ta classe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg-base: #f5f5f7;
@@ -149,8 +152,8 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
 .disambig-btn:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-1px); }
 
 .hero { text-align: center; padding: 32px 16px 20px; }
-.hero .greeting { font-size: clamp(30px,5vw,44px); font-weight: 800; letter-spacing: -1.2px; line-height: 1.05; margin-bottom: 6px; }
-.hero .greeting em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.hero .greeting { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-size: clamp(30px,5vw,44px); font-weight: 800; letter-spacing: -1.2px; line-height: 1.05; margin-bottom: 6px; font-synthesis: weight; }
+.hero .greeting em { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; font-style: normal; background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .hero .tagline { color: var(--ink-soft); font-size: 15px; max-width: 540px; margin: 0 auto; }
 
 .stats-dashboard { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin: 22px 0 22px; }
@@ -264,6 +267,27 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
   .stats-dashboard { grid-template-columns: 1fr; }
   .stats-dashboard .stat-card.level { grid-column: auto; }
 }
+.rv-overlay{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.45);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;padding:20px;animation:rvFade .22s ease;}
+.rv-modal{max-width:440px;width:100%;border-radius:26px;padding:26px 26px 22px;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow-lg);text-align:center;animation:rvPop .25s ease;}
+.rv-modal h2{font-size:21px;margin:0 0 10px;letter-spacing:-.5px;}
+.rv-modal p{color:var(--ink);font-size:14.5px;line-height:1.6;margin:0 0 18px;text-align:left;}
+.rv-badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 12px;border-radius:100px;margin-bottom:12px;}
+.rv-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.rv-btn{border:none;border-radius:100px;padding:11px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .15s,filter .15s;}
+.rv-btn:hover{transform:translateY(-1px);filter:brightness(1.05);}
+.rv-btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;}
+.rv-btn.ghost{background:var(--glass-bg);border:1px solid var(--glass-border);color:var(--ink-soft);}
+.rv-tuto{position:fixed;inset:0;z-index:9000;}
+.rv-spot{position:fixed;border-radius:16px;box-shadow:0 0 0 9999px rgba(0,0,0,.62);border:2px solid #fff;transition:all .35s cubic-bezier(.4,0,.2,1);pointer-events:none;}
+.rv-tip{position:fixed;max-width:300px;width:calc(100% - 32px);border-radius:20px;padding:17px 18px;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow-lg);z-index:9001;animation:rvPop .25s ease;}
+.rv-tip h3{font-size:16px;margin:5px 0 6px;letter-spacing:-.3px;}
+.rv-tip p{font-size:13.5px;color:var(--ink);margin:0 0 13px;line-height:1.5;}
+.info-btn{color:var(--accent);}
+.info-btn svg{display:block;}
+.info-btn:hover{transform:scale(1.1);background:var(--accent-soft);}
+.rv-tip-step{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.5px;}
+@keyframes rvFade{from{opacity:0}to{opacity:1}}
+@keyframes rvPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
 <body>
@@ -282,6 +306,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
     <div class="xp-mini" id="xpMini" style="display:none">⚡ <span id="xpNum">0</span></div>
     <div class="user-badge" id="userBadge" style="display:none">👋 <strong id="userBadgeName">—</strong></div>
     <button class="logout-btn" id="logoutBtn" style="display:none" onclick="logout()" title="Se déconnecter">🚪 Déconnexion</button>
+    <button class="theme-toggle info-btn" id="infoBtn" style="display:none" onclick="showInfoPopup()" title="Informations & tutoriel"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="7.8" r="0.6" fill="currentColor" stroke="none"/></svg></button>
     <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Changer de thème">🌙</button>
   </div>
 </header>
@@ -656,7 +681,8 @@ function defaultUserData() {
   return {
     name: '', userClass: '', totalXp: 0,
     streakDays: 0, streakValue: 0, lastReviewDate: null, bestStreakDays: 0,
-    badges: [], chapters: {}, createdAt: Date.now()
+    badges: [], chapters: {}, createdAt: Date.now(),
+    tutoDone: false, seenUpdate: '', noUpdatePopup: false
   };
 }
 function getCurrentUser() {
@@ -745,7 +771,10 @@ function mergeUserData(local, remote) {
     pinsUpdatedAt: Math.max(local.pinsUpdatedAt || 0, remote.pinsUpdatedAt || 0),
     chapters: {},
     createdAt: Math.min(local.createdAt || Date.now(), remote.createdAt || Date.now()),
-    lastSeen: Date.now()
+    lastSeen: Date.now(),
+    tutoDone: !!(local.tutoDone || remote.tutoDone),
+    noUpdatePopup: !!(local.noUpdatePopup || remote.noUpdatePopup),
+    seenUpdate: (typeof LATEST_UPDATE !== 'undefined' && (local.seenUpdate === LATEST_UPDATE.version || remote.seenUpdate === LATEST_UPDATE.version)) ? LATEST_UPDATE.version : (local.seenUpdate || remote.seenUpdate || '')
   };
   // Pour les chapitres : on prend le max d'XP par chapitre
   const allKeys = new Set([...Object.keys(local.chapters || {}), ...Object.keys(remote.chapters || {})]);
@@ -810,7 +839,10 @@ function pushToFirebase(data, user) {
         pinnedChapters: merged.pinnedChapters || [],
         pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
-        lastSeen: Date.now()
+        lastSeen: Date.now(),
+        tutoDone: !!merged.tutoDone,
+        noUpdatePopup: !!merged.noUpdatePopup,
+        seenUpdate: merged.seenUpdate || ''
       }).then(function() {
         console.log('[Revyzia] ✅ Push OK (XP:', merged.totalXp, '| streak:', merged.streakDays, ')');
         updateStatsDisplay(merged);
@@ -1201,7 +1233,10 @@ function dedupAndMergeFirebaseEntries(user) {
         pinnedChapters: merged.pinnedChapters || [],
         pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
-        lastSeen: Date.now()
+        lastSeen: Date.now(),
+        tutoDone: !!merged.tutoDone,
+        noUpdatePopup: !!merged.noUpdatePopup,
+        seenUpdate: merged.seenUpdate || ''
       }).then(function() {
         console.log('[Revyzia] ✅ Entrée fusionnée sauvée:', targetKey, '(XP:', merged.totalXp, ')');
         // Supprimer les doublons
@@ -1257,7 +1292,7 @@ function showDashboard() {
   show('dashboard-view');
   setHTML('greeting', pickRandom(GREETINGS, user.name));
   setText('tagline', pickRandom(TAGLINES, user.name));
-  show('userBadge'); show('logoutBtn'); show('streakMini'); show('xpMini');
+  show('userBadge'); show('logoutBtn'); show('infoBtn'); show('streakMini'); show('xpMini');
   setText('userBadgeName', user.name + ' · ' + user.klass);
   refreshStats();
   renderSubjects();
@@ -1266,6 +1301,7 @@ function showDashboard() {
     const data = loadUserData(user);
     pushToFirebase(data, user);
   }
+  if (!window.__rvInfoChecked) { window.__rvInfoChecked = true; setTimeout(rvAfterLogin, 1000); }
 }
 
 function refreshStats() {
@@ -1719,6 +1755,124 @@ document.addEventListener('DOMContentLoaded', function() {
     function() { showOfflineLeaderboard(); }
   );
 });
+/* ===================== SYSTÈME INFO : MAJ · TUTO · BOUTON i ===================== */
+/* ⚙️ Pour annoncer une VRAIE nouveauté : change "version" + le titre/texte ci-dessous.
+   (Ne change PAS la version pour un simple ajustement/bug : le pop-up ne s'affichera pas.) */
+var LATEST_UPDATE = {
+  version: '2026-06-10-revisions-fiches',
+  title: '🎉 Pages de révision & fiches Brevet',
+  html: 'Dans chaque matière, ouvre la section <b>📝 Spécial Brevet</b> :<br><br>• une <b>page de révision complète</b> (cours, méthodes, exercices avec correction cachée)<br>• une <b>fiche mémo</b> à <b>imprimer</b> ou <b>télécharger en PDF</b>.<br><br>Bonnes révisions 💪'
+};
+function rvFlag(field){ try { var d = loadUserData(); return d ? d[field] : null; } catch(e){ return null; } }
+function rvSetFlag(field, value){
+  try {
+    var user = getCurrentUser(); if(!user) return;
+    var d = loadUserData(user); d[field] = value;
+    localStorage.setItem(localUserKey(user), JSON.stringify(d));
+    if (typeof fbReady !== 'undefined' && fbReady && fbDb) {
+      var key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
+      fbDb.ref('users/' + key + '/' + field).set(value);
+    }
+  } catch(e){}
+}
+function rvCloseOverlay(){ var o=document.getElementById('rvOverlay'); if(o) o.parentNode.removeChild(o); }
+function rvOverlay(inner){
+  rvCloseOverlay();
+  var o=document.createElement('div'); o.id='rvOverlay'; o.className='rv-overlay';
+  o.innerHTML='<div class="rv-modal glass">'+inner+'</div>';
+  o.addEventListener('click', function(e){ if(e.target===o) rvCloseOverlay(); });
+  document.body.appendChild(o);
+}
+/* Pop-up de mise à jour (à la 1ʳᵉ connexion APRÈS une nouveauté) */
+function showUpdatePopup(){
+  rvOverlay('<div class="rv-badge">Nouveauté</div><h2>'+LATEST_UPDATE.title+'</h2><p>'+LATEST_UPDATE.html+'<br><br>👉 <b>Pour en savoir plus en détail, active le tuto.</b></p>'+
+    '<div class="rv-actions"><button class="rv-btn primary" onclick="rvSeenUpdate()">Super, j\'y vais !</button>'+
+    '<button class="rv-btn" style="background:var(--accent-soft);color:var(--accent)" onclick="rvSeenUpdate();startTutorial();">▶ Activer le tuto</button>'+
+    '<button class="rv-btn ghost" onclick="rvAskDisable()">Ne plus montrer</button></div>');
+}
+function rvSeenUpdate(){ rvSetFlag('seenUpdate', LATEST_UPDATE.version); rvCloseOverlay(); }
+function rvAskDisable(){
+  rvOverlay('<div class="rv-badge">Confirmation</div><h2>Ne plus afficher les mises à jour ?</h2>'+
+    '<p>Tu ne verras plus ce pop-up à chaque nouveauté. Tu pourras toujours consulter la dernière mise à jour en cliquant sur le bouton <b>ⓘ</b> en haut de la page.</p>'+
+    '<div class="rv-actions"><button class="rv-btn primary" onclick="rvDisableUpdates()">Oui, ne plus montrer</button>'+
+    '<button class="rv-btn ghost" onclick="showUpdatePopup()">Annuler</button></div>');
+}
+function rvDisableUpdates(){ rvSetFlag('noUpdatePopup', true); rvSetFlag('seenUpdate', LATEST_UPDATE.version); rvCloseOverlay(); }
+/* Bouton i : dernière MAJ + relancer le tuto */
+function showInfoPopup(){
+  rvOverlay('<div class="rv-badge">Dernière mise à jour</div><h2>'+LATEST_UPDATE.title+'</h2><p>'+LATEST_UPDATE.html+'</p>'+
+    '<div class="rv-actions"><button class="rv-btn primary" onclick="rvCloseOverlay();startTutorial();">▶ Relancer le tutoriel</button>'+
+    '<button class="rv-btn ghost" onclick="rvCloseOverlay()">Fermer</button></div>');
+}
+/* Tutoriel spotlight (1ʳᵉ visite, ou via le bouton i) */
+var RV_TUTO = [
+  { sel:'.stat-card.level', title:'Ton niveau & ton XP', text:'Tu gagnes de l\'XP en révisant (leçons, flashcards, QCM, exercices). Plus tu cumules d\'XP, plus tu montes de niveau et débloques de nouveaux titres.' },
+  { sel:'.stat-card.streak', title:'Ta série de jours 🔥', text:'Ta série augmente de +1 à chaque jour où tu reviens réviser. ⚠️ Si tu sautes un jour, elle est divisée par deux : reviens chaque jour pour la garder bien haute !' },
+  { sel:'.stat-card.xp', title:'Ton XP total', text:'C\'est la somme de tout ton XP, toutes matières confondues. C\'est lui qui te place au podium de la classe.' },
+  { sel:'#subjectsGrid', title:'Tes matières', text:'Choisis une matière pour voir tous ses chapitres. Pour les matières du brevet, tu y trouves aussi une section 📝 Spécial Brevet avec une page de révision complète et une fiche à imprimer/télécharger.' },
+  { sel:'.leaderboard-card', title:'Le podium de la classe 🏆', text:'Compare ton XP avec celui de ta classe en temps réel. Une bonne motivation pour réviser à plusieurs !' },
+  { sel:'#infoBtn', title:'Infos & tutoriel', text:'Ce bouton te montre à tout moment la dernière mise à jour du site, et te permet de relancer ce tutoriel quand tu veux.' }
+];
+var rvTutoIdx = 0;
+function startTutorial(){ rvCloseOverlay(); rvTutoIdx = 0; rvShowTutoStep(); }
+function rvShowTutoStep(){
+  if(rvTutoIdx >= RV_TUTO.length){ return rvEndTutorial(); }
+  var step = RV_TUTO[rvTutoIdx];
+  var el = document.querySelector(step.sel);
+  if(!el || el.offsetParent === null){ rvTutoIdx++; return rvShowTutoStep(); }
+  el.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(function(){
+    var r = el.getBoundingClientRect(), pad = 8;
+    var s = document.getElementById('rvTuto');
+    if(!s){ s = document.createElement('div'); s.id='rvTuto'; s.className='rv-tuto'; document.body.appendChild(s); }
+    var last = (rvTutoIdx === RV_TUTO.length-1);
+    var tipTop = r.bottom + 14;
+    if(tipTop > window.innerHeight - 170){ tipTop = Math.max(14, r.top - 170); }
+    var tipLeft = Math.max(16, Math.min(r.left, window.innerWidth - 316));
+    s.innerHTML = '<div class="rv-spot" style="top:'+(r.top-pad)+'px;left:'+(r.left-pad)+'px;width:'+(r.width+pad*2)+'px;height:'+(r.height+pad*2)+'px;"></div>'+
+      '<div class="rv-tip glass" style="top:'+tipTop+'px;left:'+tipLeft+'px;">'+
+      '<div class="rv-tip-step">Étape '+(rvTutoIdx+1)+' / '+RV_TUTO.length+'</div>'+
+      '<h3>'+step.title+'</h3><p>'+step.text+'</p>'+
+      '<div class="rv-actions"><button class="rv-btn ghost" onclick="rvEndTutorial()">Tout passer</button>'+
+      '<button class="rv-btn primary" onclick="rvNextTuto()">'+(last?'Terminer ✓':'Suivant →')+'</button></div></div>';
+  }, 360);
+}
+function rvNextTuto(){ rvTutoIdx++; rvShowTutoStep(); }
+function rvEndTutorial(){
+  rvSetFlag('tutoDone', true);
+  var s = document.getElementById('rvTuto'); if(s) s.parentNode.removeChild(s);
+  setTimeout(rvMaybeUpdate, 450);
+}
+/* Déclencheur après connexion : 1ʳᵉ visite → tuto ; sinon → pop-up MAJ si nouveauté non vue */
+function rvMaybeUpdate(){
+  if(rvFlag('noUpdatePopup')) return;
+  if(rvFlag('seenUpdate') === LATEST_UPDATE.version) return;
+  showUpdatePopup();
+}
+function rvAfterLogin(){
+  var user = getCurrentUser();
+  function decide(){
+    if(!rvFlag('tutoDone')){ startTutorial(); return; } // le pop-up MAJ s'affiche après le tuto
+    rvMaybeUpdate();
+  }
+  if(typeof fbReady !== 'undefined' && fbReady && fbDb && user){
+    try {
+      var key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
+      fbDb.ref('users/' + key).once('value').then(function(snap){
+        var r = snap.val();
+        if(r){
+          var d = loadUserData(user);
+          d.tutoDone = !!(d.tutoDone || r.tutoDone);
+          d.noUpdatePopup = !!(d.noUpdatePopup || r.noUpdatePopup);
+          if(r.seenUpdate) d.seenUpdate = r.seenUpdate;
+          try { localStorage.setItem(localUserKey(user), JSON.stringify(d)); } catch(e){}
+        }
+        decide();
+      }).catch(decide);
+    } catch(e){ decide(); }
+  } else { decide(); }
+}
+window.addEventListener('resize', function(){ if(document.getElementById('rvTuto')) rvShowTutoStep(); });
 </script>
 </body>
 </html>
