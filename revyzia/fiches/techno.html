@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Brevet · Technologie</title>
+<style>
+  :root{--accent:#0c87c4;--ink:#152230;--muted:#5a6675;--line:#d2e0ea;--box:#eef7fc;--warn:#fff4e5;}
+  *{box-sizing:border-box;}body{margin:0;background:#e9eef2;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.42;}
+  .toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;align-items:center;padding:12px 18px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .toolbar .sp{flex:1;}.btn{border:none;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
+  .btn-primary{background:var(--accent);color:#fff;}.btn-ghost{background:#eef0f3;color:var(--ink);}
+  .sheet{max-width:880px;margin:18px auto;background:#fff;padding:26px 30px 40px;box-shadow:0 10px 40px rgba(0,0,0,.08);border-radius:6px;}
+  h1{font-size:25px;margin:0 0 2px;}.subtitle{color:var(--muted);font-size:13px;margin-bottom:14px;}
+  h2{font-size:15px;color:#fff;background:var(--accent);padding:5px 11px;border-radius:7px;margin:18px 0 9px;}
+  .cols{columns:2;column-gap:22px;}.cols>*{break-inside:avoid;}
+  .def{background:var(--box);border:1px solid var(--line);border-radius:7px;padding:6px 10px;margin:5px 0;font-size:12.8px;}.def b{color:var(--ink);}
+  .note{background:var(--warn);border:1px solid #f0dcbb;border-radius:7px;padding:7px 10px;margin:6px 0;font-size:12.6px;}
+  @media print{body{background:#fff;}.toolbar{display:none;}.sheet{box-shadow:none;margin:0;max-width:none;padding:0 6mm;border-radius:0;}h2,.def,.note{-webkit-print-color-adjust:exact;print-color-adjust:exact;}@page{size:A4;margin:10mm;}}
+</style>
+</head>
+<body>
+<div class="toolbar"><a class="btn btn-ghost" href="../index.html">←</a><strong style="font-size:15px;">⚙️ Fiche Brevet · Techno</strong><span class="sp"></span><button class="btn btn-ghost" onclick="window.print()">⬇️ Télécharger PDF</button><button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button></div>
+<div class="sheet">
+  <h1>Mémo Brevet — Technologie</h1><div class="subtitle">Notions clés à connaître</div>
+
+  <h2>⚙️ Objet technique &amp; chaînes</h2>
+  <div class="cols">
+    <div class="def"><b>Fonction d'usage</b> : le service rendu (à quoi sert l'objet).</div>
+    <div class="def"><b>Fonction technique</b> : rôle d'une partie de l'objet.</div>
+    <div class="def"><b>Contrainte</b> : limite (coût, sécurité, taille, environnement).</div>
+    <div class="def"><b>Chaîne d'énergie</b> : alimenter → distribuer → convertir → transmettre.</div>
+    <div class="def"><b>Chaîne d'information</b> : acquérir → traiter → communiquer.</div>
+  </div>
+
+  <h2>📡 Capteurs &amp; programmation</h2>
+  <div class="cols">
+    <div class="def"><b>Capteur</b> : entrée, mesure une grandeur (lumière, température).</div>
+    <div class="def"><b>Actionneur</b> : sortie, produit un effet (moteur, LED, buzzer).</div>
+    <div class="def"><b>Carte programmable</b> : Arduino, micro:bit (traite &amp; commande).</div>
+    <div class="def"><b>Algorithme</b> : suite d'instructions. <b>Algorigramme</b> : sa représentation.</div>
+    <div class="def"><b>Structures</b> : séquence, condition (si…alors…sinon), boucle, variable.</div>
+    <div class="def"><b>Objet connecté / IoT</b> : échange des infos via un réseau.</div>
+  </div>
+
+  <h2>🌐 Réseaux</h2>
+  <div class="cols">
+    <div class="def"><b>Switch</b> : relie les machines d'un réseau local.</div>
+    <div class="def"><b>Routeur</b> : relie des réseaux entre eux (et à Internet).</div>
+    <div class="def"><b>Serveur</b> : fournit des ressources aux clients.</div>
+    <div class="def"><b>Adresse IP</b> : numéro unique d'un appareil.</div>
+    <div class="def"><b>Protocole</b> : règles de communication (paquets de données).</div>
+    <div class="def"><b>Web ≠ Internet</b> : le Web est un service d'Internet.</div>
+  </div>
+
+  <h2>♻️ Cycle de vie &amp; dév. durable</h2>
+  <div class="cols">
+    <div class="def"><b>Cycle de vie</b> : extraction → fabrication → transport → utilisation → fin de vie.</div>
+    <div class="def"><b>Écoconception</b> : réduire l'impact dès la conception.</div>
+    <div class="def"><b>Les 4 R</b> : réduire, réutiliser, réparer, recycler.</div>
+  </div>
+
+  <div class="note"><b>Au brevet (sciences)</b> : l'épreuve porte sur 2 disciplines (ici SVT + Techno), 1h. Lis bien les documents et justifie.</div>
+  <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Technologie</div>
+</div>
+</body>
+</html>

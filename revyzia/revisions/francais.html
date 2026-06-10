@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Révisions Brevet · Français</title>
+<style>
+  :root{
+    --bg:#0e1419;--card:#161e26;--card2:#1b2630;--ink:#eaf2f7;--muted:#9fb2bf;
+    --accent:#7c7aff;--accent2:#ff5d8f;--line:rgba(255,255,255,.09);
+    --green:#36d399;--amber:#fbbf24;--green-bg:rgba(54,211,153,.10);--amber-bg:rgba(251,191,36,.10);--blue-bg:rgba(124,122,255,.12);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:linear-gradient(160deg,#0c1116,#0e1722);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;}
+  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(14,20,25,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .topbar .sp{flex:1;}
+  .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
+  .iconbtn:hover{background:var(--card2);}
+  .brandt{font-weight:800;letter-spacing:-.3px;font-size:16px;}
+  .wrap{max-width:920px;margin:0 auto;padding:22px 18px 80px;}
+  .hero{background:linear-gradient(135deg,rgba(124,122,255,.18),rgba(255,93,143,.10));border:1px solid var(--line);border-radius:20px;padding:20px 22px;margin-bottom:16px;}
+  .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.6px;}
+  .hero p{margin:0;color:var(--muted);font-size:14px;}
+  .howto{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin:12px 0;font-size:14px;}
+  .howto b{color:var(--accent2);}
+  .toc{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 8px;}
+  .toc a{font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--muted);text-decoration:none;}
+  .toc a:hover{color:var(--ink);border-color:var(--accent);}
+  section{scroll-margin-top:70px;margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(124,122,255,.15),transparent);border-bottom:1px solid var(--line);}
+  .sec-head .num{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto;}
+  .sec-head h2{margin:0;font-size:18px;letter-spacing:-.3px;}
+  .sec-body{padding:8px 18px 18px;}
+  h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin:16px 0 7px;}
+  .keyrow{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin:7px 0;font-size:13.8px;}
+  .keyrow b{color:var(--ink);}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top;}
+  th{background:var(--blue-bg);color:var(--ink);}
+  .method{background:var(--green-bg);border:1px solid rgba(54,211,153,.3);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.8px;}
+  .method .t{font-weight:800;color:var(--green);display:block;margin-bottom:3px;}
+  .ex{background:var(--amber-bg);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:11px 14px;margin:9px 0;font-size:13.6px;}
+  .ex .t{font-weight:800;color:var(--amber);display:block;margin-bottom:3px;}
+  ul,ol{margin:6px 0 8px;padding-left:20px;}li{margin:3px 0;font-size:13.8px;}
+  .exo{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:11px 0;}
+  .exo .q{font-size:14.3px;}.exo .q b{color:var(--accent);}
+  details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;}
+  summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:13.5px;list-style:none;display:flex;gap:6px;align-items:center;}
+  summary::-webkit-details-marker{display:none;}summary::before{content:"▸";transition:transform .15s;}
+  details[open] summary::before{transform:rotate(90deg);}
+  .corr{margin-top:9px;font-size:13.8px;background:rgba(0,0,0,.18);border-radius:8px;padding:10px 13px;}
+  .corr b{color:#fff;}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;}
+  .backtop{position:fixed;right:16px;bottom:16px;z-index:40;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="iconbtn" href="../index.html?subject=francais" title="Retour aux chapitres">←</a>
+  <span class="brandt">📖 Révisions Brevet · Français</span>
+  <span class="sp"></span>
+  <a class="iconbtn" href="../fiches/francais.html" title="Fiche mémo imprimable">🖨️</a>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Français : méthodes, langue &amp; culture</h1>
+    <p>L'épreuve teste surtout la <b>maîtrise de la langue</b> et les <b>méthodes</b> (analyse, réécriture, dictée, rédaction). Révise-les à fond : c'est là que se gagnent les points.</p>
+  </div>
+  <div class="howto">📝 <b>L'épreuve de français</b> : 1) Compréhension &amp; compétences d'interprétation (analyse d'un texte) · 2) Dictée · 3) Réécriture · 4) Rédaction (sujet d'imagination <b>ou</b> de réflexion).</div>
+
+  <div class="toc">
+    <a href="#s1">1 · Analyse de texte</a><a href="#s2">2 · Réécriture</a><a href="#s3">3 · Dictée</a><a href="#s4">4 · Rédaction</a>
+    <a href="#s5">5 · Grammaire</a><a href="#s6">6 · Conjugaison</a><a href="#s7">7 · Figures de style</a><a href="#s8">8 · Versification</a><a href="#s9">9 · Les œuvres</a>
+  </div>
+
+  <section id="s1"><div class="sec-head"><div class="num">1</div><h2>Analyse de texte (compréhension)</h2></div><div class="sec-body">
+    <h3>Méthode</h3>
+    <div class="method"><span class="t">➤ Répondre aux questions</span>1. Lis le texte ET les questions. 2. <b>Rédige des phrases complètes</b> en reprenant les mots de la question. 3. <b>Justifie</b> toujours en <b>citant le texte</b> (« … » + ligne). 4. Nomme les procédés (figures, registres, temps) et explique leur <b>effet</b>.</div>
+    <div class="keyrow"><b>Registres</b> : comique, tragique, pathétique (émouvoir), lyrique (sentiments), épique (exagération héroïque), polémique (critiquer), fantastique.</div>
+    <div class="keyrow"><b>Toujours relier forme et sens</b> : ne dis pas seulement « c'est une métaphore », dis ce qu'elle <b>produit</b> (image, intensité, émotion).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Dans « ses yeux étaient deux flammes », quelle figure est employée et quel effet produit-elle ?</div>
+      <details><summary>Voir la correction</summary><div class="corr">C'est une <b>métaphore</b> (« yeux » = « flammes », sans outil de comparaison). Effet : elle suggère un regard <b>intense, brillant, presque brûlant</b> — elle rend l'image plus forte qu'une simple description.</div></details></div>
+  </div></section>
+
+  <section id="s2"><div class="sec-head"><div class="num">2</div><h2>Réécriture</h2></div><div class="sec-body">
+    <h3>L'essentiel</h3>
+    <div class="keyrow">On te demande de <b>transformer</b> un passage : changer le temps, la personne (je→il, singulier→pluriel), le genre… Tout ce qui dépend du changement doit être accordé.</div>
+    <div class="method"><span class="t">➤ Réflexes</span>Repère ce qui change (verbes, pronoms, accords, possessifs). <b>Relis</b> pour vérifier chaque accord (sujet-verbe, participe passé, adjectifs).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Réécris au pluriel : « Il prend son livre et il sort, heureux. »</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>Ils prennent leurs livres et ils sortent, heureux.</b> (verbe au pluriel « prennent / sortent », possessif « leurs », nom « livres », adjectif « heureux » au pluriel.)</div></details></div>
+  </div></section>
+
+  <section id="s3"><div class="sec-head"><div class="num">3</div><h2>Dictée</h2></div><div class="sec-body">
+    <div class="method"><span class="t">➤ Les pièges classiques</span>
+      <ul>
+        <li><b>a / à</b> : « a » = verbe avoir (→ « avait ») ; « à » = préposition.</li>
+        <li><b>et / est</b> : « est » = verbe être (→ « était »).</li>
+        <li><b>son / sont</b> · <b>on / ont</b> · <b>ce / se</b> · <b>ces / ses</b> · <b>leur / leurs</b>.</li>
+        <li><b>Accord sujet-verbe</b> (trouve le sujet, même éloigné).</li>
+        <li><b>Participe passé</b> : avec <b>être</b> → accord avec le sujet ; avec <b>avoir</b> → accord avec le COD <b>si placé avant</b>.</li>
+      </ul></div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>« Les fleurs qu'elle a (cueillir) sont belles. » → bon accord du participe ?</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>cueillies</b> : avec « avoir », le participe s'accorde avec le COD (« les fleurs ») car il est <b>placé avant</b> le verbe → « cueilli<b>es</b> ».</div></details></div>
+  </div></section>
+
+  <section id="s4"><div class="sec-head"><div class="num">4</div><h2>Rédaction</h2></div><div class="sec-body">
+    <h3>Sujet d'imagination</h3>
+    <div class="method"><span class="t">➤ Méthode</span>Respecte les <b>consignes</b> (point de vue, temps, longueur). Structure : situation → développement → fin. Soigne les <b>descriptions</b>, le <b>vocabulaire</b> et la ponctuation. Fais des paragraphes.</div>
+    <h3>Sujet de réflexion</h3>
+    <div class="method"><span class="t">➤ Méthode</span><b>Introduction</b> (présente le thème + problématique) → <b>2-3 paragraphes</b> (1 argument + 1 exemple chacun) → <b>conclusion</b> (réponds + ouvre). Utilise des connecteurs (« d'abord », « de plus », « cependant », « enfin »).</div>
+    <div class="keyrow">⏱️ <b>Gère ton temps</b> : prends 5 min pour le plan, garde 5 min pour <b>te relire</b> (orthographe, accords, ponctuation).</div>
+  </div></section>
+
+  <section id="s5"><div class="sec-head"><div class="num">5</div><h2>Grammaire</h2></div><div class="sec-body">
+    <h3>Classes de mots (nature)</h3>
+    <div class="keyrow">Variables : <b>nom, déterminant, adjectif, pronom, verbe</b>. Invariables : <b>adverbe, préposition, conjonction, interjection</b>.</div>
+    <h3>Fonctions principales</h3>
+    <table>
+      <tr><th>Fonction</th><th>Rôle / question</th></tr>
+      <tr><td>Sujet</td><td>fait l'action (« qui est-ce qui ? »)</td></tr>
+      <tr><td>COD</td><td>complément direct (« quoi ? qui ? » sans préposition)</td></tr>
+      <tr><td>COI</td><td>complément indirect (« à qui ? de quoi ? »)</td></tr>
+      <tr><td>Compl. circonstanciel</td><td>temps, lieu, manière, cause… (déplaçable)</td></tr>
+      <tr><td>Épithète / attribut</td><td>qualifie le nom (épithète) ou le sujet via un verbe d'état (attribut)</td></tr>
+    </table>
+    <h3>Propositions</h3>
+    <div class="keyrow"><b>Indépendante</b> · <b>principale</b> + <b>subordonnée</b> (relative : « qui, que, dont, où » ; conjonctive : « que, parce que… »).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Dans « Le livre que tu lis est passionnant », quelle est la nature et la fonction de « que tu lis » ?</div>
+      <details><summary>Voir la correction</summary><div class="corr">C'est une <b>proposition subordonnée relative</b> (introduite par le pronom relatif « que »), <b>complément de l'antécédent « livre »</b> (elle précise de quel livre on parle).</div></details></div>
+  </div></section>
+
+  <section id="s6"><div class="sec-head"><div class="num">6</div><h2>Conjugaison</h2></div><div class="sec-body">
+    <h3>Les temps à maîtriser</h3>
+    <table>
+      <tr><th>Temps</th><th>Emploi</th><th>Exemple (chanter)</th></tr>
+      <tr><td>Présent</td><td>action actuelle, vérité générale</td><td>je chante</td></tr>
+      <tr><td>Imparfait</td><td>description, habitude, arrière-plan</td><td>je chantais</td></tr>
+      <tr><td>Passé simple</td><td>action brève du récit (1ʳ plan)</td><td>je chantai / il chanta</td></tr>
+      <tr><td>Passé composé</td><td>action passée achevée (à l'oral)</td><td>j'ai chanté</td></tr>
+      <tr><td>Futur</td><td>action à venir</td><td>je chanterai</td></tr>
+      <tr><td>Conditionnel</td><td>hypothèse, politesse</td><td>je chanterais</td></tr>
+      <tr><td>Subjonctif prés.</td><td>après « que » (souhait, doute)</td><td>que je chante</td></tr>
+    </table>
+    <div class="keyrow">⚠️ Ne pas confondre <b>futur</b> (-ai : « je chanterai ») et <b>conditionnel</b> (-ais : « je chanterais »).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>« Quand il (entrer, passé simple), tout le monde (se taire, imparfait → ou passé simple ?). » Conjugue en récit.</div>
+      <details><summary>Voir la correction</summary><div class="corr">« Quand il <b>entra</b> (passé simple, action brève), tout le monde <b>se tut</b> (passé simple, réaction). » On peut aussi mettre l'arrière-plan à l'imparfait selon le sens, mais ici ce sont deux actions de premier plan.</div></details></div>
+  </div></section>
+
+  <section id="s7"><div class="sec-head"><div class="num">7</div><h2>Figures de style</h2></div><div class="sec-body">
+    <table>
+      <tr><th>Figure</th><th>Définition</th><th>Exemple</th></tr>
+      <tr><td>Comparaison</td><td>rapproche 2 éléments avec un outil (comme, tel…)</td><td>fort comme un lion</td></tr>
+      <tr><td>Métaphore</td><td>comparaison <b>sans</b> outil</td><td>cet homme est un lion</td></tr>
+      <tr><td>Personnification</td><td>donne des traits humains à une chose</td><td>le vent hurle</td></tr>
+      <tr><td>Hyperbole</td><td>exagération</td><td>mourir de faim</td></tr>
+      <tr><td>Énumération / accumulation</td><td>liste d'éléments</td><td>il vend des fruits, légumes, fleurs…</td></tr>
+      <tr><td>Anaphore</td><td>répétition en début de phrases/vers</td><td>« Rome… Rome… Rome… »</td></tr>
+      <tr><td>Antithèse</td><td>oppose 2 idées</td><td>« cette obscure clarté »</td></tr>
+      <tr><td>Gradation</td><td>termes d'intensité croissante</td><td>« va, cours, vole »</td></tr>
+    </table>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Identifie : 1) « Paris est une fourmilière. » 2) « Je l'ai dit mille fois. » 3) « La rivière chante. »</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> métaphore (Paris = fourmilière, sans outil). <b>2)</b> hyperbole (exagération). <b>3)</b> personnification (la rivière « chante »).</div></details></div>
+  </div></section>
+
+  <section id="s8"><div class="sec-head"><div class="num">8</div><h2>Versification (poésie)</h2></div><div class="sec-body">
+    <div class="keyrow"><b>Vers</b> comptés en syllabes : <b>alexandrin = 12</b>, décasyllabe = 10, octosyllabe = 8.</div>
+    <div class="keyrow"><b>Strophes</b> : quatrain (4 vers), tercet (3 vers).</div>
+    <div class="keyrow"><b>Rimes</b> : suivies AABB · croisées ABAB · embrassées ABBA.</div>
+    <div class="keyrow"><b>Sonorités</b> : allitération (consonnes répétées), assonance (voyelles répétées).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Un poème a des rimes disposées ABAB : comment s'appellent-elles ? Un vers de 12 syllabes ?</div>
+      <details><summary>Voir la correction</summary><div class="corr">ABAB = rimes <b>croisées</b>. Un vers de 12 syllabes = un <b>alexandrin</b>.</div></details></div>
+  </div></section>
+
+  <section id="s9"><div class="sec-head"><div class="num">9</div><h2>Les œuvres étudiées</h2></div><div class="sec-body">
+    <div class="keyrow"><b>L'autobiographie</b> : récit de sa propre vie (auteur = narrateur = personnage), au « je ». Pacte autobiographique (sincérité).</div>
+    <div class="keyrow"><b>La nouvelle &amp; la satire</b> (« Le Credo », Sternberg) : récit court à chute ; critique ironique de la société de consommation.</div>
+    <div class="keyrow"><b>Poésie : du lyrisme à l'engagement</b> : exprimer ses sentiments (lyrisme, Orphée) ou défendre une cause (poésie engagée).</div>
+    <div class="keyrow"><b>Tragédie grecque</b> : terreur &amp; pitié, chœur, fatalité ; mythe d'Œdipe et des Labdacides (→ Antigone).</div>
+    <div class="keyrow"><b>Antigone</b> (Anouilh) : conflit entre la loi de l'État (Créon) et la conscience (Antigone qui enterre son frère).</div>
+    <div class="keyrow"><b>Le Joueur d'échecs</b> (Zweig) : sur un paquebot, Czentovic (champion fruste) contre M. B. (traumatisé par la Gestapo) ; dénonce le totalitarisme et l'isolement.</div>
+  </div></section>
+
+  <footer>Revyzia · Révisions Brevet — Français · maîtrise les méthodes et la langue, c'est ce qui fait la différence 💪</footer>
+</div>
+
+<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+</body>
+</html>

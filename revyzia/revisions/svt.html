@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Révisions Brevet · SVT</title>
+<style>
+  :root{--card:#161e26;--card2:#1b2630;--ink:#eaf2f7;--muted:#9fb2bf;--accent:#16c79a;--accent2:#36d399;--line:rgba(255,255,255,.09);--green-bg:rgba(54,211,153,.12);--amber:#fbbf24;--amber-bg:rgba(251,191,36,.10);--blue-bg:rgba(22,199,154,.12);}
+  *{box-sizing:border-box;}
+  body{margin:0;background:linear-gradient(160deg,#0c1116,#0e1722);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55;}
+  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;padding:12px 18px;background:rgba(14,20,25,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .topbar .sp{flex:1;}
+  .iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;}
+  .brandt{font-weight:800;font-size:16px;}
+  .wrap{max-width:920px;margin:0 auto;padding:22px 18px 80px;}
+  .hero{background:linear-gradient(135deg,rgba(22,199,154,.18),rgba(54,211,153,.08));border:1px solid var(--line);border-radius:20px;padding:20px 22px;margin-bottom:16px;}
+  .hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.6px;}.hero p{margin:0;color:var(--muted);font-size:14px;}
+  .toc{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 8px;}
+  .toc a{font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:20px;background:var(--card);border:1px solid var(--line);color:var(--muted);text-decoration:none;}
+  section{scroll-margin-top:70px;margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;padding:14px 18px;background:linear-gradient(135deg,rgba(22,199,154,.15),transparent);border-bottom:1px solid var(--line);}
+  .sec-head .num{width:34px;height:34px;border-radius:10px;background:var(--accent);color:#04231b;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 auto;}
+  .sec-head h2{margin:0;font-size:18px;}
+  .sec-body{padding:8px 18px 18px;}
+  h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin:15px 0 7px;}
+  .keyrow{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin:7px 0;font-size:13.8px;}.keyrow b{color:var(--ink);}
+  .method{background:var(--green-bg);border:1px solid rgba(54,211,153,.3);border-radius:10px;padding:11px 14px;margin:10px 0;font-size:13.8px;}.method .t{font-weight:800;color:var(--accent2);display:block;margin-bottom:3px;}
+  .ex{background:var(--amber-bg);border:1px solid rgba(251,191,36,.3);border-radius:10px;padding:11px 14px;margin:9px 0;font-size:13.6px;}.ex .t{font-weight:800;color:var(--amber);display:block;margin-bottom:3px;}
+  ul{margin:6px 0 8px;padding-left:20px;}li{margin:3px 0;font-size:13.8px;}
+  .exo{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:11px 0;}.exo .q{font-size:14.3px;}.exo .q b{color:var(--accent);}
+  details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;}
+  summary{cursor:pointer;font-weight:700;color:var(--accent2);font-size:13.5px;list-style:none;display:flex;gap:6px;align-items:center;}
+  summary::-webkit-details-marker{display:none;}summary::before{content:"▸";transition:transform .15s;}details[open] summary::before{transform:rotate(90deg);}
+  .corr{margin-top:9px;font-size:13.8px;background:rgba(0,0,0,.18);border-radius:8px;padding:10px 13px;}.corr b{color:#fff;}
+  .fig{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;}.fig svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto;}.figcap{text-align:center;font-size:12px;color:var(--muted);margin-top:6px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px;}
+  .backtop{position:fixed;right:16px;bottom:16px;z-index:40;width:46px;height:46px;border-radius:50%;background:var(--accent);color:#04231b;border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.35);}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="iconbtn" href="../index.html?subject=svt" title="Retour aux chapitres">←</a>
+  <span class="brandt">🧬 Révisions Brevet · SVT</span><span class="sp"></span>
+  <a class="iconbtn" href="../fiches/svt.html" title="Fiche imprimable">🖨️</a>
+</div>
+<div class="wrap">
+  <div class="hero"><h1>SVT : tout le programme pour le brevet</h1><p>L'essentiel → la méthode → un exemple → à toi de jouer (correction cachée). Pense à bien <b>justifier</b> tes réponses à partir des documents.</p></div>
+  <div class="toc"><a href="#s1">1 · Génétique</a><a href="#s2">2 · Immunité</a><a href="#s3">3 · Évolution</a><a href="#s4">4 · La Terre &amp; risques</a></div>
+
+  <section id="s1"><div class="sec-head"><div class="num">1</div><h2>Génétique : du génotype au phénotype</h2></div><div class="sec-body">
+    <h3>L'essentiel</h3>
+    <div class="keyrow"><b>Phénotype</b> = ensemble des caractères observables. Il dépend du <b>génotype</b> (les gènes) et parfois de l'<b>environnement</b> (bronzage, muscle = non héréditaires).</div>
+    <div class="keyrow"><b>Information génétique</b> dans le <b>noyau</b>, portée par les <b>chromosomes</b>. Caryotype humain : <b>23 paires = 46 chromosomes</b> (XX femme, XY homme). Trisomie 21 = un chromosome 21 en trop.</div>
+    <div class="keyrow"><b>ADN</b> = molécule des chromosomes. <b>Gène</b> = portion d'ADN déterminant un caractère. <b>Allèle</b> = version d'un gène (2 par gène). <b>Mutation</b> = modification rare de l'ADN (germinale = héréditaire).</div>
+    <div class="fig"><svg viewBox="0 0 420 150" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="70" cy="75" r="55" fill="rgba(22,199,154,.10)" stroke="#cdd9e2" stroke-width="2"/>
+      <text x="70" y="20" fill="#9fb2bf" font-size="12" text-anchor="middle">cellule</text>
+      <circle cx="70" cy="75" r="26" fill="rgba(22,199,154,.18)" stroke="#16c79a" stroke-width="2"/>
+      <text x="70" y="79" fill="#16c79a" font-size="11" text-anchor="middle">noyau</text>
+      <line x1="150" y1="75" x2="195" y2="75" stroke="#9fb2bf" stroke-width="1.5"/><polygon points="200,75 192,71 192,79" fill="#9fb2bf"/>
+      <path d="M230,40 q14,35 0,70 M250,40 q-14,35 0,70" stroke="#fbbf24" stroke-width="4" fill="none"/>
+      <text x="240" y="128" fill="#fbbf24" font-size="11" text-anchor="middle">chromosome</text>
+      <line x1="285" y1="75" x2="320" y2="75" stroke="#9fb2bf" stroke-width="1.5"/><polygon points="325,75 317,71 317,79" fill="#9fb2bf"/>
+      <path d="M345,45 q30,15 0,30 q-30,15 0,30" stroke="#36d399" stroke-width="3" fill="none"/>
+      <path d="M375,45 q-30,15 0,30 q30,15 0,30" stroke="#36d399" stroke-width="3" fill="none"/>
+      <text x="360" y="128" fill="#36d399" font-size="11" text-anchor="middle">ADN</text>
+    </svg><div class="figcap">Cellule → noyau → chromosomes → ADN (qui porte les gènes).</div></div>
+    <div class="ex"><span class="t">✏️ Exemple</span>Groupe sanguin A → génotype <b>AA ou AO</b> (3 allèles A, B, O → 4 groupes A, B, AB, O).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>1) Le bronzage est-il héréditaire ? 2) Combien de chromosomes dans une cellule humaine ? 3) Quelle mutation se transmet aux enfants ?</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> Non : dû à l'environnement (soleil), réversible, non transmissible.<br><b>2)</b> <b>46</b> (23 paires).<br><b>3)</b> La mutation <b>germinale</b> (dans une cellule reproductrice).</div></details></div>
+  </div></section>
+
+  <section id="s2"><div class="sec-head"><div class="num">2</div><h2>Le corps humain &amp; l'immunité</h2></div><div class="sec-body">
+    <h3>L'essentiel</h3>
+    <div class="keyrow"><b>Barrières</b> (peau, muqueuses) bloquent les microbes. <b>Contamination</b> = entrée ; <b>infection</b> = multiplication.</div>
+    <div class="keyrow"><b>Réaction rapide</b> : inflammation + <b>phagocytose</b> (un phagocyte ingère et digère le microbe ; non spécifique).</div>
+    <div class="keyrow"><b>Réaction lente &amp; spécifique</b> : lymphocytes <b>B</b> → <b>anticorps</b> (contre les antigènes) ; lymphocytes <b>T</b> → détruisent les cellules infectées par un virus.</div>
+    <div class="fig"><svg viewBox="0 0 420 110" xmlns="http://www.w3.org/2000/svg">
+      <g font-size="11" fill="#9fb2bf" text-anchor="middle">
+      <circle cx="55" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><circle cx="78" cy="48" r="5" fill="#fbbf24"/><text x="55" y="92">1. adhésion</text>
+      <circle cx="160" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><circle cx="160" cy="48" r="5" fill="#fbbf24"/><text x="160" y="92">2. absorption</text>
+      <circle cx="265" cy="55" r="22" fill="rgba(22,199,154,.15)" stroke="#16c79a" stroke-width="2"/><circle cx="265" cy="55" r="4" fill="#fbbf24" opacity=".5"/><text x="265" y="92">3. digestion</text>
+      <circle cx="370" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><text x="370" y="92">4. rejet</text>
+      </g>
+      <g stroke="#9fb2bf" stroke-width="1.3"><line x1="82" y1="55" x2="133" y2="55"/><line x1="187" y1="55" x2="238" y2="55"/><line x1="292" y1="55" x2="343" y2="55"/></g>
+    </svg><div class="figcap">Les 4 étapes de la phagocytose.</div></div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>1) Qui produit les anticorps ? 2) La phagocytose est-elle spécifique ? 3) Comment l'organisme élimine-t-il une cellule infectée par un virus ?</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> Les <b>lymphocytes B</b>.<br><b>2)</b> <b>Non</b>, elle agit contre tous les microbes (non spécifique).<br><b>3)</b> Les <b>lymphocytes T</b> reconnaissent et détruisent la cellule infectée par contact.</div></details></div>
+  </div></section>
+
+  <section id="s3"><div class="sec-head"><div class="num">3</div><h2>Évolution &amp; biodiversité</h2></div><div class="sec-body">
+    <h3>L'essentiel</h3>
+    <div class="keyrow">Plus deux espèces partagent de <b>caractères communs</b>, plus elles sont proches parentes (<b>ancêtre commun</b>).</div>
+    <div class="keyrow"><b>Sélection naturelle</b> : le milieu favorise les individus les mieux adaptés, qui se reproduisent plus et transmettent leurs caractères → l'espèce <b>évolue</b>.</div>
+    <div class="keyrow"><b>Biodiversité</b> = diversité du vivant. <b>Crise biologique</b> = disparition massive (dinosaures il y a ≈ 66 Ma). L'Homme est un primate dans l'arbre de l'évolution.</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Sur une île, après une sécheresse, les oiseaux à gros bec deviennent majoritaires. Explique avec la sélection naturelle.</div>
+      <details><summary>Voir la correction</summary><div class="corr">Les oiseaux varient (taille du bec). Avec la sécheresse, seules restent de grosses graines : les <b>gros becs survivent</b> mieux, se <b>reproduisent davantage</b> et transmettent ce caractère. Au fil des générations, ils deviennent majoritaires : c'est la <b>sélection naturelle</b>.</div></details></div>
+  </div></section>
+
+  <section id="s4"><div class="sec-head"><div class="num">4</div><h2>La Terre : tectonique &amp; risques</h2></div><div class="sec-body">
+    <h3>L'essentiel</h3>
+    <div class="keyrow">La surface est faite de <b>plaques</b> qui bougent. Séismes et volcans se concentrent <b>aux frontières des plaques</b> (écartement, rapprochement, coulissage).</div>
+    <div class="keyrow"><b>Aléa</b> = phénomène dangereux possible ; <b>enjeu</b> = ce qui peut être touché ; <b>risque = aléa × enjeux</b>. On réduit le risque par la <b>prévision</b> et la <b>prévention</b>.</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Pourquoi un séisme fort en plein désert présente-t-il un risque faible ?</div>
+      <details><summary>Voir la correction</summary><div class="corr">Parce qu'il n'y a <b>presque pas d'enjeux</b> (pas de population ni de bâtiments). Le risque combine aléa ET enjeux : sans enjeux, le risque est faible, même si l'aléa est fort.</div></details></div>
+  </div></section>
+
+  <footer>Revyzia · Révisions Brevet — SVT · révise l'essentiel, puis entraîne-toi à justifier 💪</footer>
+</div>
+<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</body>
+</html>

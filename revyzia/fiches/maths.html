@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Brevet · Mathématiques</title>
+<style>
+  :root { --accent:#00a3d9; --ink:#0b2330; --muted:#5a6b75; --line:#d6e2ea; --box:#f1f8fc; --box2:#eef6ee; --warn:#fff4e5; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#e9eef2; color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; line-height:1.45; }
+  .toolbar { position:sticky; top:0; z-index:10; display:flex; gap:10px; align-items:center; padding:12px 18px; background:rgba(255,255,255,.85); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .toolbar .sp { flex:1; }
+  .btn { border:none; border-radius:12px; padding:10px 16px; font-size:14px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:7px; }
+  .btn-primary { background:var(--accent); color:#fff; }
+  .btn-ghost { background:#eef3f6; color:var(--ink); }
+  .btn:hover { filter:brightness(1.05); }
+  .sheet { max-width:880px; margin:18px auto; background:#fff; padding:26px 30px 40px; box-shadow:0 10px 40px rgba(0,0,0,.08); border-radius:6px; }
+  h1 { font-size:26px; margin:0 0 2px; letter-spacing:-.5px; }
+  .subtitle { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  h2 { font-size:16px; color:#fff; background:var(--accent); padding:6px 12px; border-radius:8px; margin:20px 0 10px; letter-spacing:-.2px; }
+  h3 { font-size:14px; margin:12px 0 4px; color:var(--accent); }
+  .cols { columns:2; column-gap:24px; }
+  .cols > * { break-inside:avoid; }
+  .f { background:var(--box); border:1px solid var(--line); border-radius:8px; padding:8px 11px; margin:7px 0; font-size:13.5px; }
+  .f b { color:var(--ink); }
+  .formula { font-family:"Cambria Math","Georgia",serif; font-size:15px; background:#fff; border-left:3px solid var(--accent); padding:3px 9px; margin:5px 0; display:block; }
+  .method { background:var(--box2); border:1px solid #cfe6cf; border-radius:8px; padding:9px 12px; margin:8px 0; font-size:13.5px; }
+  .method b { color:#1c7a37; }
+  .ex { background:var(--warn); border:1px solid #f0dcbb; border-radius:8px; padding:8px 11px; margin:7px 0; font-size:13px; }
+  ul { margin:5px 0 8px; padding-left:18px; }
+  li { margin:2px 0; font-size:13.5px; }
+  sup { font-size:.72em; }
+  .tag { display:inline-block; font-size:11px; font-weight:700; color:var(--accent); border:1px solid var(--accent); border-radius:20px; padding:1px 8px; margin-bottom:4px; }
+  table.mini { width:100%; border-collapse:collapse; font-size:12.5px; margin:6px 0; }
+  table.mini td, table.mini th { border:1px solid var(--line); padding:4px 7px; text-align:left; }
+  table.mini th { background:var(--box); }
+  @media print {
+    body { background:#fff; }
+    .toolbar { display:none; }
+    .sheet { box-shadow:none; margin:0; max-width:none; padding:0 6mm; border-radius:0; }
+    h2 { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .f,.formula,.method,.ex { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    @page { size:A4; margin:10mm; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a class="btn btn-ghost" href="../index.html">←</a>
+  <strong style="font-size:15px;">📐 Fiche Brevet · Mathématiques</strong>
+  <span class="sp"></span>
+  <button class="btn btn-ghost" onclick="window.print()" title="Enregistrer au format PDF dans la fenêtre d'impression">⬇️ Télécharger PDF</button>
+  <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button>
+</div>
+
+<div class="sheet">
+  <h1>Mémo Brevet — Mathématiques</h1>
+  <div class="subtitle">Toutes les formules et propriétés à connaître · DNB 3ᵉ · à relire avant l'épreuve</div>
+
+  <h2>1 · Nombres &amp; calculs</h2>
+  <div class="cols">
+    <div class="f"><b>Priorités</b> : parenthèses → puissances → ×/÷ → +/− (de gauche à droite).</div>
+    <div class="f"><b>Fractions</b> : <span class="formula">a/b + c/d</span> → même dénominateur. <span class="formula">a/b × c/d = (a×c)/(b×d)</span>. Diviser = multiplier par l'inverse : <span class="formula">a/b ÷ c/d = a/b × d/c</span>.</div>
+    <div class="f"><b>Puissances</b> : <span class="formula">aⁿ × aᵐ = a<sup>n+m</sup></span> · <span class="formula">aⁿ ÷ aᵐ = a<sup>n−m</sup></span> · <span class="formula">(aⁿ)ᵐ = a<sup>n×m</sup></span> · <span class="formula">a⁻ⁿ = 1/aⁿ</span> · <span class="formula">a⁰ = 1</span>.</div>
+    <div class="f"><b>Notation scientifique</b> : a × 10ⁿ avec 1 ≤ a &lt; 10. Ex : 32 000 = 3,2 × 10⁴.</div>
+    <div class="f"><b>PGCD</b> : plus grand diviseur commun. Une fraction est <b>irréductible</b> quand on a divisé numérateur et dénominateur par leur PGCD.</div>
+    <div class="f"><b>Nombre premier</b> : exactement 2 diviseurs (1 et lui-même) : 2, 3, 5, 7, 11, 13…</div>
+  </div>
+
+  <h2>2 · Calcul littéral</h2>
+  <div class="cols">
+    <div class="f"><b>Développer</b> (simple) : <span class="formula">k(a + b) = ka + kb</span></div>
+    <div class="f"><b>Double distributivité</b> : <span class="formula">(a + b)(c + d) = ac + ad + bc + bd</span></div>
+    <div class="f"><b>Factoriser</b> : trouver un facteur commun. <span class="formula">ka + kb = k(a + b)</span></div>
+    <div class="f"><b>Réduire</b> : regrouper les termes semblables (ex : 3x + 5x = 8x).</div>
+    <div class="f"><b>Équation</b> : on fait la même opération des deux côtés du « = ». But : isoler x. Ex : 2x + 3 = 11 → 2x = 8 → x = 4.</div>
+  </div>
+
+  <h2>3 · Proportionnalité, pourcentages, vitesse</h2>
+  <div class="cols">
+    <div class="f"><b>Produit en croix</b> : si a/b = c/d alors <span class="formula">a × d = b × c</span> (4ᵉ proportionnelle).</div>
+    <div class="f"><b>Pourcentage</b> : t % de N = <span class="formula">N × t/100</span>. Augmenter de 20 % : ×1,2. Baisser de 20 % : ×0,8.</div>
+    <div class="f"><b>Vitesse</b> : <span class="formula">v = d / t</span> · d = v × t · t = d / v. (Attention aux unités : km/h, m/s.)</div>
+    <div class="f"><b>Échelle</b> = distance sur le plan / distance réelle (même unité).</div>
+  </div>
+
+  <h2>4 · Fonctions</h2>
+  <div class="cols">
+    <div class="f"><b>Fonction linéaire</b> : <span class="formula">f(x) = a x</span> (proportionnalité). a = coefficient directeur. Droite passant par l'origine.</div>
+    <div class="f"><b>Fonction affine</b> : <span class="formula">f(x) = a x + b</span>. a = coef. directeur (pente), b = ordonnée à l'origine. Droite.</div>
+    <div class="f"><b>Image / antécédent</b> : l'<b>image</b> de x est f(x) ; un <b>antécédent</b> de y est un x tel que f(x) = y.</div>
+    <div class="f"><b>Coefficient directeur</b> : <span class="formula">a = (y₂ − y₁) / (x₂ − x₁)</span>.</div>
+  </div>
+
+  <h2>5 · Théorème de Pythagore <span class="tag" style="vertical-align:middle;">triangle rectangle</span></h2>
+  <div class="f"><b>Théorème</b> : si un triangle ABC est rectangle en A, alors <span class="formula">BC² = AB² + AC²</span> (BC = hypoténuse, le plus long côté, face à l'angle droit).</div>
+  <div class="method"><b>➤ Pour calculer une longueur :</b><br>1. Repérer l'angle droit et l'hypoténuse. 2. Écrire l'égalité de Pythagore. 3. Remplacer par les valeurs connues. 4. Isoler le côté cherché (utiliser √ si besoin).</div>
+  <div class="ex"><b>Ex.</b> ABC rectangle en A, AB = 3, AC = 4. BC² = 3² + 4² = 9 + 16 = 25, donc BC = √25 = <b>5</b>.</div>
+  <div class="method"><b>➤ Réciproque (prouver qu'un triangle est rectangle) :</b> on calcule séparément le plus grand côté au carré, et la somme des carrés des deux autres. <b>S'ils sont égaux</b>, le triangle est rectangle (angle droit face au plus grand côté). Sinon, il ne l'est pas (contraposée).</div>
+
+  <h2>6 · Théorème de Thalès <span class="tag" style="vertical-align:middle;">droites parallèles</span></h2>
+  <div class="f"><b>Configuration</b> : deux droites sécantes en A, coupées par deux droites parallèles (triangles « emboîtés » ou « papillon »). Points B, M sur une droite ; C, N sur l'autre, avec (MN) ∥ (BC).</div>
+  <div class="f"><b>Théorème</b> : si (MN) ∥ (BC) alors <span class="formula">AM/AB = AN/AC = MN/BC</span> (rapports égaux).</div>
+  <div class="method"><b>➤ Pour calculer une longueur :</b> 1. Vérifier la configuration (parallèles). 2. Écrire les 3 rapports égaux. 3. Garder les deux rapports utiles. 4. Produit en croix.</div>
+  <div class="ex"><b>Ex.</b> AM = 2, AB = 6, AN = 3. Alors AM/AB = AN/AC → 2/6 = 3/AC → AC = (6×3)/2 = <b>9</b>.</div>
+  <div class="method"><b>➤ Réciproque (prouver que deux droites sont parallèles) :</b> si <span class="formula">AM/AB = AN/AC</span> ET si les points sont alignés dans le même ordre, alors (MN) ∥ (BC).</div>
+
+  <h2>7 · Trigonométrie <span class="tag" style="vertical-align:middle;">triangle rectangle</span></h2>
+  <div class="f"><b>Dans un triangle rectangle</b>, pour un angle aigu : on repère le côté <b>adjacent</b> (à côté de l'angle), le côté <b>opposé</b> (face à l'angle) et l'<b>hypoténuse</b>.</div>
+  <div class="f"><b>SOH · CAH · TOA</b> :
+    <span class="formula">cos = adjacent / hypoténuse</span>
+    <span class="formula">sin = opposé / hypoténuse</span>
+    <span class="formula">tan = opposé / adjacent</span>
+  </div>
+  <div class="method"><b>➤ Pour trouver un côté :</b> choisir la formule (cos, sin ou tan) qui relie l'angle connu, le côté connu et le côté cherché, puis isoler.</div>
+  <div class="method"><b>➤ Pour trouver un angle :</b> calculer le rapport, puis utiliser la touche inverse : <span class="formula">angle = cos⁻¹(…)</span> (ou sin⁻¹, tan⁻¹).</div>
+  <div class="ex"><b>Ex.</b> Angle de 30°, hypoténuse = 10, côté opposé = ? → sin(30°) = opp/10 → opp = 10 × sin(30°) = 10 × 0,5 = <b>5</b>.</div>
+
+  <h2>8 · Transformations</h2>
+  <div class="cols">
+    <div class="f"><b>Translation</b> : glissement (direction, sens, longueur). Conserve longueurs, angles, aires.</div>
+    <div class="f"><b>Rotation</b> : autour d'un centre, d'un angle donné, dans un sens. Conserve longueurs et aires.</div>
+    <div class="f"><b>Symétrie axiale</b> (par rapport à une droite) ; <b>symétrie centrale</b> (par rapport à un point).</div>
+    <div class="f"><b>Homothétie</b> de rapport k : agrandit (k &gt; 1) ou réduit (0 &lt; k &lt; 1). Les longueurs sont ×|k|, les <b>aires ×k²</b>.</div>
+  </div>
+
+  <h2>9 · Aires &amp; volumes</h2>
+  <div class="cols">
+    <div class="f"><b>Aires</b> : rectangle L×l · triangle (b×h)/2 · disque <span class="formula">π × r²</span> · parallélogramme b×h.</div>
+    <div class="f"><b>Périmètre du cercle</b> : <span class="formula">2 × π × r</span>.</div>
+    <div class="f"><b>Volumes</b> : pavé L×l×h · cube c³ · cylindre <span class="formula">π × r² × h</span>.</div>
+    <div class="f"><b>Volumes (suite)</b> : prisme = aire base × h · pyramide / cône = <span class="formula">⅓ × aire base × h</span> · sphère <span class="formula">(4/3) × π × r³</span>.</div>
+    <div class="f"><b>Agrandissement / réduction de rapport k</b> : longueurs ×k, <b>aires ×k²</b>, <b>volumes ×k³</b>.</div>
+    <div class="f"><b>Conversions</b> : 1 L = 1 dm³ · 1 m³ = 1000 L.</div>
+  </div>
+
+  <h2>10 · Statistiques &amp; probabilités</h2>
+  <div class="cols">
+    <div class="f"><b>Moyenne</b> = somme des valeurs / nombre de valeurs (pondérée si effectifs).</div>
+    <div class="f"><b>Médiane</b> : valeur qui partage la série (ordonnée) en deux moitiés.</div>
+    <div class="f"><b>Étendue</b> = valeur max − valeur min.</div>
+    <div class="f"><b>Probabilité</b> = <span class="formula">nb de cas favorables / nb de cas possibles</span> (entre 0 et 1).</div>
+    <div class="f"><b>Événement contraire</b> : <span class="formula">P(contraire) = 1 − P(A)</span>.</div>
+    <div class="f"><b>Deux épreuves (arbre)</b> : on multiplie les probabilités le long des branches.</div>
+  </div>
+
+  <h2>11 · Algorithmique (Scratch)</h2>
+  <div class="cols">
+    <div class="f"><b>Variable</b> : mémorise une valeur. <b>Boucle</b> : répète des instructions. <b>Condition</b> (si… alors… sinon).</div>
+    <div class="f"><b>Lire un programme</b> : suivre les instructions dans l'ordre, suivre la valeur des variables étape par étape.</div>
+  </div>
+
+  <div style="margin-top:18px; font-size:11px; color:var(--muted); text-align:center;">Revyzia · Fiche mémo Brevet — Mathématiques · revois les formules puis entraîne-toi sur des sujets de brevet.</div>
+</div>
+</body>
+</html>

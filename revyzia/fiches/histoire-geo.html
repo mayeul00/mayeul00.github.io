@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Brevet · Histoire-Géo</title>
+<style>
+  :root{--accent:#e23d6f;--accent2:#3f63c9;--ink:#1a2230;--muted:#5a6675;--line:#e0d6dc;--box:#fdf1f5;--box2:#eef2fc;--warn:#fff4e5;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:#ece9ee;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.42;}
+  .toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;align-items:center;padding:12px 18px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .toolbar .sp{flex:1;}
+  .btn{border:none;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
+  .btn-primary{background:var(--accent);color:#fff;}.btn-ghost{background:#eef0f3;color:var(--ink);}.btn:hover{filter:brightness(1.05);}
+  .sheet{max-width:880px;margin:18px auto;background:#fff;padding:26px 30px 40px;box-shadow:0 10px 40px rgba(0,0,0,.08);border-radius:6px;}
+  h1{font-size:25px;margin:0 0 2px;letter-spacing:-.5px;}
+  .subtitle{color:var(--muted);font-size:13px;margin-bottom:14px;}
+  h2{font-size:15px;color:#fff;background:var(--accent);padding:5px 11px;border-radius:7px;margin:18px 0 9px;}
+  h2.geo{background:var(--accent2);}
+  h3{font-size:13px;margin:10px 0 3px;color:var(--accent);text-transform:uppercase;letter-spacing:.4px;}
+  .cols{columns:2;column-gap:22px;}.cols>*{break-inside:avoid;}
+  .d{font-size:13px;margin:3px 0;padding-left:2px;}
+  .d b{color:var(--accent);font-variant-numeric:tabular-nums;}
+  .def{background:var(--box);border:1px solid var(--line);border-radius:7px;padding:6px 10px;margin:5px 0;font-size:12.8px;}
+  .def.geo{background:var(--box2);}
+  .def b{color:var(--ink);}
+  .note{background:var(--warn);border:1px solid #f0dcbb;border-radius:7px;padding:7px 10px;margin:6px 0;font-size:12.6px;}
+  ul{margin:4px 0 6px;padding-left:17px;}li{font-size:12.8px;margin:2px 0;}
+  @media print{
+    body{background:#fff;}.toolbar{display:none;}
+    .sheet{box-shadow:none;margin:0;max-width:none;padding:0 6mm;border-radius:0;}
+    h2,.def,.note{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    @page{size:A4;margin:10mm;}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a class="btn btn-ghost" href="../index.html">←</a>
+  <strong style="font-size:15px;">🌍 Fiche Brevet · Histoire-Géo</strong>
+  <span class="sp"></span>
+  <button class="btn btn-ghost" onclick="window.print()">⬇️ Télécharger PDF</button>
+  <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button>
+</div>
+
+<div class="sheet">
+  <h1>Mémo Brevet — Histoire-Géographie</h1>
+  <div class="subtitle">Les repères, dates et définitions à connaître par cœur · à relire avant l'épreuve</div>
+
+  <h2>📅 Repères chronologiques (à mémoriser)</h2>
+  <div class="cols">
+    <div class="d"><b>1914-1918</b> — Première Guerre mondiale</div>
+    <div class="d"><b>1916</b> — Verdun &amp; la Somme</div>
+    <div class="d"><b>1917</b> — Révolutions russes</div>
+    <div class="d"><b>11 nov. 1918</b> — Armistice</div>
+    <div class="d"><b>1933</b> — Hitler au pouvoir (régime nazi)</div>
+    <div class="d"><b>1936</b> — Front populaire (France)</div>
+    <div class="d"><b>1939-1945</b> — Seconde Guerre mondiale</div>
+    <div class="d"><b>18 juin 1940</b> — Appel du général de Gaulle</div>
+    <div class="d"><b>1942</b> — Wannsee ; Stalingrad</div>
+    <div class="d"><b>6 juin 1944</b> — Débarquement de Normandie</div>
+    <div class="d"><b>1944</b> — Droit de vote des femmes</div>
+    <div class="d"><b>8 mai 1945</b> — Capitulation allemande</div>
+    <div class="d"><b>août 1945</b> — Hiroshima &amp; Nagasaki</div>
+    <div class="d"><b>1947</b> — Début Guerre froide ; indép. Inde</div>
+    <div class="d"><b>1957</b> — Traité de Rome (CEE)</div>
+    <div class="d"><b>1958</b> — Ve République</div>
+    <div class="d"><b>1961</b> — Mur de Berlin</div>
+    <div class="d"><b>1962</b> — Indép. Algérie ; crise de Cuba</div>
+    <div class="d"><b>1975</b> — Loi Veil (IVG)</div>
+    <div class="d"><b>1989</b> — Chute du mur de Berlin</div>
+    <div class="d"><b>1991</b> — Fin de l'URSS</div>
+    <div class="d"><b>1992</b> — Traité de Maastricht (UE)</div>
+    <div class="d"><b>2002</b> — Euro en circulation</div>
+  </div>
+
+  <h2>📖 Histoire — définitions clés</h2>
+  <div class="cols">
+    <div class="def"><b>Guerre totale</b> : mobilisation de tout le pays (soldats, économie, civils, propagande).</div>
+    <div class="def"><b>Génocide</b> : extermination planifiée d'un peuple (Arméniens 1915 ; Juifs &amp; Tziganes = Shoah).</div>
+    <div class="def"><b>Régime totalitaire</b> : parti unique, chef tout-puissant, propagande, terreur, contrôle total (URSS de Staline, Allemagne nazie).</div>
+    <div class="def"><b>Guerre d'anéantissement</b> : volonté de détruire totalement l'ennemi (militaire et civil).</div>
+    <div class="def"><b>Régime de Vichy</b> : régime de Pétain (1940), autoritaire, collabore avec l'Allemagne.</div>
+    <div class="def"><b>Résistance</b> : lutte contre l'occupant et Vichy (de Gaulle, Jean Moulin / CNR 1943).</div>
+    <div class="def"><b>Guerre froide</b> : affrontement indirect USA / URSS (1947-1991), monde bipolaire.</div>
+    <div class="def"><b>Décolonisation</b> : accès à l'indépendance des colonies (négociée ou par la guerre).</div>
+    <div class="def"><b>Ve République</b> : depuis 1958, exécutif fort (président élu au suffrage universel depuis 1962).</div>
+  </div>
+
+  <h2 class="geo">🗺️ Géographie — notions &amp; chiffres clés</h2>
+  <div class="cols">
+    <div class="def geo"><b>Aire urbaine</b> : ville-centre + banlieue + couronne périurbaine.</div>
+    <div class="def geo"><b>Métropolisation</b> : concentration des populations et activités dans les grandes villes.</div>
+    <div class="def geo"><b>Périurbanisation / étalement urbain</b> : extension des villes vers les campagnes.</div>
+    <div class="def geo"><b>Espaces productifs</b> : agricoles, industriels, de services / touristiques.</div>
+    <div class="def geo"><b>Aménagement du territoire</b> : action des pouvoirs publics pour réduire les inégalités.</div>
+    <div class="def geo"><b>Île-de-France</b> : 19 % de la population, 32 % du PIB (fort déséquilibre).</div>
+    <div class="def geo"><b>Acteurs</b> : État + collectivités (ANCT 2020), UE, acteurs privés.</div>
+    <div class="def geo"><b>5 DROM</b> : Guadeloupe, Martinique, Guyane, La Réunion, Mayotte.</div>
+    <div class="def geo"><b>ZEE</b> : zone économique exclusive → la France a la <b>2ᵉ</b> du monde.</div>
+    <div class="def geo"><b>France dans le monde</b> : UE, ONU (siège permanent), francophonie, 1ʳᵉ destination touristique.</div>
+  </div>
+
+  <h2>✍️ Méthode — Développement construit</h2>
+  <div class="note"><b>Structure</b> : <b>Introduction</b> (présente le sujet + problématique) → <b>2-3 paragraphes</b> (1 idée + exemples précis : dates, lieux, noms) → <b>Conclusion</b> (réponse à la problématique). Soigne les connecteurs (« d'abord », « de plus », « enfin ») et le vocabulaire historique/géographique.</div>
+  <div class="note"><b>Sujets fréquents</b> : expérience combattante (PGM) · un régime totalitaire · guerre d'anéantissement (SGM) · Vichy &amp; Résistance · Berlin dans la Guerre froide · construction européenne · place des femmes depuis 1945 · aménager pour réduire les inégalités · atouts/contraintes de l'outre-mer.</div>
+
+  <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger.</div>
+</div>
+</body>
+</html>
