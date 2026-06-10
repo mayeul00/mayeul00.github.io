@@ -71,8 +71,9 @@ details[open] summary::before{transform:rotate(90deg);}
 .corr .pp{color:#b26b00;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.4px;}
 .pill{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:20px;padding:1px 9px;margin-left:6px;vertical-align:middle;}
 /* FIGURES : carte sombre (tableau) pour garder les schémas clairs lisibles */
-.fig{background:#13202b;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:14px;margin:12px 0;}
-.fig svg{display:block;width:100%;height:auto;max-width:420px;margin:0 auto;}
+.fig{background:#13202b;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px;margin:12px 0;}
+.fig svg{display:block;width:100%;height:auto;max-width:540px;margin:0 auto;}
+.fig.wide svg{max-width:100%;}
 .figcap{text-align:center;font-size:12px;color:#9fb2bf;margin-top:8px;}
 .figrow{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
 .figrow .fig{flex:1 1 220px;margin:8px 0;}
@@ -109,6 +110,7 @@ footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:28px;}
 .def b{color:#15202a;}
 .note{background:#fff6e9;border:1px solid #f0dcbb;border-radius:8px;padding:8px 11px;margin:6px 0;font-size:12.7px;color:#1a2230;break-inside:avoid;}
 .d{font-size:13px;margin:3px 0;break-inside:avoid;}.d b{color:var(--accent);}
+.fgroup{break-inside:avoid;page-break-inside:avoid;}
 .sheet table{break-inside:auto;}.sheet tr{break-inside:avoid;}.sheet ul{break-inside:avoid;}
 @media print{
   body::before,.orb,.top-bar,.toc,.backtop,.howto{display:none !important;}
