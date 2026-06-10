@@ -4,44 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fiche Brevet · Histoire-Géo</title>
-<style>
-  :root{--accent:#e23d6f;--accent2:#3f63c9;--ink:#1a2230;--muted:#5a6675;--line:#e0d6dc;--box:#fdf1f5;--box2:#eef2fc;--warn:#fff4e5;}
-  *{box-sizing:border-box;}
-  body{margin:0;background:#ece9ee;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.42;}
-  .toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;align-items:center;padding:12px 18px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-  .toolbar .sp{flex:1;}
-  .btn{border:none;border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;}
-  .btn-primary{background:var(--accent);color:#fff;}.btn-ghost{background:#eef0f3;color:var(--ink);}.btn:hover{filter:brightness(1.05);}
-  .sheet{max-width:880px;margin:18px auto;background:#fff;padding:26px 30px 40px;box-shadow:0 10px 40px rgba(0,0,0,.08);border-radius:6px;}
-  h1{font-size:25px;margin:0 0 2px;letter-spacing:-.5px;}
-  .subtitle{color:var(--muted);font-size:13px;margin-bottom:14px;}
-  h2{font-size:15px;color:#fff;background:var(--accent);padding:5px 11px;border-radius:7px;margin:18px 0 9px;}
-  h2.geo{background:var(--accent2);}
-  h3{font-size:13px;margin:10px 0 3px;color:var(--accent);text-transform:uppercase;letter-spacing:.4px;}
-  .cols{columns:2;column-gap:22px;}.cols>*{break-inside:avoid;}
-  .d{font-size:13px;margin:3px 0;padding-left:2px;}
-  .d b{color:var(--accent);font-variant-numeric:tabular-nums;}
-  .def{background:var(--box);border:1px solid var(--line);border-radius:7px;padding:6px 10px;margin:5px 0;font-size:12.8px;}
-  .def.geo{background:var(--box2);}
-  .def b{color:var(--ink);}
-  .note{background:var(--warn);border:1px solid #f0dcbb;border-radius:7px;padding:7px 10px;margin:6px 0;font-size:12.6px;}
-  ul{margin:4px 0 6px;padding-left:17px;}li{font-size:12.8px;margin:2px 0;}
-  @media print{
-    body{background:#fff;}.toolbar{display:none;}
-    .sheet{box-shadow:none;margin:0;max-width:none;padding:0 6mm;border-radius:0;}
-    h2,.def,.note{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    @page{size:A4;margin:10mm;}
-  }
-</style>
+<link rel="stylesheet" href="../shared/brevet-pages.css">
+<style>:root{--ch-accent:#ff3b80;--ch-accent-2:#5e8bff;}</style>
 </head>
 <body>
-<div class="toolbar">
-  <a class="btn btn-ghost" href="../index.html">←</a>
-  <strong style="font-size:15px;">🌍 Fiche Brevet · Histoire-Géo</strong>
-  <span class="sp"></span>
-  <button class="btn btn-ghost" onclick="window.print()">⬇️ Télécharger PDF</button>
-  <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimer</button>
-</div>
+<div class="orb orb-1"></div><div class="orb orb-2"></div>
+<header class="top-bar glass">
+  <div class="brand">
+    <a class="back-btn" href="../index.html?subject=histoire" title="Retour aux chapitres">←</a>
+    <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
+    <div class="brand-icon">🌍</div>
+    <span class="brand-name">Fiche · Histoire-Géo</span>
+  </div>
+  <div class="top-right"><button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button><button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button></div>
+</header>
 
 <div class="sheet">
   <h1>Mémo Brevet — Histoire-Géographie</h1>
@@ -107,5 +83,10 @@
 
   <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger.</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function fichePrint(){window.print();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Géo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+</script>
 </body>
 </html>
