@@ -20,7 +20,7 @@
 <div class="sheet">
   <h1>Mémo Brevet — SVT</h1><div class="subtitle">Les notions et définitions clés à connaître</div>
 
-  <h2>🧬 Génétique</h2>
+  <div class="fgroup"><h2>🧬 Génétique</h2>
   <div class="cols">
     <div class="def"><b>Phénotype</b> : ensemble des caractères observables.</div>
     <div class="def"><b>Génotype</b> : ensemble des allèles ; il détermine le phénotype.</div>
@@ -31,7 +31,8 @@
     <div class="def"><b>Environnement</b> : peut modifier le phénotype (bronzage), mais ce n'est pas héréditaire.</div>
   </div>
 
-  <h2>🦠 Immunité</h2>
+  </div>
+<div class="fgroup"><h2>🦠 Immunité</h2>
   <div class="cols">
     <div class="def"><b>Barrières</b> : peau &amp; muqueuses.</div>
     <div class="def"><b>Contamination</b> = entrée ; <b>infection</b> = multiplication.</div>
@@ -41,7 +42,8 @@
     <div class="def"><b>Antigène</b> : molécule du microbe reconnue par le système immunitaire.</div>
   </div>
 
-  <h2>🦋 Évolution</h2>
+  </div>
+<div class="fgroup"><h2>🦋 Évolution</h2>
   <div class="cols">
     <div class="def"><b>Parenté</b> : + de caractères communs = + proche (ancêtre commun).</div>
     <div class="def"><b>Sélection naturelle</b> : le milieu favorise les mieux adaptés, qui se reproduisent + et transmettent leurs caractères.</div>
@@ -49,7 +51,8 @@
     <div class="def"><b>L'Homme</b> : primate, dans l'arbre de l'évolution.</div>
   </div>
 
-  <h2>🌍 La Terre &amp; les risques</h2>
+  </div>
+<div class="fgroup"><h2>🌍 La Terre &amp; les risques</h2>
   <div class="cols">
     <div class="def"><b>Plaques</b> : la surface est faite de plaques mobiles. Séismes/volcans aux <b>frontières</b>.</div>
     <div class="def"><b>Aléa</b> : phénomène dangereux. <b>Enjeu</b> : ce qui peut être touché. <b>Risque = aléa × enjeux</b>.</div>
@@ -57,12 +60,13 @@
   </div>
 
   <div class="note"><b>Au brevet</b> : appuie toujours tes réponses sur les <b>documents</b> et explique le raisonnement (cause → conséquence).</div>
-  <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — SVT</div>
+  </div>
+<div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — SVT</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-SVT-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-SVT-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
 </script>
 </body>
 </html>

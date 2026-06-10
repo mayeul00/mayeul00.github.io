@@ -23,7 +23,7 @@
   <h1>Mémo Brevet — Français</h1>
   <div class="subtitle">Méthodes, langue et figures à revoir avant l'épreuve</div>
 
-  <h2>🎭 Figures de style</h2>
+  <div class="fgroup"><h2>🎭 Figures de style</h2>
   <table>
     <tr><th>Figure</th><th>Définition</th><th>Exemple</th></tr>
     <tr><td>Comparaison</td><td>rapproche avec un outil (comme, tel)</td><td>fort comme un lion</td></tr>
@@ -36,7 +36,8 @@
     <tr><td>Énumération</td><td>liste d'éléments</td><td>fruits, fleurs, légumes</td></tr>
   </table>
 
-  <h2>✍️ Homophones (pièges de dictée)</h2>
+  </div>
+<div class="fgroup"><h2>✍️ Homophones (pièges de dictée)</h2>
   <div class="cols">
     <div class="def"><b>a / à</b> : « a » = avoir (→ avait) ; « à » = préposition.</div>
     <div class="def"><b>et / est</b> : « est » = être (→ était).</div>
@@ -48,7 +49,8 @@
     <div class="def"><b>ou / où</b> : « où » = lieu.</div>
   </div>
 
-  <h2>🔤 Classes &amp; fonctions</h2>
+  </div>
+<div class="fgroup"><h2>🔤 Classes &amp; fonctions</h2>
   <div class="cols">
     <div class="def"><b>Classes variables</b> : nom, déterminant, adjectif, pronom, verbe.</div>
     <div class="def"><b>Classes invariables</b> : adverbe, préposition, conjonction, interjection.</div>
@@ -57,7 +59,8 @@
     <div class="def"><b>Subordonnée relative</b> : qui, que, dont, où (complète un nom).</div>
   </div>
 
-  <h2>⏳ Conjugaison — emplois</h2>
+  </div>
+<div class="fgroup"><h2>⏳ Conjugaison — emplois</h2>
   <table>
     <tr><th>Temps</th><th>Emploi</th></tr>
     <tr><td>Imparfait</td><td>description, habitude, arrière-plan</td></tr>
@@ -69,12 +72,14 @@
   </table>
   <div class="note"><b>Participe passé</b> : avec <b>être</b> → accord avec le sujet. Avec <b>avoir</b> → accord avec le COD <b>seulement s'il est placé avant</b> (« les fleurs qu'elle a cueillies »).</div>
 
-  <h2>📝 Méthodes</h2>
+  </div>
+<div class="fgroup"><h2>📝 Méthodes</h2>
   <div class="note"><b>Analyse de texte</b> : réponds en phrases complètes, <b>cite</b> le texte (« … »), nomme les procédés et explique leur <b>effet</b>.</div>
   <div class="note"><b>Réécriture</b> : repère ce qui change (temps, personne, nombre) et accorde tout ce qui en dépend, puis relis.</div>
   <div class="note"><b>Rédaction</b> — <b>imagination</b> : respecte les consignes, structure (situation → péripéties → fin), décris. <b>Réflexion</b> : intro (problématique) → 2-3 arguments + exemples → conclusion. Garde 5 min pour te relire.</div>
 
-  <h2>📚 Les œuvres (culture)</h2>
+  </div>
+<div class="fgroup"><h2>📚 Les œuvres (culture)</h2>
   <div class="cols">
     <div class="def"><b>Autobiographie</b> : écrire sur sa propre vie (« je »), pacte de sincérité.</div>
     <div class="def"><b>Nouvelle / satire</b> (« Le Credo », Sternberg) : récit court à chute, ironie sur la consommation.</div>
@@ -84,12 +89,13 @@
     <div class="def"><b>Le Joueur d'échecs</b> (Zweig) : isolement, folie, dénonciation du totalitarisme.</div>
   </div>
 
-  <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Français</div>
+  </div>
+<div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Français</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Français-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Français-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
 </script>
 </body>
 </html>

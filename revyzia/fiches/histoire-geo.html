@@ -23,7 +23,7 @@
   <h1>Mémo Brevet — Histoire-Géographie</h1>
   <div class="subtitle">Les repères, dates et définitions à connaître par cœur · à relire avant l'épreuve</div>
 
-  <h2>📅 Repères chronologiques (à mémoriser)</h2>
+  <div class="fgroup"><h2>📅 Repères chronologiques (à mémoriser)</h2>
   <div class="cols">
     <div class="d"><b>1914-1918</b> — Première Guerre mondiale</div>
     <div class="d"><b>1916</b> — Verdun &amp; la Somme</div>
@@ -50,7 +50,8 @@
     <div class="d"><b>2002</b> — Euro en circulation</div>
   </div>
 
-  <h2>📖 Histoire — définitions clés</h2>
+  </div>
+<div class="fgroup"><h2>📖 Histoire — définitions clés</h2>
   <div class="cols">
     <div class="def"><b>Guerre totale</b> : mobilisation de tout le pays (soldats, économie, civils, propagande).</div>
     <div class="def"><b>Génocide</b> : extermination planifiée d'un peuple (Arméniens 1915 ; Juifs &amp; Tziganes = Shoah).</div>
@@ -63,7 +64,8 @@
     <div class="def"><b>Ve République</b> : depuis 1958, exécutif fort (président élu au suffrage universel depuis 1962).</div>
   </div>
 
-  <h2 class="geo">🗺️ Géographie — notions &amp; chiffres clés</h2>
+  </div>
+<div class="fgroup"><h2 class="geo">🗺️ Géographie — notions &amp; chiffres clés</h2>
   <div class="cols">
     <div class="def geo"><b>Aire urbaine</b> : ville-centre + banlieue + couronne périurbaine.</div>
     <div class="def geo"><b>Métropolisation</b> : concentration des populations et activités dans les grandes villes.</div>
@@ -77,16 +79,18 @@
     <div class="def geo"><b>France dans le monde</b> : UE, ONU (siège permanent), francophonie, 1ʳᵉ destination touristique.</div>
   </div>
 
-  <h2>✍️ Méthode — Développement construit</h2>
+  </div>
+<div class="fgroup"><h2>✍️ Méthode — Développement construit</h2>
   <div class="note"><b>Structure</b> : <b>Introduction</b> (présente le sujet + problématique) → <b>2-3 paragraphes</b> (1 idée + exemples précis : dates, lieux, noms) → <b>Conclusion</b> (réponse à la problématique). Soigne les connecteurs (« d'abord », « de plus », « enfin ») et le vocabulaire historique/géographique.</div>
   <div class="note"><b>Sujets fréquents</b> : expérience combattante (PGM) · un régime totalitaire · guerre d'anéantissement (SGM) · Vichy &amp; Résistance · Berlin dans la Guerre froide · construction européenne · place des femmes depuis 1945 · aménager pour réduire les inégalités · atouts/contraintes de l'outre-mer.</div>
 
-  <div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger.</div>
+  </div>
+<div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger.</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Géo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Géo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
 </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
 <div class="sheet">
   <h1>Mémo Brevet — EMC</h1><div class="subtitle">Valeurs, institutions et citoyenneté</div>
 
-  <h2>🇫🇷 La République</h2>
+  <div class="fgroup"><h2>🇫🇷 La République</h2>
   <div class="cols">
     <div class="def"><b>Devise</b> : Liberté, Égalité, Fraternité.</div>
     <div class="def"><b>4 principes</b> : indivisible, laïque, démocratique, sociale.</div>
@@ -29,7 +29,8 @@
     <div class="def"><b>Valeurs</b> : liberté, égalité, fraternité, laïcité, solidarité.</div>
   </div>
 
-  <h2>🗳️ La citoyenneté</h2>
+  </div>
+<div class="fgroup"><h2>🗳️ La citoyenneté</h2>
   <div class="cols">
     <div class="def"><b>Nationalité</b> : droit du sang, droit du sol, naturalisation.</div>
     <div class="def"><b>Droits</b> : voter (18 ans), être élu, s'exprimer, manifester.</div>
@@ -37,7 +38,8 @@
     <div class="def"><b>Citoyenneté européenne</b> : circuler, voter aux européennes &amp; municipales.</div>
   </div>
 
-  <h2>⚖️ La justice</h2>
+  </div>
+<div class="fgroup"><h2>⚖️ La justice</h2>
   <div class="cols">
     <div class="def"><b>Principes</b> : gratuite, égale pour tous, indépendante.</div>
     <div class="def"><b>Pénale</b> : sanctionne les infractions (contravention, délit, crime).</div>
@@ -45,7 +47,8 @@
     <div class="def"><b>Mineurs</b> : justice adaptée, privilégie l'éducation.</div>
   </div>
 
-  <h2>🛡️ Défense &amp; engagement</h2>
+  </div>
+<div class="fgroup"><h2>🛡️ Défense &amp; engagement</h2>
   <div class="cols">
     <div class="def"><b>Défense globale</b> : militaire, civile, économique, cyber.</div>
     <div class="def"><b>Parcours citoyen</b> : recensement (16 ans) → JDC → SNU.</div>
@@ -53,12 +56,13 @@
   </div>
 
   <div class="note"><b>Au brevet</b> : l'EMC peut apparaître dans l'épreuve d'Histoire-Géo (analyse de document + maîtrise du vocabulaire civique).</div>
-  <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — EMC</div>
+  </div>
+<div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — EMC</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-EMC-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-EMC-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
 </script>
 </body>
 </html>

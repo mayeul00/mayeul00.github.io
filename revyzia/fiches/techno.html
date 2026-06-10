@@ -20,7 +20,7 @@
 <div class="sheet">
   <h1>Mémo Brevet — Technologie</h1><div class="subtitle">Notions clés à connaître</div>
 
-  <h2>⚙️ Objet technique &amp; chaînes</h2>
+  <div class="fgroup"><h2>⚙️ Objet technique &amp; chaînes</h2>
   <div class="cols">
     <div class="def"><b>Fonction d'usage</b> : le service rendu (à quoi sert l'objet).</div>
     <div class="def"><b>Fonction technique</b> : rôle d'une partie de l'objet.</div>
@@ -29,7 +29,8 @@
     <div class="def"><b>Chaîne d'information</b> : acquérir → traiter → communiquer.</div>
   </div>
 
-  <h2>📡 Capteurs &amp; programmation</h2>
+  </div>
+<div class="fgroup"><h2>📡 Capteurs &amp; programmation</h2>
   <div class="cols">
     <div class="def"><b>Capteur</b> : entrée, mesure une grandeur (lumière, température).</div>
     <div class="def"><b>Actionneur</b> : sortie, produit un effet (moteur, LED, buzzer).</div>
@@ -39,7 +40,8 @@
     <div class="def"><b>Objet connecté / IoT</b> : échange des infos via un réseau.</div>
   </div>
 
-  <h2>🌐 Réseaux</h2>
+  </div>
+<div class="fgroup"><h2>🌐 Réseaux</h2>
   <div class="cols">
     <div class="def"><b>Switch</b> : relie les machines d'un réseau local.</div>
     <div class="def"><b>Routeur</b> : relie des réseaux entre eux (et à Internet).</div>
@@ -49,7 +51,8 @@
     <div class="def"><b>Web ≠ Internet</b> : le Web est un service d'Internet.</div>
   </div>
 
-  <h2>♻️ Cycle de vie &amp; dév. durable</h2>
+  </div>
+<div class="fgroup"><h2>♻️ Cycle de vie &amp; dév. durable</h2>
   <div class="cols">
     <div class="def"><b>Cycle de vie</b> : extraction → fabrication → transport → utilisation → fin de vie.</div>
     <div class="def"><b>Écoconception</b> : réduire l'impact dès la conception.</div>
@@ -57,12 +60,13 @@
   </div>
 
   <div class="note"><b>Au brevet (sciences)</b> : l'épreuve porte sur 2 disciplines (ici SVT + Techno), 1h. Lis bien les documents et justifie.</div>
-  <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Technologie</div>
+  </div>
+<div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Technologie</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Technologie-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".def",".note","table","tr","h2",".d"]}}).from(el).save();}
+function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Technologie-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
 </script>
 </body>
 </html>
