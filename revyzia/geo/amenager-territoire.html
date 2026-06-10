@@ -14,7 +14,7 @@ window.CHAPTER_DATA = {
   subjectName: "Géographie",
   subjectIcon: "🗺️",
   title: "Aménager pour réduire les inégalités",
-  subtitle: "Géo · Thème 2 · Chapitre 4 · Pourquoi et comment aménager le territoire ?",
+  subtitle: "Géo · Thème 2 · Chapitre 4 · Métropole & territoires ultramarins",
   badge: "🗺️ Histoire-Géo · 3e",
   accentColor: "#3bb0ff",
   accent2Color: "#5e5cff",
@@ -23,91 +23,106 @@ window.CHAPTER_DATA = {
     {
       id: "inegalites",
       icon: "⚖️",
-      label: "Inégalités & acteurs",
+      label: "Inégalités & enjeux",
       lessons: [
         { chapter: "Définition", title: "Aménager le territoire", body: `
-          <div class="def"><strong>Aménagement du territoire</strong>Action des pouvoirs publics pour organiser et équiper un territoire afin de réduire les inégalités et de favoriser le développement.</div>
-          <p>Problématique : <em>Pourquoi et comment aménage-t-on le territoire pour réduire les inégalités ?</em></p>
-          <p>Le territoire français présente de fortes <strong>inégalités</strong> à plusieurs échelles : entre régions, entre métropoles et espaces périphériques, et même entre quartiers d'une même ville.</p>
-          <div class="def"><strong>Inégalités territoriales</strong>Différences de richesse, d'emploi, d'équipements ou d'accès aux services entre les territoires.</div>
+          <div class="def"><strong>Aménagement du territoire</strong>Action des pouvoirs publics pour organiser et équiper un territoire afin de réduire les inégalités et favoriser un développement durable.</div>
+          <p>Problématique : <em>Comment l'aménagement des territoires permet-il de réduire les inégalités en France métropolitaine et dans les territoires ultramarins ?</em></p>
         ` },
-        { chapter: "Les acteurs", title: "Qui aménage le territoire ?", body: `
-          <p>De nombreux acteurs interviennent :</p>
+        { chapter: "Les inégalités", title: "Des inégalités à plusieurs échelles", body: `
+          <p>Les inégalités entre territoires français sont nombreuses (économiques, sociales, démographiques) :</p>
           <ul>
-            <li>L'<strong>État</strong> (grandes infrastructures, politique nationale).</li>
-            <li>Les <strong>collectivités territoriales</strong> (régions, départements, communes), grâce à la <strong>décentralisation</strong>.</li>
-            <li>L'<strong>Union européenne</strong> (fonds pour les régions en difficulté).</li>
-            <li>Les entreprises et les citoyens (associations, habitants).</li>
+            <li>Le déséquilibre <strong>Paris / reste du pays</strong> est fort : l'<strong>Île-de-France concentre 19 % de la population et 32 % du PIB</strong> (2018).</li>
+            <li>Sont attractifs et bien intégrés à la mondialisation : les <strong>métropoles</strong> (Lyon, Lille, Marseille), les <strong>littoraux</strong> (Ouest, Sud) et les espaces <strong>frontaliers</strong>.</li>
+            <li>Sont en difficulté : les <strong>territoires ruraux isolés</strong>, les <strong>régions industrielles en reconversion</strong> et les <strong>DROM</strong>.</li>
           </ul>
-          <div class="def"><strong>Décentralisation</strong>Transfert de compétences (et de pouvoirs) de l'État vers les collectivités territoriales.</div>
-          <div class="def"><strong>Collectivités territoriales</strong>Régions, départements et communes, qui gèrent une partie des affaires locales.</div>
+          <p>À l'<strong>échelle locale</strong>, les écarts existent aussi : des banlieues en crise face à des quartiers centraux dynamiques.</p>
+          <div class="def"><strong>Inégalités territoriales</strong>Différences de richesse, d'emploi, d'équipements et d'accès aux services entre les territoires.</div>
+        ` },
+        { chapter: "Les enjeux", title: "Pourquoi aménager ?", body: `
+          <ul>
+            <li><strong>Réduire les inégalités</strong> d'accès aux services (éducation, santé, culture), aux transports et au numérique (ex : <strong>quartiers prioritaires</strong>, zones de revitalisation rurale).</li>
+            <li><strong>Améliorer la compétitivité</strong> des territoires face à la concurrence mondiale (ex : <strong>JO de Paris 2024</strong>, Grand Paris, reconversion des régions industrielles).</li>
+            <li><strong>Concilier</strong> développement économique et social avec la <strong>protection de l'environnement</strong> (développement durable).</li>
+          </ul>
         ` }
       ],
       flashcards: [
-        { front: "Aménagement du territoire", back: "Action des pouvoirs publics pour organiser et équiper un territoire et réduire les inégalités." },
-        { front: "Inégalités territoriales", back: "Différences de richesse, d'emploi, d'équipements entre les territoires." },
-        { front: "À quelles échelles existent les inégalités ?", back: "Entre régions, entre métropoles et périphéries, et entre quartiers d'une même ville." },
-        { front: "Les acteurs de l'aménagement", back: "L'État, les collectivités territoriales, l'Union européenne, les entreprises et les citoyens." },
-        { front: "Décentralisation", back: "Transfert de compétences de l'État vers les collectivités territoriales." },
-        { front: "Collectivités territoriales", back: "Régions, départements et communes." }
+        { front: "Aménagement du territoire", back: "Action des pouvoirs publics pour organiser/équiper un territoire et réduire les inégalités." },
+        { front: "Poids de l'Île-de-France", back: "19 % de la population et 32 % du PIB (2018) : fort déséquilibre Paris / reste du pays." },
+        { front: "Territoires attractifs", back: "Métropoles (Lyon, Lille, Marseille), littoraux Ouest/Sud, espaces frontaliers." },
+        { front: "Territoires en difficulté", back: "Ruraux isolés, régions industrielles en reconversion, DROM." },
+        { front: "Inégalités à l'échelle locale", back: "Banlieues en crise face à des quartiers centraux dynamiques." },
+        { front: "Les 3 grands enjeux de l'aménagement", back: "Réduire les inégalités, améliorer la compétitivité, protéger l'environnement." },
+        { front: "Quartiers prioritaires", back: "Politique pour réduire les inégalités dans les quartiers défavorisés (équipements, transports, mixité)." }
       ],
       qcm: [
-        { q: "Qu'est-ce que l'aménagement du territoire ?", options: ["La protection de la nature", "L'action des pouvoirs publics pour organiser le territoire et réduire les inégalités", "Le tourisme", "L'agriculture"], correct: 1, exp: "Organiser et équiper le territoire pour le développement." },
-        { q: "À quelles échelles existent les inégalités territoriales ?", options: ["Seulement entre pays", "Régions, métropoles/périphéries, quartiers", "Aucune", "Seulement à Paris"], correct: 1, exp: "Plusieurs échelles, de la région au quartier." },
-        { q: "Qu'est-ce que la décentralisation ?", options: ["Tout gérer depuis Paris", "Transférer des compétences de l'État vers les collectivités", "Supprimer les régions", "Privatiser l'État"], correct: 1, exp: "Donner plus de pouvoirs aux régions, départements, communes." },
-        { q: "Quel acteur européen aide les régions en difficulté ?", options: ["L'ONU", "L'Union européenne (fonds régionaux)", "L'OTAN", "Le FMI"], correct: 1, exp: "L'UE finance des projets dans les régions en difficulté." }
+        { q: "Quelle part du PIB l'Île-de-France concentre-t-elle (2018) ?", options: ["19 %", "32 %", "50 %", "10 %"], correct: 1, exp: "32 % du PIB (et 19 % de la population)." },
+        { q: "Lequel est un territoire en difficulté ?", options: ["Une métropole", "Un DROM ou une région industrielle en reconversion", "Un littoral du Sud", "Un espace frontalier"], correct: 1, exp: "DROM, ruraux isolés, industries en reconversion." },
+        { q: "Quel est un enjeu de l'aménagement ?", options: ["Augmenter les inégalités", "Réduire les inégalités d'accès aux services", "Concentrer tout à Paris", "Supprimer les régions"], correct: 1, exp: "Réduire les inégalités, base de l'aménagement." },
+        { q: "Que sont les quartiers prioritaires ?", options: ["Des zones riches", "Une politique pour les quartiers défavorisés", "Des zones rurales", "Des ports"], correct: 1, exp: "Réduire les inégalités locales." }
       ],
       exercises: [
-        { source: "Étude de doc", points: 6, title: "Pourquoi aménager le territoire ?", statement: `Explique pourquoi l'État et les collectivités aménagent le territoire.`, correction: `
-          <p>Le territoire français est inégal (entre régions, entre métropoles et périphéries, entre quartiers). L'aménagement vise à <strong>réduire ces inégalités</strong> : désenclaver, attirer des activités, améliorer les équipements et l'accès aux services, dans une logique de développement durable. Plusieurs acteurs interviennent : État, collectivités, UE, entreprises, citoyens.</p>` }
+        { source: "Étude de doc", points: 6, title: "Les inégalités territoriales", statement: `Montre qu'il existe des inégalités entre les territoires français, à l'échelle nationale et locale.`, correction: `
+          <p><strong>Échelle nationale</strong> : l'Île-de-France domine (19 % de la population, 32 % du PIB) ; les métropoles, littoraux et frontières sont attractifs, tandis que les espaces ruraux isolés, les régions industrielles en reconversion et les DROM sont en difficulté.</p>
+          <p><strong>Échelle locale</strong> : au sein d'une même ville, des banlieues en crise s'opposent à des quartiers centraux dynamiques. L'aménagement vise à réduire ces écarts.</p>` }
       ]
     },
     {
-      id: "amenager",
-      icon: "🚄",
-      label: "Aménager & débats",
+      id: "acteurs",
+      icon: "🏗️",
+      label: "Acteurs & projets",
       lessons: [
-        { chapter: "Des exemples", title: "Désenclaver et reconvertir", body: `
-          <p>Les aménagements répondent à plusieurs objectifs :</p>
+        { chapter: "Les acteurs", title: "Qui aménage le territoire ?", body: `
           <ul>
-            <li><strong>Désenclaver</strong> : lignes à grande vitesse (LGV), autoroutes, qui relient mieux les territoires.</li>
-            <li><strong>Reconvertir</strong> d'anciennes régions en difficulté, par exemple par la culture (le <strong>Louvre-Lens</strong> dans l'ancien bassin minier du Nord).</li>
-            <li>Renforcer l'attractivité économique et améliorer le cadre de vie.</li>
+            <li>L'<strong>État</strong> et les <strong>collectivités territoriales</strong> (régions, départements, communes) mènent les politiques publiques. L'<strong>Agence nationale de cohésion des territoires (ANCT, depuis 2020)</strong> coordonne la réduction des inégalités.</li>
+            <li>L'<strong>Union européenne</strong> aide les régions les moins développées et finance de grands projets.</li>
+            <li>Les <strong>acteurs privés</strong> (entreprises) et les <strong>citoyens</strong> (débats publics, associations) participent de plus en plus.</li>
           </ul>
-          <div class="def"><strong>Désenclavement</strong>Action de mieux relier un territoire isolé au reste du pays (transports).</div>
+          <div class="def"><strong>Décentralisation</strong>Transfert de compétences de l'État vers les collectivités territoriales.</div>
         ` },
-        { chapter: "Des projets contestés", title: "Les conflits d'aménagement", body: `
-          <p>Les grands projets d'aménagement sont parfois <strong>contestés</strong>, notamment pour leur impact sur l'environnement :</p>
+        { chapter: "Projets réalisés", title: "Désenclaver, reconvertir, dynamiser", body: `
           <ul>
-            <li>L'aéroport de <strong>Notre-Dame-des-Landes</strong> (abandonné).</li>
-            <li>Le centre commercial <strong>EuropaCity</strong> (abandonné).</li>
-            <li>Le <strong>Center Parcs de Roybon</strong>.</li>
+            <li><strong>LGV Sud Europe Atlantique</strong> (réalisée, 2017) : Tours-Bordeaux, 7,8 milliards €, par l'État, les collectivités, l'UE et VINCI. Paris-Bordeaux en 2h04. → désenclaver.</li>
+            <li><strong>Louvre-Lens</strong> (réalisé) : reconversion de l'ancien bassin minier du Nord par la culture.</li>
+            <li><strong>Co'Met à Orléans</strong> (réalisé, 2023, 160 M€) : parc des expositions + Arena + palais des congrès → compétitivité.</li>
+            <li><strong>Déviation de Jargeau</strong> (réalisée) : sécuriser la route, réduire le CO₂ et les embouteillages.</li>
           </ul>
-          <p>Ces oppositions montrent que l'aménagement doit aujourd'hui concilier développement et <strong>développement durable</strong>.</p>
-          <div class="def"><strong>Conflit d'aménagement</strong>Opposition entre acteurs au sujet d'un projet, souvent pour des raisons environnementales ou sociales.</div>
-          <div class="def"><strong>Développement durable</strong>Développement qui répond aux besoins présents sans compromettre ceux des générations futures (économie + social + environnement).</div>
+        ` },
+        { chapter: "Projets abandonnés", title: "Les conflits d'aménagement", body: `
+          <p>Beaucoup de projets sont <strong>contestés</strong>, surtout pour leur impact environnemental, et parfois <strong>abandonnés</strong> :</p>
+          <ul>
+            <li><strong>Aéroport de Notre-Dame-des-Landes</strong> (abandonné en 2018) : site composé à 98 % de zones humides, forte biodiversité ; longue lutte dans une <strong>ZAD</strong>.</li>
+            <li><strong>EuropaCity</strong> (abandonné en 2019) : aurait détruit 260 ha de terres agricoles près de Gonesse.</li>
+            <li><strong>Center Parcs de Roybon</strong> (abandonné en 2020) : zone humide, ZAD.</li>
+            <li><strong>Téléphérique de Fleury-les-Aubrais</strong> (abandonné) : coût jugé trop élevé (pétition pour une simple passerelle).</li>
+          </ul>
+          <div class="def"><strong>ZAD (zone à défendre)</strong>Site occupé par des militants pour empêcher un projet d'aménagement jugé néfaste pour l'environnement.</div>
+          <div class="warning"><strong>Tournant</strong>La mort de Rémi Fraisse (2014, barrage de Sivens) et l'abandon de Notre-Dame-des-Landes (2018) ont marqué les conflits d'aménagement. Aujourd'hui, les <strong>méga-bassines des Deux-Sèvres</strong> (Sainte-Soline) font débat.</div>
         ` }
       ],
       flashcards: [
-        { front: "Désenclavement", back: "Mieux relier un territoire isolé au reste du pays (LGV, autoroutes)." },
-        { front: "Reconversion par la culture", back: "Ex : le Louvre-Lens, dans l'ancien bassin minier du Nord." },
-        { front: "Conflit d'aménagement", back: "Opposition entre acteurs sur un projet (souvent pour l'environnement)." },
-        { front: "Projets d'aménagement contestés", back: "Notre-Dame-des-Landes, EuropaCity, Center Parcs de Roybon." },
-        { front: "Développement durable", back: "Répondre aux besoins présents sans compromettre ceux des générations futures." }
+        { front: "Acteurs de l'aménagement", back: "État + collectivités (ANCT depuis 2020), Union européenne, acteurs privés et citoyens." },
+        { front: "ANCT", back: "Agence nationale de cohésion des territoires (2020) : coordonne la réduction des inégalités." },
+        { front: "LGV Sud Europe Atlantique", back: "Réalisée en 2017 (Tours-Bordeaux, 7,8 Mds€) : Paris-Bordeaux en 2h04. Désenclavement." },
+        { front: "Louvre-Lens / Co'Met", back: "Louvre-Lens : reconversion par la culture. Co'Met (Orléans, 2023) : compétitivité." },
+        { front: "Projets abandonnés", back: "Notre-Dame-des-Landes (2018), EuropaCity (2019), Center Parcs Roybon (2020), téléphérique Fleury." },
+        { front: "ZAD", back: "Zone à défendre : site occupé par des militants contre un projet d'aménagement." },
+        { front: "Pourquoi NDDL a-t-il été abandonné ?", back: "Site à 98 % de zones humides, biodiversité, longue lutte dans une ZAD." }
       ],
       qcm: [
-        { q: "À quoi sert une LGV en termes d'aménagement ?", options: ["À polluer", "À désenclaver et relier les territoires", "À isoler", "À construire des logements"], correct: 1, exp: "Mieux relier les territoires entre eux." },
-        { q: "Que montre le Louvre-Lens ?", options: ["Une désindustrialisation", "Une reconversion par la culture", "Un conflit", "Une métropole mondiale"], correct: 1, exp: "Reconvertir l'ancien bassin minier grâce à la culture." },
-        { q: "Qu'est-ce qu'un conflit d'aménagement ?", options: ["Une guerre", "Une opposition à un projet (souvent environnementale)", "Un impôt", "Un transport"], correct: 1, exp: "Ex : Notre-Dame-des-Landes, EuropaCity." },
-        { q: "Que doit concilier l'aménagement aujourd'hui ?", options: ["Rien", "Développement et développement durable", "Uniquement l'économie", "Uniquement l'environnement"], correct: 1, exp: "Économie, social et environnement." }
+        { q: "Quel acteur coordonne la cohésion des territoires depuis 2020 ?", options: ["L'ONU", "L'ANCT", "L'OTAN", "VINCI"], correct: 1, exp: "Agence nationale de cohésion des territoires." },
+        { q: "La LGV Sud Europe Atlantique a été :", options: ["abandonnée", "réalisée (2017)", "jamais commencée", "construite à Paris"], correct: 1, exp: "Tours-Bordeaux, mise en service 2017." },
+        { q: "Pourquoi l'aéroport de Notre-Dame-des-Landes a-t-il été abandonné ?", options: ["Trop cher seulement", "Impact sur des zones humides + lutte en ZAD", "Pas assez d'avions", "Trop loin de Paris"], correct: 1, exp: "98 % de zones humides, biodiversité, ZAD." },
+        { q: "Qu'est-ce qu'une ZAD ?", options: ["Une zone d'activités", "Une zone à défendre (occupation militante)", "Une zone agricole", "Une zone aéroportuaire"], correct: 1, exp: "Site occupé contre un projet." }
       ],
       exercises: [
-        { source: "Développement construit", points: 18, title: "Pourquoi et comment aménager le territoire pour réduire les inégalités ?", statement: `Rédige un développement construit. <strong>Plan conseillé</strong> :<br>I. Des inégalités territoriales à réduire<br>II. De nombreux acteurs et des objectifs variés<br>III. Des aménagements parfois contestés`, correction: `
-          <p><strong>Introduction.</strong> Le territoire français est marqué par des inégalités. Pourquoi et comment l'aménage-t-on ?</p>
-          <p><strong>I. Des inégalités à réduire.</strong> Elles existent à plusieurs échelles : entre régions, entre métropoles et périphéries, entre quartiers.</p>
-          <p><strong>II. Des acteurs et des objectifs.</strong> L'État, les collectivités (décentralisation), l'UE, les entreprises et les citoyens aménagent pour désenclaver (LGV), reconvertir (Louvre-Lens) et améliorer le cadre de vie.</p>
-          <p><strong>III. Des projets contestés.</strong> Certains aménagements provoquent des conflits (Notre-Dame-des-Landes, EuropaCity) pour des raisons environnementales : l'aménagement doit désormais être durable.</p>
-          <p><strong>Conclusion.</strong> Aménager le territoire vise donc à réduire les inégalités, mais doit concilier développement et respect de l'environnement.</p>` }
+        { source: "Développement construit", points: 18, title: "Comment aménager pour réduire les inégalités ?", statement: `Rédige un développement construit. <strong>Plan conseillé</strong> :<br>I. Des inégalités territoriales à réduire<br>II. Des acteurs et des projets variés<br>III. Des projets parfois contestés (conflits d'aménagement)`, correction: `
+          <p><strong>Introduction.</strong> Le territoire français est inégal. Comment l'aménagement réduit-il ces inégalités ?</p>
+          <p><strong>I. Des inégalités.</strong> Entre Paris (19 % population, 32 % PIB) et le reste, entre métropoles attractives et espaces en difficulté (ruraux isolés, DROM), et même au sein des villes (banlieues / centres).</p>
+          <p><strong>II. Acteurs et projets.</strong> L'État, les collectivités (ANCT), l'UE et les acteurs privés aménagent : désenclaver (LGV SEA), reconvertir (Louvre-Lens), dynamiser (Co'Met).</p>
+          <p><strong>III. Des conflits.</strong> Certains projets sont contestés pour l'environnement et abandonnés (Notre-Dame-des-Landes, EuropaCity, Center Parcs), parfois après des luttes en ZAD.</p>
+          <p><strong>Conclusion.</strong> L'aménagement vise à réduire les inégalités, mais doit désormais concilier développement et protection de l'environnement.</p>` }
       ]
     }
   ]
