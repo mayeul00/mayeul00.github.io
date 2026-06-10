@@ -169,6 +169,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
 .subjects-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 28px; }
 .subjects-grid .subject-card { flex: 1 1 150px; max-width: 200px; }
 .chapter-group-title { grid-column: 1 / -1; font-size: 18px; font-weight: 800; letter-spacing: -0.4px; margin: 6px 2px 2px; display: flex; align-items: center; gap: 8px; color: var(--accent); }
+.chapter-group-sep { grid-column: 1 / -1; height: 1px; background: rgba(127,127,127,0.28); margin: 22px 0 10px; border-radius: 1px; }
 .chapter-group-title span { font-size: 20px; }
 .subject-card { padding: 22px 14px; border-radius: 22px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden; text-align: center; }
 .subject-card.brevet { border: 2px solid var(--sc, var(--accent)); box-shadow: 0 0 0 1px var(--sc, var(--accent)), var(--glass-shadow); }
@@ -440,15 +441,10 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
 // TOUT INLINE — pas de fichier externe pour fiabilité maximale
 // ============================================================
 
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyBnx_vlRm3rd1eNIAtMIHBFsxJHV7h8vKU",
-  authDomain: "revyzia.firebaseapp.com",
-  databaseURL: "https://revyzia-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "revyzia",
-  storageBucket: "revyzia.firebasestorage.app",
-  messagingSenderId: "447321876734",
-  appId: "1:447321876734:web:b783846225faef221f5daf"
-};
+// 🔒 Config Firebase encodée (atob) pour limiter le copier-coller direct depuis le code public.
+// ⚠️ Ce n'est PAS un secret (une config Firebase web est toujours visible côté navigateur).
+// La VRAIE sécurité = les règles de la Realtime Database (à coller dans la console Firebase).
+const FIREBASE_CONFIG = JSON.parse(atob("eyJhcGlLZXkiOiJBSXphU3lCbnhfdmxSbTNyZDFlTklBdE1JSEJGc3hKSFY3aDh2S1UiLCJhdXRoRG9tYWluIjoicmV2eXppYS5maXJlYmFzZWFwcC5jb20iLCJkYXRhYmFzZVVSTCI6Imh0dHBzOi8vcmV2eXppYS1kZWZhdWx0LXJ0ZGIuYXNpYS1zb3V0aGVhc3QxLmZpcmViYXNlZGF0YWJhc2UuYXBwIiwicHJvamVjdElkIjoicmV2eXppYSIsInN0b3JhZ2VCdWNrZXQiOiJyZXZ5emlhLmZpcmViYXNlc3RvcmFnZS5hcHAiLCJtZXNzYWdpbmdTZW5kZXJJZCI6IjQ0NzMyMTg3NjczNCIsImFwcElkIjoiMTo0NDczMjE4NzY3MzQ6d2ViOmI3ODM4NDYyMjVmYWVmMjIxZjVkYWYifQ=="));
 
 const CLASSES = {
   "3eA": [
@@ -461,7 +457,7 @@ const CLASSES = {
     "Charline", "Paula", "Quentin", "Benjamin", "Théodore", "Lucie",
     "Charlotte", "Louis", "Nina", "Simon", "Théo", "Laetitia",
     "Bérénice", "Valentin", "Mahaut", "Tina", "Ely", "Victor",
-    "Hichem", "Raphael", "Jules", "Natalia", "Andrew", "Alexandre"
+    "Hichem", "Raphael", "Jules", "Natalia", "Andrew", "Alexandre", "Itahi"
   ],
   // 👨‍🏫 Classe cachée pour les profs (ne s'affiche pas dans le podium)
   "Prof": ["Martin", "Mounia"]
@@ -474,7 +470,7 @@ const PROFS_META = {
 };
 
 const SUBJECTS = [
-  { id: 'francais', name: 'Français', icon: '📖', color: '#5e5cff', brevet: true, chapters: [
+  { id: 'francais', name: 'Français', icon: '📖', color: '#5e5cff', brevet: true, brevetPages: { revisions: 'revisions/francais.html', fiche: 'fiches/francais.html' }, chapters: [
     { id: 'grammaire-methodo', title: 'Grammaire & Méthodo Brevet', sub: 'Grammaire · conjugaison · figures · rédaction · dictée', file: 'francais/grammaire-methodo.html', ready: true },
     { id: 'autobiographie', title: 'L\'autobiographie', sub: 'Séquence · Écrire sur soi', file: 'francais/autobiographie.html', ready: true },
     { id: 'nouvelle-societe', title: 'La nouvelle & la satire sociale', sub: 'Séquence · « Le Credo » (Sternberg)', file: 'francais/nouvelle-societe.html', ready: true },
@@ -483,7 +479,7 @@ const SUBJECTS = [
     { id: 'antigone', title: 'Antigone de Jean Anouilh', sub: 'Tragédie · 3e · Étude d\'œuvre', file: 'francais/antigone.html', ready: true },
     { id: 'joueur-echecs', title: 'Le Joueur d\'échecs (Zweig)', sub: 'Étude d\'œuvre · Nouvelle', file: 'francais/joueur-echecs.html', ready: true }
   ]},
-  { id: 'histoire', name: 'Histoire-Géo', icon: '🌍', color: '#ff3b80', brevet: true, chapters: [
+  { id: 'histoire', name: 'Histoire-Géo', icon: '🌍', color: '#ff3b80', brevet: true, brevetPages: { revisions: 'revisions/histoire-geo.html', fiche: 'fiches/histoire-geo.html' }, chapters: [
     { id: 'pgm', title: 'Première Guerre mondiale', sub: 'Th1 · Ch1 · Civils et militaires (1914-1918)', file: 'histoire/premiere-guerre-mondiale.html', ready: true },
     { id: 'totalitarismes', title: 'Démocraties & totalitarismes', sub: 'Th1 · Ch2 · Entre-deux-guerres · URSS, nazisme, Front populaire', file: 'histoire/totalitarismes.html', ready: true },
     { id: '2gm', title: 'Seconde Guerre mondiale', sub: 'Th1 · Ch3 · Une guerre d\'anéantissement (1939-1945)', file: 'histoire/seconde-guerre-mondiale.html', ready: true },
@@ -501,11 +497,11 @@ const SUBJECTS = [
     { id: 'geo_ue', title: 'L\'UE, un territoire de référence', sub: 'Géo · Th3 · Ch1 · Territoire d\'appartenance', file: 'geo/ue-territoire.html', ready: true },
     { id: 'geo_france_monde', title: 'La France et l\'Europe dans le monde', sub: 'Géo · Th3 · Ch2 · Puissances d\'influence', file: 'geo/france-europe-monde.html', ready: true }
   ]},
-  { id: 'emc', name: 'EMC', icon: '⚖️', color: '#2d6a4f', brevet: true, chapters: [
+  { id: 'emc', name: 'EMC', icon: '⚖️', color: '#2d6a4f', brevet: true, brevetPages: { revisions: 'revisions/emc.html', fiche: 'fiches/emc.html' }, chapters: [
     { id: 'republique-citoyennete', title: 'La République et la citoyenneté', sub: 'Th1 · Valeurs, principes, symboles · Nationalité', file: 'emc/republique-citoyennete.html', ready: true },
     { id: 'defense-nationale', title: 'Armée française & Défense nationale', sub: '⭐ Éval · Organisation · Missions · SNU · JDC', file: 'emc/defense-nationale.html', ready: true }
   ]},
-  { id: 'maths', name: 'Mathématiques', icon: '📐', color: '#00c2ff', brevet: true, chapters: [
+  { id: 'maths', name: 'Mathématiques', icon: '📐', color: '#00c2ff', brevet: true, brevetPages: { revisions: 'revisions/maths.html', fiche: 'fiches/maths.html' }, chapters: [
     { id: 'revision-brevet', title: 'Révision Brevet 2026', sub: '9 thèmes · Tous les points clés · Sujets 0 officiels', file: 'maths/revision-brevet.html', ready: true, pinned: true },
     { id: 'pythagore-thales', title: 'Pythagore, Thalès & Trigonométrie', sub: 'Longueurs et angles dans les triangles', file: 'maths/pythagore-thales-trigo.html', ready: true },
     { id: 'aires-volumes', title: 'Aires, Volumes & Transformations', sub: 'Calculs de surfaces, volumes, homothéties', file: 'maths/aires-volumes-transformations.html', ready: true },
@@ -515,11 +511,18 @@ const SUBJECTS = [
     { id: 'stats-probabilites', title: 'Statistiques & Probabilités', sub: 'Moyenne, médiane, étendue, probas', file: 'maths/stats-probabilites.html', ready: true },
     { id: 'proportionnalite-grandeurs', title: 'Proportionnalité, % & Grandeurs', sub: 'Produit en croix, %, vitesses', file: 'maths/proportionnalite-grandeurs.html', ready: true },
     { id: 'algorithmique-scratch', title: 'Algorithmique & Scratch', sub: 'Programmes, figures, calculs', file: 'maths/algorithmique-scratch.html', ready: true },
-    { id: 'automatismes', title: 'Automatismes Brevet 2026', sub: '⭐ Sujets 0 officiels · 20 min chrono · 6 pts au brevet', file: 'maths/automatismes-brevet.html', ready: true },
-    { id: 'homotheties-probabilites', title: 'Homothéties & Probabilités', sub: 'Éval · Transformations · Probas · Stats', file: 'maths/homotheties-probabilites.html', ready: true }
+    { id: 'automatismes', title: 'Automatismes Brevet 2026', sub: '⭐ Sujets 0 officiels · 20 min chrono · 6 pts au brevet', file: 'maths/automatismes-brevet.html', ready: true }
   ]},
-  { id: 'techno', name: 'Technologie', icon: '⚙️', color: '#ff9f0a', brevet: true, chapters: [] },
-  { id: 'svt', name: 'SVT', icon: '🌱', color: '#34c759', brevet: true, chapters: [] },
+  { id: 'techno', name: 'Technologie', icon: '⚙️', color: '#ff9f0a', brevet: true, brevetPages: { revisions: 'revisions/techno.html', fiche: 'fiches/techno.html' }, chapters: [
+    { id: 'techno-objets-programmation', title: 'Objets techniques & programmation', sub: 'Chaîne d\'énergie/info · capteurs · algorithmique', file: 'techno/objets-programmation.html', ready: true },
+    { id: 'techno-reseaux-cycle', title: 'Réseaux & cycle de vie', sub: 'Réseau, Internet, IP · cycle de vie & dev durable', file: 'techno/reseaux-cycle.html', ready: true }
+  ] },
+  { id: 'svt', name: 'SVT', icon: '🌱', color: '#34c759', brevet: true, brevetPages: { revisions: 'revisions/svt.html', fiche: 'fiches/svt.html' }, chapters: [
+    { id: 'svt-genetique', title: 'Génétique : du génotype au phénotype', sub: 'Caractères · chromosomes/ADN · gènes, allèles, mutations', file: 'svt/genetique.html', ready: true },
+    { id: 'svt-immunite', title: 'Immunité & microorganismes', sub: 'Inflammation, phagocytose, lymphocytes, anticorps', file: 'svt/immunite.html', ready: true },
+    { id: 'svt-evolution', title: 'Évolution & biodiversité', sub: 'Parentés, sélection naturelle, crises, place de l\'Homme', file: 'svt/evolution.html', ready: true },
+    { id: 'svt-tectonique', title: 'La Terre : tectonique & risques', sub: 'Plaques, séismes/volcans, aléa-enjeu-risque', file: 'svt/tectonique-risques.html', ready: true }
+  ] },
   { id: 'physique', name: 'Physique-Chimie', icon: '⚛️', color: '#7c7aff', chapters: [
     { id: 'poids-gravitation', title: 'Poids et gravitation', sub: 'Chapitre 7 · P = m × g', file: 'physique/poids-gravitation.html', ready: true }
   ]},
@@ -1351,6 +1354,33 @@ function showChapters(subject) {
   const grid = $('chaptersGrid');
   grid.innerHTML = '';
 
+  // 📝 Section spéciale BREVET : page de révision complète + fiche mémo imprimable
+  if (subject.brevetPages) {
+    const bp = subject.brevetPages;
+    const t = document.createElement('div');
+    t.className = 'chapter-group-title';
+    t.innerHTML = '<span>📝</span> Spécial Brevet';
+    grid.appendChild(t);
+    if (bp.revisions) {
+      const a = document.createElement('a');
+      a.className = 'chapter-card glass brevet-card';
+      a.href = bp.revisions;
+      a.innerHTML = '<div class="pin-badge">📚 Révisions</div><h3>Page de révision complète</h3><div class="chapter-sub">Tout le programme du brevet, chapitre par chapitre</div><div class="chapter-stats"><strong>Ouvrir →</strong></div>';
+      grid.appendChild(a);
+    }
+    if (bp.fiche) {
+      const a = document.createElement('a');
+      a.className = 'chapter-card glass brevet-card';
+      a.href = bp.fiche;
+      a.innerHTML = '<div class="pin-badge">🖨️ Fiche PDF</div><h3>Fiche mémo imprimable</h3><div class="chapter-sub">L\'essentiel à revoir · impression &amp; PDF</div><div class="chapter-stats"><strong>Ouvrir →</strong></div>';
+      grid.appendChild(a);
+    }
+    // Séparateur (espace + fine barre) entre la section Brevet et les chapitres
+    const sep = document.createElement('div');
+    sep.className = 'chapter-group-sep';
+    grid.appendChild(sep);
+  }
+
   // Données de progression de l'utilisateur
   const user = getCurrentUser();
   const userData = user ? loadUserData(user) : { chapters: {} };
@@ -1413,6 +1443,7 @@ function showChapters(subject) {
     if (histoCh.length) { appendGroupTitle('Histoire', '📚'); histoCh.forEach(appendCard); }
     if (geoCh.length) { appendGroupTitle('Géographie', '🗺️'); geoCh.forEach(appendCard); }
   } else {
+    if (subject.brevetPages) appendGroupTitle('Tous les chapitres', '📚');
     sortByPin(subject.chapters).forEach(appendCard);
   }
   window.scrollTo({ top: 0, behavior: 'smooth' });
