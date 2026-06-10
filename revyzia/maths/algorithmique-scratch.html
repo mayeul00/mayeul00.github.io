@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Algorithmique & Scratch</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_algorithmique",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Algorithmique & Scratch",
+  subtitle: "Lire des programmes, dessiner des figures, programmes de calcul",
+  badge: "💻 Algo · 3e",
+  accentColor: "#5e5cff",
+  accent2Color: "#00c2ff",
+  depth: 1,
+  tabs: [
+    {
+      id: "scratch",
+      icon: "💻",
+      label: "Scratch & Figures",
+      lessons: [
+        { chapter: "Bases", title: "Lire un programme Scratch", body: `
+          <div class="def"><strong>Boucle « répéter »</strong>Répète des instructions un certain nombre de fois.</div>
+          <div class="def"><strong>Variable</strong>Une "boîte" qui stocke une valeur.</div>
+          <div class="def"><strong>s'orienter à 90</strong>Le lutin se dirige vers la droite.</div>
+        ` },
+        { chapter: "Figures", title: "Dessiner des polygones", body: `
+          <div class="warning"><strong>Règle d'or</strong>Pour un polygone régulier à n côtés, l'angle de rotation = 360°/n.</div>
+          <div class="example"><strong>Exemples</strong><br>Carré : répéter 4 fois (avancer, tourner 90°)<br>Triangle équilatéral : répéter 3 fois (avancer, tourner 120°)<br>Hexagone : répéter 6 fois (avancer, tourner 60°)<br>Pentagone : répéter 5 fois (avancer, tourner 72°)</div>
+        ` },
+        { chapter: "Calcul", title: "Programmes de calcul", body: `
+          <div class="def"><strong>Principe</strong>Suivre les étapes une par une. Pour l'expression générale, remplacer le nombre par x.</div>
+          <div class="example"><strong>Exemple</strong> : choisir x, ×2, +3 → expression 2x + 3. Avec x=5 : 13.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Carré en Scratch : répétitions et angle ?", back: "Répéter 4 fois, tourner de 90°." },
+        { front: "Triangle équilatéral en Scratch ?", back: "Répéter 3 fois, tourner de 120°." },
+        { front: "Hexagone régulier en Scratch ?", back: "Répéter 6 fois, tourner de 60°." },
+        { front: "Pentagone régulier ?", back: "Répéter 5 fois, tourner de 72°." },
+        { front: "Angle de rotation pour n côtés ?", back: "360° / n" },
+        { front: "Programme : x, ×2, +3 → expression ?", back: "2x + 3" }
+      ],
+      qcm: [
+        { q: "Carré : on tourne de ?", options: ["45°", "60°", "90°", "120°"], correct: 2, exp: "360/4 = 90°." },
+        { q: "Pentagone régulier (5 côtés), angle ?", options: ["60°", "72°", "90°", "108°"], correct: 1, exp: "360/5 = 72°." },
+        { q: "Programme : x, ×3, −2. Avec x=4 ?", options: ["10", "12", "14", "9"], correct: 0, exp: "4×3 = 12, −2 = 10." },
+        { q: "Programme : x, ×2, +5 → expression ?", options: ["2x + 5", "2(x+5)", "x + 7", "5x + 2"], correct: 0, exp: "2x + 5." },
+        { q: "Triangle équilatéral : on tourne de ?", options: ["60°", "90°", "120°", "180°"], correct: 2, exp: "360/3 = 120°." },
+        { q: "Hexagone : on tourne de ?", options: ["30°", "45°", "60°", "72°"], correct: 2, exp: "360/6 = 60°." }
+      ],
+      exercises: [
+        {
+          source: "DNB Asie 2025", points: 17,
+          title: "Hexagone à partir de triangles (Scratch)",
+          statement: `<p>Un élève veut tracer un hexagone à partir de 6 triangles équilatéraux. Il écrit un bloc « triangle équilatéral » : répéter ... fois (avancer de ... pas, tourner de ... degrés).</p>
+            <ol>
+              <li>Compléter les lignes pour dessiner un triangle équilatéral de côté 50 pas.</li>
+              <li>Programme A : répéter 6 fois (triangle, tourner 60°). Programme B : répéter 6 fois (triangle, tourner 120°). Lequel trace l'hexagone (6 triangles autour d'un point) ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> Triangle équilatéral : <strong>répéter 3 fois</strong> (avancer de 50 pas, <strong>tourner de 120°</strong>).</p>
+            <p><strong>2)</strong> Pour disposer 6 triangles autour d'un point, il faut tourner de 360/6 = 60° entre chaque. → <strong>Programme A</strong> (tourner 60°) trace l'hexagone.</p>`
+        },
+        {
+          source: "Sujet 0 - 2026", points: 3,
+          title: "Programme de calcul & identité",
+          statement: `<p>Programme : choisir un nombre, le multiplier par 2, élever au carré, retrancher 9.</p>
+            <ol>
+              <li>Vérifier qu'en partant de 4, on obtient 55.</li>
+              <li>Écrire le résultat en fonction de x.</li>
+              <li>Parmi A=55, B=(2x+3)², C=(2x−3)(2x+3), D=(2x−3)², lequel correspond ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 4×2 = 8 ; 8² = 64 ; 64 − 9 = <strong>55</strong> ✓</p>
+            <p><strong>2)</strong> (2x)² − 9 = <strong>4x² − 9</strong></p>
+            <p><strong>3)</strong> 4x² − 9 = (2x−3)(2x+3) → réponse <strong>C</strong>.</p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Statistiques & Probabilités</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_stats_probas",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Statistiques & Probabilités",
+  subtitle: "Moyenne, médiane, étendue et calculs de probabilités",
+  badge: "📊 Stats · 3e",
+  accentColor: "#ff9f0a",
+  accent2Color: "#ff3b80",
+  depth: 1,
+  tabs: [
+    {
+      id: "stats",
+      icon: "📊",
+      label: "Statistiques",
+      lessons: [
+        { chapter: "Indicateurs", title: "Moyenne, médiane, étendue", body: `
+          <div class="def"><strong>Moyenne</strong>Somme des valeurs ÷ nombre de valeurs.</div>
+          <div class="def"><strong>Médiane</strong>Valeur qui partage la série ordonnée en deux moitiés.</div>
+          <div class="def"><strong>Étendue</strong>max − min.</div>
+          <div class="example"><strong>Exemple</strong> : 4, 7, 9, 12, 18. Moyenne = 50/5 = 10. Médiane = 9. Étendue = 14.</div>
+        ` },
+        { chapter: "Médiane", title: "Calculer la médiane", body: `
+          <div class="warning"><strong>Nombre IMPAIR de valeurs</strong>La médiane est la valeur du milieu.</div>
+          <div class="warning"><strong>Nombre PAIR de valeurs</strong>La médiane est la moyenne des deux valeurs centrales.</div>
+          <div class="example"><strong>Exemple pair</strong> : 2, 5, 8, 10 → médiane = (5+8)/2 = 6,5.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Calculer la moyenne ?", back: "Somme des valeurs ÷ nombre de valeurs." },
+        { front: "Qu'est-ce que la médiane ?", back: "La valeur qui partage la série ordonnée en deux moitiés." },
+        { front: "Qu'est-ce que l'étendue ?", back: "max − min." },
+        { front: "Médiane d'un nombre pair de valeurs ?", back: "Moyenne des deux valeurs centrales." },
+        { front: "Médiane de 8, 12, 6, 19, 15 ?", back: "Ordonner : 6,8,12,15,19 → médiane = 12." }
+      ],
+      qcm: [
+        { q: "Moyenne de 5, 10, 15, 20, 25 ?", options: ["15", "75", "20", "12"], correct: 0, exp: "75/5 = 15." },
+        { q: "Médiane de 3, 7, 8, 12, 15 ?", options: ["7", "8", "12", "9"], correct: 1, exp: "5 valeurs → la 3e = 8." },
+        { q: "Étendue de 12, 5, 20, 8, 17 ?", options: ["15", "20", "5", "12"], correct: 0, exp: "20 − 5 = 15." },
+        { q: "Médiane de 4, 6, 10, 14 ?", options: ["6", "8", "10", "7"], correct: 1, exp: "(6+10)/2 = 8." },
+        { q: "Médiane de 8, 12, 6, 19, 15 ?", options: ["12", "15", "8", "19"], correct: 0, exp: "Ordonné : 6,8,12,15,19 → 12." }
+      ],
+      exercises: [
+        {
+          source: "DNB Amérique du Sud 2025", points: 20,
+          title: "Enquête réseaux sociaux (stats + %)",
+          statement: `<p>Durées (min) : 135 ; 82 ; 104 ; 200 ; 102 ; 17 ; 143 ; 118 ; 62.</p>
+            <ol>
+              <li>Combien d'élèves dans ce groupe ?</li>
+              <li>Calculer le temps moyen.</li>
+              <li>Calculer l'étendue.</li>
+              <li>« Plus de 50 % passent au moins 1h30 (90 min) par jour. » Vrai ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> <strong>9 élèves</strong></p>
+            <p><strong>2)</strong> Somme = 963. Moyenne = 963/9 = <strong>107 min</strong></p>
+            <p><strong>3)</strong> Étendue = 200 − 17 = <strong>183 min</strong></p>
+            <p><strong>4)</strong> ≥ 90 min : 135, 104, 200, 102, 143, 118 → 6 élèves sur 9 = 66,7 % > 50 %. <strong>VRAI.</strong></p>`
+        },
+        {
+          source: "Sujet 0 - 2026", points: 3,
+          title: "Gaspillage alimentaire (moyenne)",
+          statement: `<p>Masses (kg) sur 7 semaines : 62 ; 59 ; 74 ; 68 ; 55 ; 61 ; 71.<br>Objectif : moyenne ≤ 65 kg. L'objectif est-il atteint ?</p>`,
+          correction: `<p>Somme = 62+59+74+68+55+61+71 = 450. Moyenne = 450/7 ≈ <strong>64,3 kg</strong> ≤ 65 kg. <strong>Objectif atteint ✓</strong></p>`
+        }
+      ]
+    },
+    {
+      id: "probas",
+      icon: "🎲",
+      label: "Probabilités",
+      lessons: [
+        { chapter: "Bases", title: "Calculer une probabilité", body: `
+          <div class="def"><strong>Probabilité</strong>P(événement) = cas favorables / cas possibles.</div>
+          <p>Toujours entre 0 et 1.</p>
+          <div class="def"><strong>Repères</strong>Impossible : P = 0 · Certain : P = 1 · P(non A) = 1 − P(A)</div>
+          <div class="example"><strong>Exemple</strong> : dé à 6 faces. P(4) = 1/6. P(pair) = 3/6 = 1/2.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Formule d'une probabilité ?", back: "cas favorables / cas possibles" },
+        { front: "Probabilité d'un événement certain ?", back: "1" },
+        { front: "P(non A) = ?", back: "1 − P(A)" },
+        { front: "Dé à 6 faces, P(pair) ?", back: "3/6 = 1/2" }
+      ],
+      qcm: [
+        { q: "Jeu de 32 cartes. P(tirer un cœur) ?", options: ["1/32", "1/8", "1/4", "1/2"], correct: 2, exp: "8 cœurs / 32 = 1/4." },
+        { q: "P(A) = 0,3. P(non A) = ?", options: ["0,3", "0,7", "1,3", "0,5"], correct: 1, exp: "1 − 0,3 = 0,7." },
+        { q: "Sac : 5 rouges, 3 bleues. P(rouge) ?", options: ["3/8", "5/8", "5/3", "1/2"], correct: 1, exp: "5/8." },
+        { q: "Sac : 6 rouges, 3 bleues, 1 verte. P(bleue) ?", options: ["3/10", "1/3", "3/6", "1/10"], correct: 0, exp: "3 sur 10 = 3/10." }
+      ],
+      exercises: [
+        {
+          source: "DNB Métropole 2025", points: 20,
+          title: "Deux urnes (probabilités)",
+          statement: `<p>Urne A : 7 ; 10 ; 12 ; 15 ; 24 ; 30 (6 boules). Urne B : 2 ; 5 ; 6 ; 8 ; 17 ; 18 ; 21 ; 22 ; 25 (9 boules).</p>
+            <ol>
+              <li>Urne A : P(nombre pair) ?</li>
+              <li>Urne B : justifier que P(premier) = 1/3.</li>
+              <li>Quelle urne a le plus de multiples de 6 ?</li>
+              <li>P(nombre ≥ 20) : montrer qu'elle est la même pour A et B.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> Pairs dans A : 10,12,24,30 → 4/6 = <strong>2/3</strong></p>
+            <p><strong>2)</strong> Premiers dans B : 2,5,17 → 3/9 = <strong>1/3</strong> ✓</p>
+            <p><strong>3)</strong> Multiples de 6 : A → 12,24,30 (3) ; B → 6,18 (2). <strong>Urne A</strong></p>
+            <p><strong>4)</strong> A : 24,30 → 2/6 = 1/3 ; B : 21,22,25 → 3/9 = 1/3. <strong>Égales (1/3).</strong></p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Proportionnalité, % & Grandeurs</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_proportionnalite",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Proportionnalité, % & Grandeurs",
+  subtitle: "Produit en croix, pourcentages, vitesses et conversions",
+  badge: "⚖️ Proportions · 3e",
+  accentColor: "#00c2ff",
+  accent2Color: "#34c759",
+  depth: 1,
+  tabs: [
+    {
+      id: "proportion",
+      icon: "⚖️",
+      label: "Proportionnalité & %",
+      lessons: [
+        { chapter: "Proportionnalité", title: "Reconnaître & utiliser", body: `
+          <div class="def"><strong>Tableau de proportionnalité</strong>On passe d'une ligne à l'autre en multipliant par le même coefficient.</div>
+          <div class="def"><strong>Produit en croix</strong>Si a/b = c/d, alors a×d = b×c.</div>
+          <div class="example"><strong>Exemple</strong> : 3 stylos = 6€. 5 stylos ? → 3/6 = 5/x → x = (5×6)/3 = 10€.</div>
+        ` },
+        { chapter: "Pourcentages", title: "Les pourcentages", body: `
+          <div class="def"><strong>t% d'une valeur</strong>valeur × t/100.</div>
+          <div class="def"><strong>Augmentation de t%</strong>× (1 + t/100). Ex : +15% → ×1,15.</div>
+          <div class="def"><strong>Réduction de t%</strong>× (1 − t/100). Ex : −30% → ×0,70.</div>
+          <div class="example"><strong>Exemple</strong> : 80€ avec −25% → 80 × 0,75 = 60€.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Produit en croix : a/b = c/d ?", back: "a×d = b×c" },
+        { front: "Calculer t% d'une valeur ?", back: "valeur × t/100" },
+        { front: "Augmenter de 15% = ×?", back: "1,15" },
+        { front: "Réduire de 30% = ×?", back: "0,70" },
+        { front: "20% de 150 ?", back: "30" }
+      ],
+      qcm: [
+        { q: "30% de 200 ?", options: ["6", "60", "30", "70"], correct: 1, exp: "200 × 0,30 = 60." },
+        { q: "50€ +20% = ?", options: ["60€", "70€", "55€", "40€"], correct: 0, exp: "50 × 1,20 = 60€." },
+        { q: "3 melons = 8,40€. 5 melons ?", options: ["16,40€", "42€", "14€", "10,40€"], correct: 2, exp: "8,40/3 × 5 = 14€." },
+        { q: "350€ +20% = ?", options: ["420€", "330€", "370€", "280€"], correct: 0, exp: "350 × 1,20 = 420€." },
+        { q: "Pull 80€, −25% = ?", options: ["55€", "60€", "65€", "20€"], correct: 1, exp: "80 × 0,75 = 60€." }
+      ]
+    },
+    {
+      id: "grandeurs",
+      icon: "⏱️",
+      label: "Vitesses & Grandeurs",
+      lessons: [
+        { chapter: "Vitesse", title: "Vitesse, distance, temps", body: `
+          <span class="formula">v = d / t</span>
+          <p>distance = v × t · temps = d / v</p>
+          <div class="example"><strong>Exemple</strong> : 150 km en 2h → v = 75 km/h.</div>
+          <div class="warning"><strong>Unités</strong>km/h avec heures, m/s avec secondes. Convertir si besoin.</div>
+        ` },
+        { chapter: "Conversions", title: "Conversions de durées", body: `
+          <div class="def"><strong>Durées</strong>1 h = 60 min · 1 min = 60 s · 1 h = 3600 s.</div>
+          <div class="example"><strong>Exemple</strong> : 240 min = 240/60 = 4 h.</div>
+          <div class="warning"><strong>Piège</strong>5 min 30 s = 5,5 min ? NON ! = 5 + 30/60 = 5,5 min ✓ mais attention 5 min 45 s = 5,75 min.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Formule de la vitesse ?", back: "v = d/t" },
+        { front: "Distance = ?", back: "v × t" },
+        { front: "1 h = ? minutes", back: "60 min" },
+        { front: "1 h = ? secondes", back: "3600 s" },
+        { front: "240 min en heures ?", back: "4 h" }
+      ],
+      qcm: [
+        { q: "240 km en 3h. Vitesse ?", options: ["60 km/h", "80 km/h", "720 km/h", "120 km/h"], correct: 1, exp: "240/3 = 80 km/h." },
+        { q: "Un film dure 240 min. En heures ?", options: ["3 h", "4 h", "2 h 40", "4 h 40"], correct: 1, exp: "240/60 = 4 h." },
+        { q: "4 kg = 12€. 7 kg ?", options: ["19€", "21€", "24€", "28€"], correct: 1, exp: "12/4 × 7 = 21€." },
+        { q: "Distance en 2h à 75 km/h ?", options: ["37,5 km", "150 km", "77 km", "73 km"], correct: 1, exp: "75 × 2 = 150 km." }
+      ],
+      exercises: [
+        {
+          source: "DNB Asie Pacifique 2024", points: 26,
+          title: "Location de voiture (3 formules)",
+          statement: `<p>Formule A : 0,50€/km. Formule B : 300€ + 0,25€/km. Formule C : 900€ illimité.<br>Trajet Strasbourg-Marseille : 803 km (aller).</p>
+            <ol>
+              <li>Distance aller-retour ?</li>
+              <li>Formule B : montrer que ça coûte 701,50€.</li>
+              <li>Quelle formule est la plus avantageuse ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 803 × 2 = <strong>1606 km</strong></p>
+            <p><strong>2)</strong> B = 300 + 0,25 × 1606 = 300 + 401,50 = <strong>701,50€</strong></p>
+            <p><strong>3)</strong> A = 0,50 × 1606 = 803€ ; B = 701,50€ ; C = 900€. <strong>Formule B la plus avantageuse.</strong></p>`
+        },
+        {
+          source: "DNB Métropole 2025", points: 23,
+          title: "Aquathlon : médiane et vitesse",
+          statement: `<p>Temps de natation (200 m) de 9 élèves : 5min30 ; 5min45 ; 5min49 ; 5min50 ; 6min ; 6min11 ; 6min12 ; 6min20 ; 6min40.</p>
+            <ol>
+              <li>Quel est le temps médian ?</li>
+              <li>Un poisson nage à 5 km/h. Nage-t-il plus vite que l'élève le plus rapide ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 9 valeurs déjà ordonnées → la 5e = <strong>6 min</strong></p>
+            <p><strong>2)</strong> Plus rapide élève : 5min30 = 330 s pour 200 m → v = 200/330 ≈ 0,606 m/s ≈ 2,18 km/h. Poisson 5 km/h. <strong>Oui, le poisson nage plus vite.</strong></p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

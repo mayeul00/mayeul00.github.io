@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Aires, Volumes & Transformations</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_aires_volumes",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Aires, Volumes & Transformations",
+  subtitle: "Calculer des aires, des volumes et reconnaître les transformations",
+  badge: "📐 Géométrie · 3e",
+  accentColor: "#00c2ff",
+  accent2Color: "#5e5cff",
+  depth: 1,
+  tabs: [
+    {
+      id: "aires_volumes",
+      icon: "📦",
+      label: "Aires & Volumes",
+      lessons: [
+        { chapter: "Aires", title: "Les aires à connaître", body: `
+          <div class="def"><strong>Formules d'aires</strong>Rectangle : L × l<br>Triangle : (base × hauteur) / 2<br>Disque : π × r²<br>Carré : côté²</div>
+          <div class="example"><strong>Exemple</strong> : disque de rayon 3 → aire = π × 3² = 9π ≈ 28,3.</div>
+        ` },
+        { chapter: "Volumes", title: "Les volumes à connaître", body: `
+          <div class="def"><strong>Formules de volumes</strong>Pavé droit : L × l × h<br>Cylindre : π × r² × h<br>Cône / Pyramide : (Aire base × h) / 3<br>Boule : (4/3) × π × r³</div>
+          <div class="warning"><strong>Conversions</strong>1 cm³ = 1 mL · 1 dm³ = 1 L · 1 L = 1000 mL</div>
+          <div class="example"><strong>Exemple</strong> : cylindre rayon 2,5, hauteur 15 → V = π × 2,5² × 15 ≈ 294,5 cm³ ≈ 295 mL.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Aire d'un disque ?", back: "π × r²" },
+        { front: "Aire d'un triangle ?", back: "(base × hauteur) / 2" },
+        { front: "Volume d'un pavé droit ?", back: "Longueur × largeur × hauteur" },
+        { front: "Volume d'un cylindre ?", back: "π × r² × h" },
+        { front: "Volume d'un cône ou d'une pyramide ?", back: "(Aire de la base × hauteur) / 3" },
+        { front: "Volume d'une boule ?", back: "(4/3) × π × r³" },
+        { front: "1 cm³ = ? mL", back: "1 cm³ = 1 mL" },
+        { front: "1 dm³ = ? L", back: "1 dm³ = 1 L" }
+      ],
+      qcm: [
+        { q: "Aire d'un disque de rayon 3 ?", options: ["6π", "9π", "3π", "12π"], correct: 1, exp: "π × r² = π × 9 = 9π." },
+        { q: "Volume d'un pavé 2×3×4 ?", options: ["9", "24", "12", "20"], correct: 1, exp: "2×3×4 = 24." },
+        { q: "Volume d'un cylindre rayon 2, hauteur 10 ?", options: ["40π", "20π", "80π", "10π"], correct: 0, exp: "π × 2² × 10 = 40π." },
+        { q: "Combien de mL dans 1 cm³ ?", options: ["1", "10", "100", "1000"], correct: 0, exp: "1 cm³ = 1 mL." },
+        { q: "Volume d'une pyramide base 12 cm², hauteur 5 cm ?", options: ["60", "20", "30", "12"], correct: 1, exp: "(12 × 5)/3 = 60/3 = 20." }
+      ],
+      exercises: [
+        {
+          source: "DNB Amérique du Sud 2025", points: 21,
+          title: "Glaçons et verres cylindriques",
+          statement: `<p>Glaçon = pavé 5 cm × 2,5 cm × 1,5 cm. Un moule = 15 glaçons. On a 12 moules.<br>Rappels : V cylindre = π r² h ; 1 cm³ = 1 mL.</p>
+            <ol>
+              <li>Combien de glaçons au total ?</li>
+              <li>Montrer que le volume d'un glaçon ≈ 19 mL.</li>
+              <li>5 litres d'eau suffisent-ils pour les 12 moules ?</li>
+              <li>Verre cylindrique rayon 2,5 cm, hauteur 15 cm : montrer V ≈ 295 mL.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 12 × 15 = <strong>180 glaçons</strong></p>
+            <p><strong>2)</strong> V = 5 × 2,5 × 1,5 = 18,75 cm³ ≈ <strong>19 mL</strong></p>
+            <p><strong>3)</strong> 180 × 18,75 = 3375 cm³ = 3,375 L < 5 L → <strong>oui, ça suffit</strong></p>
+            <p><strong>4)</strong> V = π × 2,5² × 15 = π × 6,25 × 15 ≈ <strong>294,5 ≈ 295 mL</strong></p>`
+        },
+        {
+          source: "DNB Asie 2024", points: 20,
+          title: "Triangle, arc de cercle et aire",
+          statement: `<p>(AB) ⊥ (CG) ; A, C, B alignés ; arc de A à B de centre G ; AC = CB ; CG = 10 cm ; BG = 20 cm.</p>
+            <ol>
+              <li>Démontrer que BC ≈ 17,3 cm.</li>
+              <li>Quelle est l'aire du triangle BAG (arrondie à l'unité) ?</li>
+              <li>Montrer que l'angle CGB = 60°.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> Triangle BCG rectangle en C, Pythagore : BC² = BG² − CG² = 20² − 10² = 400 − 100 = 300. BC = √300 ≈ <strong>17,3 cm</strong></p>
+            <p><strong>2)</strong> AC = CB donc AB = 2 × 17,3 = 34,6 cm. Aire BAG = (AB × CG)/2 = (34,6 × 10)/2 ≈ <strong>173 cm²</strong></p>
+            <p><strong>3)</strong> cos(CGB) = CG/BG = 10/20 = 0,5 → CGB = cos⁻¹(0,5) = <strong>60°</strong></p>`
+        }
+      ]
+    },
+    {
+      id: "transformations",
+      icon: "🔄",
+      label: "Transformations",
+      lessons: [
+        { chapter: "Les 5 transformations", title: "Reconnaître les transformations", body: `
+          <div class="def"><strong>Translation</strong>Glissement selon une direction (vecteur). Garde taille et orientation.</div>
+          <div class="def"><strong>Rotation</strong>Tourne autour d'un centre, d'un certain angle.</div>
+          <div class="def"><strong>Symétrie axiale</strong>Réflexion par rapport à une droite (effet miroir).</div>
+          <div class="def"><strong>Symétrie centrale</strong>Demi-tour autour d'un point (= rotation de 180°).</div>
+          <div class="def"><strong>Homothétie</strong>Agrandissement ou réduction par rapport à un centre, de rapport k.</div>
+        ` },
+        { chapter: "Homothéties", title: "L'homothétie en détail", body: `
+          <div class="def"><strong>Rapport k</strong>|k| > 1 → agrandissement · 0 < |k| < 1 → réduction · k < 0 → de l'autre côté du centre.</div>
+          <div class="warning"><strong>Effet sur les mesures</strong>Longueurs × |k| · Aires × k² · Volumes × |k|³</div>
+          <div class="example"><strong>Exemple</strong> : homothétie de rapport 3. Longueur 5 → 15. Aire 4 → 4 × 9 = 36.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Symétrie centrale = ?", back: "Demi-tour autour d'un point (rotation 180°)." },
+        { front: "Translation = ?", back: "Glissement selon une direction (vecteur)." },
+        { front: "Homothétie : effet sur les longueurs ?", back: "Multipliées par |k|." },
+        { front: "Homothétie : effet sur les aires ?", back: "Multipliées par k²." },
+        { front: "Homothétie : effet sur les volumes ?", back: "Multipliés par |k|³." },
+        { front: "Symétrie axiale = ?", back: "Réflexion par rapport à une droite (miroir)." }
+      ],
+      qcm: [
+        { q: "Une symétrie centrale équivaut à une rotation de :", options: ["90°", "180°", "360°", "45°"], correct: 1, exp: "Symétrie centrale = rotation de 180°." },
+        { q: "Homothétie rapport 2 : une aire de 5 devient :", options: ["10", "20", "25", "7"], correct: 1, exp: "Aires × k² = ×4. 5 × 4 = 20." },
+        { q: "Quelle transformation conserve taille ET orientation ?", options: ["Homothétie de rapport 2", "Symétrie axiale", "Translation", "Réduction"], correct: 2, exp: "La translation conserve tout." },
+        { q: "Homothétie rapport 3 : longueur 4 devient :", options: ["7", "12", "9", "4"], correct: 1, exp: "Longueurs × |k| = 4 × 3 = 12." }
+      ],
+      exercises: [
+        {
+          source: "DNB Métropole 2025", points: 3,
+          title: "QCM transformations & proportionnalité",
+          statement: `<p>QCM, une seule réponse exacte.</p>
+            <ol>
+              <li>3 melons coûtent 8,40 €. Combien coûtent 5 melons ? (A: 16,40 € · B: 42 € · C: 14 € · D: 10,40 €)</li>
+              <li>La figure 2 est obtenue à partir de la figure 1 par glissement (sans rotation ni miroir). Quelle transformation ? (A: symétrie centrale · B: rotation · C: translation · D: symétrie axiale)</li>
+              <li>Un article à 350 € augmente de 20 %. Nouveau prix ? (A: 420 € · B: 330 € · C: 370 € · D: 280 €)</li>
+            </ol>`,
+          correction: `<p><strong>1) C : 14 €</strong> — proportionnalité : 8,40/3 = 2,80 €/melon, × 5 = 14 €.</p>
+            <p><strong>2) C : une translation</strong> — la figure glisse sans tourner ni se refléter.</p>
+            <p><strong>3) A : 420 €</strong> — 350 × 1,20 = 420 €.</p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

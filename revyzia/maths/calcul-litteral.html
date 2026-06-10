@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Calcul littéral & Équations</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_calcul_litteral",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Calcul littéral & Équations",
+  subtitle: "Développer, factoriser, résoudre et démontrer avec des lettres",
+  badge: "✏️ Calcul · 3e",
+  accentColor: "#5e5cff",
+  accent2Color: "#ff3b80",
+  depth: 1,
+  tabs: [
+    {
+      id: "developper",
+      icon: "✏️",
+      label: "Développer & Factoriser",
+      lessons: [
+        { chapter: "Développer", title: "Développer une expression", body: `
+          <div class="def"><strong>Simple distributivité</strong>k(a + b) = ka + kb</div>
+          <div class="def"><strong>Double distributivité</strong>(a + b)(c + d) = ac + ad + bc + bd</div>
+          <div class="example"><strong>Exemple</strong> : (x+3)(x+2) = x² + 2x + 3x + 6 = x² + 5x + 6</div>
+          <div class="warning"><strong>Piège des signes</strong>−2(x − 5) = −2x + 10 (le − change tous les signes).</div>
+        ` },
+        { chapter: "Identités", title: "Les identités remarquables", body: `
+          <span class="formula">(a + b)² = a² + 2ab + b²</span>
+          <span class="formula">(a − b)² = a² − 2ab + b²</span>
+          <span class="formula">(a + b)(a − b) = a² − b²</span>
+          <div class="example"><strong>Exemples</strong><br>(x+3)² = x² + 6x + 9<br>(2x+3)² = 4x² + 12x + 9<br>(x+4)(x−4) = x² − 16</div>
+        ` },
+        { chapter: "Factoriser", title: "Factoriser", body: `
+          <div class="def"><strong>Factoriser</strong>Transformer une somme en produit. On cherche un facteur commun.</div>
+          <span class="formula">ka + kb = k(a + b)</span>
+          <div class="example"><strong>Exemple</strong> : 6x + 9 = 3(2x + 3) · 5x² − 10x = 5x(x − 2)</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "(a + b)² = ?", back: "a² + 2ab + b²" },
+        { front: "(a − b)² = ?", back: "a² − 2ab + b²" },
+        { front: "(a + b)(a − b) = ?", back: "a² − b²" },
+        { front: "Développer k(a+b)", back: "ka + kb" },
+        { front: "Développer (a+b)(c+d)", back: "ac + ad + bc + bd" },
+        { front: "Factoriser 6x + 9", back: "3(2x + 3)" },
+        { front: "Développer −2(x − 5)", back: "−2x + 10 (attention au signe)" }
+      ],
+      qcm: [
+        { q: "Développer (x + 4)² :", options: ["x² + 16", "x² + 8x + 16", "x² + 4x + 16", "x² + 8x + 8"], correct: 1, exp: "x² + 2·4·x + 16 = x² + 8x + 16." },
+        { q: "Développer (x − 3)(x + 3) :", options: ["x² − 9", "x² + 9", "x² − 6x + 9", "x² − 9x"], correct: 0, exp: "(a−b)(a+b) = a² − b² = x² − 9." },
+        { q: "Factoriser 8x + 12 :", options: ["4(2x + 3)", "2(4x + 6)", "8(x + 12)", "4(2x + 12)"], correct: 0, exp: "PGCD(8,12) = 4 → 4(2x + 3)." },
+        { q: "Développer (2x + 1)² :", options: ["4x² + 1", "2x² + 4x + 1", "4x² + 4x + 1", "4x² + 2x + 1"], correct: 2, exp: "4x² + 4x + 1." },
+        { q: "Développer −3(2x − 4) :", options: ["−6x − 12", "−6x + 12", "6x − 12", "−6x − 4"], correct: 1, exp: "−6x + 12." }
+      ],
+      exercises: [
+        {
+          source: "Sujet 0 - 2026", points: 3,
+          title: "Programme de calcul & identité remarquable",
+          statement: `<p>Programme : choisir un nombre · le multiplier par 2 · élever le résultat au carré · retrancher 9.</p>
+            <ol>
+              <li>Vérifier qu'en partant de 4, on obtient 55.</li>
+              <li>On appelle x le nombre choisi. Écrire le résultat en fonction de x.</li>
+              <li>Parmi : A=55 · B=(2x+3)² · C=(2x−3)(2x+3) · D=(2x−3)², laquelle correspond au résultat ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 4 × 2 = 8 ; 8² = 64 ; 64 − 9 = <strong>55</strong> ✓</p>
+            <p><strong>2)</strong> Résultat = (2x)² − 9 = <strong>4x² − 9</strong></p>
+            <p><strong>3)</strong> 4x² − 9 = (2x)² − 3² = <strong>(2x−3)(2x+3)</strong> → réponse <strong>C</strong> (identité a²−b²).</p>`
+        }
+      ]
+    },
+    {
+      id: "equations",
+      icon: "🟰",
+      label: "Équations",
+      lessons: [
+        { chapter: "Résoudre", title: "Résoudre une équation", body: `
+          <div class="def"><strong>Principe</strong>Isoler x : ce qu'on fait d'un côté du =, on le fait de l'autre.</div>
+          <div class="example"><strong>Exemple</strong> : 4x − 3 = 17 → 4x = 20 → x = 5.</div>
+        ` },
+        { chapter: "Produit nul", title: "Équation produit nul", body: `
+          <div class="def"><strong>Règle</strong>Si A × B = 0, alors A = 0 OU B = 0.</div>
+          <div class="example"><strong>Exemple</strong> : (x−2)(x+5) = 0 → x = 2 ou x = −5.</div>
+        ` },
+        { chapter: "Mise en équation", title: "Mettre un problème en équation", body: `
+          <div class="def"><strong>Méthode</strong>On choisit l'inconnue x, on traduit l'énoncé en équation, on résout, on vérifie.</div>
+          <div class="example"><strong>Exemple</strong> : périmètre d'un rectangle (L=16−2x, l=x). Périmètre = 2(L+l) = 2(16−2x+x) = 2(16−x) = 32−2x.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Résoudre 4x − 3 = 17", back: "4x = 20, x = 5" },
+        { front: "Équation produit nul (x−2)(x+5)=0", back: "x = 2 OU x = −5" },
+        { front: "Règle du produit nul", back: "Si A × B = 0 alors A = 0 ou B = 0." },
+        { front: "Comment mettre en équation ?", back: "Choisir l'inconnue, traduire l'énoncé, résoudre, vérifier." }
+      ],
+      qcm: [
+        { q: "Résoudre 5x + 2 = 17 :", options: ["x = 3", "x = 5", "x = 15", "x = 19"], correct: 0, exp: "5x = 15, x = 3." },
+        { q: "Solutions de (x + 1)(x − 7) = 0 :", options: ["1 ou 7", "−1 ou 7", "−1 ou −7", "1 ou −7"], correct: 1, exp: "x = −1 ou x = 7." },
+        { q: "Résoudre 5x − 7 = 18 :", options: ["x = 5", "x = 3", "x = 25", "x = 11"], correct: 0, exp: "5x = 25, x = 5." },
+        { q: "Pour résoudre 4x − 3 = 20, on calcule :", options: ["x = 20/4 + 3", "x = (20 − 4) + 3", "x = 20 × 4 + 3", "x = (20 + 3)/4"], correct: 3, exp: "4x = 23, x = 23/4." }
+      ],
+      exercises: [
+        {
+          source: "DNB Asie 2025", points: 20,
+          title: "Périmètres égaux : mise en équation",
+          statement: `<p>Rectangle ABCD : AD = x, AB = 16 − 2x. Carré EFGH : EF = 2x. (en cm)</p>
+            <p><strong>Partie A</strong> (x = 1,5) :</p>
+            <ol>
+              <li>Calculer le périmètre du carré EFGH.</li>
+              <li>Calculer AB.</li>
+            </ol>
+            <p><strong>Partie B</strong> : pour quelle valeur de x les périmètres sont-ils égaux ?</p>
+            <ol start="3">
+              <li>Montrer que le périmètre du rectangle s'écrit −2x + 32... (en fait 32 − 2x).</li>
+              <li>Résoudre pour que périmètre rectangle = périmètre carré.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> EF = 2 × 1,5 = 3 cm. Périmètre carré = 4 × 3 = <strong>12 cm</strong></p>
+            <p><strong>2)</strong> AB = 16 − 2(1,5) = 16 − 3 = <strong>13 cm</strong></p>
+            <p><strong>3)</strong> Périmètre rectangle = 2(AD + AB) = 2(x + 16 − 2x) = 2(16 − x) = <strong>32 − 2x</strong></p>
+            <p><strong>4)</strong> Périmètre carré = 4 × 2x = 8x. On résout 32 − 2x = 8x → 32 = 10x → <strong>x = 3,2 cm</strong></p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

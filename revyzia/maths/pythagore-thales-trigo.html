@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Pythagore, Thalès & Trigonométrie</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_pythagore_thales",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Pythagore, Thalès & Trigonométrie",
+  subtitle: "Calculer des longueurs et des angles dans les triangles",
+  badge: "📐 Géométrie · 3e",
+  accentColor: "#ff3b80",
+  accent2Color: "#5e5cff",
+  depth: 1,
+  tabs: [
+    {
+      id: "pythagore",
+      icon: "📐",
+      label: "Pythagore",
+      lessons: [
+        { chapter: "Théorème", title: "Le théorème de Pythagore", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Dans un triangle RECTANGLE, pour calculer une longueur.</div>
+          <p>Si ABC est rectangle en A :</p>
+          <span class="formula">BC² = AB² + AC²</span>
+          <p>BC est l'<strong>hypoténuse</strong> (le plus grand côté, opposé à l'angle droit).</p>
+          <div class="example"><strong>Exemple</strong> : rectangle en A, AB = 3, AC = 4.<br>BC² = 3² + 4² = 9 + 16 = 25, donc BC = √25 = 5.</div>
+          <div class="warning"><strong>Pour trouver un autre côté</strong>AB² = BC² − AC². On soustrait au lieu d'additionner !</div>
+        ` },
+        { chapter: "Réciproque", title: "La réciproque (prouver l'angle droit)", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Pour PROUVER qu'un triangle est rectangle (ou non).</div>
+          <p><strong>Méthode</strong> :</p>
+          <ol>
+            <li>Calculer le carré du plus grand côté.</li>
+            <li>Calculer la somme des carrés des deux autres.</li>
+            <li>Si égaux → rectangle. Sinon → pas rectangle.</li>
+          </ol>
+          <div class="example"><strong>Exemple</strong> : côtés 5, 12, 13.<br>13² = 169 ; 5² + 12² = 25 + 144 = 169. Égaux → triangle rectangle ✓</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Quand utiliser le théorème de Pythagore ?", back: "Dans un triangle rectangle, pour calculer une longueur." },
+        { front: "Formule de Pythagore (rectangle en A)", back: "BC² = AB² + AC² (BC = hypoténuse)" },
+        { front: "Comment trouver un côté de l'angle droit ?", back: "AB² = BC² − AC² (on soustrait)." },
+        { front: "À quoi sert la réciproque ?", back: "À prouver qu'un triangle est rectangle." },
+        { front: "Triangle 5-12-13 : rectangle ?", back: "Oui : 13² = 169 = 5² + 12²." },
+        { front: "L'hypoténuse, c'est quoi ?", back: "Le plus grand côté, opposé à l'angle droit." }
+      ],
+      qcm: [
+        { q: "Triangle rectangle en A, AB = 6, AC = 8. Combien vaut BC ?", options: ["10", "14", "48", "100"], correct: 0, exp: "BC² = 36 + 64 = 100, BC = 10." },
+        { q: "Quel triplet donne un triangle rectangle ?", options: ["2, 3, 4", "6, 8, 10", "5, 6, 7", "4, 5, 6"], correct: 1, exp: "10² = 100 = 6² + 8²." },
+        { q: "Hypoténuse 13, un côté 5. L'autre côté ?", options: ["8", "12", "18", "144"], correct: 1, exp: "√(169 − 25) = √144 = 12." },
+        { q: "Triangle 7, 8, 12 : rectangle ?", options: ["Oui", "Non", "Impossible à dire", "Si isocèle"], correct: 1, exp: "12² = 144 ≠ 49 + 64 = 113." }
+      ],
+      exercises: [
+        {
+          source: "DNB Métropole 2025", points: 6,
+          title: "Aquathlon : Pythagore + réciproque de Thalès + trigo",
+          statement: `<p>Parcours ACDEB : A, C, B alignés ; A, D, E alignés ; ADC rectangle en A.<br>
+            AC = 480 m ; CB = 120 m ; AE = 250 m ; DE = 50 m.</p>
+            <ol>
+              <li>Justifier que AD = 200 m.</li>
+              <li>Calculer la longueur CD.</li>
+              <li>Pour valider le parcours, il faut (CD)//(BE) et l'angle ACD > 20°. Le parcours est-il validé ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> A, D, E alignés donc D ∈ [AE] : AD = AE − DE = 250 − 50 = <strong>200 m</strong></p>
+            <p><strong>2)</strong> ACD rectangle en A, Pythagore : CD² = AC² + AD² = 480² + 200² = 230400 + 40000 = 270400. CD = √270400 = <strong>520 m</strong></p>
+            <p><strong>3)</strong> AD/AE = 200/250 = 4/5 ; AC/AB = 480/600 = 4/5. Égaux + points alignés même ordre → réciproque de Thalès : <strong>(CD)//(BE)</strong> ✓<br>
+            cos(ACD) = AC/CD = 480/520 = 12/13, donc ACD = cos⁻¹(12/13) ≈ 22,6° > 20° ✓<br>
+            <strong>Le parcours est validé.</strong></p>`
+        }
+      ]
+    },
+    {
+      id: "thales",
+      icon: "📏",
+      label: "Thalès",
+      lessons: [
+        { chapter: "Théorème", title: "Le théorème de Thalès", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Deux droites sécantes coupées par deux droites PARALLÈLES (configuration triangle ou papillon).</div>
+          <p>Si (BC)//(DE), A,B,D alignés et A,C,E alignés :</p>
+          <span class="formula">AB/AD = AC/AE = BC/DE</span>
+          <div class="example"><strong>Exemple</strong> : AB=3, AD=6, AC=4. Trouver AE.<br>3/6 = 4/AE → AE = (4×6)/3 = 8.</div>
+        ` },
+        { chapter: "Réciproque", title: "La réciproque (prouver le parallélisme)", body: `
+          <div class="def"><strong>Quand l'utiliser ?</strong>Pour prouver que deux droites sont parallèles.</div>
+          <p>Si AB/AD = AC/AE ET les points sont alignés dans le même ordre, alors (BC)//(DE).</p>
+          <div class="warning"><strong>Attention</strong>Vérifier que les rapports sont égaux ET le bon ordre des points.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Quand utiliser Thalès ?", back: "Deux sécantes coupées par deux parallèles." },
+        { front: "Égalité de Thalès (BC//DE)", back: "AB/AD = AC/AE = BC/DE" },
+        { front: "À quoi sert la réciproque de Thalès ?", back: "À prouver que deux droites sont parallèles." },
+        { front: "Comment prouver le parallélisme ?", back: "Montrer AB/AD = AC/AE avec points dans le même ordre." }
+      ],
+      qcm: [
+        { q: "(BC)//(DE), AB=4, AD=10, AC=6. AE = ?", options: ["12", "15", "2,4", "24"], correct: 1, exp: "4/10 = 6/AE → AE = 60/4 = 15." },
+        { q: "La réciproque de Thalès sert à :", options: ["Calculer une longueur", "Prouver le parallélisme", "Calculer un angle", "Prouver un angle droit"], correct: 1, exp: "Elle prouve que deux droites sont parallèles." },
+        { q: "Configuration Thalès nécessaire :", options: ["Un triangle isocèle", "Deux sécantes + deux parallèles", "Un cercle", "Un carré"], correct: 1, exp: "Deux droites sécantes coupées par deux parallèles." }
+      ],
+      exercises: [
+        {
+          source: "DNB Asie 2025", points: 24,
+          title: "Thalès + triangles semblables",
+          statement: `<p>G, C, E alignés ; F, C, D alignés ; (GF)//(DE) ; CDE rectangle en D.<br>
+            CD = 21,6 cm ; CE = 29,1 cm ; FC = 17,2 cm.</p>
+            <ol>
+              <li>Montrer que DE = 19,5 cm.</li>
+              <li>Calculer l'aire du triangle CDE.</li>
+              <li>Calculer GF (arrondi au mm).</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> Pythagore dans CDE rectangle en D : DE² = CE² − CD² = 29,1² − 21,6² = 380,25, DE = <strong>19,5 cm</strong></p>
+            <p><strong>2)</strong> Aire = (CD × DE)/2 = (21,6 × 19,5)/2 = <strong>210,6 cm²</strong></p>
+            <p><strong>3)</strong> Thalès : CD/CF = DE/GF → GF = (19,5 × 17,2)/21,6 ≈ <strong>15,5 cm</strong></p>`
+        }
+      ]
+    },
+    {
+      id: "trigo",
+      icon: "📊",
+      label: "Trigonométrie",
+      lessons: [
+        { chapter: "SOH-CAH-TOA", title: "Les formules de trigonométrie", body: `
+          <div class="def"><strong>Dans un triangle rectangle</strong>cos, sin et tan relient un angle aux côtés.</div>
+          <span class="formula">cos = Adjacent / Hypoténuse<br>sin = Opposé / Hypoténuse<br>tan = Opposé / Adjacent</span>
+          <div class="def"><strong>Moyen mnémotechnique</strong>SOH-CAH-TOA</div>
+          <div class="example"><strong>Exemple</strong> : angle 30°, hypoténuse 10. Opposé = 10 × sin(30°) = 10 × 0,5 = 5.</div>
+        ` },
+        { chapter: "Angles", title: "Calculer un angle", body: `
+          <p>Pour trouver un angle, on utilise les fonctions inverses : cos⁻¹, sin⁻¹, tan⁻¹.</p>
+          <div class="example"><strong>Exemple</strong> : cos(ACD) = 12/13. Donc ACD = cos⁻¹(12/13) ≈ 22,6°.</div>
+          <div class="warning"><strong>Somme des angles</strong>Dans un triangle, les 3 angles font 180°. Si rectangle, un angle = 90°.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "cos d'un angle = ?", back: "Adjacent / Hypoténuse (CAH)" },
+        { front: "sin d'un angle = ?", back: "Opposé / Hypoténuse (SOH)" },
+        { front: "tan d'un angle = ?", back: "Opposé / Adjacent (TOA)" },
+        { front: "Moyen mnémotechnique trigo ?", back: "SOH-CAH-TOA" },
+        { front: "Comment trouver un angle avec son cosinus ?", back: "angle = cos⁻¹(valeur)" },
+        { front: "Somme des angles d'un triangle ?", back: "180°" }
+      ],
+      qcm: [
+        { q: "cos correspond à :", options: ["Opposé/Hyp", "Adjacent/Hyp", "Opposé/Adj", "Hyp/Adj"], correct: 1, exp: "CAH : cos = Adjacent/Hypoténuse." },
+        { q: "Triangle ABC rectangle en B, Â = 35°. Combien vaut Ĉ ?", options: ["45°", "55°", "65°", "90°"], correct: 1, exp: "180 − 90 − 35 = 55°." },
+        { q: "sin(30°) = ?", options: ["0", "0,5", "1", "0,87"], correct: 1, exp: "sin(30°) = 0,5." },
+        { q: "Pour calculer un angle connaissant opposé et adjacent :", options: ["cos⁻¹", "sin⁻¹", "tan⁻¹", "Pythagore"], correct: 2, exp: "tan = opp/adj, donc angle = tan⁻¹." }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

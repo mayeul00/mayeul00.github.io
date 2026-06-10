@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Nombres & Arithmétique</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_nombres",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Nombres & Arithmétique",
+  subtitle: "Fractions, puissances, nombres premiers et PGCD",
+  badge: "🔢 Nombres · 3e",
+  accentColor: "#34c759",
+  accent2Color: "#00c2ff",
+  depth: 1,
+  tabs: [
+    {
+      id: "fractions",
+      icon: "➗",
+      label: "Fractions & Relatifs",
+      lessons: [
+        { chapter: "Fractions", title: "Opérations sur les fractions", body: `
+          <div class="def"><strong>Addition / soustraction</strong>Même dénominateur obligatoire, puis on additionne les numérateurs.</div>
+          <span class="formula">a/b + c/b = (a+c)/b</span>
+          <div class="example"><strong>Exemple</strong> : 2/3 + 1/4 = 8/12 + 3/12 = 11/12</div>
+          <div class="def"><strong>Multiplication</strong>numérateurs entre eux, dénominateurs entre eux.</div>
+          <span class="formula">a/b × c/d = (a×c)/(b×d)</span>
+          <div class="def"><strong>Division</strong>Multiplier par l'inverse.</div>
+          <span class="formula">a/b ÷ c/d = a/b × d/c</span>
+        ` },
+        { chapter: "Relatifs", title: "Les nombres relatifs", body: `
+          <div class="def"><strong>Règle des signes (× et ÷)</strong>(+)(+) = + · (−)(−) = + · (+)(−) = − · (−)(+) = −</div>
+          <div class="example"><strong>Exemples</strong> : (−3)×(−4) = +12 · (−5)×2 = −10</div>
+          <div class="warning"><strong>Addition</strong>−5 + 8 = +3 · −5 − 3 = −8</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Additionner deux fractions ?", back: "Même dénominateur, puis additionner les numérateurs." },
+        { front: "a/b ÷ c/d = ?", back: "a/b × d/c (multiplier par l'inverse)" },
+        { front: "a/b × c/d = ?", back: "(a×c)/(b×d)" },
+        { front: "(−3) × (−4) = ?", back: "+12" },
+        { front: "−5 + 8 = ?", back: "+3" }
+      ],
+      qcm: [
+        { q: "2/3 + 1/6 = ?", options: ["3/9", "5/6", "3/6", "1/2"], correct: 1, exp: "2/3 = 4/6, donc 4/6 + 1/6 = 5/6." },
+        { q: "(−6) × (−7) = ?", options: ["−42", "42", "−13", "13"], correct: 1, exp: "Moins par moins = plus, donc +42." },
+        { q: "3/4 × 2/5 = ?", options: ["6/20 = 3/10", "5/9", "6/9", "5/20"], correct: 0, exp: "(3×2)/(4×5) = 6/20 = 3/10." },
+        { q: "1/2 ÷ 1/4 = ?", options: ["1/8", "2", "1/2", "8"], correct: 1, exp: "1/2 × 4/1 = 4/2 = 2." }
+      ]
+    },
+    {
+      id: "puissances",
+      icon: "²",
+      label: "Puissances",
+      lessons: [
+        { chapter: "Règles", title: "Les puissances", body: `
+          <span class="formula">aⁿ = a × a × ... × a (n fois)</span>
+          <div class="def"><strong>Règles</strong>aᵐ × aⁿ = aᵐ⁺ⁿ<br>aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>(aᵐ)ⁿ = aᵐˣⁿ<br>a⁰ = 1<br>a⁻ⁿ = 1/aⁿ</div>
+          <div class="example"><strong>Exemple</strong> : 2³ × 2⁴ = 2⁷ = 128 · 10⁻² = 0,01</div>
+        ` },
+        { chapter: "Scientifique", title: "Notation scientifique", body: `
+          <div class="def"><strong>Forme</strong>a × 10ⁿ avec 1 ≤ a < 10.</div>
+          <div class="example"><strong>Exemples</strong> : 45000 = 4,5 × 10⁴ · 0,0034 = 3,4 × 10⁻³</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "aᵐ × aⁿ = ?", back: "aᵐ⁺ⁿ" },
+        { front: "a⁻ⁿ = ?", back: "1/aⁿ" },
+        { front: "a⁰ = ?", back: "1" },
+        { front: "(aᵐ)ⁿ = ?", back: "aᵐˣⁿ" },
+        { front: "Notation scientifique de 45000 ?", back: "4,5 × 10⁴" }
+      ],
+      qcm: [
+        { q: "2⁵ = ?", options: ["10", "25", "32", "16"], correct: 2, exp: "2×2×2×2×2 = 32." },
+        { q: "Notation scientifique de 0,0034 ?", options: ["3,4 × 10³", "3,4 × 10⁻³", "34 × 10⁻⁴", "0,34 × 10⁻²"], correct: 1, exp: "3,4 × 10⁻³." },
+        { q: "3⁻² = ?", options: ["−9", "−6", "1/9", "1/6"], correct: 2, exp: "1/3² = 1/9." },
+        { q: "10⁶ = ?", options: ["1 000", "100 000", "1 000 000", "10 000"], correct: 2, exp: "1 suivi de 6 zéros." }
+      ]
+    },
+    {
+      id: "premiers",
+      icon: "🔑",
+      label: "Premiers & PGCD",
+      lessons: [
+        { chapter: "Premiers", title: "Nombres premiers & décomposition", body: `
+          <div class="def"><strong>Nombre premier</strong>Divisible uniquement par 1 et lui-même : 2, 3, 5, 7, 11, 13, 17, 19, 23...</div>
+          <div class="def"><strong>Décomposition</strong>Tout nombre s'écrit comme produit de facteurs premiers.</div>
+          <div class="example"><strong>Exemple</strong> : 84 = 4 × 21 = 2² × 3 × 7 · 300 = 2² × 3 × 5²</div>
+        ` },
+        { chapter: "PGCD", title: "PGCD et fractions irréductibles", body: `
+          <div class="def"><strong>PGCD</strong>Plus Grand Commun Diviseur de deux nombres.</div>
+          <p>Pour rendre une fraction irréductible : diviser par le PGCD.</p>
+          <div class="example"><strong>Exemple</strong> : 24/36, PGCD = 12 → 2/3.</div>
+          <div class="warning"><strong>Astuce lots</strong>Pour répartir équitablement en lots, le nombre max de lots = PGCD.</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Qu'est-ce qu'un nombre premier ?", back: "Divisible uniquement par 1 et lui-même (2, 3, 5, 7, 11...)." },
+        { front: "Décomposition de 84 ?", back: "2² × 3 × 7" },
+        { front: "Décomposition de 300 ?", back: "2² × 3 × 5²" },
+        { front: "Comment rendre une fraction irréductible ?", back: "Diviser numérateur et dénominateur par leur PGCD." },
+        { front: "Nombre max de lots équitables ?", back: "Le PGCD des quantités." }
+      ],
+      qcm: [
+        { q: "Décomposition de 84 ?", options: ["2 × 3 × 14", "2² × 3 × 7", "2 × 3² × 7", "4 × 21"], correct: 1, exp: "84 = 4 × 21 = 2² × 3 × 7." },
+        { q: "La fraction 18/24 est égale à :", options: ["2/3", "3/4", "4/5", "9/12"], correct: 1, exp: "PGCD(18,24) = 6 → 3/4." },
+        { q: "Quel nombre est premier ?", options: ["21", "27", "29", "33"], correct: 2, exp: "29 (les autres sont composés)." },
+        { q: "Décomposition de 300 ?", options: ["2² × 5 × 15", "2 × 2 × 3 × 25", "2² × 3 × 5²", "3 × 100"], correct: 2, exp: "300 = 2² × 3 × 5²." }
+      ],
+      exercises: [
+        {
+          source: "DNB Asie 2025", points: 6,
+          title: "Répartition de poissons en lots (PGCD)",
+          statement: `<p>Un magasin a 350 poissons de type A et 300 de type B. On veut faire des lots avec le même nombre de A et le même nombre de B dans chaque lot, en utilisant tous les poissons.</p>
+            <ol>
+              <li>Décomposer 300 en produit de facteurs premiers.</li>
+              <li>Quel nombre maximal de lots peut-on faire ?</li>
+              <li>Combien de poissons de chaque type dans chaque lot ?</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 300 = <strong>2² × 3 × 5²</strong></p>
+            <p><strong>2)</strong> Nombre max de lots = PGCD(350, 300). 350 = 2 × 5² × 7 ; 300 = 2² × 3 × 5². PGCD = 2 × 5² = <strong>50 lots</strong></p>
+            <p><strong>3)</strong> Type A : 350/50 = <strong>7 poissons</strong> ; type B : 300/50 = <strong>6 poissons</strong> par lot.</p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>

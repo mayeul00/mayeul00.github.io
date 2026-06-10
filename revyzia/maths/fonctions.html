@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Maths · Fonctions</title>
+<link rel="stylesheet" href="../shared/chapter-styles.css">
+</head>
+<body>
+<script>
+window.CHAPTER_DATA = {
+  id: "maths_fonctions",
+  subject: "maths",
+  subjectName: "Maths",
+  subjectIcon: "📐",
+  title: "Fonctions",
+  subtitle: "Fonctions linéaires, affines et lecture graphique",
+  badge: "📈 Fonctions · 3e",
+  accentColor: "#7c7aff",
+  accent2Color: "#ff3b80",
+  depth: 1,
+  tabs: [
+    {
+      id: "notion",
+      icon: "📈",
+      label: "Linéaire & Affine",
+      lessons: [
+        { chapter: "Notion", title: "Qu'est-ce qu'une fonction ?", body: `
+          <div class="def"><strong>Fonction</strong>À un nombre x, on associe un seul nombre f(x) (son image).</div>
+          <div class="def"><strong>Vocabulaire</strong>x = antécédent · f(x) = image</div>
+          <div class="example"><strong>Exemple</strong> : f(x) = 2x + 3. L'image de 5 est f(5) = 13.</div>
+        ` },
+        { chapter: "Linéaire", title: "Fonction linéaire", body: `
+          <span class="formula">f(x) = a × x</span>
+          <p>Droite passant par l'<strong>origine</strong> (0,0). Représente une <strong>proportionnalité</strong>.</p>
+          <div class="example"><strong>Exemple</strong> : f(x) = 3x. f(4) = 12.</div>
+        ` },
+        { chapter: "Affine", title: "Fonction affine", body: `
+          <span class="formula">f(x) = a × x + b</span>
+          <p><strong>a</strong> = coefficient directeur (pente) · <strong>b</strong> = ordonnée à l'origine.</p>
+          <div class="warning"><strong>Différence clé</strong>Linéaire passe par (0,0). Affine passe par (0, b).</div>
+          <div class="def"><strong>Coefficient directeur entre 2 points</strong>a = (y_B − y_A)/(x_B − x_A)</div>
+        ` }
+      ],
+      flashcards: [
+        { front: "Forme d'une fonction linéaire ?", back: "f(x) = ax (droite par l'origine)" },
+        { front: "Forme d'une fonction affine ?", back: "f(x) = ax + b" },
+        { front: "Que représente b dans ax + b ?", back: "L'ordonnée à l'origine." },
+        { front: "Que représente a dans ax + b ?", back: "Le coefficient directeur (la pente)." },
+        { front: "Vocabulaire : x et f(x) ?", back: "x = antécédent, f(x) = image." },
+        { front: "Coefficient directeur entre A et B ?", back: "(y_B − y_A)/(x_B − x_A)" },
+        { front: "Quelle fonction = proportionnalité ?", back: "La fonction linéaire f(x) = ax." }
+      ],
+      qcm: [
+        { q: "f(x) = 3x − 2. f(4) = ?", options: ["10", "12", "14", "5"], correct: 0, exp: "3×4 − 2 = 10." },
+        { q: "Quelle est une fonction linéaire ?", options: ["f(x) = 2x + 1", "f(x) = 5x", "f(x) = x²", "f(x) = 3"], correct: 1, exp: "Forme ax : f(x) = 5x." },
+        { q: "Dans f(x) = −2x + 7, l'ordonnée à l'origine est :", options: ["−2", "2", "7", "−7"], correct: 2, exp: "b = 7." },
+        { q: "f(x) = 4x. Antécédent de 20 ?", options: ["5", "80", "16", "24"], correct: 0, exp: "4x = 20 → x = 5." },
+        { q: "Coef directeur de (AB) avec A(2;5), B(6;13) ?", options: ["2", "4", "8", "0,5"], correct: 0, exp: "(13−5)/(6−2) = 8/4 = 2." }
+      ],
+      exercises: [
+        {
+          source: "Sujet 0 - 2026", points: 3,
+          title: "Fonctions linéaire et affine + graphique",
+          statement: `<p>f : x ↦ 4x + 3 et g : x ↦ 6x.</p>
+            <ol>
+              <li>Laquelle représente une proportionnalité ?</li>
+              <li>Calculer l'image de 0 par g.</li>
+              <li>Déterminer l'antécédent de 0 par f.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> g : x ↦ 6x est linéaire → <strong>g</strong>.</p>
+            <p><strong>2)</strong> g(0) = 6 × 0 = <strong>0</strong></p>
+            <p><strong>3)</strong> 4x + 3 = 0 → x = <strong>−3/4 = −0,75</strong></p>`
+        },
+        {
+          source: "DNB Métropole 2025", points: 19,
+          title: "Achat vs Location (modélisation par fonctions)",
+          statement: `<p>Option Achat : 22 400 € + assurance 75 €/mois. Option Location : 425 €/mois.<br>g(x) = 425x (Location).</p>
+            <ol>
+              <li>Montrer qu'après 1 an (12 mois) l'option Achat coûte 23 300 €.</li>
+              <li>Après 36 mois, économie réalisée avec la Location ?</li>
+              <li>Déterminer l'expression f(x) pour l'option Achat.</li>
+            </ol>`,
+          correction: `<p><strong>1)</strong> 22400 + 75 × 12 = 22400 + 900 = <strong>23 300 €</strong></p>
+            <p><strong>2)</strong> Achat à 36 mois : 22400 + 75×36 = 25100 €. Location : 425×36 = 15300 €. Économie = 25100 − 15300 = <strong>9 800 €</strong></p>
+            <p><strong>3)</strong> f(x) = <strong>75x + 22400</strong></p>`
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="../shared/chapter-engine.js"></script>
+</body>
+</html>
