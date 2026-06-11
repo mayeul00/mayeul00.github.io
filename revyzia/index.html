@@ -1545,22 +1545,27 @@ function initFirebase() {
     fbDb = firebase.database();
     // 🔑 Authentification ANONYME (exigée par les nouvelles règles de sécurité).
     // Un identifiant anonyme est généré en arrière-plan : l'UX reste identique (juste un prénom).
+    var __rvStarted = false;
+    function __rvProceed(reason) {
+      if (__rvStarted) return;
+      __rvStarted = true;
+      if (!fbReady) fbReady = true;
+      console.log('[Revyzia] ▶ Démarrage Firebase (' + reason + ')');
+      rvFirebaseStart();
+    }
     if (firebase.auth) {
       firebase.auth().onAuthStateChanged(function(u) {
-        if (u && !fbReady) {
-          fbReady = true;
-          console.log('[Revyzia] ✅ Firebase + auth anonyme OK');
-          rvFirebaseStart();
-        }
+        if (u) __rvProceed('auth anonyme OK');
       });
       firebase.auth().signInAnonymously().catch(function(err) {
         console.warn('[Revyzia] ⚠️ Auth anonyme échec:', err && err.message,
           '— active "Anonyme" dans Firebase → Authentication → Sign-in method.');
+        __rvProceed('auth échec (mode dégradé)'); // on continue quand même pour ne pas bloquer
       });
+      // filet de sécurité : si rien n'a démarré en 5 s, on tente quand même
+      setTimeout(function() { __rvProceed('timeout 5s'); }, 5000);
     } else {
-      // SDK auth indisponible → on continue (l'app marche, mais les écritures seront refusées par les règles)
-      fbReady = true;
-      rvFirebaseStart();
+      __rvProceed('SDK auth absent');
     }
   } catch (e) {
     console.error('[Revyzia] ❌ Firebase init error:', e);
