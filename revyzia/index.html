@@ -839,7 +839,6 @@ function pushToFirebase(data, user) {
         pinnedChapters: merged.pinnedChapters || [],
         pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
-        lastSeen: Date.now(),
         tutoDone: !!merged.tutoDone,
         noUpdatePopup: !!merged.noUpdatePopup,
         seenUpdate: merged.seenUpdate || ''
@@ -1233,7 +1232,6 @@ function dedupAndMergeFirebaseEntries(user) {
         pinnedChapters: merged.pinnedChapters || [],
         pinsUpdatedAt: merged.pinsUpdatedAt || 0,
         chapters: merged.chapters || {},
-        lastSeen: Date.now(),
         tutoDone: !!merged.tutoDone,
         noUpdatePopup: !!merged.noUpdatePopup,
         seenUpdate: merged.seenUpdate || ''
@@ -1577,6 +1575,8 @@ function rvFirebaseStart() {
   const user = getCurrentUser();
   if (user) {
     const key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
+    // 🔒 Confidentialité : on efface l'horodatage de connexion exact (plus de "connecté à telle heure")
+    try { fbDb.ref('users/' + key + '/lastSeen').remove(); } catch(e) {}
     fbDb.ref('users/' + key).once('value').then(function(snap) {
       const remote = snap.val();
       const localData = loadUserData(user);
