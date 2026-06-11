@@ -1515,9 +1515,11 @@ function tryLoadFirebaseFromCDN(cdnIdx) {
   const base = FIREBASE_CDNS[cdnIdx];
   const appUrl = base + '/firebase-app-compat.js';
   const dbUrl = base + '/firebase-database-compat.js';
+  const authUrl = base + '/firebase-auth-compat.js';
   console.log('[Revyzia] Tentative CDN', cdnIdx + 1, ':', base);
   return loadScript(appUrl)
     .then(function() { return loadScript(dbUrl); })
+    .then(function() { return loadScript(authUrl); })
     .then(function() { console.log('[Revyzia] ✅ CDN', cdnIdx + 1, 'OK'); })
     .catch(function(err) {
       console.warn('[Revyzia] CDN', cdnIdx + 1, 'échec, on essaie le suivant...', err.message);
@@ -1541,32 +1543,49 @@ function initFirebase() {
   try {
     fbApp = firebase.initializeApp(FIREBASE_CONFIG);
     fbDb = firebase.database();
-    fbReady = true;
-    console.log('[Revyzia] ✅ Firebase ready');
-    // ⚠️ FIX BUG : si on est déjà connecté, rapatrier les données AVANT de pousser
-    const user = getCurrentUser();
-    if (user) {
-      const key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
-      fbDb.ref('users/' + key).once('value').then(function(snap) {
-        const remote = snap.val();
-        const localData = loadUserData(user);
-        const merged = mergeUserData(localData, remote);
-        // Sauvegarde locale fusionnée
-        try { localStorage.setItem(localUserKey(user), JSON.stringify(merged)); } catch(e) {}
-        // Re-afficher les stats avec les bonnes valeurs
-        if (typeof refreshStats === 'function') refreshStats();
-        // Push merged (sécurise Firebase)
-        pushToFirebase(merged, user);
-        console.log('[Revyzia] 🔄 Données fusionnées au démarrage (local + Firebase)');
-      }).catch(function(err) {
-        console.warn('[Revyzia] Fusion impossible, push standard:', err);
-        pushToFirebase(loadUserData(user), user);
+    // 🔑 Authentification ANONYME (exigée par les nouvelles règles de sécurité).
+    // Un identifiant anonyme est généré en arrière-plan : l'UX reste identique (juste un prénom).
+    if (firebase.auth) {
+      firebase.auth().onAuthStateChanged(function(u) {
+        if (u && !fbReady) {
+          fbReady = true;
+          console.log('[Revyzia] ✅ Firebase + auth anonyme OK');
+          rvFirebaseStart();
+        }
       });
+      firebase.auth().signInAnonymously().catch(function(err) {
+        console.warn('[Revyzia] ⚠️ Auth anonyme échec:', err && err.message,
+          '— active "Anonyme" dans Firebase → Authentication → Sign-in method.');
+      });
+    } else {
+      // SDK auth indisponible → on continue (l'app marche, mais les écritures seront refusées par les règles)
+      fbReady = true;
+      rvFirebaseStart();
     }
-    updateLeaderboard();
   } catch (e) {
     console.error('[Revyzia] ❌ Firebase init error:', e);
   }
+}
+
+function rvFirebaseStart() {
+  // si on est déjà connecté, rapatrier les données AVANT de pousser
+  const user = getCurrentUser();
+  if (user) {
+    const key = safeFirebaseKey(normalizeName(user.name) + '__' + user.klass);
+    fbDb.ref('users/' + key).once('value').then(function(snap) {
+      const remote = snap.val();
+      const localData = loadUserData(user);
+      const merged = mergeUserData(localData, remote);
+      try { localStorage.setItem(localUserKey(user), JSON.stringify(merged)); } catch(e) {}
+      if (typeof refreshStats === 'function') refreshStats();
+      pushToFirebase(merged, user);
+      console.log('[Revyzia] 🔄 Données fusionnées au démarrage (local + Firebase)');
+    }).catch(function(err) {
+      console.warn('[Revyzia] Fusion impossible, push standard:', err);
+      pushToFirebase(loadUserData(user), user);
+    });
+  }
+  updateLeaderboard();
 }
 
 function updateLeaderboard() {
