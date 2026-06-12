@@ -733,25 +733,37 @@ function safeFirebaseKey(s) {
   return String(s).replace(/[.#$\[\]\/]/g, '_');
 }
 
+// Simule l'évolution d'un streak entre deux dates (mêmes règles que updateStreak)
+function projectStreak(streak, fromDate, toDate) {
+  if (!fromDate || !toDate) return 0;
+  const diff = daysBetween(fromDate, toDate);
+  if (isNaN(diff) || diff <= 0) return streak || 0;
+  if (diff === 1) return (streak || 0) + 1;       // venu le lendemain → +1
+  if (diff === 2) return Math.max(1, Math.floor((streak || 0) / 2)); // loupé 1 jour → moitié
+  return 1;                                        // loupé 2 jours+ → 1
+}
+
 // Fusionne 2 jeux de données utilisateur en gardant le max d'XP / streak / chapters
 function mergeUserData(local, remote) {
   if (!remote) return local;
   if (!local) return remote;
-  // 🔥 FIX STREAK : on garde le streak COHÉRENT avec la date la plus récente.
-  // On ne prend PAS le max aveugle (ça gonflerait le streak artificiellement).
+  // 🔥 FIX STREAK MULTI-APPAREILS : on ne jette JAMAIS l'historique de l'autre côté.
+  // Un appareil vierge crée un streak "neuf" (1, daté d'aujourd'hui) : avant, sa date plus
+  // récente écrasait le vrai streak du serveur. Maintenant on PROJETTE l'historique le plus
+  // ancien jusqu'à la date la plus récente (mêmes règles que le tick) et on garde le meilleur.
   const localDate = local.lastReviewDate || '';
   const remoteDate = remote.lastReviewDate || '';
   let streakDays, streakValue, latestReviewDate;
   if (localDate > remoteDate) {
-    // Le local est plus récent → on prend SON streak
     latestReviewDate = localDate;
-    streakDays = local.streakDays || 0;
-    streakValue = local.streakValue || 0;
+    const projected = projectStreak(remote.streakDays || 0, remoteDate, localDate);
+    streakDays = Math.max(local.streakDays || 0, projected);
+    streakValue = streakDays;
   } else if (remoteDate > localDate) {
-    // Le remote est plus récent → on prend SON streak
     latestReviewDate = remoteDate;
-    streakDays = remote.streakDays || 0;
-    streakValue = remote.streakValue || 0;
+    const projected = projectStreak(local.streakDays || 0, localDate, remoteDate);
+    streakDays = Math.max(remote.streakDays || 0, projected);
+    streakValue = streakDays;
   } else {
     // Même date → on prend le plus grand streak (cohérent)
     latestReviewDate = localDate || null;
@@ -764,7 +776,7 @@ function mergeUserData(local, remote) {
     totalXp: Math.max(local.totalXp || 0, remote.totalXp || 0),
     streakDays: streakDays,
     streakValue: streakValue,
-    bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0),
+    bestStreakDays: Math.max(local.bestStreakDays || 0, remote.bestStreakDays || 0, streakDays),
     lastReviewDate: latestReviewDate || null,
     badges: (local.badges && local.badges.length >= (remote.badges || []).length) ? local.badges : (remote.badges || []),
     pinnedChapters: mergePins(local.pinnedChapters, remote.pinnedChapters, local.pinsUpdatedAt, remote.pinsUpdatedAt),
