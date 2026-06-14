@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Révisions Brevet · Histoire-Géo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Brevet · Histoire-Géo</title>
 <link rel="stylesheet" href="../shared/brevet-pages.css">
 <style>:root{--ch-accent:#ff3b80;--ch-accent-2:#5e8bff;}</style>
 </head>
@@ -14,302 +14,89 @@
     <a class="back-btn" href="../index.html?subject=histoire" title="Retour aux chapitres">←</a>
     <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
     <div class="brand-icon">🌍</div>
-    <span class="brand-name">Histoire-Géo</span>
+    <span class="brand-name">Fiche · Histoire-Géo</span>
   </div>
-  <div class="top-right"><a class="tb-btn" href="../fiches/histoire-geo.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+  <div class="top-right"><button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button><button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button></div>
 </header>
 
-<div class="wrap">
-  <div class="hero">
-    <h1>Histoire-Géo : repères &amp; développements construits</h1>
-    <p>Deux onglets : <b>Cours &amp; repères</b> (dates et notions à connaître par cœur) et <b>Développements construits</b> (les sujets tombés au brevet, avec correction complète à révéler).</p>
+<div class="sheet">
+  <h1>Mémo Brevet — Histoire-Géographie</h1>
+  <div class="subtitle">Les repères, dates et définitions à connaître par cœur · à relire avant l'épreuve</div>
+
+  <div class="fgroup"><h2>📅 Repères chronologiques (à mémoriser)</h2>
+  <div class="cols">
+    <div class="d"><b>1914-1918</b> — Première Guerre mondiale</div>
+    <div class="d"><b>1916</b> — Verdun &amp; la Somme</div>
+    <div class="d"><b>1917</b> — Révolutions russes</div>
+    <div class="d"><b>11 nov. 1918</b> — Armistice</div>
+    <div class="d"><b>1933</b> — Hitler au pouvoir (régime nazi)</div>
+    <div class="d"><b>1936</b> — Front populaire (France)</div>
+    <div class="d"><b>1939-1945</b> — Seconde Guerre mondiale</div>
+    <div class="d"><b>18 juin 1940</b> — Appel du général de Gaulle</div>
+    <div class="d"><b>1942</b> — Wannsee ; Stalingrad</div>
+    <div class="d"><b>6 juin 1944</b> — Débarquement de Normandie</div>
+    <div class="d"><b>1944</b> — Droit de vote des femmes</div>
+    <div class="d"><b>8 mai 1945</b> — Capitulation allemande</div>
+    <div class="d"><b>août 1945</b> — Hiroshima &amp; Nagasaki</div>
+    <div class="d"><b>1947</b> — Début Guerre froide ; indép. Inde</div>
+    <div class="d"><b>1957</b> — Traité de Rome (CEE)</div>
+    <div class="d"><b>1958</b> — Ve République</div>
+    <div class="d"><b>1961</b> — Mur de Berlin</div>
+    <div class="d"><b>1962</b> — Indép. Algérie ; crise de Cuba</div>
+    <div class="d"><b>1975</b> — Loi Veil (IVG)</div>
+    <div class="d"><b>1989</b> — Chute du mur de Berlin</div>
+    <div class="d"><b>1991</b> — Fin de l'URSS</div>
+    <div class="d"><b>1992</b> — Traité de Maastricht (UE)</div>
+    <div class="d"><b>2002</b> — Euro en circulation</div>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" onclick="showView('cours',this)">📚 Cours &amp; repères</div>
-    <div class="tab" onclick="showView('dc',this)">✍️ Développements construits</div>
+  </div>
+<div class="fgroup"><h2>📖 Histoire — définitions clés</h2>
+  <div class="cols">
+    <div class="def"><b>Guerre totale</b> : mobilisation de tout le pays (soldats, économie, civils, propagande).</div>
+    <div class="def"><b>Génocide</b> : extermination planifiée d'un peuple (Arméniens 1915 ; Juifs &amp; Tziganes = Shoah).</div>
+    <div class="def"><b>Régime totalitaire</b> : parti unique, chef tout-puissant, propagande, terreur, contrôle total (URSS de Staline, Allemagne nazie).</div>
+    <div class="def"><b>Guerre d'anéantissement</b> : volonté de détruire totalement l'ennemi (militaire et civil).</div>
+    <div class="def"><b>Régime de Vichy</b> : régime de Pétain (1940), autoritaire, collabore avec l'Allemagne.</div>
+    <div class="def"><b>Résistance</b> : lutte contre l'occupant et Vichy (de Gaulle, Jean Moulin / CNR 1943).</div>
+    <div class="def"><b>Guerre froide</b> : affrontement indirect USA / URSS (1947-1991), monde bipolaire.</div>
+    <div class="def"><b>Décolonisation</b> : accès à l'indépendance des colonies (négociée ou par la guerre).</div>
+    <div class="def"><b>Ve République</b> : depuis 1958, exécutif fort (président élu au suffrage universel depuis 1962).</div>
   </div>
 
-  <!-- ===================== VUE COURS ===================== -->
-  <div class="view active" id="view-cours">
-    <div class="fig wide"><svg viewBox="0 0 900 120" xmlns="http://www.w3.org/2000/svg">
-      <line x1="20" y1="70" x2="880" y2="70" stroke="#9fb2bf" stroke-width="2"/>
-      <polygon points="888,70 878,65 878,75" fill="#9fb2bf"/>
-      <g font-family="sans-serif" font-size="12" fill="#eaf2f7" text-anchor="middle">
-        <g><circle cx="70" cy="70" r="5" fill="#ff5d8f"/><text x="70" y="92" fill="#fbbf24" font-weight="bold">1914-18</text><text x="70" y="55">PGM</text></g>
-        <g><circle cx="200" cy="70" r="5" fill="#ff5d8f"/><text x="200" y="92" fill="#fbbf24" font-weight="bold">1917</text><text x="200" y="55">Rév. russe</text></g>
-        <g><circle cx="330" cy="70" r="5" fill="#ff5d8f"/><text x="330" y="92" fill="#fbbf24" font-weight="bold">1939-45</text><text x="330" y="55">SGM</text></g>
-        <g><circle cx="470" cy="70" r="5" fill="#ff5d8f"/><text x="470" y="92" fill="#fbbf24" font-weight="bold">1947-91</text><text x="470" y="55">Guerre froide</text></g>
-        <g><circle cx="600" cy="70" r="5" fill="#5e8bff"/><text x="600" y="92" fill="#fbbf24" font-weight="bold">1957</text><text x="600" y="55">Traité de Rome</text></g>
-        <g><circle cx="700" cy="70" r="5" fill="#5e8bff"/><text x="700" y="92" fill="#fbbf24" font-weight="bold">1958</text><text x="700" y="55">Ve Rép.</text></g>
-        <g><circle cx="810" cy="70" r="5" fill="#5e8bff"/><text x="810" y="92" fill="#fbbf24" font-weight="bold">1989</text><text x="810" y="55">Chute Mur</text></g>
-      </g>
-    </svg><div class="figcap">Frise des grands repères du programme (XXᵉ s. → aujourd'hui).</div></div>
-
-    <div class="toc">
-      <a href="#c-pgm">PGM</a><a href="#c-tota">Totalitarismes</a><a href="#c-sgm">SGM</a><a href="#c-france">France occupée</a>
-      <a href="#c-gf">Guerre froide</a><a href="#c-deco">Décolonisation</a><a href="#c-eu">Europe</a><a href="#c-1989">Après 1989</a><a href="#c-rep">République</a>
-      <a href="#c-urbain">Aires urbaines</a><a href="#c-prod">Espaces productifs</a><a href="#c-amenager">Aménager</a><a href="#c-outremer">Ultramarins</a><a href="#c-monde">France/monde</a>
-    </div>
-
-    <div class="subj">Histoire</div>
-
-    <section id="c-pgm"><div class="sec-head"><h2>La Première Guerre mondiale (1914-1918)</h2><span class="lab">Une guerre totale</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1914</span> Début de la guerre ; guerre de mouvement puis de tranchées.</li>
-        <li><span class="y">1916</span> Verdun et la Somme (batailles meurtrières).</li>
-        <li><span class="y">1917</span> Révolutions russes ; entrée des États-Unis.</li>
-        <li><span class="y">11 nov. 1918</span> Armistice. <span class="y">1919</span> Traité de Versailles.</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Guerre totale</b> : tout le pays est mobilisé (soldats, économie, civils, propagande).</div>
-      <div class="notion"><b>Violence de masse</b> : Verdun, gaz, « poilus », ~10 millions de morts. <b>Génocide arménien</b> (1915).</div>
-      <div class="notion"><b>Conséquences</b> : bilan humain énorme, traité de Versailles (Allemagne sanctionnée), révolution russe.</div>
-    </div></section>
-
-    <section id="c-tota"><div class="sec-head"><h2>Démocraties &amp; régimes totalitaires (années 1930)</h2><span class="lab">URSS, Allemagne nazie</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1924-53</span> Staline au pouvoir en URSS.</li>
-        <li><span class="y">1933</span> Hitler chancelier ; mise en place du régime nazi.</li>
-        <li><span class="y">1936</span> Front populaire en France.</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Régime totalitaire</b> : parti unique, chef tout-puissant, propagande, terreur (police politique), contrôle total de la société.</div>
-      <div class="notion"><b>URSS stalinienne</b> : économie planifiée, collectivisation, goulags, culte de Staline.</div>
-      <div class="notion"><b>Allemagne nazie</b> : idéologie raciste et antisémite, lois de Nuremberg (1935), Gestapo, embrigadement.</div>
-    </div></section>
-
-    <section id="c-sgm"><div class="sec-head"><h2>La Seconde Guerre mondiale (1939-1945)</h2><span class="lab">Guerre d'anéantissement</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1939</span> Invasion de la Pologne → début de la guerre.</li>
-        <li><span class="y">1942</span> Conférence de Wannsee (« solution finale ») ; Stalingrad (tournant).</li>
-        <li><span class="y">6 juin 1944</span> Débarquement de Normandie. <span class="y">8 mai 1945</span> Capitulation allemande.</li>
-        <li><span class="y">août 1945</span> Bombes atomiques (Hiroshima, Nagasaki) → capitulation du Japon.</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Guerre d'anéantissement</b> : volonté de détruire totalement l'ennemi (combats, civils, idéologie).</div>
-      <div class="notion"><b>Génocide</b> des Juifs et des Tziganes (Shoah) : extermination planifiée, camps (Auschwitz). ~6 millions de Juifs.</div>
-      <div class="keyfig">Bilan : ~50-60 millions de morts, majorité de civils.</div>
-    </div></section>
-
-    <section id="c-france"><div class="sec-head"><h2>La France défaite et occupée — Vichy, Résistance</h2><span class="lab">1940-1944</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">18 juin 1940</span> Appel du général de Gaulle (Londres).</li>
-        <li><span class="y">1940</span> Pétain, régime de Vichy ; « Révolution nationale », collaboration.</li>
-        <li><span class="y">1943</span> Unification de la Résistance (Jean Moulin, CNR).</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Régime de Vichy</b> : autoritaire, abandonne la République, collabore avec l'Allemagne, participe à la déportation des Juifs.</div>
-      <div class="notion"><b>Résistance</b> : intérieure (maquis, réseaux) et extérieure (France libre). But : libérer la France, rétablir la République.</div>
-    </div></section>
-
-    <section id="c-gf"><div class="sec-head"><h2>La Guerre froide (1947-1991)</h2><span class="lab">Un monde bipolaire</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1947</span> Début (doctrines Truman / Jdanov).</li>
-        <li><span class="y">1948-49</span> Blocus de Berlin. <span class="y">1961</span> Mur de Berlin.</li>
-        <li><span class="y">1962</span> Crise de Cuba. <span class="y">1989</span> Chute du mur. <span class="y">1991</span> Fin de l'URSS.</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Monde bipolaire</b> : deux blocs (USA/capitalisme vs URSS/communisme) sans guerre directe.</div>
-      <div class="notion"><b>Berlin</b> : symbole de la Guerre froide (ville coupée par le Mur de 1961 à 1989).</div>
-    </div></section>
-
-    <section id="c-deco"><div class="sec-head"><h2>La décolonisation</h2><span class="lab">Naissance de nouveaux États</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1947</span> Indépendance de l'Inde.</li>
-        <li><span class="y">1954-62</span> Guerre d'Algérie → indépendance (1962).</li>
-        <li><span class="y">1955</span> Conférence de Bandung (pays décolonisés).</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Décolonisation</b> : accès à l'indépendance des colonies, par la négociation (Inde) ou la guerre (Algérie).</div>
-      <div class="notion"><b>Tiers-monde</b> : nouveaux États indépendants, souvent pauvres, refusant de choisir un bloc.</div>
-    </div></section>
-
-    <section id="c-eu"><div class="sec-head"><h2>Le projet européen</h2><span class="lab">Une construction par étapes</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1957</span> Traité de Rome (CEE, 6 pays).</li>
-        <li><span class="y">1992</span> Traité de Maastricht (Union européenne).</li>
-        <li><span class="y">2002</span> Mise en circulation de l'euro.</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Construction européenne</b> : rapprochement économique puis politique, pour la paix et la prospérité.</div>
-    </div></section>
-
-    <section id="c-1989"><div class="sec-head"><h2>Le monde depuis 1989</h2><span class="lab">Nouvel ordre mondial</span></div><div class="sec-body">
-      <h3>Notions</h3>
-      <div class="notion"><b>Fin de la Guerre froide</b> (1989-1991) : effondrement du bloc soviétique, monde longtemps dominé par les USA.</div>
-      <div class="notion"><b>Mondialisation</b> et nouveaux enjeux (terrorisme, climat, puissances émergentes).</div>
-    </div></section>
-
-    <section id="c-rep"><div class="sec-head"><h2>Une République repensée (depuis 1945)</h2><span class="lab">Démocratie, société, femmes</span></div><div class="sec-body">
-      <h3>Dates clés</h3><ul class="dates">
-        <li><span class="y">1944</span> Droit de vote des femmes. <span class="y">1946</span> IVe République.</li>
-        <li><span class="y">1958</span> Ve République (de Gaulle). <span class="y">1962</span> Élection du président au suffrage universel.</li>
-        <li><span class="y">1975</span> Loi Veil (IVG).</li>
-      </ul>
-      <h3>Notions</h3>
-      <div class="notion"><b>Ve République</b> : pouvoir exécutif fort (président). <b>Évolution de la société</b> : place des femmes, immigration, école.</div>
-    </div></section>
-
-    <div class="subj">Géographie</div>
-
-    <section id="c-urbain"><div class="sec-head"><h2>Les aires urbaines &amp; l'influence des villes</h2></div><div class="sec-body">
-      <div class="notion"><b>Aire urbaine</b> : ville-centre + banlieue + couronne périurbaine. <b>Périurbanisation</b> et <b>étalement urbain</b>.</div>
-      <div class="notion"><b>Métropolisation</b> : concentration des populations et activités dans les grandes villes (surtout Paris).</div>
-    </div></section>
-
-    <section id="c-prod"><div class="sec-head"><h2>Les espaces productifs</h2></div><div class="sec-body">
-      <div class="notion"><b>Espaces productifs</b> : agricoles, industriels, de services/touristiques, transformés par la mondialisation.</div>
-      <div class="notion">Atouts : main-d'œuvre qualifiée, technopôles, littoraux (façades maritimes), tourisme (1ʳᵉ destination mondiale).</div>
-    </div></section>
-
-    <section id="c-amenager"><div class="sec-head"><h2>Aménager pour réduire les inégalités</h2></div><div class="sec-body">
-      <div class="notion"><b>Inégalités</b> : Paris (19 % pop., 32 % PIB) vs reste ; métropoles attractives vs ruraux isolés/DROM.</div>
-      <div class="notion"><b>Acteurs</b> : État + collectivités (ANCT 2020), UE, privés. Projets : LGV SEA, Co'Met / abandons (NDDL, EuropaCity).</div>
-    </div></section>
-
-    <section id="c-outremer"><div class="sec-head"><h2>Les territoires ultramarins</h2></div><div class="sec-body">
-      <div class="notion"><b>5 DROM</b> (Guadeloupe, Martinique, Guyane, Réunion, Mayotte). Atout : 2ᵉ ZEE mondiale.</div>
-      <div class="notion"><b>Contraintes</b> : éloignement, risques naturels, chômage. Aménagements : route du littoral (Réunion).</div>
-    </div></section>
-
-    <section id="c-monde"><div class="sec-head"><h2>La France et l'Europe dans le monde</h2></div><div class="sec-body">
-      <div class="notion"><b>Rayonnement</b> : 2ᵉ domaine maritime mondial, francophonie, membre de l'UE, siège à l'ONU.</div>
-    </div></section>
+  </div>
+<div class="fgroup"><h2 class="geo">🗺️ Géographie — notions &amp; chiffres clés</h2>
+  <div class="cols">
+    <div class="def geo"><b>Aire urbaine</b> : ville-centre + banlieue + couronne périurbaine.</div>
+    <div class="def geo"><b>Métropolisation</b> : concentration des populations et activités dans les grandes villes.</div>
+    <div class="def geo"><b>Périurbanisation / étalement urbain</b> : extension des villes vers les campagnes.</div>
+    <div class="def geo"><b>Espaces productifs</b> : agricoles, industriels, de services / touristiques.</div>
+    <div class="def geo"><b>Aménagement du territoire</b> : action des pouvoirs publics pour réduire les inégalités.</div>
+    <div class="def geo"><b>Île-de-France</b> : 19 % de la population, 32 % du PIB (fort déséquilibre).</div>
+    <div class="def geo"><b>Acteurs</b> : État + collectivités (ANCT 2020), UE, acteurs privés.</div>
+    <div class="def geo"><b>5 DROM</b> : Guadeloupe, Martinique, Guyane, La Réunion, Mayotte.</div>
+    <div class="def geo"><b>ZEE</b> : zone économique exclusive → la France a la <b>2ᵉ</b> du monde.</div>
+    <div class="def geo"><b>France dans le monde</b> : UE, ONU (siège permanent), francophonie, 1ʳᵉ destination touristique.</div>
   </div>
 
-  <!-- ===================== VUE DÉVELOPPEMENTS CONSTRUITS ===================== -->
-  <div class="view" id="view-dc">
-    <div class="method"><b>📝 La méthode du développement construit</b><br>
-      <b>Introduction</b> (présenter le sujet + problématique) → <b>2 ou 3 paragraphes</b> (chacun : une idée + des exemples précis : dates, lieux, noms) → <b>Conclusion</b> (réponse à la problématique). Soigne les connecteurs et le vocabulaire.</div>
-
-    <div class="subj">Histoire</div>
-
-    <section><div class="sec-head"><h2>Première Guerre mondiale</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Racontez et expliquez l'expérience combattante des soldats pendant la Première Guerre mondiale.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>La Première Guerre mondiale (1914-1918) est une guerre totale d'une violence inédite. Comment les soldats, les « poilus », ont-ils vécu les combats ?</p>
-          <p class="pp">§1 — Une guerre de tranchées</p><p>Après une guerre de mouvement, le front se fige fin 1914 : les soldats vivent dans des <b>tranchées</b>, dans la boue, le froid, au milieu des rats et des cadavres. Ils subissent des assauts meurtriers, comme à <b>Verdun</b> (1916).</p>
-          <p class="pp">§2 — Une violence de masse</p><p>Les combattants affrontent une artillerie massive, les <b>gaz de combat</b> et les mitrailleuses. Les pertes sont énormes (Verdun : centaines de milliers de morts). Cette « violence de masse » marque durablement les survivants (« gueules cassées »).</p>
-          <p class="pp">Conclusion</p><p>L'expérience combattante de la PGM fut celle d'une guerre totale et déshumanisante ; elle explique l'ampleur du traumatisme et le bilan de ~10 millions de morts.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>Démocraties &amp; totalitarismes</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Montrez que l'Allemagne nazie (ou l'URSS de Staline) est un régime totalitaire.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Dans les années 1930, des régimes totalitaires s'imposent en Europe. En quoi le régime nazi (Hitler, 1933) est-il totalitaire ?</p>
-          <p class="pp">§1 — Un pouvoir total et un parti unique</p><p>Hitler, le « Führer », concentre tous les pouvoirs. Le <b>parti nazi est unique</b>, la <b>propagande</b> (Goebbels, radio, défilés) encadre la population, et la jeunesse est embrigadée.</p>
-          <p class="pp">§2 — La terreur et l'idéologie</p><p>La <b>Gestapo</b> et les camps répriment les opposants. L'idéologie <b>raciste et antisémite</b> exclut les Juifs (lois de Nuremberg, 1935).</p>
-          <p class="pp">Conclusion</p><p>Parti unique, culte du chef, propagande, terreur et contrôle total de la société : le régime nazi réunit tous les traits d'un régime totalitaire.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>Seconde Guerre mondiale</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Montrez que la Seconde Guerre mondiale est une guerre d'anéantissement.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>De 1939 à 1945, la Seconde Guerre mondiale atteint une violence extrême. Pourquoi parle-t-on d'une « guerre d'anéantissement » ?</p>
-          <p class="pp">§1 — Anéantir l'adversaire militaire et civil</p><p>Les combats sont massifs (Stalingrad, 1942-43) et frappent les civils : bombardements de villes, et l'arme atomique sur <b>Hiroshima et Nagasaki</b> (août 1945).</p>
-          <p class="pp">§2 — Le génocide</p><p>Les nazis planifient l'extermination des <b>Juifs et des Tziganes</b> (conférence de Wannsee, 1942) dans des camps comme <b>Auschwitz</b> : ~6 millions de Juifs assassinés (Shoah).</p>
-          <p class="pp">Conclusion</p><p>Par la volonté de détruire totalement l'ennemi et des peuples entiers, la SGM (~50-60 M de morts) est bien une guerre d'anéantissement.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>France occupée — Vichy &amp; Résistance</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> La France pendant la Seconde Guerre mondiale : entre collaboration (Vichy) et Résistance.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Après la défaite de 1940, la France est divisée. Comment réagit-elle face à l'occupation allemande ?</p>
-          <p class="pp">§1 — Le régime de Vichy et la collaboration</p><p>Le maréchal <b>Pétain</b> instaure un régime autoritaire (« Révolution nationale »), abandonne la République et <b>collabore</b> avec l'Allemagne, participant à la déportation des Juifs.</p>
-          <p class="pp">§2 — La Résistance</p><p>Dès le <b>18 juin 1940</b>, le général <b>de Gaulle</b> appelle à résister (France libre). À l'intérieur, les réseaux et maquis s'unifient en 1943 grâce à <b>Jean Moulin</b> (CNR).</p>
-          <p class="pp">Conclusion</p><p>Face à l'occupation, la France oscille entre collaboration et résistance ; cette dernière permet de rétablir la République à la Libération.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>La Guerre froide</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Berlin, un enjeu et un symbole de la Guerre froide (1945-1989).</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>De 1947 à 1991, le monde est divisé en deux blocs. En quoi Berlin est-elle au cœur de la Guerre froide ?</p>
-          <p class="pp">§1 — Une ville coupée en deux</p><p>Berlin est divisée entre Est (soviétique) et Ouest. Le <b>blocus de 1948-49</b> puis la construction du <b>Mur en 1961</b> séparent la ville et les familles.</p>
-          <p class="pp">§2 — Le symbole de la fin</p><p>Le Mur devient le symbole du « rideau de fer ». Sa <b>chute, le 9 novembre 1989</b>, annonce la fin de la Guerre froide et la réunification allemande.</p>
-          <p class="pp">Conclusion</p><p>De sa division à la chute du Mur, Berlin incarne tout l'affrontement bipolaire de la Guerre froide.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>Décolonisation &amp; projet européen</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> La construction européenne depuis 1957.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Après 1945, des pays européens choisissent de s'unir. Comment l'Europe s'est-elle construite depuis 1957 ?</p>
-          <p class="pp">§1 — Une union d'abord économique</p><p>Le <b>traité de Rome (1957)</b> crée la CEE (6 pays) pour favoriser les échanges et la paix. L'Europe s'élargit ensuite à de nombreux pays.</p>
-          <p class="pp">§2 — Une union politique et monétaire</p><p>Le <b>traité de Maastricht (1992)</b> crée l'Union européenne ; l'<b>euro</b> est mis en circulation en 2002.</p>
-          <p class="pp">Conclusion</p><p>D'un marché commun à une union politique et monétaire, la construction européenne a rapproché les peuples du continent.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>Une République repensée</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> La place des femmes dans la société française depuis 1945.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Depuis 1945, la place des femmes a profondément évolué en France. Comment ont-elles conquis de nouveaux droits ?</p>
-          <p class="pp">§1 — Des droits politiques et civils</p><p>Les femmes obtiennent le <b>droit de vote en 1944</b>, puis l'égalité progressive dans la famille et le travail.</p>
-          <p class="pp">§2 — La maîtrise de leur corps et l'égalité</p><p>La <b>loi Veil (1975)</b> autorise l'IVG. Des lois sur l'égalité professionnelle et la parité suivent, même si des inégalités demeurent.</p>
-          <p class="pp">Conclusion</p><p>De 1944 à aujourd'hui, les femmes ont gagné des droits majeurs, signe d'une République qui se repense vers plus d'égalité.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <div class="subj">Géographie</div>
-
-    <section><div class="sec-head"><h2>Aménager le territoire</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Comment l'aménagement du territoire permet-il de réduire les inégalités en France ?</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Le territoire français connaît de fortes inégalités. Comment l'aménagement cherche-t-il à les réduire ?</p>
-          <p class="pp">§1 — Des inégalités à corriger</p><p>L'<b>Île-de-France</b> domine (19 % de la population, 32 % du PIB) face aux espaces ruraux isolés et aux DROM. Des écarts existent aussi dans les villes (banlieues / centres).</p>
-          <p class="pp">§2 — Des acteurs et des projets</p><p>L'<b>État</b>, les collectivités (<b>ANCT, 2020</b>) et l'UE aménagent : désenclaver (<b>LGV Sud Europe Atlantique</b>), reconvertir (Louvre-Lens), tout en protégeant l'environnement (projets parfois abandonnés : Notre-Dame-des-Landes).</p>
-          <p class="pp">Conclusion</p><p>Par des projets variés, l'aménagement vise à réduire les inégalités, désormais en conciliant développement et environnement.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>Territoires ultramarins</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Atouts et contraintes des territoires ultramarins français.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>La France possède 5 DROM lointains. Quels sont leurs atouts et leurs contraintes ?</p>
-          <p class="pp">§1 — De réels atouts</p><p>Ils donnent à la France la <b>2ᵉ ZEE mondiale</b> (ressources marines), une grande biodiversité, le spatial (Kourou) et un atout touristique.</p>
-          <p class="pp">§2 — De fortes contraintes</p><p>Éloignement, insularité, <b>risques naturels</b> (cyclones, volcans), chômage et vie chère. D'où des aménagements (route du littoral à La Réunion) financés par l'État et l'UE.</p>
-          <p class="pp">Conclusion</p><p>Riches d'atouts mais marqués par des contraintes, les territoires ultramarins sont un enjeu majeur d'aménagement pour la France.</p>
-        </div></details>
-      </div>
-    </div></section>
-
-    <section><div class="sec-head"><h2>La France dans le monde</h2></div><div class="sec-body">
-      <div class="dc"><div class="subj-q"><b>Sujet :</b> Montrez que la France est une puissance présente dans le monde.</div>
-        <details><summary>Voir une correction rédigée</summary><div class="corr">
-          <p class="pp">Introduction</p><p>Malgré sa taille modeste, la France rayonne dans le monde. Comment se manifeste sa puissance ?</p>
-          <p class="pp">§1 — Une puissance maritime et territoriale</p><p>Grâce à l'outre-mer, la France a le <b>2ᵉ domaine maritime mondial</b> et une présence sur tous les océans.</p>
-          <p class="pp">§2 — Une puissance diplomatique et culturelle</p><p>Membre de l'<b>UE</b>, siège permanent à l'<b>ONU</b>, rayonnement de la <b>francophonie</b> et du tourisme (1ʳᵉ destination mondiale).</p>
-          <p class="pp">Conclusion</p><p>Par ses territoires, sa diplomatie et sa culture, la France reste une puissance d'influence mondiale.</p>
-        </div></details>
-      </div>
-    </div></section>
   </div>
+<div class="fgroup"><h2>✍️ Méthode — Développement construit</h2>
+  <div class="note"><b>Structure</b> : <b>Introduction</b> (présente le sujet + problématique) → <b>2-3 paragraphes</b> (1 idée + exemples précis : dates, lieux, noms) → <b>Conclusion</b> (réponse à la problématique). Soigne les connecteurs (« d'abord », « de plus », « enfin ») et le vocabulaire historique/géographique.</div>
+  <div class="note"><b>Sujets fréquents</b> : expérience combattante (PGM) · un régime totalitaire · guerre d'anéantissement (SGM) · Vichy &amp; Résistance · Berlin dans la Guerre froide · construction européenne · place des femmes depuis 1945 · aménager pour réduire les inégalités · atouts/contraintes de l'outre-mer.</div>
 
-  <footer>Revyzia · Révisions Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger les développements construits 💪</footer>
+  </div>
+<div style="margin-top:16px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Histoire-Géo · apprends les repères, puis entraîne-toi à rédiger.</div>
 </div>
-
-<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-  function showView(id, el){
-    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
-    document.getElementById('view-'+id).classList.add('active');
-    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-    el.classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+function fichePrint(){window.print();}
+function ficheDownload(){
+  var el=document.querySelector(".sheet");
+  if(typeof html2pdf==="undefined"){ window.print(); return; }
+  try{
+    html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Geo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".f",".note","table","tr"]}}).from(el).save().catch(function(e){ console.warn("PDF fail, impression:",e); window.print(); });
+  }catch(e){ console.warn("PDF fail, impression:",e); window.print(); }
+}
 </script>
 </body>
 </html>

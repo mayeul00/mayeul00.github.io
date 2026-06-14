@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Révisions Brevet · SVT</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche Brevet · SVT</title>
 <link rel="stylesheet" href="../shared/brevet-pages.css">
 <style>:root{--ch-accent:#16c79a;--ch-accent-2:#34c759;}</style>
 </head>
@@ -14,74 +13,66 @@
     <a class="back-btn" href="../index.html?subject=svt" title="Retour aux chapitres">←</a>
     <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
     <div class="brand-icon">🧬</div>
-    <span class="brand-name">SVT</span>
+    <span class="brand-name">Fiche · SVT</span>
   </div>
-  <div class="top-right"><a class="tb-btn" href="../fiches/svt.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+  <div class="top-right"><button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button><button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button></div>
 </header>
-<div class="wrap">
-  <div class="hero"><h1>SVT : tout le programme pour le brevet</h1><p>L'essentiel → la méthode → un exemple → à toi de jouer (correction cachée). Pense à bien <b>justifier</b> tes réponses à partir des documents.</p></div>
-  <div class="toc"><a href="#s1">1 · Génétique</a><a href="#s2">2 · Immunité</a><a href="#s3">3 · Évolution</a><a href="#s4">4 · La Terre &amp; risques</a></div>
+<div class="sheet">
+  <h1>Mémo Brevet — SVT</h1><div class="subtitle">Les notions et définitions clés à connaître</div>
 
-  <section id="s1"><div class="sec-head"><div class="num">1</div><h2>Génétique : du génotype au phénotype</h2></div><div class="sec-body">
-    <h3>L'essentiel</h3>
-    <div class="keyrow"><b>Phénotype</b> = ensemble des caractères observables. Il dépend du <b>génotype</b> (les gènes) et parfois de l'<b>environnement</b> (bronzage, muscle = non héréditaires).</div>
-    <div class="keyrow"><b>Information génétique</b> dans le <b>noyau</b>, portée par les <b>chromosomes</b>. Caryotype humain : <b>23 paires = 46 chromosomes</b> (XX femme, XY homme). Trisomie 21 = un chromosome 21 en trop.</div>
-    <div class="keyrow"><b>ADN</b> = molécule des chromosomes. <b>Gène</b> = portion d'ADN déterminant un caractère. <b>Allèle</b> = version d'un gène (2 par gène). <b>Mutation</b> = modification rare de l'ADN (germinale = héréditaire).</div>
-    <div class="fig wide"><svg viewBox="0 0 420 150" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="70" cy="75" r="55" fill="rgba(22,199,154,.10)" stroke="#cdd9e2" stroke-width="2"/>
-      <text x="70" y="20" fill="#9fb2bf" font-size="12" text-anchor="middle">cellule</text>
-      <circle cx="70" cy="75" r="26" fill="rgba(22,199,154,.18)" stroke="#16c79a" stroke-width="2"/>
-      <text x="70" y="79" fill="#16c79a" font-size="11" text-anchor="middle">noyau</text>
-      <line x1="150" y1="75" x2="195" y2="75" stroke="#9fb2bf" stroke-width="1.5"/><polygon points="200,75 192,71 192,79" fill="#9fb2bf"/>
-      <path d="M230,40 q14,35 0,70 M250,40 q-14,35 0,70" stroke="#fbbf24" stroke-width="4" fill="none"/>
-      <text x="240" y="128" fill="#fbbf24" font-size="11" text-anchor="middle">chromosome</text>
-      <line x1="285" y1="75" x2="320" y2="75" stroke="#9fb2bf" stroke-width="1.5"/><polygon points="325,75 317,71 317,79" fill="#9fb2bf"/>
-      <path d="M345,45 q30,15 0,30 q-30,15 0,30" stroke="#36d399" stroke-width="3" fill="none"/>
-      <path d="M375,45 q-30,15 0,30 q30,15 0,30" stroke="#36d399" stroke-width="3" fill="none"/>
-      <text x="360" y="128" fill="#36d399" font-size="11" text-anchor="middle">ADN</text>
-    </svg><div class="figcap">Cellule → noyau → chromosomes → ADN (qui porte les gènes).</div></div>
-    <div class="ex"><span class="t">✏️ Exemple</span>Groupe sanguin A → génotype <b>AA ou AO</b> (3 allèles A, B, O → 4 groupes A, B, AB, O).</div>
-    <div class="exo"><div class="q"><b>À toi de jouer</b><br>1) Le bronzage est-il héréditaire ? 2) Combien de chromosomes dans une cellule humaine ? 3) Quelle mutation se transmet aux enfants ?</div>
-      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> Non : dû à l'environnement (soleil), réversible, non transmissible.<br><b>2)</b> <b>46</b> (23 paires).<br><b>3)</b> La mutation <b>germinale</b> (dans une cellule reproductrice).</div></details></div>
-  </div></section>
+  <div class="fgroup"><h2>🧬 Génétique</h2>
+  <div class="cols">
+    <div class="def"><b>Phénotype</b> : ensemble des caractères observables.</div>
+    <div class="def"><b>Génotype</b> : ensemble des allèles ; il détermine le phénotype.</div>
+    <div class="def"><b>Caryotype humain</b> : 23 paires = 46 chromosomes (XX / XY).</div>
+    <div class="def"><b>ADN</b> : molécule des chromosomes, porte l'information.</div>
+    <div class="def"><b>Gène</b> : portion d'ADN déterminant un caractère. <b>Allèle</b> : version d'un gène.</div>
+    <div class="def"><b>Mutation</b> : modification rare de l'ADN (germinale = héréditaire).</div>
+    <div class="def"><b>Environnement</b> : peut modifier le phénotype (bronzage), mais ce n'est pas héréditaire.</div>
+  </div>
 
-  <section id="s2"><div class="sec-head"><div class="num">2</div><h2>Le corps humain &amp; l'immunité</h2></div><div class="sec-body">
-    <h3>L'essentiel</h3>
-    <div class="keyrow"><b>Barrières</b> (peau, muqueuses) bloquent les microbes. <b>Contamination</b> = entrée ; <b>infection</b> = multiplication.</div>
-    <div class="keyrow"><b>Réaction rapide</b> : inflammation + <b>phagocytose</b> (un phagocyte ingère et digère le microbe ; non spécifique).</div>
-    <div class="keyrow"><b>Réaction lente &amp; spécifique</b> : lymphocytes <b>B</b> → <b>anticorps</b> (contre les antigènes) ; lymphocytes <b>T</b> → détruisent les cellules infectées par un virus.</div>
-    <div class="fig wide"><svg viewBox="0 0 420 110" xmlns="http://www.w3.org/2000/svg">
-      <g font-size="11" fill="#9fb2bf" text-anchor="middle">
-      <circle cx="55" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><circle cx="78" cy="48" r="5" fill="#fbbf24"/><text x="55" y="92">1. adhésion</text>
-      <circle cx="160" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><circle cx="160" cy="48" r="5" fill="#fbbf24"/><text x="160" y="92">2. absorption</text>
-      <circle cx="265" cy="55" r="22" fill="rgba(22,199,154,.15)" stroke="#16c79a" stroke-width="2"/><circle cx="265" cy="55" r="4" fill="#fbbf24" opacity=".5"/><text x="265" y="92">3. digestion</text>
-      <circle cx="370" cy="55" r="22" fill="none" stroke="#16c79a" stroke-width="2"/><text x="370" y="92">4. rejet</text>
-      </g>
-      <g stroke="#9fb2bf" stroke-width="1.3"><line x1="82" y1="55" x2="133" y2="55"/><line x1="187" y1="55" x2="238" y2="55"/><line x1="292" y1="55" x2="343" y2="55"/></g>
-    </svg><div class="figcap">Les 4 étapes de la phagocytose.</div></div>
-    <div class="exo"><div class="q"><b>À toi de jouer</b><br>1) Qui produit les anticorps ? 2) La phagocytose est-elle spécifique ? 3) Comment l'organisme élimine-t-il une cellule infectée par un virus ?</div>
-      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> Les <b>lymphocytes B</b>.<br><b>2)</b> <b>Non</b>, elle agit contre tous les microbes (non spécifique).<br><b>3)</b> Les <b>lymphocytes T</b> reconnaissent et détruisent la cellule infectée par contact.</div></details></div>
-  </div></section>
+  </div>
+<div class="fgroup"><h2>🦠 Immunité</h2>
+  <div class="cols">
+    <div class="def"><b>Barrières</b> : peau &amp; muqueuses.</div>
+    <div class="def"><b>Contamination</b> = entrée ; <b>infection</b> = multiplication.</div>
+    <div class="def"><b>Phagocytose</b> (rapide, non spécifique) : adhésion → absorption → digestion → rejet.</div>
+    <div class="def"><b>Lymphocytes B</b> → anticorps (contre les antigènes).</div>
+    <div class="def"><b>Lymphocytes T</b> → détruisent les cellules infectées par un virus.</div>
+    <div class="def"><b>Antigène</b> : molécule du microbe reconnue par le système immunitaire.</div>
+  </div>
 
-  <section id="s3"><div class="sec-head"><div class="num">3</div><h2>Évolution &amp; biodiversité</h2></div><div class="sec-body">
-    <h3>L'essentiel</h3>
-    <div class="keyrow">Plus deux espèces partagent de <b>caractères communs</b>, plus elles sont proches parentes (<b>ancêtre commun</b>).</div>
-    <div class="keyrow"><b>Sélection naturelle</b> : le milieu favorise les individus les mieux adaptés, qui se reproduisent plus et transmettent leurs caractères → l'espèce <b>évolue</b>.</div>
-    <div class="keyrow"><b>Biodiversité</b> = diversité du vivant. <b>Crise biologique</b> = disparition massive (dinosaures il y a ≈ 66 Ma). L'Homme est un primate dans l'arbre de l'évolution.</div>
-    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Sur une île, après une sécheresse, les oiseaux à gros bec deviennent majoritaires. Explique avec la sélection naturelle.</div>
-      <details><summary>Voir la correction</summary><div class="corr">Les oiseaux varient (taille du bec). Avec la sécheresse, seules restent de grosses graines : les <b>gros becs survivent</b> mieux, se <b>reproduisent davantage</b> et transmettent ce caractère. Au fil des générations, ils deviennent majoritaires : c'est la <b>sélection naturelle</b>.</div></details></div>
-  </div></section>
+  </div>
+<div class="fgroup"><h2>🦋 Évolution</h2>
+  <div class="cols">
+    <div class="def"><b>Parenté</b> : + de caractères communs = + proche (ancêtre commun).</div>
+    <div class="def"><b>Sélection naturelle</b> : le milieu favorise les mieux adaptés, qui se reproduisent + et transmettent leurs caractères.</div>
+    <div class="def"><b>Biodiversité</b> : diversité du vivant. <b>Crise</b> : extinction massive (dinosaures ≈ 66 Ma).</div>
+    <div class="def"><b>L'Homme</b> : primate, dans l'arbre de l'évolution.</div>
+  </div>
 
-  <section id="s4"><div class="sec-head"><div class="num">4</div><h2>La Terre : tectonique &amp; risques</h2></div><div class="sec-body">
-    <h3>L'essentiel</h3>
-    <div class="keyrow">La surface est faite de <b>plaques</b> qui bougent. Séismes et volcans se concentrent <b>aux frontières des plaques</b> (écartement, rapprochement, coulissage).</div>
-    <div class="keyrow"><b>Aléa</b> = phénomène dangereux possible ; <b>enjeu</b> = ce qui peut être touché ; <b>risque = aléa × enjeux</b>. On réduit le risque par la <b>prévision</b> et la <b>prévention</b>.</div>
-    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Pourquoi un séisme fort en plein désert présente-t-il un risque faible ?</div>
-      <details><summary>Voir la correction</summary><div class="corr">Parce qu'il n'y a <b>presque pas d'enjeux</b> (pas de population ni de bâtiments). Le risque combine aléa ET enjeux : sans enjeux, le risque est faible, même si l'aléa est fort.</div></details></div>
-  </div></section>
+  </div>
+<div class="fgroup"><h2>🌍 La Terre &amp; les risques</h2>
+  <div class="cols">
+    <div class="def"><b>Plaques</b> : la surface est faite de plaques mobiles. Séismes/volcans aux <b>frontières</b>.</div>
+    <div class="def"><b>Aléa</b> : phénomène dangereux. <b>Enjeu</b> : ce qui peut être touché. <b>Risque = aléa × enjeux</b>.</div>
+    <div class="def"><b>Prévision</b> (surveiller, alerter) + <b>prévention</b> (constructions, évacuation).</div>
+  </div>
 
-  <footer>Revyzia · Révisions Brevet — SVT · révise l'essentiel, puis entraîne-toi à justifier 💪</footer>
+  <div class="note"><b>Au brevet</b> : appuie toujours tes réponses sur les <b>documents</b> et explique le raisonnement (cause → conséquence).</div>
+  </div>
+<div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — SVT</div>
 </div>
-<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function fichePrint(){window.print();}
+function ficheDownload(){
+  var el=document.querySelector(".sheet");
+  if(typeof html2pdf==="undefined"){ window.print(); return; }
+  try{
+    html2pdf().set({margin:[8,8,10,8],filename:"Fiche-SVT-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".f",".note","table","tr"]}}).from(el).save().catch(function(e){ console.warn("PDF fail, impression:",e); window.print(); });
+  }catch(e){ console.warn("PDF fail, impression:",e); window.print(); }
+}
+</script>
 </body>
 </html>
