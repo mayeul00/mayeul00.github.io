@@ -110,8 +110,18 @@ footer{text-align:center;color:var(--ink-soft);font-size:12px;margin-top:28px;}
 .def b{color:#15202a;}
 .note{background:#fff6e9;border:1px solid #f0dcbb;border-radius:8px;padding:8px 11px;margin:6px 0;font-size:12.7px;color:#1a2230;break-inside:avoid;}
 .d{font-size:13px;margin:3px 0;break-inside:avoid;}.d b{color:var(--accent);}
-.fgroup{break-inside:avoid;page-break-inside:avoid;}
+.fgroup{break-inside:avoid;page-break-inside:avoid;padding-top:7px;}
 .sheet table{break-inside:auto;}.sheet tr{break-inside:avoid;}.sheet ul{break-inside:avoid;}
+/* Fiche : cartes & formules en couleurs PLEINES (lisibles sur fond blanc + export PDF fiable) */
+.sheet .f{background:#f4f6fb;border:1px solid #e4e9f2;border-radius:8px;padding:7px 11px;margin:5px 0;font-size:12.8px;color:#1a2230;break-inside:avoid;}
+.sheet .f b{color:#15202a;}
+.sheet .formula{display:block;background:#eaf4ff;border-left:3px solid var(--accent);padding:5px 10px;border-radius:6px;margin:5px 0;font-family:'Cambria Math',Georgia,serif;font-size:14px;color:#15202a;}
+.sheet .method{background:#eafaf1;border:1px solid #bfe6cf;border-radius:8px;padding:9px 12px;margin:7px 0;font-size:12.8px;color:#1a2230;}
+.sheet .method b,.sheet .method .t{color:#1c7a37;}
+.sheet .ex{background:#fff6e5;border:1px solid #f0dcbb;border-radius:8px;padding:9px 12px;margin:7px 0;font-size:12.8px;color:#1a2230;}
+.sheet .ex .t{color:#b26b00;font-weight:800;display:block;}
+.sheet .tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:20px;padding:1px 9px;margin-left:6px;vertical-align:middle;}
+.sheet sup{font-size:.72em;}
 @media print{
   body::before,.orb,.top-bar,.toc,.backtop,.howto{display:none !important;}
   body{background:#fff;}
