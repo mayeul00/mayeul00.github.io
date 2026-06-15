@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fiche Brevet · Technologie</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Révisions Brevet · Technologie</title>
 <link rel="stylesheet" href="../shared/brevet-pages.css">
 <style>:root{--ch-accent:#0ea5e9;--ch-accent-2:#6366f1;}</style>
 </head>
@@ -13,66 +13,55 @@
     <a class="back-btn" href="../index.html?subject=techno" title="Retour aux chapitres">←</a>
     <a class="back-btn" href="../index.html" title="Accueil"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg></a>
     <div class="brand-icon">⚙️</div>
-    <span class="brand-name">Fiche · Technologie</span>
+    <span class="brand-name">Technologie</span>
   </div>
-  <div class="top-right"><button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button><button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button></div>
+  <div class="top-right"><a class="tb-btn" href="../fiches/techno.html" title="Fiche imprimable">🖨️ Fiche</a></div>
 </header>
-<div class="sheet">
-  <h1>Mémo Brevet — Technologie</h1><div class="subtitle">Notions clés à connaître</div>
+<div class="wrap">
+  <div class="hero"><h1>Technologie : l'essentiel pour le brevet</h1><p>Objets techniques, chaînes d'énergie et d'information, programmation, réseaux et cycle de vie.</p></div>
+  <div class="toc"><a href="#s1">1 · Objet technique</a><a href="#s2">2 · Capteurs &amp; programmation</a><a href="#s3">3 · Réseaux</a><a href="#s4">4 · Cycle de vie</a></div>
 
-  <div class="fgroup"><h2>⚙️ Objet technique &amp; chaînes</h2>
-  <div class="cols">
-    <div class="def"><b>Fonction d'usage</b> : le service rendu (à quoi sert l'objet).</div>
-    <div class="def"><b>Fonction technique</b> : rôle d'une partie de l'objet.</div>
-    <div class="def"><b>Contrainte</b> : limite (coût, sécurité, taille, environnement).</div>
-    <div class="def"><b>Chaîne d'énergie</b> : alimenter → distribuer → convertir → transmettre.</div>
-    <div class="def"><b>Chaîne d'information</b> : acquérir → traiter → communiquer.</div>
-  </div>
+  <section id="s1"><div class="sec-head"><div class="num">1</div><h2>L'objet technique &amp; ses chaînes</h2></div><div class="sec-body">
+    <div class="keyrow"><b>Fonction d'usage</b> : le service rendu. <b>Fonction technique</b> : rôle d'une partie. <b>Contrainte</b> : limite de conception (coût, sécurité…).</div>
+    <div class="keyrow"><b>Chaîne d'énergie</b> (4 fonctions) : <b>alimenter → distribuer → convertir → transmettre</b>.</div>
+    <div class="keyrow"><b>Chaîne d'information</b> (3 fonctions) : <b>acquérir → traiter → communiquer</b>.</div>
+    <div class="fig wide"><svg viewBox="0 0 460 90" xmlns="http://www.w3.org/2000/svg">
+      <g font-size="11" text-anchor="middle">
+      <rect x="10" y="30" width="95" height="34" rx="8" fill="rgba(14,165,233,.15)" stroke="#0ea5e9"/><text x="57" y="51" fill="#eaf2f7">acquérir</text>
+      <rect x="125" y="30" width="95" height="34" rx="8" fill="rgba(14,165,233,.15)" stroke="#0ea5e9"/><text x="172" y="51" fill="#eaf2f7">traiter</text>
+      <rect x="240" y="30" width="110" height="34" rx="8" fill="rgba(14,165,233,.15)" stroke="#0ea5e9"/><text x="295" y="51" fill="#eaf2f7">communiquer</text>
+      <text x="180" y="18" fill="#9fb2bf">Chaîne d'information</text>
+      </g>
+      <g stroke="#9fb2bf" stroke-width="1.3"><line x1="105" y1="47" x2="123" y2="47"/><line x1="220" y1="47" x2="238" y2="47"/></g>
+    </svg><div class="figcap">Ex : capteur (acquérir) → carte programmable (traiter) → écran (communiquer).</div></div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Cite les 4 fonctions de la chaîne d'énergie d'un objet.</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>Alimenter → distribuer → convertir → transmettre</b> (ex : batterie → interrupteur → moteur → roue).</div></details></div>
+  </div></section>
 
-  </div>
-<div class="fgroup"><h2>📡 Capteurs &amp; programmation</h2>
-  <div class="cols">
-    <div class="def"><b>Capteur</b> : entrée, mesure une grandeur (lumière, température).</div>
-    <div class="def"><b>Actionneur</b> : sortie, produit un effet (moteur, LED, buzzer).</div>
-    <div class="def"><b>Carte programmable</b> : Arduino, micro:bit (traite &amp; commande).</div>
-    <div class="def"><b>Algorithme</b> : suite d'instructions. <b>Algorigramme</b> : sa représentation.</div>
-    <div class="def"><b>Structures</b> : séquence, condition (si…alors…sinon), boucle, variable.</div>
-    <div class="def"><b>Objet connecté / IoT</b> : échange des infos via un réseau.</div>
-  </div>
+  <section id="s2"><div class="sec-head"><div class="num">2</div><h2>Capteurs, actionneurs &amp; programmation</h2></div><div class="sec-body">
+    <div class="keyrow"><b>Capteur</b> = entrée (mesure : lumière, température…). <b>Actionneur</b> = sortie (agit : moteur, LED, buzzer). La <b>carte programmable</b> (Arduino, micro:bit) traite et commande.</div>
+    <div class="keyrow"><b>Algorithme</b> : suite d'instructions ordonnées. <b>Algorigramme</b> : sa représentation graphique. <b>Programme</b> : traduction dans un langage (Scratch).</div>
+    <div class="keyrow"><b>Structures</b> : séquence, <b>condition</b> (si… alors… sinon), <b>boucle</b> (répéter), <b>variable</b> (mémorise une valeur).</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>1) Le moteur est-il un capteur ou un actionneur ? 2) « répéter jusqu'à (bouton pressé) : avancer » — que fait le robot ?</div>
+      <details><summary>Voir la correction</summary><div class="corr"><b>1)</b> Un <b>actionneur</b> (il agit, c'est une sortie).<br><b>2)</b> Il <b>avance tant que le bouton n'est pas pressé</b>, puis s'arrête (boucle « répéter jusqu'à » + condition).</div></details></div>
+  </div></section>
 
-  </div>
-<div class="fgroup"><h2>🌐 Réseaux</h2>
-  <div class="cols">
-    <div class="def"><b>Switch</b> : relie les machines d'un réseau local.</div>
-    <div class="def"><b>Routeur</b> : relie des réseaux entre eux (et à Internet).</div>
-    <div class="def"><b>Serveur</b> : fournit des ressources aux clients.</div>
-    <div class="def"><b>Adresse IP</b> : numéro unique d'un appareil.</div>
-    <div class="def"><b>Protocole</b> : règles de communication (paquets de données).</div>
-    <div class="def"><b>Web ≠ Internet</b> : le Web est un service d'Internet.</div>
-  </div>
+  <section id="s3"><div class="sec-head"><div class="num">3</div><h2>Réseaux informatiques</h2></div><div class="sec-body">
+    <div class="keyrow"><b>Réseau</b> : équipements reliés pour échanger des données. <b>Switch</b> = relie un réseau local ; <b>routeur</b> = relie des réseaux (et Internet) ; <b>serveur</b> = fournit des ressources.</div>
+    <div class="keyrow"><b>Internet</b> : réseau mondial. <b>Adresse IP</b> : numéro unique d'un appareil. <b>Protocole</b> : règles de communication (données en « paquets »). Le <b>Web</b> est UN service d'Internet.</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Quel équipement relie le réseau d'un collège à Internet ?</div>
+      <details><summary>Voir la correction</summary><div class="corr">Le <b>routeur</b> (le switch relie les machines locales, le serveur fournit des ressources).</div></details></div>
+  </div></section>
 
-  </div>
-<div class="fgroup"><h2>♻️ Cycle de vie &amp; dév. durable</h2>
-  <div class="cols">
-    <div class="def"><b>Cycle de vie</b> : extraction → fabrication → transport → utilisation → fin de vie.</div>
-    <div class="def"><b>Écoconception</b> : réduire l'impact dès la conception.</div>
-    <div class="def"><b>Les 4 R</b> : réduire, réutiliser, réparer, recycler.</div>
-  </div>
+  <section id="s4"><div class="sec-head"><div class="num">4</div><h2>Cycle de vie &amp; développement durable</h2></div><div class="sec-body">
+    <div class="keyrow"><b>Cycle de vie</b> : extraction → fabrication → transport → utilisation → fin de vie (recyclage/déchet). Chaque étape a un <b>impact environnemental</b>.</div>
+    <div class="keyrow"><b>Écoconception</b> : réduire l'impact dès la conception. Les <b>4 R</b> : réduire, réutiliser, réparer, recycler.</div>
+    <div class="exo"><div class="q"><b>À toi de jouer</b><br>Cite deux actions pour réduire l'impact d'un smartphone.</div>
+      <details><summary>Voir la correction</summary><div class="corr">Le <b>garder plus longtemps / le réparer</b> (allonger la durée de vie) et le <b>recycler</b> en fin de vie (récupérer les métaux).</div></details></div>
+  </div></section>
 
-  <div class="note"><b>Au brevet (sciences)</b> : l'épreuve porte sur 2 disciplines (ici SVT + Techno), 1h. Lis bien les documents et justifie.</div>
-  </div>
-<div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;">Revyzia · Fiche mémo Brevet — Technologie</div>
+  <footer>Revyzia · Révisions Brevet — Technologie 💪</footer>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-function fichePrint(){window.print();}
-function ficheDownload(){
-  var el=document.querySelector(".sheet");
-  if(typeof html2pdf==="undefined"){ window.print(); return; }
-  try{
-    html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Techno-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".f",".note","table","tr"]}}).from(el).save().catch(function(e){ console.warn("PDF fail, impression:",e); window.print(); });
-  }catch(e){ console.warn("PDF fail, impression:",e); window.print(); }
-}
-</script>
+<button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 </body>
 </html>
