@@ -226,7 +226,7 @@ section{scroll-margin-top:0}
 .alumni-band .alumni-head .ptext{font-size:1rem;color:var(--gray);line-height:1.55;margin:0 auto;max-width:none;white-space:nowrap}
 /* piste qui défile en boucle (droite -> gauche) */
 .alumni-marquee{position:relative;width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.alumni-track{display:flex;width:max-content;animation:alumni-scroll 28s linear infinite}
+.alumni-track{display:flex;width:max-content;animation:alumni-scroll var(--marquee-dur,28s) linear infinite}
 .alumni-marquee:hover .alumni-track{animation-play-state:paused}
 @keyframes alumni-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .alumni-logo{flex:0 0 auto;margin-right:clamp(24px,3vw,44px);width:clamp(160px,18vw,220px);height:108px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .3s,border-color .3s,box-shadow .3s}
@@ -765,12 +765,7 @@ footer{background:var(--black);color:#86868b;padding:50px 0 36px;font-size:.85re
     <div class="alumni-logo"><div class="logo-placeholder">Bachelor X<br>(École Polytechnique)</div></div>
     <div class="alumni-logo"><div class="logo-placeholder">McGill</div></div>
     <div class="alumni-logo"><div class="logo-placeholder">HEC Paris</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">Sciences Po</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">Imperial College</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">UCL</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">Bachelor X<br>(École Polytechnique)</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">McGill</div></div>
-    <div class="alumni-logo"><div class="logo-placeholder">HEC Paris</div></div>
+    <div class="alumni-logo"><div class="logo-placeholder">ESSEC</div></div>
     <div class="alumni-logo"><div class="logo-placeholder">Sciences Po</div></div>
     <div class="alumni-logo"><div class="logo-placeholder">Imperial College</div></div>
     <div class="alumni-logo"><div class="logo-placeholder">UCL</div></div>
@@ -1631,6 +1626,49 @@ function initValueRotator() {
 
 
 /* -----------------------------------------------------------------------------
+   11. Bande de logos : on duplique le jeu de logos assez de fois pour que la
+       moitié de la piste couvre toujours la largeur de l'écran. Sinon, sur les
+       grands écrans, on voit le « vide » après le dernier logo avant la reprise.
+   --------------------------------------------------------------------------- */
+function initMarquee() {
+  const marquee = $('.alumni-marquee');
+  const track = $('.alumni-track');
+  if (!marquee || !track) return;
+
+  // jeu unique = tous les logos présents dans le markup
+  const unique = $$('.alumni-logo', track).map(el => el.outerHTML);
+  if (!unique.length) return;
+  const setHTML = unique.join('');
+  const SPEED = 70; // px / seconde (vitesse de défilement constante)
+
+  function build() {
+    // 1) mesurer la largeur d'UN jeu
+    track.style.animation = 'none';
+    track.innerHTML = setHTML;
+    const setWidth = track.scrollWidth;
+    const container = marquee.clientWidth || window.innerWidth;
+
+    // 2) nombre de jeux (toujours pair) pour que la moitié de la piste >= écran
+    const sets = Math.max(1, Math.ceil((container + 100) / setWidth));
+    const copies = 2 * sets;
+    track.innerHTML = Array(copies).fill(setHTML).join('');
+
+    // 3) durée proportionnelle => vitesse identique quel que soit le nombre de copies
+    const halfWidth = sets * setWidth;
+    track.style.setProperty('--marquee-dur', (halfWidth / SPEED) + 's');
+
+    // 4) relancer l'animation
+    void track.offsetWidth;
+    track.style.animation = '';
+  }
+
+  build();
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(build, 200); });
+}
+
+
+/* -----------------------------------------------------------------------------
    Initialisation
    --------------------------------------------------------------------------- */
 Nav.init();
@@ -1642,6 +1680,7 @@ initReviews();
 initMap();
 initTutors();
 initValueRotator();
+initMarquee();
 </script>
 </body>
 </html>
