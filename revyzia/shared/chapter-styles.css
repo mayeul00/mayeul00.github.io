@@ -59,6 +59,16 @@ body::before {
 
 /* TOP BAR */
 .top-bar { position: sticky; top: 12px; z-index: 100; margin: 12px; padding: 12px 22px; display: flex; justify-content: space-between; align-items: center; border-radius: 100px; gap: 12px; }
+/* Voile de flou progressif : flou le contenu qui défile sous/autour de la barre */
+.topbar-blur { position: fixed; top: 0; left: 0; right: 0; height: 76px; z-index: 99; pointer-events: none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 100%); mask-image: linear-gradient(to bottom, #000 40%, transparent 100%); }
+@media (max-width: 600px) {
+  .top-bar { padding: 9px 12px; gap: 7px; top: 8px; margin: 8px; }
+  .top-right { gap: 6px; }
+  .logout-btn { font-size: 0; padding: 8px; }
+  .logout-btn::before { content: '🚪'; font-size: 15px; }
+  .brand-name { font-size: 14px; max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .streak-mini, .xp-mini { font-size: 13px; padding: 5px 9px; }
+}
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -0.5px; user-select: none; }
 .back-btn { width: 32px; height: 32px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; font-weight: 700; color: var(--ink); transition: all 0.2s; font-family: inherit; }
 .back-btn:hover { background: var(--accent-soft); color: var(--accent); }
@@ -86,7 +96,7 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
 .tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 18px 0; }
 .tab-btn { padding: 10px 20px; border-radius: 100px; background: var(--glass-bg); border: 1px solid var(--glass-border); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink-soft); transition: all 0.25s; }
 .tab-btn:hover { transform: translateY(-2px); }
-.tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border-color: transparent; box-shadow: 0 6px 16px var(--accent-soft); }
+.tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border-color: transparent; background-clip: padding-box; -webkit-background-clip: padding-box; box-shadow: 0 6px 16px var(--accent-soft); }
 
 /* MODES */
 .modes-grid { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px auto; max-width: 860px; justify-content: center; }
@@ -147,8 +157,8 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
 .qcm-card.clickable:hover { box-shadow: var(--glass-shadow-lg); }
 .qcm-q { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
 .qcm-options { display: flex; flex-direction: column; gap: 10px; }
-.qcm-option { padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); cursor: pointer; font-family: inherit; font-size: 15px; text-align: left; font-weight: 500; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
-.qcm-option:hover:not(:disabled) { border-color: var(--accent); transform: translateX(4px); }
+.qcm-option { padding: 14px 18px; border-radius: 12px; border: 2px solid var(--glass-border); background: var(--glass-bg); color: var(--ink); cursor: pointer; font-family: inherit; font-size: 15px; text-align: left; font-weight: 500; transition: all 0.35s cubic-bezier(0.4,0,0.2,1); -webkit-tap-highlight-color: transparent; outline: none; -webkit-user-select: none; user-select: none; }
+@media (hover: hover) and (pointer: fine) { .qcm-option:hover:not(:disabled) { border-color: var(--accent); transform: translateX(4px); } }
 .qcm-option.correct { background: linear-gradient(135deg, var(--green), #2eb050); color: white; border-color: transparent; transform: scale(1.02); box-shadow: 0 6px 20px rgba(52,199,89,0.35); animation: pulseCorrect 0.5s ease; }
 .qcm-option.wrong { background: linear-gradient(135deg, var(--red), #d63a30); color: white; border-color: transparent; animation: shakeWrong 0.4s ease; }
 .qcm-option.dimmed { opacity: 0.4; }

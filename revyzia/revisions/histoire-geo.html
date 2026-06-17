@@ -16,7 +16,10 @@
     <div class="brand-icon">🌍</div>
     <span class="brand-name">Histoire-Géo</span>
   </div>
-  <div class="top-right"><a class="tb-btn" href="../fiches/histoire-geo.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+  <div class="top-right">
+    <a class="tb-btn" href="../fiches/histoire-geo.html" title="Fiche imprimable">🖨️ Fiche</a>
+    <button class="theme-toggle" id="themeToggle" onclick="rvToggleTheme()" title="Jour / nuit">🌙</button>
+  </div>
 </header>
 
 <div class="wrap">
@@ -311,5 +314,6 @@
     window.scrollTo({top:0,behavior:'smooth'});
   }
 </script>
+<script src="../shared/brevet-pages.js"></script>
 </body>
 </html>

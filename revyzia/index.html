@@ -166,6 +166,12 @@ main { max-width: 1100px; margin: 0 auto; padding: 8px 20px 60px; }
 .stat-card.xp .stat-value { color: var(--gold); }
 .stat-card .progress-mini { margin-top: 10px; height: 5px; background: var(--accent-soft); border-radius: 100px; overflow: hidden; }
 .stat-card .progress-mini .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 100px; transition: width 0.6s ease; }
+.dots-load { display: inline-flex; gap: 5px; align-items: center; vertical-align: middle; }
+.dots-load i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: 0.35; display: inline-block; animation: dotPulse 1.1s infinite ease-in-out; }
+.dots-load i:nth-child(2) { animation-delay: 0.18s; }
+.dots-load i:nth-child(3) { animation-delay: 0.36s; }
+.stat-card.streak .dots-load i { width: 11px; height: 11px; }
+@keyframes dotPulse { 0%, 80%, 100% { opacity: 0.3; transform: scale(0.7); } 40% { opacity: 1; transform: scale(1); } }
 .stat-card .xp-detail { margin-top: 6px; font-size: 11px; color: var(--ink-soft); }
 
 .section-title { font-size: 24px; font-weight: 800; letter-spacing: -0.7px; margin: 22px 4px 14px; text-align: center; }
@@ -496,63 +502,63 @@ const PROFS_META = {
 
 const SUBJECTS = [
   { id: 'francais', name: 'Français', icon: '📖', color: '#5e5cff', brevet: true, brevetPages: { revisions: 'revisions/francais.html', fiche: 'fiches/francais.html' }, chapters: [
-    { id: 'grammaire-methodo', title: 'Grammaire & Méthodo Brevet', sub: 'Grammaire · conjugaison · figures · rédaction · dictée', file: 'francais/grammaire-methodo.html', ready: true },
-    { id: 'autobiographie', title: 'L\'autobiographie', sub: 'Séquence · Écrire sur soi', file: 'francais/autobiographie.html', ready: true },
-    { id: 'nouvelle-societe', title: 'La nouvelle & la satire sociale', sub: 'Séquence · « Le Credo » (Sternberg)', file: 'francais/nouvelle-societe.html', ready: true },
-    { id: 'poesie', title: 'Poésie : du lyrisme à l\'engagement', sub: 'Séquence · Le pouvoir des mots', file: 'francais/poesie.html', ready: true },
-    { id: 'tragedie-grecque', title: 'Le théâtre & la tragédie grecque', sub: 'Séquence · Œdipe et les Labdacides', file: 'francais/tragedie-grecque.html', ready: true },
-    { id: 'antigone', title: 'Antigone de Jean Anouilh', sub: 'Tragédie · 3e · Étude d\'œuvre', file: 'francais/antigone.html', ready: true },
-    { id: 'joueur-echecs', title: 'Le Joueur d\'échecs (Zweig)', sub: 'Étude d\'œuvre · Nouvelle', file: 'francais/joueur-echecs.html', ready: true }
+    { id: 'francais_grammaire_methodo', title: 'Grammaire & Méthodo Brevet', sub: 'Grammaire · conjugaison · figures · rédaction · dictée', file: 'francais/grammaire-methodo.html', ready: true },
+    { id: 'francais_autobiographie', title: 'L\'autobiographie', sub: 'Séquence · Écrire sur soi', file: 'francais/autobiographie.html', ready: true },
+    { id: 'francais_nouvelle_societe', title: 'La nouvelle & la satire sociale', sub: 'Séquence · « Le Credo » (Sternberg)', file: 'francais/nouvelle-societe.html', ready: true },
+    { id: 'francais_poesie', title: 'Poésie : du lyrisme à l\'engagement', sub: 'Séquence · Le pouvoir des mots', file: 'francais/poesie.html', ready: true },
+    { id: 'francais_tragedie_grecque', title: 'Le théâtre & la tragédie grecque', sub: 'Séquence · Œdipe et les Labdacides', file: 'francais/tragedie-grecque.html', ready: true },
+    { id: 'francais_antigone', title: 'Antigone de Jean Anouilh', sub: 'Tragédie · 3e · Étude d\'œuvre', file: 'francais/antigone.html', ready: true },
+    { id: 'francais_joueur_echecs', title: 'Le Joueur d\'échecs (Zweig)', sub: 'Étude d\'œuvre · Nouvelle', file: 'francais/joueur-echecs.html', ready: true }
   ]},
   { id: 'histoire', name: 'Histoire-Géo', icon: '🌍', color: '#ff3b80', brevet: true, brevetPages: { revisions: 'revisions/histoire-geo.html', fiche: 'fiches/histoire-geo.html' }, chapters: [
-    { id: 'pgm', title: 'Première Guerre mondiale', sub: 'Th1 · Ch1 · Civils et militaires (1914-1918)', file: 'histoire/premiere-guerre-mondiale.html', ready: true },
-    { id: 'totalitarismes', title: 'Démocraties & totalitarismes', sub: 'Th1 · Ch2 · Entre-deux-guerres · URSS, nazisme, Front populaire', file: 'histoire/totalitarismes.html', ready: true },
-    { id: '2gm', title: 'Seconde Guerre mondiale', sub: 'Th1 · Ch3 · Une guerre d\'anéantissement (1939-1945)', file: 'histoire/seconde-guerre-mondiale.html', ready: true },
-    { id: 'france_occupee', title: 'La France occupée', sub: 'Th1 · Ch4 · Vichy, collaboration, Résistance', file: 'histoire/france-occupee.html', ready: true },
-    { id: 'guerre_froide', title: 'La Guerre froide', sub: 'Th2 · Ch5 · Un monde bipolaire (1947-1991)', file: 'histoire/guerre-froide.html', ready: true },
-    { id: 'decolonisation', title: 'La décolonisation', sub: 'Th2 · Ch6 · Indépendances et nouveaux États', file: 'histoire/decolonisation.html', ready: true },
-    { id: 'projet_europeen', title: 'Le projet européen', sub: 'Th2 · Ch7 · De la CECA à l\'Union européenne', file: 'histoire/projet-europeen.html', ready: true },
-    { id: '1989', title: 'Le monde après 1989', sub: 'Th2 · Ch8 · Enjeux et conflits depuis la Guerre froide', file: 'histoire/1989.html', ready: true },
-    { id: 'republique_repensee', title: 'Une République repensée', sub: 'Th3 · Ch9 · Françaises et Français (1944-1980)', file: 'histoire/republique-repensee.html', ready: true },
-    { id: 'geo_urbain', title: 'Territoire sous influence urbaine', sub: 'Géo · Th1 · Ch1 · Les aires urbaines', file: 'geo/territoire-urbain.html', ready: true },
-    { id: 'geo_productifs', title: 'Les espaces productifs', sub: 'Géo · Th1 · Ch2 · Agriculture, industrie, services', file: 'geo/espaces-productifs.html', ready: true },
-    { id: 'geo_densite', title: 'Espaces de faible densité', sub: 'Géo · Th1 · Ch3 · Atouts et difficultés', file: 'geo/faible-densite.html', ready: true },
-    { id: 'geo_amenager', title: 'Aménager le territoire', sub: 'Géo · Th2 · Ch4 · Réduire les inégalités', file: 'geo/amenager-territoire.html', ready: true },
+    { id: 'histoire_pgm', title: 'Première Guerre mondiale', sub: 'Th1 · Ch1 · Civils et militaires (1914-1918)', file: 'histoire/premiere-guerre-mondiale.html', ready: true },
+    { id: 'histoire_totalitarismes', title: 'Démocraties & totalitarismes', sub: 'Th1 · Ch2 · Entre-deux-guerres · URSS, nazisme, Front populaire', file: 'histoire/totalitarismes.html', ready: true },
+    { id: 'histoire_2gm', title: 'Seconde Guerre mondiale', sub: 'Th1 · Ch3 · Une guerre d\'anéantissement (1939-1945)', file: 'histoire/seconde-guerre-mondiale.html', ready: true },
+    { id: 'histoire_france_occupee', title: 'La France occupée', sub: 'Th1 · Ch4 · Vichy, collaboration, Résistance', file: 'histoire/france-occupee.html', ready: true },
+    { id: 'histoire_guerre_froide', title: 'La Guerre froide', sub: 'Th2 · Ch5 · Un monde bipolaire (1947-1991)', file: 'histoire/guerre-froide.html', ready: true },
+    { id: 'histoire_decolonisation', title: 'La décolonisation', sub: 'Th2 · Ch6 · Indépendances et nouveaux États', file: 'histoire/decolonisation.html', ready: true },
+    { id: 'histoire_projet_europeen', title: 'Le projet européen', sub: 'Th2 · Ch7 · De la CECA à l\'Union européenne', file: 'histoire/projet-europeen.html', ready: true },
+    { id: 'histoire_1989', title: 'Le monde depuis 1989', sub: 'Th2 · Enjeux et conflits depuis la Guerre froide', file: 'histoire/1989.html', ready: true },
+    { id: 'histoire_republique_repensee', title: 'Une République repensée', sub: 'Th3 · Ch9 · Françaises et Français (1944-1980)', file: 'histoire/republique-repensee.html', ready: true },
+    { id: 'geo_aires_urbaines', title: 'Territoire sous influence urbaine', sub: 'Géo · Th1 · Ch1 · Les aires urbaines', file: 'geo/territoire-urbain.html', ready: true },
+    { id: 'geo_espaces_productifs', title: 'Les espaces productifs', sub: 'Géo · Th1 · Ch2 · Agriculture, industrie, services', file: 'geo/espaces-productifs.html', ready: true },
+    { id: 'geo_faible_densite', title: 'Espaces de faible densité', sub: 'Géo · Th1 · Ch3 · Atouts et difficultés', file: 'geo/faible-densite.html', ready: true },
+    { id: 'geo_amenager_inegalites', title: 'Aménager le territoire', sub: 'Géo · Th2 · Ch4 · Réduire les inégalités', file: 'geo/amenager-territoire.html', ready: true },
     { id: 'geo_ultramarins', title: 'Les territoires ultramarins', sub: 'Géo · Th2 · Ch5 · Une problématique spécifique', file: 'geo/ultramarins.html', ready: true },
-    { id: 'geo_ue', title: 'L\'UE, un territoire de référence', sub: 'Géo · Th3 · Ch1 · Territoire d\'appartenance', file: 'geo/ue-territoire.html', ready: true },
-    { id: 'geo_france_monde', title: 'La France et l\'Europe dans le monde', sub: 'Géo · Th3 · Ch2 · Puissances d\'influence', file: 'geo/france-europe-monde.html', ready: true }
+    { id: 'geo_ue_territoire', title: 'L\'UE, un territoire de référence', sub: 'Géo · Th3 · Ch1 · Territoire d\'appartenance', file: 'geo/ue-territoire.html', ready: true },
+    { id: 'geo_france_europe_monde', title: 'La France et l\'Europe dans le monde', sub: 'Géo · Th3 · Ch2 · Puissances d\'influence', file: 'geo/france-europe-monde.html', ready: true }
   ]},
   { id: 'emc', name: 'EMC', icon: '⚖️', color: '#2d6a4f', brevet: true, brevetPages: { revisions: 'revisions/emc.html', fiche: 'fiches/emc.html' }, chapters: [
-    { id: 'republique-citoyennete', title: 'La République et la citoyenneté', sub: 'Th1 · Valeurs, principes, symboles · Nationalité', file: 'emc/republique-citoyennete.html', ready: true },
-    { id: 'defense-nationale', title: 'Armée française & Défense nationale', sub: '⭐ Éval · Organisation · Missions · SNU · JDC', file: 'emc/defense-nationale.html', ready: true }
+    { id: 'emc_republique_citoyennete', title: 'La République et la citoyenneté', sub: 'Th1 · Valeurs, principes, symboles · Nationalité', file: 'emc/republique-citoyennete.html', ready: true },
+    { id: 'emc_defense_nationale', title: 'Armée française & Défense nationale', sub: '⭐ Éval · Organisation · Missions · SNU · JDC', file: 'emc/defense-nationale.html', ready: true }
   ]},
   { id: 'maths', name: 'Mathématiques', icon: '📐', color: '#00c2ff', brevet: true, brevetPages: { revisions: 'revisions/maths.html', fiche: 'fiches/maths.html' }, chapters: [
-    { id: 'revision-brevet', title: 'Révision Brevet 2026', sub: '9 thèmes · Tous les points clés · Sujets 0 officiels', file: 'maths/revision-brevet.html', ready: true, pinned: true },
-    { id: 'pythagore-thales', title: 'Pythagore, Thalès & Trigonométrie', sub: 'Longueurs et angles dans les triangles', file: 'maths/pythagore-thales-trigo.html', ready: true },
-    { id: 'aires-volumes', title: 'Aires, Volumes & Transformations', sub: 'Calculs de surfaces, volumes, homothéties', file: 'maths/aires-volumes-transformations.html', ready: true },
-    { id: 'calcul-litteral', title: 'Calcul littéral & Équations', sub: 'Développer, factoriser, résoudre', file: 'maths/calcul-litteral.html', ready: true },
-    { id: 'nombres-arithmetique', title: 'Nombres & Arithmétique', sub: 'Fractions, puissances, premiers, PGCD', file: 'maths/nombres-arithmetique.html', ready: true },
-    { id: 'fonctions', title: 'Fonctions', sub: 'Linéaire, affine, lecture graphique', file: 'maths/fonctions.html', ready: true },
-    { id: 'stats-probabilites', title: 'Statistiques & Probabilités', sub: 'Moyenne, médiane, étendue, probas', file: 'maths/stats-probabilites.html', ready: true },
-    { id: 'proportionnalite-grandeurs', title: 'Proportionnalité, % & Grandeurs', sub: 'Produit en croix, %, vitesses', file: 'maths/proportionnalite-grandeurs.html', ready: true },
-    { id: 'algorithmique-scratch', title: 'Algorithmique & Scratch', sub: 'Programmes, figures, calculs', file: 'maths/algorithmique-scratch.html', ready: true },
+    { id: 'maths_revision_brevet', title: 'Révision Brevet 2026', sub: '9 thèmes · Tous les points clés · Sujets 0 officiels', file: 'maths/revision-brevet.html', ready: true, pinned: true },
+    { id: 'maths_pythagore_thales', title: 'Pythagore, Thalès & Trigonométrie', sub: 'Longueurs et angles dans les triangles', file: 'maths/pythagore-thales-trigo.html', ready: true },
+    { id: 'maths_aires_volumes', title: 'Aires, Volumes & Transformations', sub: 'Calculs de surfaces, volumes, homothéties', file: 'maths/aires-volumes-transformations.html', ready: true },
+    { id: 'maths_calcul_litteral', title: 'Calcul littéral & Équations', sub: 'Développer, factoriser, résoudre', file: 'maths/calcul-litteral.html', ready: true },
+    { id: 'maths_nombres', title: 'Nombres & Arithmétique', sub: 'Fractions, puissances, premiers, PGCD', file: 'maths/nombres-arithmetique.html', ready: true },
+    { id: 'maths_fonctions', title: 'Fonctions', sub: 'Linéaire, affine, lecture graphique', file: 'maths/fonctions.html', ready: true },
+    { id: 'maths_stats_probas', title: 'Statistiques & Probabilités', sub: 'Moyenne, médiane, étendue, probas', file: 'maths/stats-probabilites.html', ready: true },
+    { id: 'maths_proportionnalite', title: 'Proportionnalité, % & Grandeurs', sub: 'Produit en croix, %, vitesses', file: 'maths/proportionnalite-grandeurs.html', ready: true },
+    { id: 'maths_algorithmique', title: 'Algorithmique & Scratch', sub: 'Programmes, figures, calculs', file: 'maths/algorithmique-scratch.html', ready: true },
     { id: 'automatismes', title: 'Automatismes Brevet 2026', sub: '⭐ Sujets 0 officiels · 20 min chrono · 6 pts au brevet', file: 'maths/automatismes-brevet.html', ready: true }
   ]},
   { id: 'techno', name: 'Technologie', icon: '⚙️', color: '#ff9f0a', brevet: true, brevetPages: { revisions: 'revisions/techno.html', fiche: 'fiches/techno.html' }, chapters: [
-    { id: 'techno-objets-programmation', title: 'Objets techniques & programmation', sub: 'Chaîne d\'énergie/info · capteurs · algorithmique', file: 'techno/objets-programmation.html', ready: true },
-    { id: 'techno-reseaux-cycle', title: 'Réseaux & cycle de vie', sub: 'Réseau, Internet, IP · cycle de vie & dev durable', file: 'techno/reseaux-cycle.html', ready: true }
+    { id: 'techno_objets_programmation', title: 'Objets techniques & programmation', sub: 'Chaîne d\'énergie/info · capteurs · algorithmique', file: 'techno/objets-programmation.html', ready: true },
+    { id: 'techno_reseaux_cycle', title: 'Réseaux & cycle de vie', sub: 'Réseau, Internet, IP · cycle de vie & dev durable', file: 'techno/reseaux-cycle.html', ready: true }
   ] },
   { id: 'svt', name: 'SVT', icon: '🌱', color: '#34c759', brevet: true, brevetPages: { revisions: 'revisions/svt.html', fiche: 'fiches/svt.html' }, chapters: [
-    { id: 'svt-genetique', title: 'Génétique : du génotype au phénotype', sub: 'Caractères · chromosomes/ADN · gènes, allèles, mutations', file: 'svt/genetique.html', ready: true },
-    { id: 'svt-immunite', title: 'Immunité & microorganismes', sub: 'Inflammation, phagocytose, lymphocytes, anticorps', file: 'svt/immunite.html', ready: true },
-    { id: 'svt-evolution', title: 'Évolution & biodiversité', sub: 'Parentés, sélection naturelle, crises, place de l\'Homme', file: 'svt/evolution.html', ready: true },
-    { id: 'svt-tectonique', title: 'La Terre : tectonique & risques', sub: 'Plaques, séismes/volcans, aléa-enjeu-risque', file: 'svt/tectonique-risques.html', ready: true }
+    { id: 'svt_genetique', title: 'Génétique : du génotype au phénotype', sub: 'Caractères · chromosomes/ADN · gènes, allèles, mutations', file: 'svt/genetique.html', ready: true },
+    { id: 'svt_immunite', title: 'Immunité & microorganismes', sub: 'Inflammation, phagocytose, lymphocytes, anticorps', file: 'svt/immunite.html', ready: true },
+    { id: 'svt_evolution', title: 'Évolution & biodiversité', sub: 'Parentés, sélection naturelle, crises, place de l\'Homme', file: 'svt/evolution.html', ready: true },
+    { id: 'svt_tectonique_risques', title: 'La Terre : tectonique & risques', sub: 'Plaques, séismes/volcans, aléa-enjeu-risque', file: 'svt/tectonique-risques.html', ready: true }
   ] },
   { id: 'physique', name: 'Physique-Chimie', icon: '⚛️', color: '#7c7aff', chapters: [
-    { id: 'poids-gravitation', title: 'Poids et gravitation', sub: 'Chapitre 7 · P = m × g', file: 'physique/poids-gravitation.html', ready: true }
+    { id: 'physique_poids_gravitation', title: 'Poids et gravitation', sub: 'Chapitre 7 · P = m × g', file: 'physique/poids-gravitation.html', ready: true }
   ]},
   { id: 'espagnol', name: 'Espagnol', icon: '💃', color: '#ff6b35', chapters: [
-    { id: 'preterit', title: 'Prétérit irrégulier', sub: '10 verbes · Mystère', file: 'espagnol/preterit.html', ready: true }
+    { id: 'espagnol_preterit', title: 'Prétérit irrégulier', sub: '10 verbes · Mystère', file: 'espagnol/preterit.html', ready: true }
   ]}
 ];
 
@@ -818,6 +824,7 @@ function pushToFirebase(data, user) {
     const ref = fbDb.ref('users/' + key);
     // ⚠️ FIX BUG : lire d'abord Firebase, puis push le MAX(local, distant)
     ref.once('value').then(function(snap) {
+      window.__fbConfirmed = true;  // ✅ serveur joignable → on peut afficher les vrais chiffres
       const remote = snap.val();
       const merged = mergeUserData(data, remote);
       // Mettre à jour le localStorage avec les valeurs fusionnées
@@ -837,6 +844,7 @@ function pushToFirebase(data, user) {
       // 🔒 ANTI-BOUCLE : on ne push que si les données ont vraiment changé
       const remoteStreak = (remote && remote.streakDays) || 0;
       if (merged.totalXp === remoteXp && merged.streakDays === remoteStreak && remote) {
+        updateStatsDisplay(merged);  // remplace les points par les vrais chiffres
         return;  // Rien à pousser
       }
       ref.set({
@@ -881,15 +889,53 @@ function updateStatsDisplay(data) {
   setText('lvlXpCurrent', xpInLvl);
   setText('lvlXpNext', xpForNext);
   const sv = data.streakValue || 0;
-  setText('streakBig', sv);
-  setText('streakNum', sv);
-  if ((data.streakDays || 0) === 0) setText('streakDetail', 'Reviens chaque jour pour démarrer !');
-  else if ((data.streakValue || 0) < (data.streakDays || 0)) setText('streakDetail', '⚠️ Plus que 24h pour récupérer ta série de ' + data.streakDays + ' !');
-  else if (data.streakDays === 1) setText('streakDetail', '1er jour ! Reviens demain pour faire +1');
-  else setText('streakDetail', data.streakDays + ' jours d\'affilée 🔥');
-  const sm = $('streakMini'); if (sm) sm.classList.toggle('zero', sv === 0);
+  const loggedIn = !!getCurrentUser();
+  if (loggedIn && !window.__fbConfirmed) {
+    // ⏳ Serveur pas encore confirmé : on n'affiche PAS le chiffre local (souvent faux), mais 3 points animés
+    const dots = '<span class="dots-load"><i></i><i></i><i></i></span>';
+    const sb = $('streakBig'); if (sb) sb.innerHTML = dots;
+    const snn = $('streakNum'); if (snn) snn.innerHTML = dots;
+    setText('streakDetail', 'Connexion au serveur…');
+    const sm0 = $('streakMini'); if (sm0) sm0.classList.remove('zero');
+  } else {
+    setText('streakBig', sv);
+    setText('streakNum', sv);
+    if ((data.streakDays || 0) === 0) setText('streakDetail', 'Reviens chaque jour pour démarrer !');
+    else if ((data.streakValue || 0) < (data.streakDays || 0)) setText('streakDetail', '⚠️ Plus que 24h pour récupérer ta série de ' + data.streakDays + ' !');
+    else if (data.streakDays === 1) setText('streakDetail', '1er jour ! Reviens demain pour faire +1');
+    else setText('streakDetail', data.streakDays + ' jours d\'affilée 🔥');
+    const sm = $('streakMini'); if (sm) sm.classList.toggle('zero', sv === 0);
+  }
   setText('totalXp', data.totalXp || 0);
   setText('xpNum', data.totalXp || 0);
+}
+
+// #1 : surveillance de la connexion serveur (pour fiabiliser les streaks)
+function startServerWatchdog() {
+  if (!getCurrentUser()) return;           // pas de pop-up si personne n'est connecté
+  if (window.__fbWatchdogOn) return;
+  window.__fbWatchdogOn = true;
+  window.__fbAttempts = 0;
+  const delays = [10000, 10000, 30000];    // 10s, puis +10s (20s), puis +30s (50s)
+  (function tick() {
+    if (window.__fbConfirmed) { window.__fbWatchdogOn = false; return; }
+    if (window.__fbAttempts >= delays.length) { showServerDownPopup(); window.__fbWatchdogOn = false; return; }
+    setTimeout(function() {
+      if (window.__fbConfirmed) { window.__fbWatchdogOn = false; return; }
+      window.__fbAttempts++;
+      console.log('[Revyzia] 🔄 Relance connexion serveur (tentative ' + window.__fbAttempts + '/3)');
+      try { if (fbReady && typeof rvFirebaseStart === 'function') rvFirebaseStart(); } catch(e) {}
+      tick();
+    }, delays[window.__fbAttempts]);
+  })();
+}
+function showServerDownPopup() {
+  if (window.__fbConfirmed || !getCurrentUser()) return;
+  if (document.getElementById('rvOverlay')) return;  // ne pas empiler
+  rvOverlay('<div class="rv-badge" style="background:#ffece8;color:#d63a30">Connexion</div>'
+    + '<h2>Le serveur ne répond pas</h2>'
+    + '<p>Impossible de joindre le serveur pour le moment. Recharge la page pour bien synchroniser tes XP et tes séries.</p>'
+    + '<div class="rv-actions"><button class="rv-btn primary" onclick="location.reload()">🔄 Recharger la page</button></div>');
 }
 
 // 🎬 Anime le changement de streak (gain = vert + confettis, perte = rouge)
@@ -1270,16 +1316,37 @@ function dedupAndMergeFirebaseEntries(user) {
   }
 }
 
-function logout() {
-  if (!confirm('Tu veux te déconnecter ? Ta progression reste sauvegardée.')) return;
+function doLogout() {
   clearCurrentUser();
   hide('dashboard-view');
   show('onboarding-view');
-  hide('userBadge'); hide('logoutBtn'); hide('streakMini'); hide('xpMini');
+  hide('userBadge'); hide('logoutBtn'); hide('infoBtn'); hide('streakMini'); hide('xpMini');
   state.pendingName = null;
   show('step1'); hide('step2');
-  const inp = $('nameInput'); if (inp) { inp.value = ''; inp.focus(); }
+  const inp = $('nameInput'); if (inp) { inp.value = ''; }
 }
+function logout() {
+  if (!confirm('Tu veux te déconnecter ? Ta progression reste sauvegardée.')) return;
+  doLogout();
+  const inp = $('nameInput'); if (inp) inp.focus();
+}
+
+// #6 : déconnexion automatique après 5 min d'inactivité
+(function setupIdleLogout() {
+  var IDLE_MS = 5 * 60 * 1000, t = null;
+  function fire() {
+    if (!getCurrentUser()) return;
+    if (document.getElementById('rvOverlay')) return;
+    rvOverlay('<div class="rv-badge">Session</div><h2>Session déconnectée</h2>'
+      + '<p>Tu as été déconnecté après 5 minutes d\'inactivité. Ta progression est bien sauvegardée.</p>'
+      + '<div class="rv-actions"><button class="rv-btn primary" onclick="rvCloseOverlay(); doLogout(); (document.getElementById(\'nameInput\')||{}).focus&&document.getElementById(\'nameInput\').focus();">OK</button></div>');
+  }
+  function reset() { if (!getCurrentUser()) return; clearTimeout(t); t = setTimeout(fire, IDLE_MS); }
+  ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click', 'wheel'].forEach(function(ev) {
+    window.addEventListener(ev, reset, { passive: true });
+  });
+  window.__rvIdleReset = reset;
+})();
 
 const GREETINGS = [
   function(name) { return 'Salut <em>' + name + '</em>'; },
@@ -1306,6 +1373,8 @@ function showDashboard() {
   setText('userBadgeName', user.name + ' · ' + user.klass);
   refreshStats();
   renderSubjects();
+  startServerWatchdog();
+  if (window.__rvIdleReset) window.__rvIdleReset();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (fbReady) {
     const data = loadUserData(user);
@@ -1492,7 +1561,19 @@ function showChapters(subject) {
     if (subject.brevetPages) appendGroupTitle('Tous les chapitres', '📚');
     sortByPin(subject.chapters).forEach(appendCard);
   }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // #7 : mémorise la position de défilement quand on ouvre un chapitre/fiche
+  grid.querySelectorAll('a.chapter-card[href]').forEach(function(a) {
+    a.addEventListener('click', function() {
+      try { sessionStorage.setItem('revyzia_return', JSON.stringify({ s: subject.id, y: window.scrollY })); } catch(e) {}
+    });
+  });
+  // #7 : si on revient d'un chapitre, on restaure la position ; sinon on remonte en haut
+  if (window.__revRestoreY != null) {
+    var ry = window.__revRestoreY; window.__revRestoreY = null;
+    requestAnimationFrame(function() { window.scrollTo(0, ry); });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
 function backToSubjects() {
   hide('chaptersContainer');
@@ -1619,6 +1700,7 @@ function updateLeaderboard() {
   setText('lbStatusText', 'Podium classe · Temps réel');
   $('lbStatus').classList.remove('offline');
   fbDb.ref('users').on('value', function(snap) {
+    window.__fbConfirmed = true;  // ✅ podium chargé → serveur joignable
     const all = [];
     snap.forEach(function(child) {
       const v = child.val();
@@ -1779,6 +1861,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (existingUser && subjParam) {
       const subj = SUBJECTS.find(function(s) { return s.id === subjParam; });
       if (subj) {
+        try {
+          const ret = JSON.parse(sessionStorage.getItem('revyzia_return') || 'null');
+          if (ret && ret.s === subjParam) window.__revRestoreY = ret.y;
+        } catch(e) {}
         showChapters(subj);
         try { window.history.replaceState({}, document.title, window.location.pathname); } catch(e) {}
       }
@@ -1795,9 +1881,17 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ⚙️ Pour annoncer une VRAIE nouveauté : change "version" + le titre/texte ci-dessous.
    (Ne change PAS la version pour un simple ajustement/bug : le pop-up ne s'affichera pas.) */
 var LATEST_UPDATE = {
-  version: '2026-06-10-revisions-fiches',
-  title: '🎉 Pages de révision & fiches Brevet',
-  html: 'Dans chaque matière, ouvre la section <b>📝 Spécial Brevet</b> :<br><br>• une <b>page de révision complète</b> (cours, méthodes, exercices avec correction cachée)<br>• une <b>fiche mémo</b> à <b>imprimer</b> ou <b>télécharger en PDF</b>.<br><br>Bonnes révisions 💪'
+  version: '2026-06-17-fixes-darkmode',
+  title: '✨ Grosse mise à jour !',
+  html: 'Plein d\'améliorations viennent d\'arriver :<br><br>'
+    + '• ⭐ Les <b>étoiles et la progression</b> s\'affichent enfin sur <b>tous</b> les chapitres<br>'
+    + '• 🎯 Les <b>QCM</b> sont désormais <b>mélangés</b> (questions et réponses) à chaque essai<br>'
+    + '• 🌙 Le <b>mode sombre</b> fonctionne <b>partout</b> (cours, QCM, fiches, révisions)<br>'
+    + '• 🔥 Les <b>séries</b> sont plus fiables (fini le mauvais chiffre au démarrage)<br>'
+    + '• 🖨️ Sur les fiches : <b>Imprimer / Télécharger</b> au centre (+ menu ☰ sur petit écran)<br>'
+    + '• 🔒 <b>Déconnexion automatique</b> après 5 min d\'inactivité<br>'
+    + '• ↩️ Au retour d\'un chapitre, la page reste <b>là où tu étais</b><br><br>'
+    + 'Bonnes révisions 💪'
 };
 function rvFlag(field){ try { var d = loadUserData(); return d ? d[field] : null; } catch(e){ return null; } }
 function rvSetFlag(field, value){

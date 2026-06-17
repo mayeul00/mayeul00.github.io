@@ -16,7 +16,10 @@
     <div class="brand-icon">📖</div>
     <span class="brand-name">Français</span>
   </div>
-  <div class="top-right"><a class="tb-btn" href="../fiches/francais.html" title="Fiche imprimable">🖨️ Fiche</a></div>
+  <div class="top-right">
+    <a class="tb-btn" href="../fiches/francais.html" title="Fiche imprimable">🖨️ Fiche</a>
+    <button class="theme-toggle" id="themeToggle" onclick="rvToggleTheme()" title="Jour / nuit">🌙</button>
+  </div>
 </header>
 
 <div class="wrap">
@@ -142,5 +145,6 @@
 </div>
 
 <button class="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
+<script src="../shared/brevet-pages.js"></script>
 </body>
 </html>

@@ -79,6 +79,32 @@
     try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
     window.location.href = '../'.repeat(DEPTH) + 'index.html';
   }
+  // #6 : déconnexion auto après 5 min d'inactivité
+  function idleLogoutNow() {
+    try { localStorage.removeItem('revyzia_current_user'); } catch(e) {}
+    window.location.href = '../'.repeat(DEPTH) + 'index.html';
+  }
+  function setupIdleLogout() {
+    var IDLE_MS = 5 * 60 * 1000, t = null;
+    function fire() {
+      if (!getCurrentUser() || document.getElementById('rvIdlePop')) return;
+      var o = document.createElement('div');
+      o.id = 'rvIdlePop';
+      o.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:20px;';
+      o.innerHTML = '<div style="background:var(--bg-card,#fff);color:var(--ink,#13202b);max-width:380px;width:100%;border-radius:20px;padding:26px 24px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3);">'
+        + '<div style="font-size:30px;margin-bottom:8px;">🔒</div>'
+        + '<h2 style="margin:0 0 8px;font-size:20px;font-weight:800;">Session déconnectée</h2>'
+        + '<p style="margin:0 0 18px;font-size:14px;color:var(--ink-soft,#5a6b7a);line-height:1.5;">Tu as été déconnecté après 5 minutes d\'inactivité. Ta progression est bien sauvegardée.</p>'
+        + '<button id="rvIdleOk" style="border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:15px;padding:12px 28px;border-radius:100px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;">OK</button></div>';
+      document.body.appendChild(o);
+      document.getElementById('rvIdleOk').onclick = idleLogoutNow;
+    }
+    function reset() { if (!getCurrentUser()) return; clearTimeout(t); t = setTimeout(fire, IDLE_MS); }
+    ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click', 'wheel'].forEach(function(ev) {
+      window.addEventListener(ev, reset, { passive: true });
+    });
+    reset();
+  }
   function navAway(suffix) {
     // 🚀 Forcer un push immédiat avant de quitter (annuler le debounce)
     if (pushDebounceTimer) clearTimeout(pushDebounceTimer);
@@ -351,6 +377,29 @@
     return tabId + '__' + mode + '__' + idx;
   }
 
+  // 🎲 Mélange Fisher-Yates (renvoie un NOUVEAU tableau)
+  function rvShuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  // Construit une version mélangée du QCM : ordre des QUESTIONS aléatoire,
+  // et pour CHAQUE question, ordre de SES PROPRES réponses aléatoire (la bonne
+  // réponse reste correcte). __origIdx garde la position d'origine pour l'XP.
+  function buildShuffledQcm(list) {
+    const withIdx = (list || []).map((q, i) => ({ q: q, i: i }));
+    return rvShuffle(withIdx).map(function (entry) {
+      const q = entry.q;
+      const order = rvShuffle((q.options || []).map((_, k) => k));
+      const options = order.map(k => q.options[k]);
+      const correct = order.indexOf(q.correct);
+      return Object.assign({}, q, { options: options, correct: correct, __origIdx: entry.i });
+    });
+  }
+
   // ============================================================
   // THEME
   // ============================================================
@@ -381,6 +430,7 @@
     document.body.innerHTML = `
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
+<div class="topbar-blur"></div>
 
 <header class="top-bar glass">
   <div class="brand">
@@ -436,6 +486,7 @@
 
     renderTabs();
     renderModes(0);
+    setupIdleLogout();
   }
 
   function renderTabs() {
@@ -485,7 +536,7 @@
     state.answers = [];  // 🆕 historique des réponses QCM pour le récap
     if (mode === 'lesson') state.items = tab.lessons;
     else if (mode === 'flashcards') state.items = tab.flashcards;
-    else if (mode === 'qcm') state.items = tab.qcm;
+    else if (mode === 'qcm') state.items = buildShuffledQcm(tab.qcm);
     else if (mode === 'exercises') state.items = tab.exercises;
 
     $('home-view').style.display = 'none';
@@ -606,7 +657,8 @@
     const tab = D.tabs[state.tabIdx];
     if (ok) {
       state.score++;
-      addXpForItem(itemKey(tab.id, 'qcm', state.idx), XP_BY_MODE.qcm);
+      const qIdx = (item.__origIdx != null) ? item.__origIdx : state.idx;
+      addXpForItem(itemKey(tab.id, 'qcm', qIdx), XP_BY_MODE.qcm);
     }
 
     // 🆕 Enregistrer la réponse pour le récap final

@@ -16,7 +16,14 @@
     <div class="brand-icon">🌍</div>
     <span class="brand-name">Fiche · Histoire-Géo</span>
   </div>
-  <div class="top-right"><button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button><button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button></div>
+  <div class="tb-center">
+    <button class="tb-btn" onclick="ficheDownload()">⬇️ Télécharger</button>
+    <button class="tb-btn primary" onclick="fichePrint()">🖨️ Imprimer</button>
+  </div>
+  <div class="top-right">
+    <button class="tb-burger" onclick="rvBurger()" title="Imprimer / Télécharger">☰</button>
+    <button class="theme-toggle" id="themeToggle" onclick="rvToggleTheme()" title="Jour / nuit">🌙</button>
+  </div>
 </header>
 
 <div class="sheet">
@@ -90,7 +97,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 function fichePrint(){window.print();}
-function ficheDownload(){var el=document.querySelector(".sheet");if(typeof html2pdf==="undefined"){window.print();return;}html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Géo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".note","table","tr"]}}).from(el).save();}
+function ficheDownload(){
+  var el=document.querySelector(".sheet");
+  if(typeof html2pdf==="undefined"){ window.print(); return; }
+  try{
+    html2pdf().set({margin:[8,8,10,8],filename:"Fiche-Histoire-Geo-Brevet.pdf",image:{type:"jpeg",quality:.98},html2canvas:{scale:2,backgroundColor:"#ffffff",useCORS:true,logging:false},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"],avoid:[".fgroup",".def",".f",".note","table","tr"]}}).from(el).save().catch(function(e){ console.warn("PDF fail, impression:",e); window.print(); });
+  }catch(e){ console.warn("PDF fail, impression:",e); window.print(); }
+}
 </script>
+<script src="../shared/brevet-pages.js"></script>
 </body>
 </html>
