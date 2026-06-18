@@ -16,9 +16,17 @@
     <div class="brand-icon">🧬</div>
     <span class="brand-name">SVT</span>
   </div>
-  <div class="top-right">
-    <a class="tb-btn" href="../fiches/svt.html" title="Fiche imprimable">🖨️ Fiche</a>
+  <div class="tb-center">
+    <a class="tb-btn primary" href="../fiches/svt.html" title="Fiche imprimable">🖨️ Fiche PDF</a>
+  </div>
+  <div class="tb-right">
+    <span class="user-badge" id="rvUserName"></span>
+    <span class="streak-mini">🔥 <span id="rvStreakNum">0</span></span>
+    <span class="xp-mini">⚡ <span id="rvXpNum">0</span></span>
+    <button class="info-btn" onclick="rvInfo()" title="Aide & infos"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="7.8" r="0.6" fill="currentColor" stroke="none"/></svg></button>
     <button class="theme-toggle" id="themeToggle" onclick="rvToggleTheme()" title="Jour / nuit">🌙</button>
+    <button class="logout-btn" onclick="rvLogout()" title="Se déconnecter">Déconnexion</button>
+    <button class="tb-burger" onclick="rvBurger()" title="Plus">☰</button>
   </div>
 </header>
 <div class="wrap">

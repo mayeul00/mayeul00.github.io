@@ -890,7 +890,8 @@ function updateStatsDisplay(data) {
   setText('lvlXpNext', xpForNext);
   const sv = data.streakValue || 0;
   const loggedIn = !!getCurrentUser();
-  if (loggedIn && !window.__fbConfirmed) {
+  const hasCached = !!(data && data.lastReviewDate);  // données déjà synchronisées en cache
+  if (loggedIn && !window.__fbConfirmed && !hasCached) {
     // ⏳ Serveur pas encore confirmé : on n'affiche PAS le chiffre local (souvent faux), mais 3 points animés
     const dots = '<span class="dots-load"><i></i><i></i><i></i></span>';
     const sb = $('streakBig'); if (sb) sb.innerHTML = dots;
@@ -1570,7 +1571,12 @@ function showChapters(subject) {
   // #7 : si on revient d'un chapitre, on restaure la position ; sinon on remonte en haut
   if (window.__revRestoreY != null) {
     var ry = window.__revRestoreY; window.__revRestoreY = null;
-    requestAnimationFrame(function() { window.scrollTo(0, ry); });
+    var tries = 0;
+    (function restore() {
+      window.scrollTo(0, ry);
+      // réessaie tant que la page n'a pas atteint la bonne hauteur (images/contenu qui chargent)
+      if (++tries < 12 && Math.abs(window.scrollY - ry) > 2) setTimeout(restore, 70);
+    })();
   } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
