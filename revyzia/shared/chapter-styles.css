@@ -217,3 +217,9 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 20px 60px; }
   .lesson-card, .qcm-card { padding: 20px 16px; }
   .fc-content { font-size: 17px; }
 }
+
+/* Tableaux/schémas dans les leçons (chapitres convertis type EMC Défense) */
+.schema { background: var(--glass-bg); border-radius: 14px; padding: 16px; margin: 14px 0; border: 1px solid var(--glass-border); overflow-x: auto; }
+.schema table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.schema td, .schema th { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--divider); }
+.schema th { font-weight: 700; color: var(--accent); }
