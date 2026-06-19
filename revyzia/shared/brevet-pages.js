@@ -59,13 +59,12 @@
   }
   function fillBar() {
     var u = getUser(); if (!u) return;
-    var nameEl = document.getElementById('rvUserName'); if (nameEl) nameEl.textContent = u.name || '';
     var h = {};
     try { h = JSON.parse(localStorage.getItem('revyzia_user_' + normalizeName(u.name) + '__' + u.klass) || '{}'); } catch (e) {}
     var sv = h.streakValue || 0, xp = h.totalXp || 0;
-    var sEl = document.getElementById('rvStreakNum'); if (sEl) sEl.textContent = sv;
-    var xEl = document.getElementById('rvXpNum'); if (xEl) xEl.textContent = xp;
-    var sm = document.querySelector('.streak-mini'); if (sm) sm.classList.toggle('zero', sv === 0);
+    var sEl = document.getElementById('streakNum'); if (sEl) sEl.textContent = sv;
+    var xEl = document.getElementById('xpNum'); if (xEl) xEl.textContent = xp;
+    var sm = document.getElementById('streakMini'); if (sm) sm.classList.toggle('zero', sv === 0);
   }
   window.rvLogout = function () {
     try { localStorage.removeItem('revyzia_current_user'); } catch (e) {}

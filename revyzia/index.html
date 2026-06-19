@@ -932,11 +932,21 @@ function startServerWatchdog() {
 }
 function showServerDownPopup() {
   if (window.__fbConfirmed || !getCurrentUser()) return;
+  if (window.__rvContinueOffline) return;            // l'utilisateur a choisi de réviser hors-ligne
   if (document.getElementById('rvOverlay')) return;  // ne pas empiler
   rvOverlay('<div class="rv-badge" style="background:#ffece8;color:#d63a30">Connexion</div>'
     + '<h2>Le serveur ne répond pas</h2>'
-    + '<p>Impossible de joindre le serveur pour le moment. Recharge la page pour bien synchroniser tes XP et tes séries.</p>'
-    + '<div class="rv-actions"><button class="rv-btn primary" onclick="location.reload()">🔄 Recharger la page</button></div>');
+    + '<p>Impossible de joindre le serveur pour le moment. Recharge la page pour bien synchroniser tes XP et tes séries — ou continue à réviser quand même.</p>'
+    + '<div class="rv-actions"><button class="rv-btn primary" onclick="location.reload()">🔄 Recharger la page</button>'
+    + '<button class="rv-btn ghost" onclick="rvContinueOffline()">Continuer quand même</button></div>');
+}
+// L'utilisateur veut réviser malgré l'absence de connexion : on prévient juste pour les XP/séries
+function rvContinueOffline() {
+  window.__rvContinueOffline = true;   // empêche le pop-up serveur de revenir
+  rvOverlay('<div class="rv-badge" style="background:#fff4e5;color:#b26a00">Mode hors-ligne</div>'
+    + '<h2>Tu peux réviser quand même 📖</h2>'
+    + '<p>Tu peux continuer à réviser normalement.<br><br>⚠️ Par contre, tant que le serveur ne répond pas, tes <b>XP</b> et tes <b>séries</b> risquent de ne pas être comptabilisés. Tout repartira dès que la connexion reviendra.</p>'
+    + '<div class="rv-actions"><button class="rv-btn primary" onclick="rvCloseOverlay()">👍 Compris, je révise</button></div>');
 }
 
 // 🎬 Anime le changement de streak (gain = vert + confettis, perte = rouge)
@@ -1376,7 +1386,7 @@ function showDashboard() {
   renderSubjects();
   startServerWatchdog();
   if (window.__rvIdleReset) window.__rvIdleReset();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.__revRestoreY == null) window.scrollTo({ top: 0, behavior: 'auto' });
   if (fbReady) {
     const data = loadUserData(user);
     pushToFirebase(data, user);
@@ -1823,6 +1833,7 @@ window.REVYZIA = {
 
 document.addEventListener('DOMContentLoaded', function() {
   loadTheme();
+  try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch(e) {}
 
   // 👨‍🏫 URL ?prof=martin → auto-connecte le prof (super pratique pour partage du lien)
   try {
@@ -1859,23 +1870,28 @@ document.addEventListener('DOMContentLoaded', function() {
   // Auto-login si déjà connecté → on passe par loginAs pour que la SÉRIE soit
   // recalculée (tick) après fusion Firebase, comme lors d'une vraie connexion.
   const existingUser = getCurrentUser();
-  if (existingUser) loginAs(existingUser.name, existingUser.klass);
 
-  // ← Retour depuis une page chapitre : ?subject=X ouvre la liste des chapitres de la matière
+  // #7 : déterminer s'il faut RESTAURER une position (retour depuis un chapitre) AVANT le login,
+  // pour que showDashboard ne remette pas la page en haut.
+  let pendingSubj = null;
   try {
     const subjParam = new URLSearchParams(window.location.search).get('subject');
     if (existingUser && subjParam) {
-      const subj = SUBJECTS.find(function(s) { return s.id === subjParam; });
-      if (subj) {
-        try {
-          const ret = JSON.parse(sessionStorage.getItem('revyzia_return') || 'null');
-          if (ret && ret.s === subjParam) window.__revRestoreY = ret.y;
-        } catch(e) {}
-        showChapters(subj);
-        try { window.history.replaceState({}, document.title, window.location.pathname); } catch(e) {}
+      pendingSubj = SUBJECTS.find(function(s) { return s.id === subjParam; }) || null;
+      if (pendingSubj) {
+        const ret = JSON.parse(sessionStorage.getItem('revyzia_return') || 'null');
+        if (ret && ret.s === subjParam) window.__revRestoreY = ret.y;
       }
     }
   } catch(e) {}
+
+  if (existingUser) loginAs(existingUser.name, existingUser.klass);
+
+  // ← Retour depuis une page chapitre : on ouvre la matière et on restaure la position
+  if (pendingSubj) {
+    showChapters(pendingSubj);
+    try { window.history.replaceState({}, document.title, window.location.pathname); } catch(e) {}
+  }
 
   // Charge Firebase
   loadFirebaseSDK(
