@@ -2,29 +2,45 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
 <title>Batz Street View — rues au vert</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
+  :root{--safe-b:env(safe-area-inset-bottom,0px)}
+  *{box-sizing:border-box}
   html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
-  #map{position:absolute;top:0;left:0;right:0;bottom:0;background:#cfe8f2}
-  #bar{position:absolute;top:0;left:0;right:0;z-index:1000;display:flex;gap:8px;align-items:center;
-       padding:8px 10px;background:rgba(17,24,39,.86);color:#fff;font-size:15px;font-weight:600}
-  #bar .pct{font-size:20px;color:#4ade80}
-  #bar .rest{opacity:.85;font-weight:500}
+  #map{position:absolute;inset:0;background:#cfe8f2}
+  /* barre haut */
+  #bar{position:absolute;top:0;left:0;right:0;z-index:1000;display:flex;gap:6px;align-items:center;flex-wrap:wrap;
+       padding:calc(6px + env(safe-area-inset-top,0px)) 10px 6px;background:rgba(17,24,39,.9);color:#fff}
+  #recdot{font-weight:800;font-size:14px;white-space:nowrap}
+  #recdot.on{color:#f87171}#recdot.off{color:#9ca3af}
+  #pct{font-size:19px;font-weight:800;color:#4ade80}
+  #rest{font-size:13px;opacity:.9}
   #bar .grow{flex:1}
-  #status{font-size:12px;font-weight:500;opacity:.9;text-align:right;max-width:46%}
-  #btns{position:absolute;bottom:16px;left:0;right:0;z-index:1000;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  #btns button{border:0;border-radius:24px;padding:12px 16px;font-size:15px;font-weight:700;background:#2563eb;color:#fff;box-shadow:0 3px 10px rgba(0,0,0,.3)}
-  #btns button.grey{background:#374151}
-  #btns button.red{background:#b91c1c}
-  #gps{position:absolute;top:52px;left:50%;transform:translateX(-50%);z-index:1500;border:0;border-radius:24px;
-       padding:14px 20px;font-size:16px;font-weight:800;background:#16a34a;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  #status{font-size:12px;opacity:.9;white-space:nowrap}
+  /* boutons bas */
+  #dock{position:absolute;left:0;right:0;bottom:calc(12px + var(--safe-b));z-index:1000;
+        display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+  #dock>*{pointer-events:auto}
+  #startBtn{border:0;border-radius:32px;padding:16px 30px;font-size:19px;font-weight:800;color:#fff;
+        background:#16a34a;box-shadow:0 4px 16px rgba(0,0,0,.35);min-width:240px}
+  #startBtn.on{background:#dc2626}
+  #row{display:flex;gap:8px}
+  #row button{border:0;border-radius:22px;padding:11px 15px;font-size:14px;font-weight:700;color:#fff;background:#2563eb;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+  #row button.grey{background:#374151}
+  /* menu */
+  #menu{position:absolute;right:10px;bottom:calc(150px + var(--safe-b));z-index:1200;background:#111827;color:#fff;border-radius:14px;
+        padding:8px;display:none;flex-direction:column;gap:6px;box-shadow:0 6px 20px rgba(0,0,0,.4);min-width:210px}
+  #menu.open{display:flex}
+  #menu button{border:0;border-radius:10px;padding:12px;font-size:15px;font-weight:600;text-align:left;color:#fff;background:#1f2937}
+  #menu button.danger{background:#7f1d1d}
   .dot{width:22px;height:22px;border-radius:50%;background:#2563eb;border:3px solid #fff;box-shadow:0 0 0 2px #2563eb}
+  #hint{position:absolute;left:10px;right:10px;top:52px;z-index:900;background:rgba(37,99,235,.95);color:#fff;
+        padding:10px 12px;border-radius:12px;font-size:14px;font-weight:600;text-align:center}
   #overlay{position:absolute;inset:0;z-index:2000;background:rgba(17,24,39,.94);color:#fff;display:flex;flex-direction:column;
        align-items:center;justify-content:center;text-align:center;padding:24px;gap:16px}
-  #overlay h1{font-size:20px;margin:0}
-  #overlay p{margin:0;max-width:440px;line-height:1.5;opacity:.92;font-size:15px}
+  #overlay h1{font-size:20px;margin:0}#overlay p{margin:0;max-width:440px;line-height:1.5;font-size:15px;opacity:.92}
   #overlay button{border:0;border-radius:24px;padding:14px 22px;font-size:16px;font-weight:700;background:#2563eb;color:#fff}
   .hide{display:none!important}
   .spin{width:34px;height:34px;border:4px solid #ffffff40;border-top-color:#4ade80;border-radius:50%;animation:s 1s linear infinite}
@@ -32,31 +48,47 @@
 </style>
 </head>
 <body>
-<div id="bar"><span class="pct" id="pct">0%</span><span class="rest" id="rest">…</span><span class="grow"></span><span id="status">GPS: —</span></div>
+<div id="bar">
+  <span id="recdot" class="off">❚❚ Pause</span>
+  <span id="pct">0%</span><span id="rest">reste …</span>
+  <span class="grow"></span><span id="status">GPS: —</span>
+</div>
 <div id="map"></div>
-<button id="gps" class="hide">📍 Activer ma position</button>
-<div id="btns"><button id="follow">Me suivre</button><button id="reload" class="grey">↻ Rues</button><button id="reset" class="red">Réinit.</button></div>
+<div id="hint">Appuie sur <b>Démarrer</b> quand tu commences à filmer. Rien ne s'enregistre avant.</div>
+
+<div id="menu">
+  <button id="mSave">💾 Sauvegarder (fichier)</button>
+  <button id="mLoad">📂 Restaurer un fichier</button>
+  <button id="mReload" class="grey" style="background:#334155">↻ Recharger les rues</button>
+  <button id="mReset" class="danger">🗑️ Tout réinitialiser</button>
+  <input id="file" type="file" accept="application/json,.json" class="hide"/>
+</div>
+
+<div id="dock">
+  <button id="startBtn">▶ Démarrer le tournage</button>
+  <div id="row">
+    <button id="follow">📍 Me suivre</button>
+    <button id="menuBtn" class="grey">☰ Menu</button>
+  </div>
+</div>
+
 <div id="overlay"><div class="spin" id="spin"></div><h1 id="ovt">Préparation de la carte…</h1>
-  <p id="ovp">On récupère les rues de l'île de Batz (une seule fois, ensuite c'est en cache). Fais-le avec du réseau.</p>
+  <p id="ovp">On récupère les rues de l'île (une seule fois, ensuite en cache). Fais-le avec du réseau.</p>
   <button id="ovb" class="hide">Réessayer</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const BBOX=[48.740,-4.050,48.758,-4.000];
-const OVERPASS=[
-  "https://overpass-api.de/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter",
-  "https://overpass.openstreetmap.fr/api/interpreter",
-  "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
-];
+const OVERPASS=["https://overpass-api.de/api/interpreter","https://overpass.kumi.systems/api/interpreter",
+  "https://overpass.openstreetmap.fr/api/interpreter","https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
 const QUERY=`[out:json][timeout:60];way["highway"](${BBOX[0]},${BBOX[1]},${BBOX[2]},${BBOX[3]});out geom;`;
 const FOOT=new Set(["footway","path","steps","bridleway","corridor"]);
-const STEP=16, BASE_THRESH=14, MAX_THRESH=24;
+const STEP=16, BASE_THRESH=13, MAX_THRESH=22, MAX_ACC=35; // m
 const K_COV="batzsv_covered_v2", K_OSM="batzsv_osm_v1";
-let map, segs=[], covered=new Set(), meMarker=null, accCircle=null, follow=true, watching=false;
+let map, segs=[], covered=new Set(), meMarker=null, accCircle=null, follow=true, watching=false, recording=false;
 
 const el=id=>document.getElementById(id);
-const saveCov=()=>localStorage.setItem(K_COV,JSON.stringify([...covered]));
+const saveCov=()=>{try{localStorage.setItem(K_COV,JSON.stringify([...covered]));}catch(e){}};
 function loadCov(){try{covered=new Set(JSON.parse(localStorage.getItem(K_COV)||"[]"));}catch(e){covered=new Set();}}
 function fail(msg){el("overlay").classList.remove("hide");el("spin").classList.add("hide");el("ovt").textContent="Souci";el("ovp").textContent=msg;el("ovb").classList.remove("hide");}
 window.onerror=(m)=>{fail("Erreur inattendue : "+m+". Touche « Réessayer ».");};
@@ -67,49 +99,49 @@ function distPtSeg(plat,plon,a,b){const P=toXY(plat,plon,plat),A=toXY(a[0],a[1],
   const vx=B[0]-A[0],vy=B[1]-A[1],wx=P[0]-A[0],wy=P[1]-A[1];const l2=vx*vx+vy*vy;let t=l2>0?(wx*vx+wy*vy)/l2:0;t=Math.max(0,Math.min(1,t));
   return Math.hypot(P[0]-(A[0]+t*vx),P[1]-(A[1]+t*vy));}
 
-function initMap(){
-  map=L.map("map",{zoomControl:true}).setView([48.7485,-4.024],15);
+function initMap(){map=L.map("map",{zoomControl:false}).setView([48.7485,-4.024],15);
+  L.control.zoom({position:"topleft"}).addTo(map);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
-  map.on("dragstart",()=>{follow=false;el("follow").style.background="#374151";});
-}
+  map.on("dragstart",()=>{follow=false;el("follow").style.background="#374151";});}
 function styleFor(s){if(covered.has(s.id))return{color:"#16a34a",weight:8,opacity:.97};
-  if(s.foot)return{color:"#9ca3af",weight:2,opacity:.65,dashArray:"2 7"};return{color:"#6b7280",weight:4,opacity:.9};}
+  if(s.foot)return{color:"#9ca3af",weight:2,opacity:.6,dashArray:"2 7"};return{color:"#6b7280",weight:4,opacity:.9};}
 function densify(a,b){const len=metersBetween(a,b),n=Math.max(1,Math.round(len/STEP)),out=[];
   for(let i=0;i<n;i++){const t0=i/n,t1=(i+1)/n;out.push([[a[0]+(b[0]-a[0])*t0,a[1]+(b[1]-a[1])*t0],[a[0]+(b[0]-a[0])*t1,a[1]+(b[1]-a[1])*t1]]);}return out;}
-function buildSegments(data){
-  segs.forEach(s=>map.removeLayer(s.line));segs=[];
+function buildSegments(data){segs.forEach(s=>map.removeLayer(s.line));segs=[];
   data.elements.filter(e=>e.type==="way"&&e.geometry&&e.geometry.length>1).forEach(w=>{
     const foot=FOOT.has((w.tags&&w.tags.highway)||"");
-    for(let i=0;i<w.geometry.length-1;i++){
-      const A=[w.geometry[i].lat,w.geometry[i].lon],B=[w.geometry[i+1].lat,w.geometry[i+1].lon];
+    for(let i=0;i<w.geometry.length-1;i++){const A=[w.geometry[i].lat,w.geometry[i].lon],B=[w.geometry[i+1].lat,w.geometry[i+1].lon];
       densify(A,B).forEach((mm,k)=>{const id=w.id+"-"+i+"-"+k;
         const s={id,a:mm[0],b:mm[1],foot,mid:[(mm[0][0]+mm[1][0])/2,(mm[0][1]+mm[1][1])/2]};
-        s.line=L.polyline(mm,styleFor(s)).addTo(map);s.line.on("click",()=>toggle(s));segs.push(s);});
-    }});
-  const b=L.latLngBounds([]);segs.forEach(s=>{b.extend(s.a);b.extend(s.b);});if(segs.length)map.fitBounds(b.pad(0.05));
-  updateStats();
-}
+        s.line=L.polyline(mm,styleFor(s)).addTo(map);s.line.on("click",()=>toggle(s));segs.push(s);});}});
+  const b=L.latLngBounds([]);segs.forEach(s=>{b.extend(s.a);b.extend(s.b);});if(segs.length)map.fitBounds(b.pad(0.05));updateStats();}
 function toggle(s){covered.has(s.id)?covered.delete(s.id):covered.add(s.id);s.line.setStyle(styleFor(s));saveCov();updateStats();}
+function recolor(){segs.forEach(s=>s.line.setStyle(styleFor(s)));}
 function updateStats(){const r=segs.filter(s=>!s.foot),d=r.filter(s=>covered.has(s.id)).length,p=r.length?Math.round(100*d/r.length):0;
-  el("pct").textContent=p+"%";el("rest").textContent="reste "+(r.length-d)+" tronçons";}
+  el("pct").textContent=p+"%";el("rest").textContent="reste "+(r.length-d);}
 
-function onPos(p){
-  const {latitude:la,longitude:lo,accuracy:ac}=p.coords;
-  el("status").textContent="GPS: ±"+Math.round(ac)+" m"+(ac>40?" (faible)":"");el("gps").classList.add("hide");
+function setRecording(on){recording=on;
+  el("startBtn").textContent=on?"⏹ Arrêter":"▶ Démarrer le tournage";el("startBtn").classList.toggle("on",on);
+  el("recdot").textContent=on?"● Enregistrement":"❚❚ Pause";el("recdot").className=on?"on":"off";
+  el("hint").classList.toggle("hide",on);}
+
+function onPos(p){const {latitude:la,longitude:lo,accuracy:ac}=p.coords;
+  el("status").textContent="GPS: ±"+Math.round(ac)+" m"+(ac>40?" (faible)":"");
   if(!meMarker){meMarker=L.marker([la,lo],{icon:L.divIcon({className:"",html:'<div class="dot"></div>',iconSize:[22,22],iconAnchor:[11,11]})}).addTo(map);
     accCircle=L.circle([la,lo],{radius:ac,color:"#2563eb",weight:1,opacity:.4,fillOpacity:.08}).addTo(map);}
   else{meMarker.setLatLng([la,lo]);accCircle.setLatLng([la,lo]).setRadius(ac);}
   if(follow)map.setView([la,lo],Math.max(map.getZoom(),17),{animate:true});
+  // MARQUAGE : seulement si on enregistre ET précision correcte
+  if(!recording||ac>MAX_ACC)return;
   const thr=Math.max(BASE_THRESH,Math.min(ac,MAX_THRESH));let ch=false;
   for(const s of segs){if(covered.has(s.id))continue;
     if(Math.abs(s.mid[0]-la)>0.0009||Math.abs(s.mid[1]-lo)>0.0012)continue;
     if(distPtSeg(la,lo,s.a,s.b)<=thr){covered.add(s.id);s.line.setStyle(styleFor(s));ch=true;}}
-  if(ch){saveCov();updateStats();}
-}
-function onPosErr(e){watching=false;el("gps").classList.remove("hide");
+  if(ch){saveCov();updateStats();}}
+function onPosErr(e){watching=false;
   if(e.code===1){el("status").textContent="Localisation refusée";
-    fail("Localisation refusée. Ouvre les autorisations du site (cadenas dans la barre d'adresse → Localisation → Autoriser) puis « Réessayer ». Si tu as ouvert un fichier local, passe par le lien https.");}
-  else el("status").textContent="GPS indisponible, réessaie";}
+    fail("Localisation refusée. Ouvre les autorisations du site (cadenas dans la barre d'adresse → Localisation → Autoriser) puis « Réessayer ». Un fichier local (file://) bloque le GPS : passe par un lien https.");}
+  else el("status").textContent="GPS indisponible";}
 function requestGeo(){if(!navigator.geolocation){el("status").textContent="Pas de GPS ici";return;}
   el("status").textContent="GPS: recherche…";
   navigator.geolocation.getCurrentPosition(p=>{el("overlay").classList.add("hide");onPos(p);
@@ -119,32 +151,39 @@ function requestGeo(){if(!navigator.geolocation){el("status").textContent="Pas d
 async function wakeLock(){try{if("wakeLock"in navigator){let wl=await navigator.wakeLock.request("screen");
   document.addEventListener("visibilitychange",async()=>{if(document.visibilityState==="visible"){try{wl=await navigator.wakeLock.request("screen");}catch(e){}}});}}catch(e){}}
 
-function fetchOne(url){return new Promise(async(res,rej)=>{
-  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),10000);
-  try{const r=await fetch(url,{method:"POST",body:"data="+encodeURIComponent(QUERY),
-      headers:{"Content-Type":"application/x-www-form-urlencoded"},signal:ctl.signal});
-    clearTimeout(to);if(!r.ok)return rej();const j=await r.json();
-    if(j&&j.elements&&j.elements.length)res(j);else rej();}catch(e){clearTimeout(to);rej();}});}
+function fetchOne(url){return new Promise(async(res,rej)=>{const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),10000);
+  try{const r=await fetch(url,{method:"POST",body:"data="+encodeURIComponent(QUERY),headers:{"Content-Type":"application/x-www-form-urlencoded"},signal:ctl.signal});
+    clearTimeout(to);if(!r.ok)return rej();const j=await r.json();if(j&&j.elements&&j.elements.length)res(j);else rej();}catch(e){clearTimeout(to);rej();}});}
 async function fetchStreets(){try{return await Promise.any(OVERPASS.map(fetchOne));}catch(e){return null;}}
-
-async function loadStreets(force){
-  el("overlay").classList.remove("hide");el("spin").classList.remove("hide");el("ovb").classList.add("hide");
-  el("ovt").textContent="Préparation de la carte…";el("ovp").textContent="On récupère les rues de l'île (une seule fois, ensuite en cache).";
-  let data=null;
-  if(!force){const c=localStorage.getItem(K_OSM);if(c){try{data=JSON.parse(c);}catch(e){}}}
+async function loadStreets(force){el("overlay").classList.remove("hide");el("spin").classList.remove("hide");el("ovb").classList.add("hide");
+  el("ovt").textContent="Préparation de la carte…";el("ovp").textContent="On récupère les rues de l'île (une fois, ensuite en cache).";
+  let data=null;if(!force){const c=localStorage.getItem(K_OSM);if(c){try{data=JSON.parse(c);}catch(e){}}}
   if(!data){data=await fetchStreets();if(data)try{localStorage.setItem(K_OSM,JSON.stringify(data));}catch(e){}}
-  if(!data){fail("Impossible de charger les rues (réseau lent ou coupé). Vérifie ta connexion et touche « Réessayer ».");return;}
-  try{buildSegments(data);}catch(e){fail("Souci d'affichage des rues. Touche « Réessayer ».");return;}
-  el("overlay").classList.add("hide");requestGeo();
-}
+  if(!data){fail("Impossible de charger les rues (réseau lent/coupé). Vérifie ta connexion et touche « Réessayer ».");return;}
+  try{buildSegments(data);}catch(e){fail("Souci d'affichage. Touche « Réessayer ».");return;}
+  el("overlay").classList.add("hide");requestGeo();}
+
+// sauvegarde / restauration fichier
+function doSave(){const blob=new Blob([JSON.stringify({v:2,ts:Date.now(),covered:[...covered]})],{type:"application/json"});
+  const a=document.createElement("a");const d=new Date();const pad=n=>String(n).padStart(2,"0");
+  a.download=`batz-progression-${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}.json`;
+  a.href=URL.createObjectURL(blob);a.click();}
+function doLoad(file){const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);(j.covered||[]).forEach(id=>covered.add(id));
+  saveCov();recolor();updateStats();alert("Progression restaurée ✔");}catch(e){alert("Fichier illisible.");}};r.readAsText(file);}
+
 function initButtons(){
-  el("gps").onclick=requestGeo;
+  el("startBtn").onclick=()=>setRecording(!recording);
   el("follow").onclick=()=>{follow=true;el("follow").style.background="#2563eb";if(meMarker)map.setView(meMarker.getLatLng(),Math.max(map.getZoom(),17));};
-  el("reload").onclick=()=>loadStreets(true);
-  el("reset").onclick=()=>{if(confirm("Tout repasser en gris ?")){covered.clear();saveCov();segs.forEach(s=>s.line.setStyle(styleFor(s)));updateStats();}};
+  el("menuBtn").onclick=()=>el("menu").classList.toggle("open");
+  el("mSave").onclick=()=>{doSave();el("menu").classList.remove("open");};
+  el("mLoad").onclick=()=>el("file").click();
+  el("file").onchange=e=>{if(e.target.files[0])doLoad(e.target.files[0]);el("menu").classList.remove("open");};
+  el("mReload").onclick=()=>{el("menu").classList.remove("open");loadStreets(true);};
+  el("mReset").onclick=()=>{if(confirm("Effacer TOUTE la progression ? (pense à Sauvegarder avant)")){
+     if(confirm("Confirmer : tout repasse en gris.")){covered.clear();saveCov();recolor();updateStats();}}el("menu").classList.remove("open");};
   el("ovb").onclick=()=>loadStreets(true);
 }
-try{loadCov();initMap();initButtons();wakeLock();loadStreets(false);}catch(e){fail("Erreur au démarrage : "+e.message);}
+try{loadCov();initMap();initButtons();setRecording(false);wakeLock();loadStreets(false);}catch(e){fail("Erreur au démarrage : "+e.message);}
 </script>
 </body>
 </html>
