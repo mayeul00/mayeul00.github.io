@@ -30,9 +30,11 @@
   #pauseBtn{background:linear-gradient(180deg,#f59e0b,#d97706)}#resumeBtn{background:linear-gradient(180deg,#22c55e,#16a34a)}#stopBtn{background:linear-gradient(180deg,#ef4444,#dc2626)}
   .big:active{transform:translateY(1px)}
   #recCtrls{display:flex;gap:10px}
-  #row{display:flex;gap:10px}
+  #row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
   #row button{border:0;border-radius:26px;padding:11px 17px;font-size:14px;font-weight:700;color:#fff;background:rgba(30,41,59,.92);box-shadow:0 3px 10px rgba(0,0,0,.3);backdrop-filter:blur(4px)}
   #row button.active{background:#2563eb}
+  #undoBtn,#redoBtn{font-size:18px;padding:11px 15px}
+  .dim{opacity:.4}
   #menu{position:absolute;right:12px;bottom:calc(160px + var(--safe-b));z-index:1200;background:#0f172a;color:#fff;border-radius:16px;padding:8px;display:none;flex-direction:column;gap:6px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:250px}
   #menu.open{display:flex}
   #menu button{border:0;border-radius:11px;padding:13px;font-size:15px;font-weight:600;text-align:left;color:#fff;background:#1e293b}
@@ -93,7 +95,7 @@
   <div id="recCtrls" class="hide">
     <button id="pauseBtn" class="big">⏸ Pause</button><button id="resumeBtn" class="big hide">▶ Reprendre</button><button id="stopBtn" class="big">⏹ Arrêter</button>
   </div>
-  <div id="row"><button id="follow">📍 Me suivre</button><button id="menuBtn">☰ Menu</button></div>
+  <div id="row"><button id="undoBtn" class="dim">↶</button><button id="redoBtn" class="dim">↷</button><button id="follow">📍 Me suivre</button><button id="menuBtn">☰ Menu</button></div>
 </div>
 
 <div id="panel"><h2>Historique des trajets</h2><div id="histList"></div><button class="close" id="histClose">Fermer</button></div>
@@ -113,6 +115,7 @@ const K_COV="batzsv_covered_v3", K_OSM="batzsv_osm_v3", K_TRIP="batzsv_trip_v1",
 let map, canvas, segs=[], segById=new Map(), covered=new Set(), excluded=new Set(), included=new Set();
 let meMarker=null, accCircle=null, follow=false, followWanted=false, watching=false, prog=false, idleT=null;
 let editMode=false, drawMode=false, drawPts=[], drawLine=null;
+let undoStack=[], redoStack=[], lastPush=0;
 let trip={status:"idle",acc:0,last:0,start:0,startKm:0};
 
 const el=id=>document.getElementById(id);
@@ -157,9 +160,16 @@ function buildSegments(data){segs.forEach(s=>map.removeLayer(s.line));segs=[];se
   const b=L.latLngBounds([]);segs.forEach(s=>{b.extend(s.a);b.extend(s.b);});if(segs.length)map.fitBounds(b.pad(0.05));updateStats();}
 
 function onSegClick(s){if(drawMode)return;if(editMode)toggleWay(s);else if(counted(s))toggleCovered(s);}
-function toggleCovered(s){covered.has(s.id)?covered.delete(s.id):covered.add(s.id);s.line.setStyle(styleFor(s));saveCov();updateStats();}
-function toggleWay(s){const w=s.way;if(counted(s)){excluded.add(w);included.delete(w);}else{included.add(w);excluded.delete(w);}
+function toggleCovered(s){pushUndo(false);covered.has(s.id)?covered.delete(s.id):covered.add(s.id);s.line.setStyle(styleFor(s));saveCov();updateStats();}
+function toggleWay(s){pushUndo(false);const w=s.way;if(counted(s)){excluded.add(w);included.delete(w);}else{included.add(w);excluded.delete(w);}
   saveSets();segs.forEach(x=>{if(x.way===w)x.line.setStyle(styleFor(x));});updateStats();}
+function snap(){return{c:[...covered],e:[...excluded],i:[...included]};}
+function applySnap(s){covered=new Set(s.c);excluded=new Set(s.e);included=new Set(s.i);saveCov();saveSets();recolor();updateStats();}
+function updateUndoUI(){el("undoBtn").classList.toggle("dim",!undoStack.length);el("redoBtn").classList.toggle("dim",!redoStack.length);}
+function pushUndo(coalesce){const now=Date.now();if(coalesce&&undoStack.length&&now-lastPush<8000)return;
+  undoStack.push(snap());if(undoStack.length>80)undoStack.shift();redoStack=[];lastPush=now;updateUndoUI();}
+function undo(){if(!undoStack.length)return;redoStack.push(snap());applySnap(undoStack.pop());updateUndoUI();}
+function redo(){if(!redoStack.length)return;undoStack.push(snap());applySnap(redoStack.pop());updateUndoUI();}
 function recolor(){segs.forEach(s=>s.line.setStyle(styleFor(s)));}
 function coveredKm(){let d=0;for(const s of segs)if(counted(s)&&covered.has(s.id))d+=s.len;return d/1000;}
 function updateStats(){let tot=0,done=0;for(const s of segs){if(!counted(s))continue;tot+=s.len;if(covered.has(s.id))done+=s.len;}
@@ -221,6 +231,7 @@ function onPos(p){const {latitude:la,longitude:lo,accuracy:ac,speed}=p.coords;
   if(follow){prog=true;map.panTo([la,lo],{animate:false});prog=false;}
   if(trip.status!=="rec"||ac>MAX_ACC)return;if(speed!=null&&speed<MIN_SPEED)return;
   const ids=nearestClusterIds(la,lo,Math.max(8,Math.min(ac,NEAR_MAX)));let ch=false;
+  if(ids.some(id=>!covered.has(id)))pushUndo(true);
   for(const id of ids){if(!covered.has(id)){covered.add(id);const s=segById.get(id);s.line.setStyle(styleFor(s));ch=true;}}
   if(ch){saveCov();updateStats();}}
 function onPosErr(e){if(e.code===1){el("status").textContent="Localisation refusée";
@@ -256,6 +267,7 @@ function doLoad(file){const r=new FileReader();r.onload=()=>{try{const j=JSON.pa
   if(j.draw)setJSON(K_DRAW,j.draw);if(j.hist)setJSON(K_HIST,j.hist);saveCov();saveSets();
   loadStreets(false);alert("Sauvegarde restaurée ✔");}catch(e){alert("Fichier illisible.");}};r.readAsText(file);}
 function importGpx(file){const r=new FileReader();r.onload=()=>{try{const txt=r.result,re=/<(?:trkpt|rtept|wpt)\b([^>]*)>/g;let m,n=0,before=covered.size;
+  pushUndo(false);
   while((m=re.exec(txt))){const at=m[1],la=/\blat="([-0-9.]+)"/.exec(at),lo=/\blon="([-0-9.]+)"/.exec(at);
     if(!la||!lo)continue;nearestClusterIds(parseFloat(la[1]),parseFloat(lo[1]),GPX_THR).forEach(id=>covered.add(id));n++;}
   recolor();saveCov();updateStats();alert(n?("Trajet importé ("+n+" points) → "+(covered.size-before)+" tronçons ajoutés ✔"):"Aucun point trouvé dans ce GPX.");
@@ -283,8 +295,10 @@ function initButtons(){
   el("mLoad").onclick=()=>el("file").click();
   el("file").onchange=e=>{if(e.target.files[0])doLoad(e.target.files[0]);e.target.value="";el("menu").classList.remove("open");};
   el("mReload").onclick=()=>{el("menu").classList.remove("open");loadStreets(true);};
-  el("mReset").onclick=()=>{if(confirm("Effacer TOUTE la progression ? (pense à Sauvegarder avant)")){
-     if(confirm("Confirmer : tout repasse en gris.")){covered.clear();saveCov();recolor();updateStats();}}el("menu").classList.remove("open");};
+  el("mReset").onclick=()=>{el("menu").classList.remove("open");
+    if(confirm("Tout remettre en gris ? (progression + exclusions/inclusions effacées — pense à Sauvegarder avant)")){
+      pushUndo(false);covered.clear();excluded.clear();included.clear();saveCov();saveSets();recolor();updateStats();}};
+  el("undoBtn").onclick=undo;el("redoBtn").onclick=redo;
   el("ovb").onclick=()=>loadStreets(true);
 }
 try{covered=new Set(getJSON(K_COV,[]));excluded=new Set(getJSON(K_EXCL,[]));included=new Set(getJSON(K_INCL,[]));
