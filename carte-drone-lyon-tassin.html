@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a73e8">
+<title>Zones drone — Lyon / Tassin-la-Demi-Lune</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<!-- Plugin de rotation de la carte (navigation cap-en-haut) -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet-rotate@0.2.8/dist/leaflet-rotate.js"></script>
+<style>
+  html, body { margin:0; padding:0; height:100%; font-family:system-ui,-apple-system,'Segoe UI',sans-serif; overflow:hidden; }
+  #map { position:absolute; inset:0; background:#eee; }
+
+  /* ---- Panneau latéral ---- */
+  .panel {
+    position:absolute; top:10px; right:10px; z-index:1000; width:270px;
+    background:rgba(255,255,255,.96); border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,.3);
+    padding:12px 14px; font-size:13px; max-height:calc(100% - 20px); overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .panel h1 { font-size:15px; margin:0 0 8px; padding-right:24px; }
+  .panel label { display:block; margin:6px 0 2px; font-weight:600; }
+  .panel input[type=range] { width:100%; }
+  .legend .lg { display:flex; align-items:center; gap:8px; margin:3px 0; }
+  .legend .lg span { width:22px; height:14px; border-radius:3px; display:inline-block; flex:none; }
+  .panel-close { position:absolute; top:8px; right:10px; border:none; background:none; font-size:20px;
+    line-height:1; cursor:pointer; color:#666; display:none; }
+
+  /* ---- Recherche ---- */
+  .searchbox { position:absolute; top:10px; left:54px; z-index:1000; display:flex; gap:4px; }
+  .searchbox input {
+    width:230px; padding:8px 10px; border:none; border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.3); font-size:14px;
+  }
+  .searchbox button {
+    padding:8px 12px; border:none; border-radius:8px; background:#1a73e8; color:#fff;
+    cursor:pointer; font-size:14px; box-shadow:0 2px 8px rgba(0,0,0,.3);
+  }
+  .searchwrap { position:relative; }
+  #sugg {
+    position:absolute; top:100%; left:0; margin-top:4px; width:300px; max-width:80vw;
+    background:#fff; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,.3);
+    overflow:hidden; display:none; z-index:1100;
+  }
+  #sugg div { padding:10px 10px; font-size:13px; cursor:pointer; border-bottom:1px solid #f0f0f0; }
+  #sugg div:last-child { border-bottom:none; }
+  #sugg div:hover, #sugg div.sel { background:#e8f0fe; }
+  #sugg small { color:#777; display:block; }
+
+  .popup-coords { font-family:monospace; font-size:12px; background:#f1f3f4; padding:3px 6px; border-radius:4px; cursor:pointer; display:inline-block; }
+  .popup-links a { display:inline-block; margin:4px 6px 0 0; color:#1a73e8; text-decoration:none; font-weight:600; }
+  .info-zone { margin-top:6px; font-size:12px; max-height:140px; overflow-y:auto; }
+  .note { font-size:11px; color:#555; margin-top:8px; line-height:1.45; }
+  .toggle-row { display:flex; align-items:center; gap:6px; margin-top:4px; }
+  details summary { cursor:pointer; font-weight:600; margin-top:8px; }
+
+  /* ---- Boutons flottants (mobile-first) ---- */
+  .fabs { position:absolute; right:12px; bottom:22px; z-index:1000; display:flex; flex-direction:column; gap:10px; }
+  .fab {
+    width:52px; height:52px; border-radius:50%; border:none; background:#fff;
+    box-shadow:0 3px 10px rgba(0,0,0,.35); cursor:pointer; font-size:24px;
+    display:flex; align-items:center; justify-content:center; color:#333; padding:0;
+    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
+  }
+  .fab.active { background:#1a73e8; color:#fff; }
+  .fab.small { width:42px; height:42px; font-size:18px; }
+  .fab:disabled { opacity:.5; }
+
+  /* Bouton pour rouvrir le panneau (mobile) */
+  #panelBtn {
+    position:absolute; top:10px; right:10px; z-index:1001; display:none;
+    width:44px; height:44px; border-radius:10px; border:none; background:rgba(255,255,255,.96);
+    box-shadow:0 2px 10px rgba(0,0,0,.3); font-size:20px; cursor:pointer;
+  }
+
+  /* Bandeau zone en temps réel */
+  #zoneBanner {
+    position:absolute; top:10px; left:50%; transform:translateX(-50%); z-index:1000;
+    background:rgba(0,0,0,.78); color:#fff; padding:8px 14px; border-radius:20px;
+    font-size:13px; font-weight:600; box-shadow:0 2px 10px rgba(0,0,0,.4); display:none;
+    max-width:88vw; text-align:center; line-height:1.35;
+  }
+  #zoneBanner .h { font-size:15px; }
+
+  /* Marqueur de position temps réel */
+  .me-icon { position:relative; }
+  .me-arrow {
+    width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent;
+    border-bottom:22px solid #1a73e8; position:absolute; left:50%; top:50%;
+    transform-origin:50% 70%; transform:translate(-50%,-70%) rotate(0deg);
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));
+  }
+  .me-dot {
+    width:16px; height:16px; border-radius:50%; background:#1a73e8; border:3px solid #fff;
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    box-shadow:0 1px 4px rgba(0,0,0,.5);
+  }
+
+  /* ---- Adaptation téléphone ---- */
+  @media (max-width: 640px) {
+    .panel { width:auto; left:10px; right:10px; top:64px; max-height:70%; }
+    .panel-close { display:block; }
+    .searchbox { left:10px; right:64px; top:12px; }
+    .searchbox input { width:100%; flex:1; }
+    #sugg { width:100%; max-width:none; }
+    .fabs { bottom:26px; right:14px; }
+    .fab { width:56px; height:56px; font-size:26px; }
+    .fab.small { width:46px; height:46px; font-size:20px; }
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="searchbox">
+  <div class="searchwrap">
+    <input id="q" type="text" placeholder="Rechercher un lieu, une adresse…" autocomplete="off">
+    <div id="sugg"></div>
+  </div>
+  <button onclick="doSearch()">OK</button>
+</div>
+
+<button id="panelBtn" onclick="togglePanel(true)" title="Infos & légende">🛸</button>
+
+<div id="zoneBanner"></div>
+
+<div class="panel" id="panel">
+  <button class="panel-close" onclick="togglePanel(false)" title="Fermer">✕</button>
+  <h1>🛸 Restrictions drone (cat. Ouverte)</h1>
+  <div class="toggle-row">
+    <input type="checkbox" id="chk" checked onchange="droneLayer[this.checked?'addTo':'removeFrom'](map)">
+    <label for="chk" style="margin:0">Afficher la couche officielle IGN/DGAC</label>
+  </div>
+  <label>Opacité : <span id="opv">55%</span></label>
+  <input type="range" min="0" max="100" value="55"
+         oninput="droneLayer.setOpacity(this.value/100);document.getElementById('opv').textContent=this.value+'%'">
+  <details open>
+    <summary>Légende (hauteur max de vol)</summary>
+    <div class="legend">
+      <div class="lg"><span style="background:#e03c31"></span> Vol interdit</div>
+      <div class="lg"><span style="background:#f08036"></span> 30 m max</div>
+      <div class="lg"><span style="background:#f5a623"></span> 50 m max</div>
+      <div class="lg"><span style="background:#f7c873"></span> 60 m max</div>
+      <div class="lg"><span style="background:#fae6b0"></span> 100 m max</div>
+      <div class="lg"><span style="background:#fff;border:1px solid #bbb"></span> Sans couleur : 120 m (défaut)</div>
+      <div style="font-size:11px;color:#777;margin-top:4px">Couleurs indicatives — <b>clique sur la carte</b> pour la valeur exacte au point.</div>
+    </div>
+  </details>
+  <div class="note">
+    <b>📍 Position</b> (rond bleu en bas) : active le GPS et centre/suit ta position.<br>
+    <b>🧭 Cap</b> : oriente la carte dans ton sens de déplacement (nav auto). Si la carte tourne à l'envers, appuie sur <b>⇄</b>.<br><br>
+    <b>Clique n'importe où</b> sur la carte : hauteur max autorisée, coordonnées GPS et liens Google Maps / Street View.<br><br>
+    DJI Mini 5 Pro (&lt;250 g, cat. Ouverte A1) : 120 m max par défaut, réduit selon les zones colorées. Vérifie aussi les arrêtés municipaux (parcs, etc.).
+  </div>
+</div>
+
+<div class="fabs">
+  <button class="fab small" id="invertBtn" onclick="toggleInvert()" title="Inverser le sens de rotation" style="display:none">⇄</button>
+  <button class="fab" id="rotBtn" onclick="toggleRotation()" title="Orienter la carte selon le cap">🧭</button>
+  <button class="fab" id="locBtn" onclick="toggleTracking()" title="Ma position">📍</button>
+</div>
+
+<script>
+// ===================== Carte =====================
+const map = L.map('map', {
+  zoomControl:true,
+  rotate:true,          // active leaflet-rotate
+  rotateControl:false,
+  touchRotate:false,    // pas de rotation deux doigts (on gère via le cap)
+  shiftKeyRotate:false,
+  bearing:0
+}).setView([45.764, 4.780], 13);
+
+// Fonds de carte
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom:19, attribution:'© OpenStreetMap'
+}).addTo(map);
+const ignPlan = L.tileLayer(
+  'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png',
+  { maxZoom:19, attribution:'© IGN' });
+const sat = L.tileLayer(
+  'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/jpeg',
+  { maxZoom:19, attribution:'© IGN' });
+
+// Couche restrictions drones (la même que Géoportail)
+const droneLayer = L.tileLayer.wms('https://data.geopf.fr/wms-r/wms', {
+  layers:'TRANSPORTS.DRONES.RESTRICTIONS',
+  format:'image/png', transparent:true, version:'1.3.0',
+  opacity:0.55, attribution:'Restrictions drones © IGN / DGAC-SIA',
+  minNativeZoom:6, maxNativeZoom:15, maxZoom:19, minZoom:0
+}).addTo(map);
+
+L.control.layers(
+  { 'Plan (OSM)':osm, 'Plan IGN':ignPlan, 'Satellite (IGN)':sat },
+  { 'Restrictions drone':droneLayer },
+  { collapsed:true, position:'bottomright' }
+).addTo(map);
+
+// Marqueur générique (départ + résultats de recherche)
+const marker = L.marker([45.764, 4.780]).addTo(map).bindPopup('<b>Tassin-la-Demi-Lune</b>');
+
+// ===================== Requête hauteur max à un point =====================
+// bbox minuscule centrée sur le point → robuste même si la carte est tournée.
+async function queryHeight(lat, lng) {
+  const d = 0.0009; // ~100 m
+  const url = 'https://data.geopf.fr/wms-r/wms?' + new URLSearchParams({
+    SERVICE:'WMS', VERSION:'1.3.0', REQUEST:'GetFeatureInfo',
+    LAYERS:'TRANSPORTS.DRONES.RESTRICTIONS', QUERY_LAYERS:'TRANSPORTS.DRONES.RESTRICTIONS',
+    CRS:'EPSG:4326',
+    BBOX:[lat-d, lng-d, lat+d, lng+d].join(','),
+    WIDTH:'101', HEIGHT:'101', I:'50', J:'50',
+    INFO_FORMAT:'text/html', FORMAT:'image/png', STYLES:''
+  });
+  const r = await fetch(url);
+  const t = await r.text();
+  const stripped = t.replace(/<script[\s\S]*?<\/script>/gi,'');
+  const hasContent = /\S/.test(stripped.replace(/<[^>]*>/g,''));
+  return { html: stripped, empty: !hasContent };
+}
+
+// Clic → coords + hauteur max + liens Google Maps
+map.on('click', async e => {
+  const lat = e.latlng.lat.toFixed(6), lng = e.latlng.lng.toFixed(6);
+  const gm = `https://www.google.com/maps?q=${lat},${lng}`;
+  const sv = `https://www.google.com/maps?q=&layer=c&cbll=${lat},${lng}`;
+  const html = `
+    <div style="min-width:230px">
+      <span class="popup-coords" onclick="navigator.clipboard.writeText('${lat}, ${lng}');this.textContent='✓ copié !'">${lat}, ${lng}</span>
+      <div class="popup-links">
+        <a href="${gm}" target="_blank">🗺️ Google Maps</a>
+        <a href="${sv}" target="_blank">👁️ Street View</a>
+      </div>
+      <div class="info-zone" id="iz">⏳ Hauteur max à ce point…</div>
+    </div>`;
+  L.popup().setLatLng(e.latlng).setContent(html).openOn(map);
+  try {
+    const res = await queryHeight(e.latlng.lat, e.latlng.lng);
+    const el = document.getElementById('iz');
+    if (el) el.innerHTML = res.empty
+      ? '✅ Aucune restriction trouvée ici : hauteur max par défaut <b>120 m</b>.'
+      : res.html;
+  } catch(err) {
+    const el = document.getElementById('iz');
+    if (el) el.textContent = 'Info zone indisponible (voir couleurs/légende).';
+  }
+});
+
+// ===================== Suivi position temps réel =====================
+let watchId = null;          // geolocation watch
+let following = false;       // recentre + suit
+let rotating = false;        // oriente selon le cap
+let invert = 1;              // sens de rotation (⇄ le passe à -1)
+let meMarker = null, accCircle = null;
+let lastPos = null;          // {lat, lng}
+let gpsHeading = null;       // cap GPS (déplacement)
+let compassHeading = null;   // cap boussole
+let topBearing = 0;          // cap actuellement en haut de l'écran (notre variable maîtresse)
+let lastZoneQuery = 0, lastZoneLatLng = null;
+
+const locBtn = document.getElementById('locBtn');
+const rotBtn = document.getElementById('rotBtn');
+const invertBtn = document.getElementById('invertBtn');
+const banner = document.getElementById('zoneBanner');
+
+function currentHeading() {
+  // Priorité à la boussole (marche à l'arrêt) ; sinon cap GPS (en mouvement)
+  if (compassHeading != null && !isNaN(compassHeading)) return compassHeading;
+  if (gpsHeading != null && !isNaN(gpsHeading)) return gpsHeading;
+  return null;
+}
+
+function makeMeIcon(screenAngle) {
+  return L.divIcon({
+    className:'me-icon',
+    html:`<div class="me-dot"></div><div class="me-arrow" style="transform:translate(-50%,-70%) rotate(${screenAngle}deg)"></div>`,
+    iconSize:[30,30], iconAnchor:[15,15]
+  });
+}
+
+function updateMeMarker() {
+  if (!lastPos) return;
+  const h = currentHeading();
+  // Marqueur écran-fixe : l'angle affiché = cap - cap-en-haut.
+  const screenAngle = (h == null) ? 0 : (h - topBearing);
+  const icon = makeMeIcon(screenAngle);
+  if (!meMarker) {
+    meMarker = L.marker([lastPos.lat, lastPos.lng], { icon, zIndexOffset:1000, interactive:false }).addTo(map);
+  } else {
+    meMarker.setIcon(icon);
+    meMarker.setLatLng([lastPos.lat, lastPos.lng]);
+  }
+}
+
+function applyRotation() {
+  const h = currentHeading();
+  if (rotating && h != null) {
+    topBearing = h;
+    // Le sens dépend de la convention du plugin : invert (⇄) le corrige d'un tap.
+    if (map.setBearing) map.setBearing(invert * h);
+  } else {
+    topBearing = 0;
+    if (map.setBearing) map.setBearing(0);
+  }
+  updateMeMarker();
+}
+
+function onPosition(pos) {
+  const { latitude:lat, longitude:lng, heading, accuracy } = pos.coords;
+  lastPos = { lat, lng };
+  if (heading != null && !isNaN(heading) && pos.coords.speed > 0.5) gpsHeading = heading;
+
+  // Cercle de précision
+  if (accuracy != null) {
+    if (!accCircle) accCircle = L.circle([lat, lng], { radius:accuracy, color:'#1a73e8', weight:1, fillOpacity:0.08 }).addTo(map);
+    else { accCircle.setLatLng([lat, lng]); accCircle.setRadius(accuracy); }
+  }
+
+  updateMeMarker();
+  if (following) {
+    const z = map.getZoom() < 15 ? 17 : map.getZoom();
+    map.setView([lat, lng], z, { animate:true });
+  }
+  applyRotation();
+  updateZoneBanner(lat, lng);
+}
+
+function onPosError(err) {
+  setLocState('idle');
+  alert('Position GPS indisponible : ' + err.message + '\n(Vérifie l\'autorisation de localisation et que la page est en HTTPS.)');
+}
+
+function setLocState(state) {
+  // state: 'idle' | 'locating' | 'follow'
+  locBtn.classList.toggle('active', state === 'follow');
+  locBtn.textContent = state === 'locating' ? '…' : '📍';
+}
+
+function startTracking() {
+  if (!navigator.geolocation) { alert('Géolocalisation non supportée par ce navigateur.'); return; }
+  setLocState('locating');
+  requestOrientationPermission();
+  watchId = navigator.geolocation.watchPosition(onPosition, onPosError, {
+    enableHighAccuracy:true, maximumAge:1000, timeout:15000
+  });
+  following = true;
+  setLocState('follow');
+}
+
+function stopTracking() {
+  if (watchId != null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+  following = false;
+  setLocState('idle');
+}
+
+// Un tap : démarre + suit ; re-tap : arrête le suivi (garde la position) ; 3e tap : coupe.
+function toggleTracking() {
+  if (watchId == null) { startTracking(); return; }
+  if (following) { following = false; setLocState('idle'); return; }
+  stopTracking();
+  if (meMarker) { map.removeLayer(meMarker); meMarker = null; }
+  if (accCircle) { map.removeLayer(accCircle); accCircle = null; }
+}
+
+// Si l'utilisateur déplace la carte à la main, on arrête de suivre (mais on continue de tracker).
+map.on('dragstart', () => { if (following) { following = false; setLocState('idle'); } });
+
+function toggleRotation() {
+  rotating = !rotating;
+  rotBtn.classList.toggle('active', rotating);
+  invertBtn.style.display = rotating ? 'flex' : 'none';
+  if (rotating && watchId == null) startTracking(); // le cap n'a de sens qu'en suivant
+  applyRotation();
+}
+
+function toggleInvert() {
+  invert *= -1;
+  applyRotation();
+}
+
+// ===================== Boussole (orientation appareil) =====================
+let orientBound = false;
+function handleOrientation(e) {
+  let h = null;
+  if (typeof e.webkitCompassHeading === 'number' && !isNaN(e.webkitCompassHeading)) {
+    h = e.webkitCompassHeading;                 // iOS : cap vrai, sens horaire depuis le Nord
+  } else if (e.absolute === true && typeof e.alpha === 'number') {
+    const so = (screen.orientation && screen.orientation.angle) || 0;
+    h = (360 - e.alpha + so) % 360;             // Android (orientation absolue)
+  }
+  if (h != null && !isNaN(h)) {
+    compassHeading = (h + 360) % 360;
+    if (rotating) applyRotation(); else updateMeMarker();
+  }
+}
+
+function bindOrientation() {
+  if (orientBound) return;
+  orientBound = true;
+  window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+  window.addEventListener('deviceorientation', handleOrientation, true);
+}
+
+function requestOrientationPermission() {
+  // iOS 13+ exige une demande explicite lors d'un geste utilisateur
+  if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
+    DeviceOrientationEvent.requestPermission().then(s => { if (s === 'granted') bindOrientation(); }).catch(()=>{});
+  } else {
+    bindOrientation();
+  }
+}
+
+// Recadre l'orientation quand on tourne le téléphone
+window.addEventListener('orientationchange', () => setTimeout(() => { map.invalidateSize(); applyRotation(); }, 300));
+
+// ===================== Bandeau zone en temps réel =====================
+function distm(a, b) {
+  const R=6371000, toR=x=>x*Math.PI/180;
+  const dLat=toR(b.lat-a.lat), dLng=toR(b.lng-a.lng);
+  const s=Math.sin(dLat/2)**2 + Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLng/2)**2;
+  return 2*R*Math.asin(Math.sqrt(s));
+}
+
+async function updateZoneBanner(lat, lng) {
+  const now = Date.now();
+  const here = { lat, lng };
+  // throttle : au max toutes les 6 s, et seulement si on a bougé de >25 m
+  if (lastZoneLatLng && distm(lastZoneLatLng, here) < 25 && now - lastZoneQuery < 15000) return;
+  if (now - lastZoneQuery < 6000) return;
+  lastZoneQuery = now; lastZoneLatLng = here;
+  try {
+    const res = await queryHeight(lat, lng);
+    let txt;
+    if (res.empty) {
+      txt = '🟢 Zone actuelle : <span class="h">120 m max</span>';
+    } else {
+      const plain = res.html.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+      const m = plain.match(/(\d+)\s*m/);
+      const interdit = /interdit|interdic/i.test(plain);
+      if (interdit) txt = '🔴 Zone actuelle : <span class="h">vol interdit</span>';
+      else if (m) txt = '🟠 Zone actuelle : <span class="h">' + m[1] + ' m max</span>';
+      else txt = '🟠 Zone réglementée — vois le détail au clic';
+    }
+    banner.innerHTML = txt;
+    banner.style.display = 'block';
+  } catch(e) { /* silencieux */ }
+}
+
+// ===================== Panneau (mobile) =====================
+const panel = document.getElementById('panel');
+const panelBtn = document.getElementById('panelBtn');
+function togglePanel(show) {
+  const mobile = window.matchMedia('(max-width:640px)').matches;
+  if (!mobile) return;
+  panel.style.display = show ? 'block' : 'none';
+  panelBtn.style.display = show ? 'none' : 'block';
+}
+function initPanelForViewport() {
+  const mobile = window.matchMedia('(max-width:640px)').matches;
+  if (mobile) { panel.style.display = 'none'; panelBtn.style.display = 'block'; }
+  else { panel.style.display = 'block'; panelBtn.style.display = 'none'; }
+}
+window.addEventListener('resize', initPanelForViewport);
+initPanelForViewport();
+
+// ===================== Autocomplétion (BAN + fallback Nominatim) =====================
+const qInput = document.getElementById('q');
+const suggBox = document.getElementById('sugg');
+let suggItems = [], selIdx = -1, debTimer = null;
+
+function goTo(lat, lon, label) {
+  suggBox.style.display = 'none';
+  qInput.value = label;
+  marker.setLatLng([lat, lon]).bindPopup('<b>' + label + '</b>').openPopup();
+  map.flyTo([lat, lon], 16, { duration:1.2 });
+}
+
+function renderSugg(items) {
+  suggItems = items; selIdx = -1;
+  if (!items.length) { suggBox.style.display = 'none'; return; }
+  suggBox.innerHTML = items.map((it, i) =>
+    `<div data-i="${i}"><b>${it.name}</b><small>${it.ctx || ''}</small></div>`).join('');
+  suggBox.style.display = 'block';
+  suggBox.querySelectorAll('div[data-i]').forEach(d => {
+    d.onmousedown = ev => { ev.preventDefault(); const it = suggItems[+d.dataset.i]; goTo(it.lat, it.lon, it.name); };
+  });
+}
+
+async function fetchSugg(q) {
+  try {
+    const r = await fetch('https://api-adresse.data.gouv.fr/search/?' + new URLSearchParams({
+      q: q, limit: '6', lat: '45.764', lon: '4.780'
+    }));
+    const j = await r.json();
+    let items = (j.features || []).map(f => ({
+      name: f.properties.label,
+      ctx: f.properties.context,
+      lat: f.geometry.coordinates[1], lon: f.geometry.coordinates[0]
+    }));
+    if (!items.length) {
+      const r2 = await fetch('https://nominatim.openstreetmap.org/search?' + new URLSearchParams({
+        format:'json', limit:'6', q:q, countrycodes:'fr',
+        viewbox:'4.55,45.95,5.15,45.55', bounded:'0'
+      }), { headers:{ 'Accept-Language':'fr' } });
+      const j2 = await r2.json();
+      items = j2.map(x => ({ name: x.display_name.split(',').slice(0,2).join(','), ctx: x.display_name, lat:+x.lat, lon:+x.lon }));
+    }
+    renderSugg(items);
+  } catch(e) { suggBox.style.display = 'none'; }
+}
+
+qInput.addEventListener('input', () => {
+  clearTimeout(debTimer);
+  const q = qInput.value.trim();
+  if (q.length < 3) { suggBox.style.display = 'none'; return; }
+  debTimer = setTimeout(() => fetchSugg(q), 250);
+});
+
+qInput.addEventListener('keydown', ev => {
+  const open = suggBox.style.display === 'block';
+  if (ev.key === 'ArrowDown' && open) { ev.preventDefault(); selIdx = Math.min(selIdx + 1, suggItems.length - 1); }
+  else if (ev.key === 'ArrowUp' && open) { ev.preventDefault(); selIdx = Math.max(selIdx - 1, 0); }
+  else if (ev.key === 'Escape') { suggBox.style.display = 'none'; return; }
+  else if (ev.key === 'Enter') {
+    if (open && selIdx >= 0) { const it = suggItems[selIdx]; goTo(it.lat, it.lon, it.name); }
+    else if (open && suggItems.length) { const it = suggItems[0]; goTo(it.lat, it.lon, it.name); }
+    else doSearch();
+    return;
+  } else return;
+  suggBox.querySelectorAll('div[data-i]').forEach((d, i) => d.classList.toggle('sel', i === selIdx));
+});
+
+qInput.addEventListener('blur', () => setTimeout(() => suggBox.style.display = 'none', 150));
+
+async function doSearch() {
+  const q = document.getElementById('q').value.trim();
+  if (!q) return;
+  const btn = document.querySelector('.searchbox button');
+  btn.textContent = '…';
+  try {
+    const url = 'https://nominatim.openstreetmap.org/search?' + new URLSearchParams({
+      format:'json', limit:'1', q:q, countrycodes:'fr',
+      viewbox:'4.55,45.95,5.15,45.55', bounded:'0'
+    });
+    const r = await fetch(url, { headers:{ 'Accept-Language':'fr' } });
+    const j = await r.json();
+    if (j.length) {
+      const lat = +j[0].lat, lon = +j[0].lon;
+      marker.setLatLng([lat, lon]).bindPopup('<b>' + (j[0].display_name || q) + '</b>').openPopup();
+      map.flyTo([lat, lon], 16, { duration:1.2 });
+    } else alert('Lieu introuvable : « ' + q + ' »');
+  } catch(e) { alert('Recherche indisponible (connexion ?).'); }
+  btn.textContent = 'OK';
+}
+</script>
+</body>
+</html>
