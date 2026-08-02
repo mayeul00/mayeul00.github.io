@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Votre avis — MMH Restaurant</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --bg:#140f0d;--panel:#211a16;--cream:#f3ece0;--cream-soft:rgba(243,236,224,.72);--cream-mute:rgba(243,236,224,.44);
+  --gold:#d8b25e;--gold-deep:#b8923f;--line:rgba(243,236,224,.14);
+  --serif:"Cormorant Garamond",Georgia,serif;--sans:"Inter",system-ui,-apple-system,sans-serif;--ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100svh;background:var(--bg);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  display:flex;align-items:center;justify-content:center;padding:24px 16px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+  radial-gradient(90% 60% at 50% -10%,rgba(216,178,94,.16),transparent 58%),
+  radial-gradient(75% 65% at 108% 105%,rgba(140,52,46,.20),transparent 60%),
+  radial-gradient(120% 120% at 50% 40%,transparent 55%,rgba(0,0,0,.45) 100%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.04;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.card{width:100%;max-width:520px;border-radius:22px;padding:clamp(24px,5vw,38px);
+  background:rgba(24,17,13,.6);border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.22);
+  backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4)}
+.brand{font-family:var(--serif);font-size:1.3rem;font-weight:600;letter-spacing:.04em;text-align:center}
+.brand span{color:var(--gold)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,7vw,2.8rem);line-height:1.05;text-align:center;margin:6px 0 6px}
+.sub{text-align:center;color:var(--cream-soft);font-weight:300;font-size:.95rem;margin-bottom:22px}
+label{display:block;font-size:.85rem;font-weight:500;color:var(--cream-soft);margin:16px 0 8px}
+input[type=text],textarea{width:100%;background:rgba(9,6,5,.5);border:1px solid var(--line);border-radius:12px;color:var(--cream);font:400 1rem var(--sans);padding:13px 15px}
+input::placeholder,textarea::placeholder{color:var(--cream-mute)}
+input:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{resize:vertical;min-height:96px}
+.stars{display:flex;gap:8px;font-size:2rem;color:rgba(243,236,224,.22);cursor:pointer}
+.stars i{transition:transform .15s,color .15s}
+.stars i:hover{transform:scale(1.15)}
+.stars i.on{color:var(--gold)}
+.ava-row{display:flex;gap:16px;align-items:center;margin-top:8px}
+.ava{width:74px;height:74px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:2rem;color:var(--gold);overflow:hidden;
+  background:radial-gradient(circle at 50% 34%,rgba(216,178,94,.22),rgba(9,6,5,.55));border:1px solid rgba(216,178,94,.35)}
+.ava img{width:100%;height:100%;object-fit:cover}
+.ava-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.ava-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--cream);font-size:.88rem;cursor:pointer;transition:.2s}
+.ava-btn:hover{border-color:var(--gold)}
+.ava-btn.ghost{border-style:dashed;color:var(--cream-soft)}
+.crop-ov{position:fixed;inset:0;z-index:60;background:rgba(9,6,5,.78);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.crop-ov.on{display:flex}
+.crop-box{width:100%;max-width:340px;background:rgba(28,20,16,.96);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.crop-title{font-family:var(--serif);font-size:1.5rem;font-weight:500;margin-bottom:6px}
+.crop-hint{color:var(--cream-mute);font-size:.82rem;font-weight:300;margin-bottom:16px}
+.crop-view{width:260px;height:260px;margin:0 auto;border-radius:50%;overflow:hidden;position:relative;touch-action:none;cursor:grab;border:2px solid var(--gold);background:#1c1410}
+.crop-view:active{cursor:grabbing}
+.crop-view img{position:absolute;top:0;left:0;transform-origin:0 0;user-select:none;-webkit-user-drag:none;max-width:none}
+#cropZoom{width:100%;margin:18px 0 8px;accent-color:var(--gold)}
+.crop-btns{display:flex;gap:10px;justify-content:center;margin-top:6px}
+.hint{font-size:.78rem;color:var(--cream-mute);font-weight:300;margin-top:8px}
+.err{color:#f0a08e;font-weight:500;font-size:.88rem;margin-top:14px;display:none}
+.btn{width:100%;margin-top:22px;padding:15px;border-radius:14px;border:none;background:var(--gold);color:#231a10;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .25s var(--ease),background .2s}
+.btn:hover{background:#e6c377;transform:translateY(-2px)}
+.btn:disabled{opacity:.6;transform:none;cursor:default}
+.done{text-align:center;padding:20px 0}
+.done .big{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;font-size:1.8rem;color:#231a10;background:var(--gold)}
+.done h2{font-family:var(--serif);font-weight:500;font-size:2rem}
+.done p{color:var(--cream-soft);font-weight:300;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="card" id="card">
+  <div class="brand">MMH<span>.</span> Restaurant</div>
+  <h1>Votre avis compte</h1>
+  <p class="sub">Un petit mot sur votre dernière visite en famille ? Merci d'avance !</p>
+
+  <label for="name">Votre nom</label>
+  <input type="text" id="name" placeholder="Prénom Nom" autocomplete="name">
+
+  <label>Votre note</label>
+  <div class="stars" id="stars">
+    <i class="far fa-star" data-v="1"></i><i class="far fa-star" data-v="2"></i><i class="far fa-star" data-v="3"></i><i class="far fa-star" data-v="4"></i><i class="far fa-star" data-v="5"></i>
+  </div>
+
+  <label for="text">Votre avis <span style="color:var(--cream-mute);font-weight:300">(facultatif)</span></label>
+  <textarea id="text" placeholder="Ce que vous avez aimé, un plat préféré, l'ambiance…"></textarea>
+
+  <label>Votre photo <span style="color:var(--cream-mute);font-weight:300">(facultatif)</span></label>
+  <div class="ava-row">
+    <div class="ava" id="ava"><i class="fas fa-user"></i></div>
+    <div class="ava-actions">
+      <button type="button" class="ava-btn" id="uploadBtn"><i class="fas fa-camera"></i> Importer une photo</button>
+      <button type="button" class="ava-btn ghost" id="removePhoto" style="display:none"><i class="fas fa-xmark"></i> Retirer</button>
+    </div>
+  </div>
+  <input type="file" id="file" accept="image/*" style="display:none">
+
+  <p class="err" id="err"></p>
+  <button class="btn" id="send">Envoyer mon avis</button>
+</div>
+
+<div class="card done" id="done" style="display:none">
+  <div class="big"><i class="fas fa-check"></i></div>
+  <h2>Merci beaucoup !</h2>
+  <p>Votre avis a bien été envoyé. À très bientôt à table.</p>
+</div>
+
+<div class="crop-ov" id="cropOv">
+  <div class="crop-box">
+    <p class="crop-title">Cadrez votre photo</p>
+    <p class="crop-hint">Glissez pour déplacer, le curseur pour zoomer.</p>
+    <div class="crop-view" id="cropView"><img id="cropImg" alt=""></div>
+    <input type="range" id="cropZoom" min="1" max="3" step="0.01" value="1">
+    <div class="crop-btns">
+      <button type="button" class="ava-btn ghost" id="cropCancel">Annuler</button>
+      <button type="button" class="btn" id="cropOk" style="width:auto;margin-top:0;padding:11px 22px">Valider le cadrage</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyDd24327mfgTZZ7IvvB0TYNIBfn8AKmd-w",
+  authDomain:"mmh-resto.firebaseapp.com",
+  projectId:"mmh-resto",
+  storageBucket:"mmh-resto.firebasestorage.app",
+  messagingSenderId:"831695759118",
+  appId:"1:831695759118:web:45a25ce77b0a5289c3995f"
+});
+const db=firebase.firestore();
+const $=id=>document.getElementById(id);
+
+// Étoiles
+let rating=0;
+const starsEl=$("stars").querySelectorAll("i");
+function paintStars(n){starsEl.forEach(s=>{const v=+s.dataset.v;const on=v<=n;s.classList.toggle("on",on);s.className=(on?"fas":"far")+" fa-star"+(on?" on":"");s.dataset.v=v;});}
+starsEl.forEach(s=>{
+  s.addEventListener("click",()=>{rating=+s.dataset.v;paintStars(rating);$("err").style.display="none";saveDraft();});
+  s.addEventListener("mouseenter",()=>paintStars(+s.dataset.v));
+});
+$("stars").addEventListener("mouseleave",()=>paintStars(rating));
+
+// Photo (sinon icône standard aux couleurs du resto)
+let photo="";
+function showPhoto(p){ $("ava").innerHTML='<img src="'+p+'" alt="">'; $("removePhoto").style.display=''; }
+function showDefault(){ $("ava").innerHTML='<i class="fas fa-user"></i>'; $("removePhoto").style.display='none'; }
+$("uploadBtn").onclick=()=>$("file").click();
+$("removePhoto").onclick=()=>{ photo=""; showDefault(); $("file").value=""; saveDraft(); };
+$("file").onchange=e=>{ const f=e.target.files[0]; if(!f)return; openCropper(URL.createObjectURL(f)); };
+
+// --- Recadrage de la photo ---
+const CV=260;
+let crop={z:1,z0:1,tx:0,ty:0,natW:0,natH:0,drag:false,lx:0,ly:0};
+function clampCrop(){const w=crop.natW*crop.z,h=crop.natH*crop.z,m=CV*0.55;crop.tx=Math.min(m,Math.max(CV-w-m,crop.tx));crop.ty=Math.min(m,Math.max(CV-h-m,crop.ty));}
+function applyCrop(){clampCrop();$("cropImg").style.transform=`translate(${crop.tx}px,${crop.ty}px) scale(${crop.z})`;}
+function openCropper(src){
+  const im=$("cropImg");
+  im.onload=()=>{
+    crop.natW=im.naturalWidth; crop.natH=im.naturalHeight;
+    const cover=CV/Math.min(crop.natW,crop.natH), fit=CV/Math.max(crop.natW,crop.natH);
+    crop.z0=cover; crop.z=cover;
+    const z=$("cropZoom"); z.min=fit*0.85; z.max=cover*3.2; z.step=cover/120; z.value=cover;
+    crop.tx=(CV-crop.natW*crop.z)/2; crop.ty=(CV-crop.natH*crop.z)/2;
+    applyCrop(); $("cropOv").classList.add("on");
+  };
+  im.src=src;
+}
+(function(){
+  const cv=$("cropView");
+  cv.addEventListener("pointerdown",e=>{crop.drag=true;crop.lx=e.clientX;crop.ly=e.clientY;cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener("pointermove",e=>{if(!crop.drag)return;crop.tx+=e.clientX-crop.lx;crop.ty+=e.clientY-crop.ly;crop.lx=e.clientX;crop.ly=e.clientY;applyCrop();});
+  ["pointerup","pointercancel"].forEach(ev=>cv.addEventListener(ev,()=>crop.drag=false));
+  $("cropZoom").addEventListener("input",e=>{const nz=+e.target.value,cx=(CV/2-crop.tx)/crop.z,cy=(CV/2-crop.ty)/crop.z;crop.z=nz;crop.tx=CV/2-cx*nz;crop.ty=CV/2-cy*nz;applyCrop();});
+  $("cropCancel").onclick=()=>{$("cropOv").classList.remove("on");$("file").value="";};
+  $("cropOk").onclick=()=>{
+    const out=420,s=out/CV,c=document.createElement("canvas");c.width=out;c.height=out;
+    const ctx=c.getContext("2d");
+    ctx.fillStyle="#1c1410";ctx.fillRect(0,0,out,out);
+    ctx.save();ctx.scale(s,s);ctx.translate(crop.tx,crop.ty);ctx.scale(crop.z,crop.z);ctx.drawImage($("cropImg"),0,0);ctx.restore();
+    photo=c.toDataURL("image/jpeg",0.82);showPhoto(photo);saveDraft();$("cropOv").classList.remove("on");
+  };
+})();
+
+// Persistance : garde le contenu tant que l'avis n'est pas envoyé
+function saveDraft(){ try{ localStorage.setItem('mmh_avis_draft', JSON.stringify({name:$("name").value,text:$("text").value,rating,photo})); }catch(e){} }
+function loadDraft(){ try{
+  const d=JSON.parse(localStorage.getItem('mmh_avis_draft')); if(!d)return;
+  $("name").value=d.name||''; $("text").value=d.text||'';
+  if(d.rating){ rating=d.rating; paintStars(rating); }
+  if(d.photo){ photo=d.photo; showPhoto(photo); }
+}catch(e){} }
+$("name").addEventListener("input",saveDraft);
+$("text").addEventListener("input",saveDraft);
+loadDraft();
+
+// Envoi
+$("send").onclick=async()=>{
+  const name=$("name").value.trim();
+  const err=$("err");
+  if(!name){err.textContent="Merci d'indiquer votre nom.";err.style.display="block";return;}
+  if(!rating){err.textContent="Merci de mettre une note (étoiles).";err.style.display="block";return;}
+  $("send").disabled=true; $("send").textContent="Envoi…";
+  try{
+    await db.collection("testimonials").add({
+      name, rating,
+      text:$("text").value.trim(),
+      avatar: photo ? "" : "default", photo,
+      approved:false,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    localStorage.removeItem('mmh_avis_draft');
+    $("card").style.display="none"; $("done").style.display="";
+  }catch(e){
+    console.error(e);
+    err.textContent="Oups, l'envoi a échoué. Réessayez dans un instant.";err.style.display="block";
+    $("send").disabled=false; $("send").textContent="Envoyer mon avis";
+  }
+};
+</script>
+</body>
+</html>
