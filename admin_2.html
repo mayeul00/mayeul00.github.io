@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Résultats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0B0A1F; --magenta:#E8407A; --cyan:#35E0E8;
+    --gold:#F5C542; --ink:#EDEAFB; --dim:#8C86B8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--void);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden}
+  .sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .sky::before{content:"";position:absolute;width:60vw;height:60vw;background:#0E4F63;
+    filter:blur(90px);opacity:.45;border-radius:50%;top:-22vw;right:-18vw}
+  main{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;padding:28px 20px 40px}
+  .card{width:100%;max-width:560px}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+  h1{font-family:'Big Shoulders Display',sans-serif;font-weight:900;line-height:.9;
+    font-size:clamp(44px,12vw,74px);text-transform:uppercase}
+  p{color:#C9C4E8;line-height:1.6;font-size:16px}
+
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:26px 0 0}
+  .stat{border:1px solid rgba(237,234,251,.18);padding:16px;background:rgba(22,19,64,.6)}
+  .stat .n{font-family:'Big Shoulders Display',sans-serif;font-size:46px;font-weight:900;line-height:1}
+  .stat .l{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim);margin-top:6px}
+  .stat.a .n{color:var(--gold)}
+  .stat.b .n{color:var(--magenta)}
+  .stat.c .n{color:var(--dim)}
+  .stat.d .n{color:var(--cyan)}
+  .bar{height:8px;background:rgba(237,234,251,.1);display:flex;margin:14px 0 26px}
+  .bar i{display:block;height:100%}
+  .legend{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;
+    color:var(--dim);display:flex;gap:16px;flex-wrap:wrap;margin-top:-18px;margin-bottom:24px}
+  .legend span::before{content:"";display:inline-block;width:8px;height:8px;margin-right:6px}
+  .legend .g::before{background:#F5C542}
+  .legend .m::before{background:#E8407A}
+  .legend .d::before{background:#4A4470}
+
+  .log{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--dim);
+    border-top:1px solid rgba(237,234,251,.14);max-height:260px;overflow:auto}
+  .log div{padding:9px 0;border-bottom:1px solid rgba(237,234,251,.1);
+    display:flex;justify-content:space-between;gap:12px}
+
+  input{width:100%;padding:14px;background:rgba(22,19,64,.7);color:var(--ink);
+    border:1px solid rgba(237,234,251,.22);font-family:'IBM Plex Mono',monospace;
+    border-radius:2px;margin:22px 0 12px}
+  input:focus{outline:2px solid var(--cyan);outline-offset:2px}
+  button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .ghost{border:1px solid rgba(237,234,251,.22);padding:14px;width:100%;border-radius:2px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .ghost:hover{background:rgba(237,234,251,.06)}
+  .ghost:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .status{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);
+    margin-top:18px;letter-spacing:.06em}
+  .step{animation:rise .4s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<main><div class="card" id="app"></div></main>
+
+<script>
+/* ═════════ RÉGLAGES ═════════ */
+const CONFIG = {
+  // MÊME URL Firebase que sur index.html
+  firebaseURL: "https://futuroscope-78905-default-rtdb.europe-west1.firebasedatabase.app",
+
+  // Code d'accès à cette page
+  adminCode: "futuro2026",
+
+  // Rafraîchissement auto (secondes), 0 pour désactiver
+  autoRefresh: 20
+};
+
+const app = document.getElementById("app");
+const render = h => app.innerHTML = `<div class="step">${h}</div>`;
+let timer = null;
+
+async function loadVotes(){
+  if(!CONFIG.firebaseURL) throw new Error("Aucune URL Firebase dans CONFIG.firebaseURL.");
+  const r = await fetch(CONFIG.firebaseURL.replace(/\/$/,"") + "/votes.json");
+  if(!r.ok) throw new Error("Base injoignable (code " + r.status + ").");
+  const d = await r.json();
+  return d ? Object.values(d).sort((a,b)=>b.ts-a.ts) : [];
+}
+
+function gate(msg=""){
+  clearInterval(timer);
+  render(`
+    <div class="eyebrow">Accès réservé</div>
+    <h1>Résultats</h1>
+    <input id="code" type="password" placeholder="Code d'accès" autocomplete="off">
+    <button class="ghost" id="go">Ouvrir</button>
+    <p class="status">${msg}</p>
+  `);
+  const check = () => document.getElementById("code").value === CONFIG.adminCode
+    ? dashboard() : gate("Code incorrect. Réessaie.");
+  document.getElementById("go").onclick = check;
+  document.getElementById("code").onkeydown = e => { if(e.key==="Enter") check(); };
+  document.getElementById("code").focus();
+}
+
+async function dashboard(){
+  let votes;
+  try{ votes = await loadVotes(); }
+  catch(e){
+    clearInterval(timer);
+    render(`<div class="eyebrow">Erreur</div><h1>Résultats</h1>
+      <p style="margin-top:18px">${e.message}</p>
+      <button class="ghost" id="r" style="margin-top:22px">Réessayer</button>`);
+    document.getElementById("r").onclick = dashboard;
+    return;
+  }
+
+  const c = { oui_direct:0, oui_convaincu:0, non_final:0 };
+  votes.forEach(v => { if(c[v.outcome] !== undefined) c[v.outcome]++; });
+  const total = votes.length;
+  const oui = c.oui_direct + c.oui_convaincu;
+  const pct = n => total ? Math.round(n/total*100) : 0;
+  const fmt = t => new Date(t).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+  const label = { oui_direct:"Oui du 1er coup", oui_convaincu:"Oui après plaidoyer", non_final:"Non définitif" };
+
+  render(`
+    <div class="eyebrow">${total} personne${total>1?"s":""} · mise à jour ${new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</div>
+    <h1>Résultats</h1>
+    <div class="stats">
+      <div class="stat a"><div class="n">${c.oui_direct}</div><div class="l">Oui du 1er coup</div></div>
+      <div class="stat b"><div class="n">${c.oui_convaincu}</div><div class="l">Oui après plaidoyer</div></div>
+      <div class="stat c"><div class="n">${c.non_final}</div><div class="l">Non définitif</div></div>
+      <div class="stat d"><div class="n">${pct(oui)}%</div><div class="l">De oui au total</div></div>
+    </div>
+    <div class="bar">
+      <i style="width:${pct(c.oui_direct)}%;background:#F5C542"></i>
+      <i style="width:${pct(c.oui_convaincu)}%;background:#E8407A"></i>
+      <i style="width:${pct(c.non_final)}%;background:#4A4470"></i>
+    </div>
+    <div class="legend">
+      <span class="g">1er coup</span><span class="m">Convaincus</span><span class="d">Non</span>
+    </div>
+    <div class="log">${
+      total ? votes.slice(0,60).map(v =>
+        `<div><span style="color:#EDEAFB">${v.name || "—"}</span><span>${label[v.outcome]||v.outcome} · ${fmt(v.ts)}</span></div>`).join("")
+      : `<div><span>Aucune réponse pour l'instant</span></div>`
+    }</div>
+    <button class="ghost" id="r" style="margin-top:20px">Actualiser</button>
+  `);
+  document.getElementById("r").onclick = dashboard;
+
+  clearInterval(timer);
+  if(CONFIG.autoRefresh > 0) timer = setInterval(dashboard, CONFIG.autoRefresh * 1000);
+}
+
+gate();
+</script>
+</body>
+</html>

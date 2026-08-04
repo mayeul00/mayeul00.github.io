@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On part au Futuroscope ?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0B0A1F; --panel:#161340; --magenta:#E8407A;
+    --cyan:#35E0E8; --gold:#F5C542; --ink:#EDEAFB; --dim:#8C86B8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--void);color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+    min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;
+  }
+  .sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .sky::before,.sky::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+  .sky::before{width:60vw;height:60vw;background:#4C1D6B;top:-20vw;left:-15vw}
+  .sky::after{width:55vw;height:55vw;background:#0E4F63;bottom:-20vw;right:-18vw}
+  .grid{
+    position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.16;
+    background-image:linear-gradient(rgba(53,224,232,.35) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(53,224,232,.35) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 72%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 20%,transparent 72%);
+  }
+  main{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;padding:28px 20px 40px}
+  .card{width:100%;max-width:560px}
+
+  .logo{display:block;margin:0 auto 26px;max-width:240px;width:66%;height:auto;
+    transition:filter .5s ease,opacity .5s ease}
+  .logo.happy{filter:drop-shadow(0 0 26px rgba(245,197,66,.6))}
+  .logo.sad{filter:grayscale(1);opacity:.3}
+  .logo-fallback{display:block;margin:0 auto 26px;text-align:center;
+    font-family:'Big Shoulders Display',sans-serif;font-weight:900;font-size:20px;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--cyan)}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+  h1{font-family:'Big Shoulders Display',sans-serif;font-weight:900;line-height:.88;
+    letter-spacing:-.01em;font-size:clamp(48px,13vw,88px);text-transform:uppercase}
+  h1 .glow{color:var(--magenta);text-shadow:0 0 28px rgba(232,64,122,.45)}
+  h2{font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+    font-size:clamp(34px,9vw,54px);line-height:.92;text-transform:uppercase;letter-spacing:-.005em}
+  p{color:#C9C4E8;line-height:1.6;font-size:16px}
+  .lede{margin-top:18px;font-size:17px}
+
+  input{width:100%;padding:17px;background:rgba(22,19,64,.75);color:var(--ink);
+    border:1px solid rgba(237,234,251,.25);border-radius:2px;font-size:17px;
+    font-family:'Inter',sans-serif;margin:26px 0 12px}
+  input::placeholder{color:var(--dim)}
+  input:focus{outline:2px solid var(--cyan);outline-offset:2px}
+
+  .choices{display:grid;gap:12px;margin-top:32px}
+  @media(min-width:430px){.choices{grid-template-columns:1fr 1fr}}
+  button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .btn{display:block;width:100%;padding:20px 18px;border-radius:2px;
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:26px;
+    text-transform:uppercase;letter-spacing:.03em;border:1px solid rgba(237,234,251,.22);
+    background:rgba(22,19,64,.72);text-align:left;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+  .btn small{display:block;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;
+    letter-spacing:0;text-transform:none;color:var(--dim);margin-top:4px}
+  .btn:hover,.btn:focus-visible{transform:translateY(-2px)}
+  .btn.yes{border-color:rgba(232,64,122,.55)}
+  .btn.yes:hover,.btn.yes:focus-visible{background:rgba(232,64,122,.16);box-shadow:0 0 0 1px var(--magenta)}
+  .btn.no:hover,.btn.no:focus-visible{background:rgba(237,234,251,.06)}
+  .btn:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+  .cont{display:block;width:100%;padding:19px;border-radius:2px;text-align:center;
+    font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:25px;
+    text-transform:uppercase;letter-spacing:.06em;border:1px solid var(--cyan);
+    color:var(--cyan);background:rgba(53,224,232,.07);margin-top:8px;
+    transition:background .18s ease,transform .18s ease}
+  .cont:hover{background:rgba(53,224,232,.16);transform:translateY(-2px)}
+  .cont:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  [hidden]{display:none}
+
+  .media{margin:26px 0;border:1px solid rgba(53,224,232,.25);background:#0d0b28;
+    aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:var(--dim);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center;padding:16px;overflow:hidden}
+  .media iframe{width:100%;height:100%;border:0;display:block}
+
+  .args{list-style:none;margin:26px 0;border-top:1px solid rgba(237,234,251,.14)}
+  .args li{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;
+    border-bottom:1px solid rgba(237,234,251,.14);align-items:start}
+  .args .k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);padding-top:3px}
+  .args strong{font-family:'Big Shoulders Display',sans-serif;font-size:22px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.01em;display:block;margin-bottom:3px}
+  .args p{font-size:14.5px}
+
+  .photo{margin:0 0 24px;background:#0d0b28;border-radius:2px;overflow:hidden;
+    display:block;min-height:120px;color:var(--dim);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center;padding:0}
+  .photo:not(:has(img)){padding:26px;display:flex;align-items:center;justify-content:center;aspect-ratio:4/3}
+  .photo.ok{border:1px solid rgba(245,197,66,.45)}
+  .photo.ko{border:1px solid rgba(232,64,122,.4)}
+  .photo img{display:block;width:100%;height:auto;max-height:56vh;object-fit:cover;object-position:center}
+
+  .bruh{font-family:'Big Shoulders Display',sans-serif;font-weight:900;
+    font-size:clamp(46px,14vw,96px);line-height:.88;text-transform:uppercase;
+    color:var(--magenta);word-break:break-word;text-shadow:0 0 34px rgba(232,64,122,.4)}
+
+  .status{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--dim);
+    margin-top:24px;letter-spacing:.06em}
+  .note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--gold);
+    letter-spacing:.04em;margin-top:20px;line-height:1.6}
+  .ghost{border:1px solid rgba(237,234,251,.22);padding:13px;width:100%;border-radius:2px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .ghost:hover{background:rgba(237,234,251,.06)}
+  .tiny{background:none;border:none;font-family:'IBM Plex Mono',monospace;font-size:11px;
+    color:var(--dim);text-decoration:underline;text-underline-offset:4px;
+    margin-top:18px;letter-spacing:.06em;padding:4px 0;width:auto}
+  .tiny:hover{color:var(--cyan)}
+
+  .step{animation:rise .45s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sky"></div>
+<div class="grid"></div>
+<main><div class="card" id="app"></div></main>
+
+<script>
+/* ═════════ RÉGLAGES ═════════ */
+const CONFIG = {
+  // URL de la Realtime Database Firebase (la même que sur admin.html)
+  firebaseURL: "https://futuroscope-78905-default-rtdb.europe-west1.firebasedatabase.app",
+
+  // Logo, à côté de index.html dans le repo
+  logo: "futuroscope.png",
+
+  // ID de la vidéo YouTube (la partie après v=), ou "" pour cacher le bloc
+  youtubeID: "YSwXpQiLjvw",
+
+  // Photo affichée quand la personne dit OUI
+  photoOui: "merci.jpg",
+
+  // Photo affichée quand la personne dit NON
+  photoNon: "bouh.jpg",
+
+  // Photo utilisée pour faire craquer (changement d'avis, dans les deux sens)
+  photoMignon: "mignon.jpg"
+};
+
+/* ═════════ OUTILS ═════════ */
+let currentName = "";
+let previousOutcome = null;   // ce que la personne avait répondu avant
+
+/* Confettis et feux d'artifice, sans aucune librairie */
+function party(big=false){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.createElement("canvas");
+  c.style.cssText = "position:fixed;inset:0;pointer-events:none;z-index:99";
+  document.body.appendChild(c);
+  const ctx = c.getContext("2d");
+  const resize = () => { c.width = innerWidth; c.height = innerHeight; };
+  resize(); addEventListener("resize", resize);
+
+  const COL = ["#E8407A","#35E0E8","#F5C542","#8BC53F","#F58220","#FFFFFF"];
+  const rnd = (a,b) => a + Math.random()*(b-a);
+  const pick = () => COL[(Math.random()*COL.length)|0];
+  const P = [];
+
+  for(let i = 0; i < (big ? 210 : 110); i++) P.push({
+    t:"c", x:rnd(0,c.width), y:rnd(-c.height*0.7,-10),
+    w:rnd(6,13), h:rnd(9,18), vx:rnd(-1.5,1.5), vy:rnd(2,5),
+    rot:rnd(0,6.28), vr:rnd(-.2,.2), col:pick()
+  });
+
+  const burst = () => {
+    const bx = rnd(c.width*0.15, c.width*0.85), by = rnd(c.height*0.12, c.height*0.5), col = pick();
+    for(let i = 0; i < 46; i++){
+      const a = Math.random()*6.283, s = rnd(1.5,6.5);
+      P.push({ t:"s", x:bx, y:by, vx:Math.cos(a)*s, vy:Math.sin(a)*s, col, life:1 });
+    }
+  };
+
+  const duration = big ? 6000 : 3600;
+  const t0 = performance.now();
+  let lastBurst = 0;
+
+  (function frame(t){
+    const el = t - t0;
+    if(big && el < 4400 && t - lastBurst > 650){ lastBurst = t; burst(); }
+    ctx.clearRect(0,0,c.width,c.height);
+    for(let i = P.length-1; i >= 0; i--){
+      const p = P[i];
+      if(p.t === "c"){
+        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+        ctx.fillStyle = p.col; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+        if(p.y > c.height + 40) P.splice(i,1);
+      } else {
+        p.vy += 0.06; p.vx *= 0.985; p.vy *= 0.985;
+        p.x += p.vx; p.y += p.vy; p.life -= 0.011;
+        if(p.life <= 0){ P.splice(i,1); continue; }
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.col;
+        ctx.beginPath(); ctx.arc(p.x,p.y,2.4,0,6.283); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+    if(el < duration || P.length) requestAnimationFrame(frame);
+    else { removeEventListener("resize", resize); c.remove(); }
+  })(t0);
+}
+
+// Clé Firebase propre à partir du prénom (sans accent ni caractère interdit)
+const slugify = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+
+// Mémoire du prénom sur cet appareil (échoue silencieusement si bloquée)
+const device = {
+  get(){ try{ return localStorage.getItem("futuro_nom") || ""; }catch(e){ return ""; } },
+  set(v){ try{ localStorage.setItem("futuro_nom", v); }catch(e){} },
+  clear(){ try{ localStorage.removeItem("futuro_nom"); }catch(e){} }
+};
+
+const base = () => CONFIG.firebaseURL.replace(/\/$/,"");
+
+// Un seul enregistrement par personne : revoter écrase le précédent
+async function saveVote(outcome){
+  const vote = { name: currentName, outcome, ts: Date.now() };
+  try{
+    const r = await fetch(base() + "/votes/" + slugify(currentName) + ".json", {
+      method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(vote)
+    });
+    return r.ok ? "ok" : "erreur";
+  }catch(e){ return "erreur"; }
+}
+
+async function previousVote(name){
+  try{
+    const r = await fetch(base() + "/votes/" + slugify(name) + ".json");
+    return r.ok ? await r.json() : null;
+  }catch(e){ return null; }
+}
+
+/* ═════════ ÉCRANS ═════════ */
+const app = document.getElementById("app");
+const render = h => app.innerHTML = `<div class="step">${h}</div>`;
+const logo = (cls="") =>
+  `<img class="logo ${cls}" src="${CONFIG.logo}" alt="Futuroscope"
+        onerror="this.outerHTML='<div class=&quot;logo-fallback&quot;>Futuroscope</div>'">`;
+const photo = (file, cls, alt) =>
+  `<div class="photo ${cls}"><img src="${file}" alt="${alt}"
+     onerror="this.parentNode.textContent='Ajoute une image nommée « ${file} » à côté du fichier'"></div>`;
+
+/* 1 · Identification */
+function screenName(msg=""){
+  const known = device.get();
+  if(known && !msg) return screenWelcomeBack(known);
+  render(`
+    ${logo()}
+    <div class="eyebrow">Avant de commencer</div>
+    <h2>Tu es qui ?</h2>
+    <p class="lede">Juste ton prénom, pour qu'on sache qui a répondu quoi. Tu pourras changer d'avis plus tard.</p>
+    <input id="nom" type="text" placeholder="Ton prénom" autocomplete="given-name" maxlength="30">
+    <button class="cont" id="go">C'est parti</button>
+    <p class="status">${msg}</p>
+  `);
+  const submit = () => {
+    const v = document.getElementById("nom").value.trim();
+    if(v.length < 2) return screenName("Il faut au moins deux lettres.");
+    currentName = v.charAt(0).toUpperCase() + v.slice(1);
+    device.set(currentName);
+    screenAsk();
+  };
+  document.getElementById("go").onclick = submit;
+  document.getElementById("nom").onkeydown = e => { if(e.key==="Enter") submit(); };
+  document.getElementById("nom").focus();
+}
+
+/* 2 · Reconnaissance de l'appareil */
+function screenWelcomeBack(name){
+  render(`
+    ${logo()}
+    <div class="eyebrow">On se connaît déjà</div>
+    <h2>C'est bien toi,<br>${name} ?</h2>
+    <div class="choices">
+      <button class="btn yes" id="oui">Oui, c'est moi<small>On reprend là où on en était</small></button>
+      <button class="btn no" id="non">Non<small>Quelqu'un d'autre répond</small></button>
+    </div>
+  `);
+  document.getElementById("oui").onclick = () => { currentName = name; screenAsk(); };
+  document.getElementById("non").onclick = () => { device.clear(); screenName(); };
+}
+
+/* 3 · La question */
+async function screenAsk(){
+  render(`
+    ${logo()}
+    <div class="eyebrow">Consultation familiale</div>
+    <h1>${currentName},<br>on part au <span class="glow">Futuroscope</span> ?</h1>
+    <p class="lede">Une question, deux boutons. Ça prend cinq secondes.</p>
+    <div class="choices">
+      <button class="btn yes" id="y">Oui, ça me tente<small>C'est noté, on n'en parle plus</small></button>
+      <button class="btn no" id="n">Pas trop<small>On a préparé deux ou trois choses pour toi</small></button>
+    </div>
+    <div id="deja"></div>
+    <button class="tiny" id="switch">Ce n'est pas moi, changer de prénom</button>
+  `);
+  document.getElementById("y").onclick = () => screenThanks("oui_direct");
+  document.getElementById("n").onclick = screenPitch;
+  document.getElementById("switch").onclick = () => { device.clear(); currentName=""; screenName(); };
+
+  const old = await previousVote(currentName);
+  previousOutcome = old ? old.outcome : null;
+  const box = document.getElementById("deja");
+  if(old && box){
+    const dit = { oui_direct:"oui", oui_convaincu:"oui", non_final:"non" }[old.outcome] || "quelque chose";
+    box.innerHTML = `<p class="note">Tu avais déjà répondu « ${dit} ». Si tu réponds à nouveau, ta réponse remplacera l'ancienne.</p>`;
+  }
+}
+
+/* 4 · Les arguments */
+function screenPitch(){
+  const video = CONFIG.youtubeID
+    ? `<div class="media"><iframe src="https://www.youtube.com/embed/${CONFIG.youtubeID}" title="Notre plaidoyer" allowfullscreen></iframe></div>`
+    : `<div class="media">Ajoute l'ID de ta vidéo dans CONFIG.youtubeID</div>`;
+  render(`
+    ${logo()}
+    <div class="eyebrow">Droit de réponse · 90 secondes</div>
+    <h2>Écoute-nous<br>avant de<br>trancher</h2>
+    ${video}
+    <ul class="args">
+      <li><span class="k">01</span><div><strong>On s'en souvient cinq ans après</strong><p>Gaëlle et Mayeul y sont allés il y a cinq ans et s'en souviennent encore très bien aujourd'hui, comparé aux parties de cache-cache et aux visites de château ennuyeuses dont personne ne se rappelle une semaine plus tard.</p></div></li>
+      <li><span class="k">02</span><div><strong>Personne n'est obligé de venir</strong><p>Pas besoin d'embarquer toute la famille. Trois ou quatre parents suffisent largement. Pap et Moune peuvent tranquillement rester au calme, ça ne change rien au projet.</p></div></li>
+      <li><span class="k">03</span><div><strong>Il y en a autant pour les grands</strong><p>Ce n'est pas qu'un parc à sensations. Futuropolis pour ceux qui ont cinq ans, les documentaires sur écran géant et les expériences immersives pour les adultes. Tout le monde y trouve son compte.</p></div></li>
+      <li><span class="k">04</span><div><strong>L'occasion ne se représentera pas</strong><p>On est tous à côté en ce moment, ce qui n'arrive presque jamais. Et ça ne dure qu'une seule journée. Une journée, et ce sera une journée de bonheur.</p></div></li>
+    </ul>
+    <button class="cont" id="c">Continuer</button>
+    <div id="final" hidden>
+      <h2 style="font-size:32px;margin-top:38px">Alors, on retente ?</h2>
+      <div class="choices">
+        <button class="btn yes" id="y">D'accord, allons-y<small>Tu viens de faire des heureux</small></button>
+        <button class="btn no" id="n">Toujours non<small>Dernier mot</small></button>
+      </div>
+    </div>
+  `);
+  document.getElementById("c").onclick = e => {
+    e.currentTarget.remove();
+    const f = document.getElementById("final");
+    f.hidden = false;
+    f.classList.add("step");
+    f.scrollIntoView({ behavior:"smooth", block:"center" });
+  };
+  document.getElementById("y").onclick = () => screenThanks("oui_convaincu");
+  document.getElementById("n").onclick = screenNo;
+}
+
+/* 5 · Oui */
+async function screenThanks(outcome){
+  const retourne = previousOutcome === "non_final";   // la personne passe de non à oui
+
+  if(retourne){
+    render(`
+      ${logo("happy")}
+      ${photo(CONFIG.photoMignon, "ok", "Merci !")}
+      <h1>Merciiiii<br><span class="glow">${currentName}</span></h1>
+      <p class="lede" style="font-size:20px;color:var(--gold)">Tu as fait le bon choix !</p>
+      <p class="status" id="st">Enregistrement…</p>
+      <button class="tiny" id="redo">Changer ma réponse</button>
+    `);
+  } else {
+    render(`
+      ${logo("happy")}
+      ${photo(CONFIG.photoOui, "ok", "Merci !")}
+      <h1>Merci<br><span class="glow">${currentName}</span></h1>
+      <p class="lede">${outcome==="oui_direct"
+        ? "Direct, sans hésiter. On savait qu'on pouvait compter sur toi."
+        : "Il aura fallu insister un peu, mais le résultat est le même. Merci."}</p>
+      <p class="status" id="st">Enregistrement…</p>
+      <button class="tiny" id="redo">Changer ma réponse</button>
+    `);
+  }
+
+  party(retourne);
+  document.getElementById("redo").onclick = screenAsk;
+  const res = await saveVote(outcome);
+  previousOutcome = outcome;
+  const st = document.getElementById("st");
+  if(st) st.textContent = res==="ok"
+    ? "Réponse enregistrée au nom de " + currentName
+    : "Réponse non enregistrée, vérifie la connexion";
+}
+
+/* 6 · Non — avec garde-fou si la personne se rétracte */
+function screenNo(){
+  const seRetracte = previousOutcome === "oui_direct" || previousOutcome === "oui_convaincu";
+  return seRetracte ? screenSure() : screenBouh();
+}
+
+/* 6a · Tu es sûr ?! */
+function screenSure(){
+  const video = CONFIG.youtubeID
+    ? `<div class="media"><iframe src="https://www.youtube.com/embed/${CONFIG.youtubeID}" title="Notre plaidoyer" allowfullscreen></iframe></div>`
+    : `<div class="media">Ajoute l'ID de ta vidéo dans CONFIG.youtubeID</div>`;
+  render(`
+    ${logo()}
+    <div class="eyebrow">Attends deux secondes</div>
+    <h2>Tu es sûr ?!</h2>
+    <p class="lede">Tu avais dit oui. Tu vas vraiment nous faire ça, ${currentName} ?</p>
+    ${video}
+    ${photo(CONFIG.photoMignon, "ok", "Regarde-nous")}
+    <div class="choices">
+      <button class="btn yes" id="stay">Non, je reste sur oui<small>Ouf. On a eu peur.</small></button>
+      <button class="btn no" id="switch">Oui, je change<small>Assume</small></button>
+    </div>
+  `);
+  document.getElementById("stay").onclick = () => screenThanks(previousOutcome);
+  document.getElementById("switch").onclick = screenBouh;
+}
+
+/* 6b · Bouuuuuuh */
+async function screenBouh(){
+  render(`
+    ${logo("sad")}
+    ${photo(CONFIG.photoNon, "ko", "Bouuuuuuh")}
+    <p class="bruh">Bouuuuuuh<br>${currentName}</p>
+    <p class="status" id="st">Enregistrement…</p>
+    <button class="ghost" id="again" style="margin-top:24px">Revoir les arguments</button>
+    <button class="tiny" id="redo">Changer ma réponse</button>
+  `);
+  document.getElementById("again").onclick = screenPitch;
+  document.getElementById("redo").onclick = screenAsk;
+  const res = await saveVote("non_final");
+  previousOutcome = "non_final";
+  const st = document.getElementById("st");
+  if(st) st.textContent = res==="ok"
+    ? "Réponse enregistrée au nom de " + currentName
+    : "Réponse non enregistrée, vérifie la connexion";
+}
+
+screenName();
+</script>
+</body>
+</html>
