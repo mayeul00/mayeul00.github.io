@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Aperçu du mail reçu par Martin</title>
+<style>
+  :root{ color-scheme: only light; --blue:#1e4fd6; --night:#0d1c3d; --line:rgba(0,0,0,.09); --gray:#6e6e73; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font:400 15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       background:#eef0f5;color:#1d1d1f;padding:22px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}
+  .sub{color:var(--gray);font-size:.92rem;margin:6px 0 22px;max-width:70ch}
+  .cols{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+  @media (max-width:860px){.cols{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h2{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+           color:var(--blue);margin-bottom:14px}
+  label{display:block;font-size:.8rem;font-weight:700;margin:12px 0 5px}
+  input,select,textarea{width:100%;font:inherit;font-size:.92rem;padding:.6em .7em;
+    border:1px solid var(--line);border-radius:10px;background:#fbfbfd}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(30,79,214,.13)}
+  textarea{min-height:96px;resize:vertical}
+  .meta{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 20px;margin-bottom:14px}
+  .meta div{display:flex;gap:10px;padding:5px 0;font-size:.88rem;flex-wrap:wrap}
+  .meta b{min-width:92px;color:var(--gray);font-weight:600}
+  .tabs{display:flex;gap:8px;margin-bottom:14px}
+  .tab{cursor:pointer;font:600 .86rem system-ui;padding:.6em 1.1em;border-radius:999px;
+    border:1px solid var(--line);background:#fff;color:var(--gray)}
+  .tab.is-on{background:var(--night);border-color:var(--night);color:#fff}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;background:#e4e7ee;padding:4px;border-radius:999px;width:fit-content}
+  .tab{border:0;cursor:pointer;font:600 .86rem system-ui;padding:.55em 1.1em;border-radius:999px;background:none;color:#4a4a50}
+  .tab.is-on{background:#fff;color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+  iframe{width:100%;height:760px;border:1px solid var(--line);border-radius:16px;background:#f4f6fa;display:block}
+  .note{font-size:.82rem;color:var(--gray);margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Aperçu du mail reçu par Martin</h1>
+  <p class="sub">Modifiez les champs à gauche comme le ferait un visiteur. Les deux onglets montrent les deux messages envoyés : celui que reçoit Martin, et l'accusé de réception que reçoit la famille.</p>
+
+  <div class="cols">
+    <form class="card" id="f" autocomplete="off">
+      <h2>Ce que remplit le visiteur</h2>
+      <label for="name">Nom et prénom</label>
+      <input id="name" value="Sophie Lemaire">
+      <label for="email">Email</label>
+      <input id="email" value="sophie.lemaire@exemple.com">
+      <label for="phone">Téléphone (facultatif)</label>
+      <input id="phone" value="+852 9123 4567">
+      <label for="level">Niveau</label>
+      <select id="level">
+        <option>Collège</option><option>Seconde</option><option selected>Première</option>
+        <option>Terminale</option><option>Post-Bac / Prépa</option><option>Autre</option>
+      </select>
+      <label for="subject">Matière</label>
+      <select id="subject">
+        <option selected>Mathématiques</option><option>Physique-Chimie</option><option>Les deux</option>
+      </select>
+      <label for="format">Format souhaité</label>
+      <select id="format">
+        <option selected>Séance individuelle</option><option>Séance de groupe</option>
+        <option>Cours en ligne</option><option>Stage intensif</option>
+        <option>Préparation aux concours</option><option>Je ne sais pas encore</option>
+      </select>
+      <label for="message">Message</label>
+      <textarea id="message">Bonjour Martin,
+
+Ma fille est en Première spécialité maths et décroche depuis le début de l'année. Elle vise une prépa. Seriez-vous disponible pour un premier échange cette semaine ?
+
+Merci beaucoup.</textarea>
+    </form>
+
+    <div>
+      <div class="tabs" id="tabs">
+        <button type="button" class="tab is-on" data-vue="martin">Mail reçu par Martin</button>
+        <button type="button" class="tab" data-vue="client">Mail reçu par le client</button>
+      </div>
+      <div class="meta">
+        <div><b>De</b><span id="mFrom"></span></div>
+        <div><b>À</b><span id="mTo"></span></div>
+        <div><b>Répondre à</b><span id="mReply"></span></div>
+        <div><b>Objet</b><span id="mSubject"></span></div>
+      </div>
+      <iframe id="preview" title="Aperçu du message"></iframe>
+      <p class="note">Le mail part aussi en version texte simple, pour les messageries qui n'affichent pas la mise en page.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Reproduction fidèle du modèle défini dans contact.php.
+   Toute modification décidée ici sera reportée à l'identique dans le script. */
+const DESTINATAIRE   = 'martin@archimedehk.com';
+const EXPEDITEUR     = 'no-reply@archimedehk.com';
+const NOM_EXPEDITEUR = 'Site Archimède HK';
+
+const g = id => document.getElementById(id);
+const e = t => String(t).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function dateHK(){
+  const d = new Date().toLocaleString('fr-FR', { timeZone:'Asia/Hong_Kong',
+    day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  const [j, h] = d.split(' ');
+  return j + ' à ' + (h || '').replace(':', 'h');
+}
+
+const ligne = (label, valeur) => `<tr>
+  <td style="padding:10px 0;border-bottom:1px solid #eceef2;font:600 13px/1.4 Arial,sans-serif;color:#6e6e73;width:150px;vertical-align:top">${label}</td>
+  <td style="padding:10px 0;border-bottom:1px solid #eceef2;font:400 15px/1.5 Arial,sans-serif;color:#1d1d1f">${valeur}</td>
+</tr>`;
+
+function build(){
+  const nom = g('name').value.trim() || '(nom vide)';
+  const email = g('email').value.trim();
+  const tel = g('phone').value.trim();
+  const niveau = g('level').value, matiere = g('subject').value, format = g('format').value;
+  const message = g('message').value;
+  const telAffiche = tel !== '' ? e(tel) : 'non communiqué';
+
+
+  const html = `<!DOCTYPE html><html lang="fr"><body style="margin:0;padding:0;background:#f4f6fa">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6fa;padding:28px 12px">
+ <tr><td align="center">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e6e8ee">
+   <tr><td style="background:#0d1c3d;padding:26px 30px">
+     <div style="font:700 19px/1.3 Arial,sans-serif;color:#ffffff;letter-spacing:-.3px">Archimède HK</div>
+     <div style="font:400 13px/1.4 Arial,sans-serif;color:#8fa8e8;margin-top:4px">Nouvelle demande de contact</div>
+   </td></tr>
+   <tr><td style="padding:26px 30px 6px">
+     <div style="font:400 15px/1.6 Arial,sans-serif;color:#1d1d1f">
+       <strong>${e(nom)}</strong> a rempli le formulaire du site le ${dateHK()}.
+     </div>
+   </td></tr>
+   <tr><td style="padding:10px 30px 4px">
+     <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+       ${ligne('Nom', e(nom))}
+       ${ligne('Email', `<a href="mailto:${e(email)}" style="color:#1e4fd6;text-decoration:none">${e(email)}</a>`)}
+       ${ligne('Téléphone', telAffiche)}
+       ${ligne('Niveau', e(niveau))}
+       ${ligne('Matière', e(matiere))}
+       ${ligne('Format', e(format))}
+     </table>
+   </td></tr>
+   <tr><td style="padding:22px 30px 6px">
+     <div style="font:600 13px/1.4 Arial,sans-serif;color:#6e6e73;margin-bottom:8px">MESSAGE</div>
+     <div style="font:400 15px/1.65 Arial,sans-serif;color:#1d1d1f;background:#f7f8fb;border:1px solid #eceef2;border-radius:10px;padding:16px 18px;white-space:pre-wrap">${e(message).replace(/\n/g,'<br>')}</div>
+   </td></tr>
+   <tr><td style="padding:24px 30px 30px">
+     <a href="mailto:${e(email)}" style="display:inline-block;background:#1e4fd6;color:#ffffff;font:700 15px/1 Arial,sans-serif;text-decoration:none;padding:14px 24px;border-radius:999px">Répondre à ${e(nom)}</a>
+   </td></tr>
+   <tr><td style="background:#fafbfd;border-top:1px solid #eceef2;padding:16px 30px;font:400 12px/1.5 Arial,sans-serif;color:#8a8a90">
+     Message envoyé automatiquement depuis le formulaire de archimedehk.com
+   </td></tr>
+  </table>
+ </td></tr>
+</table>
+</body></html>`;
+
+  const prenom = nom.split(' ')[0];
+  const recu = `<!DOCTYPE html><html lang="fr"><body style="margin:0;padding:0;background:#f4f6fa">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6fa;padding:28px 12px">
+ <tr><td align="center">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e6e8ee">
+   <tr><td style="background:#0d1c3d;padding:30px">
+     <div style="font:700 20px/1.3 Arial,sans-serif;color:#ffffff;letter-spacing:-.3px">Archimède HK</div>
+     <div style="font:400 13px/1.4 Arial,sans-serif;color:#8fa8e8;margin-top:5px">Cours de mathématiques et physique-chimie</div>
+   </td></tr>
+   <tr><td style="padding:32px 30px 8px">
+     <div style="font:700 21px/1.35 Arial,sans-serif;color:#1d1d1f;letter-spacing:-.3px">Merci ${e(prenom)}, votre message est bien arrivé.</div>
+     <div style="font:400 15px/1.65 Arial,sans-serif;color:#4a4a50;margin-top:14px">
+       Martin en prend connaissance et vous répond personnellement sous 24 heures.
+       Si votre demande est urgente, vous pouvez le joindre directement sur WhatsApp.
+     </div>
+   </td></tr>
+   <tr><td style="padding:22px 30px 6px">
+     <div style="font:600 13px/1.4 Arial,sans-serif;color:#6e6e73;margin-bottom:8px">RÉCAPITULATIF DE VOTRE DEMANDE</div>
+     <div style="font:400 14px/1.7 Arial,sans-serif;color:#1d1d1f;background:#f7f8fb;border:1px solid #eceef2;border-radius:10px;padding:16px 18px">
+       Niveau : ${e(niveau)}<br>Matière : ${e(matiere)}<br>Format souhaité : ${e(format)}
+     </div>
+   </td></tr>
+   <tr><td style="padding:24px 30px 8px">
+     <a href="https://wa.me/85294433118" style="display:inline-block;background:#1e4fd6;color:#ffffff;font:700 15px/1 Arial,sans-serif;text-decoration:none;padding:14px 24px;border-radius:999px">Écrire sur WhatsApp</a>
+   </td></tr>
+   <tr><td style="padding:18px 30px 30px;font:400 14px/1.65 Arial,sans-serif;color:#4a4a50">
+     À très bientôt,<br><strong style="color:#1d1d1f">Martin Raynier</strong><br>
+     <span style="color:#6e6e73">Fondateur, Archimède HK</span>
+   </td></tr>
+   <tr><td style="background:#fafbfd;border-top:1px solid #eceef2;padding:16px 30px;font:400 12px/1.5 Arial,sans-serif;color:#8a8a90">
+     Ce message confirme la réception de votre demande sur archimedehk.com. Inutile d'y répondre, Martin vous écrira directement.
+   </td></tr>
+  </table>
+ </td></tr>
+</table>
+</body></html>`;
+
+  window.__mails = {
+    martin: {html, de: NOM_EXPEDITEUR + ' <' + EXPEDITEUR + '>', a: DESTINATAIRE,
+             rep: nom + ' <' + email + '>', obj: 'Demande de contact : ' + nom},
+    client: {html: recu, de: 'Archimède HK <' + EXPEDITEUR + '>', a: email,
+             rep: 'Martin Raynier <' + DESTINATAIRE + '>', obj: 'Nous avons bien reçu votre demande, ' + prenom}
+  };
+  afficher();
+}
+
+function afficher() {
+  const vue = document.querySelector('.tab.is-on').dataset.vue;
+  const m = window.__mails[vue];
+  g('mFrom').textContent = m.de;
+  g('mTo').textContent = m.a;
+  g('mReply').textContent = m.rep;
+  g('mSubject').textContent = m.obj;
+  g('preview').srcdoc = m.html;
+}
+
+document.querySelector('.tabs').addEventListener('click', ev => {
+  const t = ev.target.closest('.tab'); if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('is-on', x === t));
+  afficher();
+});
+
+let vue = 'martin';
+document.getElementById('tabs').addEventListener('click', ev => {
+  const b = ev.target.closest('.tab'); if (!b) return;
+  vue = b.dataset.vue;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('is-on', t === b));
+  build();
+});
+document.getElementById('f').addEventListener('input', build);
+build();
+</script>
+</body>
+</html>
